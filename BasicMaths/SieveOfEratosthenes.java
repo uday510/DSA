@@ -11,24 +11,24 @@ public class SieveOfEratosthenes {
         ArrayList<Integer> result = new ArrayList<>();
         Arrays.fill(prime, true);
 
-        for(int p = 2; p*p <= num; p++) {
+        for (int p = 2; p * p <= num; p++) {
 
             // If prime[p] is not changed, then it is prime.
             if (prime[p] == true) {
 
                 // Update all multiples of p greater than or equal to the square of it.
                 // numbers which are multiple of p and are less than p^2 are already been marked.
-                for(int i = p*p; i <= num; i += p)
+                for (int i = p * p; i <= num; i += p)
                     prime[i] = false;
-
+//
             }
         }
-        for(int p = 2; p <= num; p++) {
-            if(prime[p]) result.add(p);
+        for (int p = 2; p <= num; p++) {
+            if (prime[p]) result.add(p);
         }
         return result;
     }
-    
+
     /**
      *  boolean[] notPrime = new boolean[n];
      *         int count = 0;
