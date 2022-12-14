@@ -5,8 +5,8 @@ public class SortedSquares {
      int[] array = {1, 2, 3, 5, 6, 8, 9};
      System.out.println(Arrays.toString(solve(array)));
  }
-
     public static int[] solve(int[] array) {
+     // O(n) time | O(n) space
      int smallerValueIdx = 0;
      int largerValueIdx = array.length - 1;
      int[] sortedSquares = new int[array.length];
