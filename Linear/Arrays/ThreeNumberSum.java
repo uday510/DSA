@@ -1,8 +1,7 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ThreeNumberSum {
+    // O(n^2) time | O(n) space
     public static void main(String[] args){
         int[] array = {12, 3, 1, 2, -6, 5, -8, 6};
         int targetSum = 0;
