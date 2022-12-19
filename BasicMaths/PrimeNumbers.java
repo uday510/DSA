@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class PrimeNumbers {
 
     public static void main(String[] args) {
-        int num = 5000000;
+        int num = 100;
 
         System.out.println(solve(num));
     }
@@ -21,7 +21,7 @@ public class PrimeNumbers {
 
         if(num < 2) return false;
 
-        for(int idx = 2; idx * idx <= num; idx++ ){
+        for(int idx = 2; idx * idx <= num; idx++){
             if(num % idx == 0) return false;
         }
         return true;
