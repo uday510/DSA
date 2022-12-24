@@ -1,6 +1,6 @@
 package Patterns;
 
-public class PrintTriangle {
+public class Pattern2 {
     public static void main(String[] args) {
         int n = 5;
 //        solve(n);

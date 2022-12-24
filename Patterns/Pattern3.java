@@ -1,7 +1,7 @@
 package Patterns;
 
 // https://practice.geeksforgeeks.org/problems/triangle-number
-public class TriangleNumber {
+public class Pattern3 {
     public static void main(String[] args) {
         int n = 5;
         solve(n);

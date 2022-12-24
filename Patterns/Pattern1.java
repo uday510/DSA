@@ -1,7 +1,7 @@
 package Patterns;
 
 //TODO https://practice.geeksforgeeks.org/problems/square-pattern
-public class SquarePattern {
+public class Pattern1 {
     public static void main(String[] args) {
         int n = 5;
         solve(n);
