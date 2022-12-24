@@ -1,6 +1,7 @@
 package Patterns;
 
 public class Pattern12 {
+    //https://practice.geeksforgeeks.org/problems/double-triangle-pattern-1662664259/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=pattern_12
     public static void main(String[] args) {
         int n = 4;
         solve(n);

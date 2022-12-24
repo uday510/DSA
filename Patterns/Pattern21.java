@@ -1,6 +1,7 @@
 package Patterns;
 
 public class Pattern21 {
+    //https://practice.geeksforgeeks.org/problems/square-pattern-1662287714/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=pattern_21
     public static void main(String[] args) {
         int i = 5;
         solve(i);
