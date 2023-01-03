@@ -18,17 +18,16 @@ public class ZeroSumSubArray {
          * index from 0 to 1 sum == 0, let say index 1 is X ,
          * index from 2 to 5 sum == 0, let say index 5 is Y,
          * Here From index X + 1 to index 5 sum becomes 0.
+         *
+         * Test Case : [4, -3, 2, 4, -1, -5, 7]
          */
-
         HashSet<Integer> sums = new HashSet<>();
         sums.add(0);
         int currentSum = 0;
-
-        for(int num: nums) {
+        for (var num: nums) {
             currentSum += num;
-            if(sums.contains(currentSum)) {
-                return true;
-            } sums.add(currentSum);
+            if (sums.contains(currentSum)) return true;
+            sums.add(currentSum);
         }
         return false;
     }
