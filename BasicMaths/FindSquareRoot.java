@@ -1,6 +1,6 @@
 public class FindSquareRoot {
     public static void main(String[] args) {
-        int n = 64;
+        int n = 227;
         System.out.println(solve(n));
     }
     public static int solve(int n) {

@@ -21,7 +21,7 @@ public class PrimeNumbers {
 
         if(num < 2) return false;
 
-        for(int idx = 2; idx * idx <= num; idx++){
+        for(int idx = 2; idx <= Math.sqrt(num); idx++){
             if(num % idx == 0) return false;
         }
         return true;
