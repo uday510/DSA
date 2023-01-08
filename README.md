@@ -1,4 +1,4 @@
-<h1 align="center">Interview Preparation</h1>
+<h1 align="center">Data Structures and Algorithms</h1>
 
 <div align="center">
 
