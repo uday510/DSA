@@ -1,11 +1,11 @@
 class ContinuousMedianHandler {
   constructor() {
     this.lowers = new Heap(MAX_HEAP_FUNC, []);
-	this.greaters = new Heap(MIN_HEAP_FUNC, []);
+		this.greaters = new Heap(MIN_HEAP_FUNC, []);
     this.median = null;
   }
 
-//! O(logn) time | O(n) space
+	//! O(logn) time | O(n) space
   insert(number) {
     if(!this.lowers.length || number < this.lowers.peek()){
 		   this.lowers.insert(number);
@@ -84,11 +84,11 @@ class Heap {
 			}
 		}
 	}
-	
+
 	peek() {
 		return this.heap[0];
 	}
-	
+
 	remove() {
 		this.swap(0, this.length - 1, this.heap);
 		const valueToRemove = this.heap.pop();
@@ -96,13 +96,13 @@ class Heap {
 		this.siftDown(0, this.length - 1, this.heap);
 		return valueToRemove;
 	}
-	
+
 	insert(value) {
 		this.heap.push(value);
 		this.length++;
 		this.siftUp(this.length - 1, this.heap);
 	}
-	
+
 	swap(i, j, heap) {
 		[ heap[i], heap[j] ] = [ heap[j], heap[i] ];
 	}
@@ -114,3 +114,7 @@ function MAX_HEAP_FUNC(a, b) {
 function MIN_HEAP_FUNC(a, b) {
 	return a < b;
 }
+
+// Do not edit the line below.
+exports.ContinuousMedianHandler = ContinuousMedianHandler;
+
