@@ -1,8 +1,10 @@
 import java.util.*;
 public class FourNumberSum {
     public static void main(String[] args) {
-        int[] array = {7, 6, 4, -1, 1, 2};
-        int targetSum = 16;
+//        int[] array = {7, 6, 4, -1, 1, 2};
+//        int targetSum = 16;
+        int[] array = {2, 2, 2, 2, 2};
+        int targetSum = 8;
         List<Integer[]> result = solve(array, targetSum);
         for (var pair: result) {
             System.out.println(Arrays.toString(pair));
