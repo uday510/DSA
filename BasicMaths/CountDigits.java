@@ -1,18 +1,26 @@
-// https://practice.geeksforgeeks.org/problems/count-digits5716/1
+/**
+ *  Given an integer N , write program to count number of digits in N.
+ *
+ *
+ * Example 1:
+ * Input: N = 12345
+ * Output: 5
+ * Explanation: N has 5 digits
+ */
 public class CountDigits {
     public static void main(String[] args) {
-        int n = 23;
+        int n = 13;
         System.out.println(evenlyDivides(n));
     }
     public static int evenlyDivides(int n) {
         // O(log(N)) time | O(1) space
-        int result = 0;
-        int num = n; // 23
-        while(num != 0) {
-            int temp = num % 10;
-            if(temp != 0 && (n % temp) == 0) result++;
-            num /= 10;
-        }
-        return result;
+        return (int) Math.ceil(Math.log10(n));
+//        int result = 0;
+//        int num = n; // 23
+//        while(num > 0) {
+//            result += 1;
+//            num /= 10;
+//        }
+//        return result;
     }
 }
