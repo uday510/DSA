@@ -21,7 +21,6 @@ public class ReverseNumber {
             if(reverse > Integer.MAX_VALUE/10 || (reverse == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
             if(reverse < Integer.MIN_VALUE/10 || (reverse == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
             reverse = reverse * 10 + pop;
-            System.out.println("reverse" + reverse);
         }
         return reverse;
     }
