@@ -30,7 +30,7 @@ public class ZigzagTraverse {
                 Arrays.asList(2, 5, 9, 11),
                 Arrays.asList(6, 8, 12, 15),
                 Arrays.asList(7, 13, 14, 16));
-//        array.forEach(System.out::println);
+        array.forEach(System.out::println);
         List<Integer> result = solve(array);
         result.forEach(System.out::println);
     }
@@ -76,3 +76,15 @@ public class ZigzagTraverse {
         return row < 0 || row > height || col < 0 || col > width;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
