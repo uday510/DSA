@@ -4,7 +4,7 @@ import java.util.Arrays;
 /**
  * Given an array A of length N, return the subarray from B to C.
  */
-public class Subarrays {
+public class RangeSubarrays {
 
     public static void main(String[] args) {
         ArrayList<Integer> array = new ArrayList<>(
