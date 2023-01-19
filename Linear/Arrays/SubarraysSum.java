@@ -49,27 +49,43 @@ import java.util.Arrays;
 public class SubarraysSum {
     public static void main(String[] args) {
         ArrayList<Integer> array = new ArrayList<>(
-                Arrays.asList(1, 2, 3)
+                Arrays.asList(2, 9, 5 )
         );
         System.out.println(solve(array));
     }
-    public static int solve(ArrayList<Integer> array) {
-        int totalSubarraysSum = 0;
+    public static long solve(ArrayList<Integer> array) {
+        long totalSubarraysSum = 0;
 
         // Build prefix array : O(n) time | O(n) space
-        ArrayList<Integer> prefixSum = new ArrayList<>();
-        prefixSum.add(array.get(0));
-        for (int i = 1; i < array.size(); i++) {
-            int currentNum = array.get(i);
-            int currentPrefixSum = prefixSum.get(i - 1) + currentNum;
-            prefixSum.add(currentPrefixSum);
-        }
+//        ArrayList<Integer> prefixSum = new ArrayList<>();
+//        prefixSum.add(array.get(0));
+//        for (int i = 1; i < array.size(); i++) {
+//            int currentNum = array.get(i);
+//            int currentPrefixSum = prefixSum.get(i - 1) + currentNum;
+//            prefixSum.add(currentPrefixSum);
+//        }
         // Sum all subArrays
+//        for (int i = 0; i < array.size(); i++) {
+//            for (int j = i; j < array.size(); j++) {
+//                if (i == 0) totalSubarraysSum += prefixSum.get(j);
+//                else totalSubarraysSum += prefixSum.get(j) - prefixSum.get(i - 1);
+//            }
+//        }
+        // Without prefix array
+//        long totalSubarraySum = 0;
+//        for (int i = 0; i < array.size(); i++) {
+//            int currentSum = 0;
+//            for (int j = i; j < array.size(); j++) {
+//                currentSum += array.get(j);
+//                totalSubarraysSum += currentSum;
+//            }
+//        }
+
+        // No.of subarrays = (i + 1) * (N - i); i is starting index.
+        // Optimal O(n) solution
         for (int i = 0; i < array.size(); i++) {
-            for (int j = i; j < array.size(); j++) {
-                if (i == 0) totalSubarraysSum += prefixSum.get(j);
-                else totalSubarraysSum += prefixSum.get(j) - prefixSum.get(i - 1);
-            }
+            long currentSubarraySum = (long) (i + 1) * (array.size() - i) * array.get(i);
+            totalSubarraysSum += currentSubarraySum;
         }
         return totalSubarraysSum;
     }
