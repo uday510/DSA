@@ -71,7 +71,7 @@ public class SubarraysSum {
 //                else totalSubarraysSum += prefixSum.get(j) - prefixSum.get(i - 1);
 //            }
 //        }
-        // Without prefix array
+        // Without prefix array O(n) time | O(1) space
 //        long totalSubarraySum = 0;
 //        for (int i = 0; i < array.size(); i++) {
 //            int currentSum = 0;
@@ -82,7 +82,7 @@ public class SubarraysSum {
 //        }
 
         // No.of subarrays = (i + 1) * (N - i); i is starting index.
-        // Optimal O(n) solution
+        // Optimal O(n) time | O(1) space solution
         for (int i = 0; i < array.size(); i++) {
             long currentSubarraySum = (long) (i + 1) * (array.size() - i) * array.get(i);
             totalSubarraysSum += currentSubarraySum;

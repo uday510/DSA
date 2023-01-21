@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/3sum/
+// O(N(log(N)) time | O(1) space
 var threeSum = function(nums) {
     const triplets = [];
     nums.sort((a, b) => a - b);
