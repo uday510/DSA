@@ -61,11 +61,9 @@ import java.util.List;
 public class AntiDiagonals {
     public static void main(String[] args) {
         List<List<Integer>> array = new ArrayList<>();
-//        array.add(Arrays.asList(1, 2, 3));
-//        array.add(Arrays.asList(4, 5, 6));
-//        array.add(Arrays.asList(7 ,8, 9));
-        array.add(Arrays.asList(1 ,1));
-        array.add(Arrays.asList(2 ,2));
+        array.add(Arrays.asList(1, 2, 3));
+        array.add(Arrays.asList(4, 5, 6));
+        array.add(Arrays.asList(7 ,8, 9));
 
         List<List<Integer>> result = solve(array);
         for (List<Integer> list: result) {
@@ -73,6 +71,7 @@ public class AntiDiagonals {
         }
     }
     public static List<List<Integer>> solve(List<List<Integer>> array) {
+        // O(row * col) time | (row * col) space
         List<List<Integer>> result = new ArrayList<>();
         int row = array.size();
 
