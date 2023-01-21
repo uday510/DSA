@@ -73,6 +73,7 @@ public class TransposeMatrix {
         }
     }
     public static List<List<Integer>> solve(List<List<Integer>> array) {
+//        O(N *M) time | O(N * M) space
         List<List<Integer>> result = new ArrayList<>();
         int row = array.size();
         int col = array.get(0).size();
@@ -85,10 +86,5 @@ public class TransposeMatrix {
             result.add(currentRow);
         }
         return result;
-    }
-    public static void swap (int i, int j, List<Integer> array) {
-        int temp = array.get(i);
-        array.set(i, array.get(j));
-        array.set(j, temp);
     }
 }
