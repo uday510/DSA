@@ -30,7 +30,7 @@ package PrefixSum;
 
 import java.util.Arrays;
 
-public class ProductArrayPuzzle {
+public class ArrayOfProducts {
     public static void main(String[] args) {
         int[] array = {5, 1, 4, 2};
         int[] ans = solve(array);
