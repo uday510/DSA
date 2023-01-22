@@ -48,10 +48,12 @@ public class GoodSubArrays {
     public static void main(String[] args) {
         final long startTime = System.currentTimeMillis();
         final long beforeUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+
         int[] array = {13, 16, 16, 15, 9, 16, 2, 7, 6, 17, 3, 9};
         int b = 65;
         int ans = solve(array, b);
         System.out.println(ans);
+
         final long endTime = System.currentTimeMillis();
         final long afterUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         final long actualMemUsed = afterUsedMem-beforeUsedMem;
