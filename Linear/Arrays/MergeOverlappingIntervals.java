@@ -26,6 +26,9 @@ import java.util.List;
  */
 public class MergeOverlappingIntervals {
     public static void main(String[] args) {
+        final long startTime = System.currentTimeMillis();
+        final long beforeUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+
         int[][] intervals = {{1, 2},
                 {3, 7},
                 {4, 7},
@@ -33,6 +36,12 @@ public class MergeOverlappingIntervals {
                 {9, 10}};
         int[][] result = solve(intervals);
         System.out.println(Arrays.deepToString(result));
+
+        final long endTime = System.currentTimeMillis();
+        final long afterUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        final long actualMemUsed = afterUsedMem-beforeUsedMem;
+        System.out.println("Runtime " + (endTime - startTime) + " ms");
+        System.out.println("Space " + actualMemUsed + " B");
     }
 
     public static int[][] solve(int[][] intervals) {

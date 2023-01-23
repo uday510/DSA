@@ -1,3 +1,5 @@
+package Subarrays;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -83,9 +85,10 @@ public class SubarraysSum {
 
         // No.of subarrays = (i + 1) * (N - i); i is starting index.
         // Optimal O(n) time | O(1) space solution
+        // contribution technique
         for (int i = 0; i < array.size(); i++) {
-            long currentSubarraySum = (long) (i + 1) * (array.size() - i) * array.get(i);
-            totalSubarraysSum += currentSubarraySum;
+            long currentSubArraySum = (long) (i + 1) * (array.size() - i) * array.get(i);
+            totalSubarraysSum += currentSubArraySum;
         }
         return totalSubarraysSum;
     }

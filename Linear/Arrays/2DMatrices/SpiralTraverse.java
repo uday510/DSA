@@ -30,9 +30,8 @@ public class SpiralTraverse {
                           {10, 15, 6},
                           {9, 8, 7} };
         System.out.println(spiralFillUsingLoop(array));
-        var result = new ArrayList<Integer>();
-        spiralFillUsingRecursion(array, 0, array.length - 1, 0, array[0].length - 1, result);
-        System.out.println(result);
+
+//        spiralFillUsingRecursion(array, 0, array.length - 1, 0, array[0].length - 1, result);
     }
     public static List<Integer> spiralFillUsingLoop(int[][] array) {
         // O(n) time | O(n) space;
@@ -45,17 +44,49 @@ public class SpiralTraverse {
         var endCol = array[0].length - 1;
 
         while(startRow <= endRow && startCol <= endCol) {
+
             for(int col = startCol; col <= endCol; col++)
                 result.add(array[startRow][col]);
-            for(int row = startRow; row <= endRow; row++)
+
+            for(int row = startRow + 1; row <= endRow; row++)
                 result.add(array[row][endCol]);
+
             for(int col = endCol - 1; col >= startCol; col--) {
+                /**
+                 * Handle the edge case when there's a single row
+                 * in the middle of the matrix, In this case. we don't
+                 * want to double-count the values in this row, which
+                 * we've already counted in the first for loop above.
+                 * Test case for this edge case :
+                 *                              [
+                 *                                 [1, 2, 3, 4],
+                 *                                 [10, 11, 12, 5],
+                 *                                 [9, 8, 7, 6]
+                 *                               ]
+                 *
+                 *
+                 */
                 if(startRow == endRow) break;
                 result.add(array[endRow][col]);
             }
+
             for(int row = endRow - 1; row > startRow; row--) {
+                /**
+                 * Handle the edge case when there's a single column
+                 * in the middle of the matrix, In this case. we don't
+                 * want to double-count the values in this row, which
+                 * we've already counted in the first for loop above.
+                 * Test case for this edge case :
+                 *                              [
+                 *                                 [1, 2, 3],
+                 *                                 [12, 13, 4],
+                 *                                 [11, 14, 5],
+                 *                                 [10, 15, 6],
+                 *                               ]
+                 *
+                 */
                 if(startCol == endCol) break;
-                result.add(array[row][endCol]);
+                result.add(array[row][startCol]);
             }
 
             startRow++;
