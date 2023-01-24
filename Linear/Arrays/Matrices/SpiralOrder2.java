@@ -61,15 +61,16 @@ import java.util.Arrays;
 public class SpiralOrder2 {
     public static void main(String[] args) {
         final long startTime = System.currentTimeMillis();
-        final long beforeUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        final long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
         int size = 5;
         int[][] matrix = solve(size);
         System.out.println(Arrays.deepToString(matrix));
 
+
         final long endTime = System.currentTimeMillis();
-        final long afterUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
-        final long actualMemUsed = afterUsedMem-beforeUsedMem;
+        final long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        final long actualMemUsed = afterUsedMem - beforeUsedMem;
         System.out.println("Runtime " + (endTime - startTime) + " ms");
         System.out.println("Space " + actualMemUsed + " B");
     }
@@ -77,6 +78,7 @@ public class SpiralOrder2 {
     public static int[][] solve(int size) {
         // O(N^2) | time O(N^2) space where N is size.
         int[][] matrix = new int[size][size];
+
         int startRow = 0,
                 startCol = 0,
                 endRow = size - 1,
@@ -104,4 +106,5 @@ public class SpiralOrder2 {
         }
         return matrix;
     }
+
 }
