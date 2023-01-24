@@ -17,6 +17,7 @@ public class MaxSubarraySumWithLengthK {
         System.out.println("Space " + actualMemUsed + " B");
     }
     public static int solve(int[] array, int targetLength) {
+        // O(n) time | O(1) space
         int maxSubarraySum = 0;
         int currentSum = 0;
         int length = array.length;
