@@ -1,3 +1,5 @@
+package Matrices;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +53,7 @@ import java.util.List;
  *
  *  A[1][1] + A[2][2] = 3 + 3 = 6
  */
-public class DiagonalSum {
+public class MiniDiagonalSum {
     public static void main(String[] args) {
         List<List<Integer>> array = new ArrayList<>();
         array.add(Arrays.asList(1, -2, -3));
@@ -60,10 +62,17 @@ public class DiagonalSum {
 
         System.out.println(solve(array));
     }
-    public static int solve(final List<List<Integer>> A) {
+    public static int solve(List<List<Integer>> array) {
+        // O(row) time | O(1) space
+        int row = 0;
+        int col = array.get(0).size() - 1;
         int ans = 0;
-        for (int i = 0; i < A.size(); i++) {
-            ans += A.get(i).get(i);
+
+        while (row < array.size() && col > -1) {
+            int currentNum = array.get(row).get(col);
+            ans += currentNum;
+            row++;
+            col--;
         }
         return ans;
     }
