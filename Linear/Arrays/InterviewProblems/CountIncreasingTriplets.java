@@ -55,6 +55,7 @@ public class CountIncreasingTriplets {
         System.out.println("Space " + actualMemUsed + " B");
     }
     public static int solve(int[] array) {
+        // O(N^2) time | O(1) space
         int totalPairs = 0;
         int len = array.length;
         for (int midIdx = 1; midIdx < len - 1; midIdx++) {
