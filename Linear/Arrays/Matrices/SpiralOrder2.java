@@ -63,7 +63,7 @@ public class SpiralOrder2 {
         final long startTime = System.currentTimeMillis();
         final long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-        int size = 5;
+        int size = 1;
         int[][] matrix = solve(size);
         System.out.println(Arrays.deepToString(matrix));
 

@@ -7,13 +7,22 @@ public class Pattern22 {
         solve(i);
     }
     public static void solve(int num) {
-        for(int i = 1; i < 2 * num; i++) {
-            for(int j = 1; j < 2 * num; j++) {
-                System.out.print(
-                        Math.max(Math.abs(num - i) + 1, Math.abs(num - j) + 1) + " "
-                );
+        for (int i = 1; i < 2 * num; i++) {
+            System.out.print("0 ");
+        }
+        System.out.println();
+///
+        int n = 2 * num - 2;
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < 2 * num; j++) {
+                System.out.print("1 ");
             }
             System.out.println();
         }
+
+        ///
+        for (int i = 1; i < 2 * num; i++) {
+            System.out.print("0 ");
+        }
+        }
     }
-}
