@@ -49,9 +49,9 @@ public class JosephusProblem {
     }
     public static int solve(int numOfPeople) {
         // O(Log(N)) time | O(1) space
-        int num = (int) (Math.log (numOfPeople) / Math.log(2));
+        int closestPowerOfTwo = (int) (Math.log (numOfPeople) / Math.log(2));
 
-        int kills = numOfPeople - (int) Math.pow(2, num);
+        int kills = numOfPeople - (int) Math.pow(2, closestPowerOfTwo);
 
         return (2 * kills) + 1;
     }
