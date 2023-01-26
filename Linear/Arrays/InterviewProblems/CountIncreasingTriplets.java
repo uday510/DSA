@@ -46,8 +46,8 @@ public class CountIncreasingTriplets {
 
         int[] array = {1, 2, 4, 3};
         int ans = solve(array);
-        System.out.println(ans)
-        ;
+        System.out.println(ans);
+
         final long endTime = System.currentTimeMillis();
         final long afterUsedMem = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         final long actualMemUsed = afterUsedMem-beforeUsedMem;
