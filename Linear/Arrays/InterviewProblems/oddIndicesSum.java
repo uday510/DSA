@@ -64,7 +64,7 @@ public class oddIndicesSum {
         int[] ans = new int[b.length];
         int[] oddIndicesSum = new int[len];
 
-        oddIndicesSum[0] = 0;
+        oddIndicesSum[0] = a[0];
         for (int i = 1; i < len; i++) {
            int currentNum = a[i];
            oddIndicesSum[i] = i % 2 != 0 ? oddIndicesSum[i - 1] + currentNum : oddIndicesSum[i - 1];
