@@ -51,7 +51,7 @@ package InterviewProblems;
 
 import java.util.Arrays;
 
-public class evenIndicesSum {
+public class EvenIndicesSum {
     public static void main(String[] args) {
         int[] arr = {2, 1, 8, 3, 9};
         int[][] b = { {0, 3}, {2, 4}};

@@ -51,7 +51,7 @@ package InterviewProblems;
 
 import java.util.Arrays;
 
-public class oddIndicesSum {
+public class OddIndicesSum {
     public static void main(String[] args) {
         int[] a = {2, 1, 8, 3, 9};
         int[][] b = { {0, 3}, {2, 4} };
