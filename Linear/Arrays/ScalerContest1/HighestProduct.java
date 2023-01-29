@@ -1,34 +1,53 @@
 package ScalerContest1;
 
+import java.util.Arrays;
+
 public class HighestProduct {
     public static void main(String[] args) {
-        int[] arr = {-65, 41, 15, -11, 69, 23, -63
-        -4, 49, -99, -61, 17, -61};
-        int[] arr1 = {-10000000, 1, 2, 4, 3};
-        int[] arr2 = {1, -1, 0};
-        int ans = solve(arr2);
+        int[] arr = {0, -1, 3, 100, -70, -50};
+        int ans = solve(arr);
         System.out.println(ans);
     }
-    public static int solve (int[] arr) {
-        if (arr.length == 3) return arr[0] * arr[1] * arr[2];
-        int firstMax = arr[0];
-        int secondMax = arr[0];
-        int thirdMax = arr[0];
-        int n = arr.length;
-        for (int i = 0; i < n; i++) {
-            int currentNum = arr[i];
-            if (currentNum > firstMax) {
-                thirdMax = secondMax;
-                secondMax = firstMax;
-                firstMax = currentNum;
-            } else if (currentNum > secondMax)  {
-                thirdMax = secondMax;
-                secondMax = currentNum;
-            } else if (currentNum > thirdMax) {
-                thirdMax = currentNum;
-            }
+    public static int solve (int[] nums) {
+         //O(N) time | O(1) space
+        int[] threeLargest = {Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
+        int[] twoMinimum = {Integer.MAX_VALUE, Integer.MAX_VALUE};
+
+        for (int num : nums) {
+            updateLargest(threeLargest, num);
+            updateMinimum(twoMinimum, num);
         }
-        System.out.println(thirdMax + "," + secondMax + "," + firstMax);
-        return firstMax * secondMax * thirdMax;
+
+        System.out.println(Arrays.toString(threeLargest));
+        System.out.println(Arrays.toString(twoMinimum));
+
+        int product1 = threeLargest[0] * threeLargest[1] * threeLargest[2];
+        int product2 = twoMinimum[0] * twoMinimum[1] * threeLargest[2];
+
+        return Math.max(product1, product2);
+    }
+
+    public static void updateLargest(int[] threeLargest, int num) {
+        if (num > threeLargest[2]) {
+            shiftAndUpdate(threeLargest, num, 2);
+        } else if (num > threeLargest[1]) {
+            shiftAndUpdate(threeLargest, num, 1);
+        } else if (num > threeLargest[0]) {
+            shiftAndUpdate(threeLargest, num, 0);
+        }
+    }
+    public static void updateMinimum(int[] twoMinimum, int num) {
+        if (num < twoMinimum[1]) {
+            shiftAndUpdate(twoMinimum, num, 1);
+        } else if (num < twoMinimum[0]) {
+            shiftAndUpdate(twoMinimum, num, 0);
+        }
+    }
+
+    public static void shiftAndUpdate(int[] array, int num, int idx) {
+        for (int i = 0; i <= idx; i++) {
+            if (i == idx) array[i] = num;
+            else array[i] = array[i + 1];
+        }
     }
 }

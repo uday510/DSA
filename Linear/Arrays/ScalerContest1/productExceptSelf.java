@@ -12,19 +12,22 @@ public class productExceptSelf {
     public static int[] productExceptSelf(int[] array) {
         // O(n) time | O(n) space
 //        (A * B) mod C = (A mod C * B mod C) mod C
-        final int MOD = (int) Math.pow(10, 9) + 7;
-        int[] products = new int[array.length];
+        int len =  array.length;
+        int[] products = new int[len];
 
-        int leftRunningProduct = 1;
-        for(int i = 0; i < array.length; i++) {
-            products[i] = leftRunningProduct;
-            leftRunningProduct = (leftRunningProduct % MOD * array[i] % MOD) % MOD;
+        final long MOD = (long) Math.pow(10, 9) + 7;
+        long leftProduct = 1;
+        for (int i = 0; i < len; i++) {
+            long currentNum = array[i];
+            products[i] = (int) leftProduct;
+            leftProduct = ((leftProduct % MOD) * (currentNum % MOD)) % MOD;
         }
 
-        int rightRunningProduct = 1;
-        for(int i = array.length - 1; i > - 1; i--) {
-            products[i] = (products[i] * rightRunningProduct) % MOD;
-            rightRunningProduct = (rightRunningProduct % MOD * array[i] % MOD) % MOD;
+        long rightProduct = 1;
+        for (int i = len - 1; i > -1; i--) {
+            long currentNum = array[i];
+            products[i] = (int) (((products[i] % MOD ) * (rightProduct % MOD)) % MOD);
+            rightProduct = ((rightProduct % MOD) * (currentNum % MOD)) % MOD;
         }
         return products;
     }

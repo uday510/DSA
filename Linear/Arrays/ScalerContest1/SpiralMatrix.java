@@ -8,28 +8,48 @@ import java.util.Arrays;
 
 public class SpiralMatrix {
     public static void main(String[] args) {
-        int[] array = {1, 2, 3, 4, 5 ,6, 7, 8, 9};
-        int numRows = 3;
-        int numCols = 3;
+        int[] array = {1, 2, 3, 4, 5 ,6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+        int numRows = 1;
+        int numCols = 4;
         int[][] ans = solve(array, numRows, numCols);
-        System.out.println(Arrays.deepToString(ans));
+
+        for (int[] num : ans) {
+            System.out.println(Arrays.toString(num));
+        }
     }
     public static int[][] solve(int[] array, int numRows, int numCols) {
 
         if(array.length == 0) return new int[][]{};
 
         int[][] result = new int[numRows][numCols];
-        var startRow = 0;
-        var endRow = numRows;
-        int endCol = numCols;
-        int count = 0;
+        int startRow = 0,
+         startCol = 0,
+         endRow = numRows - 1,
+         endCol = numCols - 1,
+         count = 0;
 
-        while (startRow < endRow) {
-            for (int col = 0; col < endCol; col++) {
+        while (startRow <= endRow && startCol <= endCol) {
+
+            for (int col = startCol; col <= endCol; col++)
                 result[startRow][col] = array[count++];
-            }
+
+            for (int row = startRow + 1; row <= endRow; row++)
+                result[row][endCol] = array[count++];
+
+            if (count >= array.length) break;
+
+            for (int col = endCol - 1; col >= startCol; col--)
+                result[endRow][col] = array[count++];
+
+            for (int row = endRow - 1; row > startRow; row--)
+                result[row][startCol] = array[count++];
+
             startRow++;
+            endRow--;
+            startCol++;
+            endCol--;
         }
+
         return result;
     }
 }
