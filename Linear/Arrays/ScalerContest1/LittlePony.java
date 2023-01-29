@@ -14,11 +14,10 @@ public class LittlePony {
         for (int i = 0; i < A.length; i++) {
             int currentNum = A[i];
             if (currentNum > B )count++;
-            else if (currentNum == B) {
-                isPresent = true;
+            else if (currentNum == B) isPresent = true;
 
-            }
         }
+
         if (!isPresent) return -1;
         return count;
     }
