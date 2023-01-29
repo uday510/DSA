@@ -87,7 +87,6 @@ public class SpecialIndex {
 
             prevEvenSum = currentEvenSum;
             prevOddSum = currentOldSum;
-
         }
         return ans;
     }
