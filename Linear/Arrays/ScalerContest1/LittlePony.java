@@ -1,5 +1,4 @@
 package ScalerContest1;
-
 public class LittlePony {
     public static void main(String[] args) {
         int[] array = {2, 4, 3, 1, 5};
