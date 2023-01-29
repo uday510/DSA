@@ -1,3 +1,5 @@
+package Subarrays;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
