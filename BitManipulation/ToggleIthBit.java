@@ -2,7 +2,7 @@
  * Problem Description
  * You are given two integers A and B.
  * If B-th bit in A is set, make it unset
- * If B-th bit in A is unset, leave it as it is
+ * If B-th bit in A is unset, make it set
  * Return the updated A value
  *
  *
@@ -31,30 +31,33 @@
  *
  * Example Output
  * Output 1:
- * 4
+ * 6
  * Output 2:
  * 1
  *
  *
  * Example Explanation
  * For Input 1:
- * Given N = 4 which is 100 in binary. The 1-st bit is already unset
+ * Given N = 4 which is 100 in binary. The 1-st bit is unset
+ * so we make it set
  * For Input 2:
  *
- * Given N = 5 which is 101 in binary. We unset the 2-nd bit
+ * Given N = 5 which is 101 in binary. The 2-nd bit is set
+ * so we make it unset
  */
-
 
 package BitManipulation;
 
-public class UnsetBit {
+public class ToggleIthBit {
     public static void main(String[] args) {
-        int a = 4, b = 1;
-        int res = solve(a, b);
+        int a = 4, i = 1;
+        int res = solve(a, i);
         System.out.println(res);
     }
-    public static int solve(int a, int b) {
-        if ( (a & (1 << b)) == 1) return a ^ (1 << b);
-        return a;
+    public static int solve(int a, int i) {
+        // to Toggle ith Bit : Formula --> a ^ (1 << i)
+        return a ^ ( 1 << i );
+
     }
+
 }
