@@ -43,18 +43,34 @@ package BitManipulation;
 public class XorOperationInArray {
 
     public static void main(String[] args) {
-        int start = 3, n = 4;
+        int start = 0, n = 5;
         int res = solve(n, start);
         System.out.println(res);
     }
     public static int solve(int n, int start) {
-        int res = 0, i = 0;
 
-        while (i < n) {
-            int currentNum = start + 2 * i;
-            res = res ^ currentNum;
-            i++;
-        }
-        return res;
+//        int res = 0, i = 0;
+//
+//        while (i < n) {
+//            int currentNum = start + 2 * i;
+//            res = res ^ currentNum;
+//            i++;
+//        }
+
+        int startValue = start;
+        startValue = findXor(startValue);
+        int endValue = findXor(n);
+        return startValue ^ endValue;
+    }
+
+    public static int findXor(int n) {
+        int ans = Integer.MIN_VALUE;
+
+        if (n % 4 == 0) ans = n;
+        else if (n % 4 == 1) ans = 1;
+        else if (n % 4 == 2) ans = n + 1;
+        else if (n % 4 == 3) ans = 0;
+
+        return ans;
     }
 }
