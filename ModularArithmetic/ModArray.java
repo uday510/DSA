@@ -111,7 +111,7 @@ public class ModArray {
 
         for (int i = len; i > -1; i--) {
             long currentDigit = array[i];
-            long currentValue = (currentDigit * POWER_10) % MOD;
+            long currentValue = ((currentDigit % MOD) * (POWER_10 % MOD));
             res = (res + currentValue) % MOD;
             POWER_10 = (POWER_10 * 10) % MOD;
         }
