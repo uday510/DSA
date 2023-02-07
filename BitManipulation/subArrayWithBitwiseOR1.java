@@ -1,6 +1,7 @@
 /**
  * Problem Description
- * Given an array B of length A with elements 1 or 0. Find the number of subarrays such that the bitwise OR of all the elements present in the subarray is 1.
+ * Given an array B of length A with elements 1 or 0. Find the number of subarrays such that
+ * the bitwise OR of all the elements present in the subarray is 1.
  *
  *
  * Problem Constraints

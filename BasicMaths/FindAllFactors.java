@@ -3,7 +3,7 @@ public class FindAllFactors {
  * Scaler Class 04:01:2023
  * */
     public static void main(String[] args) {
-        int n = 6;
+        int n = 9;
         System.out.println(solve(n));
     }
     public static int solve(int n) {
