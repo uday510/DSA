@@ -64,6 +64,7 @@ public class LargestNumber {
     }
 
     public static String solve(int[] array) {
+        // O(N(Log(N)) time | O(n) space
         if (array == null || array.length == 0) return "";
 
         int len = array.length;
@@ -72,8 +73,7 @@ public class LargestNumber {
         for (int i = 0; i < len; i++)
             stringArray[i] = String.valueOf(array[i]);
 
-        //2. Comparator to decide which string should come first.
-
+        //2. custom comparator to decide which string should come first.
         Comparator<String> comparator = new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) { // Eg: s1 = "9", s2 = "31"
@@ -84,8 +84,9 @@ public class LargestNumber {
             }
         };
 
-        // Sort Strings according to custom comparator
+        //3. Sort Strings according to custom comparator
         Arrays.sort(stringArray, comparator);
+
         // An extreme edge case by leetcode, say you have only a bunch of 0 in your int array
         //  If, after being sorted, the largest number is `0`, the entire number
         // is zero.
