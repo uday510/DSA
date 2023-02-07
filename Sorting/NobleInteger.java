@@ -56,8 +56,8 @@ public class NobleInteger {
         System.out.println(res);
     }
     public static int solve(int[] array) {
+        // O(NLog(N) time | O(1) space
         int len = array.length - 1;
-
         Arrays.sort(array);
         int count = 0;
 
