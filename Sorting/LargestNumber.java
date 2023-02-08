@@ -64,7 +64,7 @@ public class LargestNumber {
     }
 
     public static String solve(int[] array) {
-        // O(N(Log(N)) time | O(n) space
+        // O(N(Log(N)) time | O(N) space
         if (array == null || array.length == 0) return "";
 
         int len = array.length;
@@ -74,7 +74,7 @@ public class LargestNumber {
             stringArray[i] = String.valueOf(array[i]);
 
         //2. custom comparator to decide which string should come first.
-        Comparator<String> comparator = new Comparator<String>() {
+        Comparator<String> comparator = new Comparator<>() {
             @Override
             public int compare(String o1, String o2) { // Eg: s1 = "9", s2 = "31"
                 String s1 = o1 + o2; // "931"
