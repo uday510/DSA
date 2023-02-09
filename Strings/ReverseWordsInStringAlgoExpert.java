@@ -34,14 +34,13 @@ public class ReverseWordsInStringAlgoExpert {
         // O(N) time | O(N) space where N is the length of the string
         ArrayList<String> words = new ArrayList<>();
         int startOfWord = 0; // keeps track of first idx to
-
         for (int idx = 0; idx < string.length(); idx++) {
             char character = string.charAt(idx);
 
             if (character == ' ') {
                 words.add(string.substring(startOfWord, idx));
                 startOfWord = idx;
-            } else if (string.charAt(startOfWord) == ' ') {
+            } else if (string.charAt(words.size() - 1) != ' ') {
                 words.add(" ");
                 startOfWord = idx;
             }
