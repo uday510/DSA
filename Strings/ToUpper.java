@@ -60,6 +60,7 @@ public class ToUpper {
         System.out.println(Arrays.toString(res));
     }
     public static char[] solve(char[] characters) {
+//        O(N) time | O(N) space where N is the length of the characters
 
         int len = characters.length;
         char[] res = new char[len];
