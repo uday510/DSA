@@ -36,7 +36,7 @@
  * The array in sorted order is [1, 2, 3, 4].
  */
 
-package Strings;
+package Sorting;
 
 import java.util.Arrays;
 
