@@ -52,6 +52,8 @@ public class CountOccurrences {
         System.out.println(res);
     }
     public static int solve(String string) {
+
+        // O(N) time | O(1) space
         int res = 0;
 
         for (int i = 0; i + 2 < string.length(); i++) {
