@@ -90,8 +90,9 @@ public class CountElements {
 
             if (hashMap2.containsKey(key)) {
 
-                for (int i = 0; i < Math.min(hashMap1.get(key), hashMap2.get(key)); ++i) // to get common elements
-                        res.add(key);
+                for (int i = 0; i < Math.min(hashMap1.get(key), hashMap2.get(key)); ++i) { // to get common elements
+                    res.add(key);
+                }
             }
         }
 
