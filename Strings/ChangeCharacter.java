@@ -56,6 +56,7 @@ public class ChangeCharacter {
         System.out.println(res);
     }
     public static int solve(String string, int b) {
+        // O(Nlog(N)) time | O(1) space
 
         //count chars
         int[] charsCount = new int[26];
