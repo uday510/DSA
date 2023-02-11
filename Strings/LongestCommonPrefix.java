@@ -55,6 +55,7 @@ public class LongestCommonPrefix {
         String[] strings = {"ab", "abab", "ab", "abcd"};
 
         String res = solve(strings);
+        System.out.println(res);
     }
     public static String solve(String[] strings) {
         if (strings == null || strings.length == 0) return "";

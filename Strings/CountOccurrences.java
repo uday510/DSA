@@ -46,22 +46,32 @@ package Strings;
 
 public class CountOccurrences {
     public static void main(String[] args) {
-        String string = "bobobo";
+        String string = "bobob";
 
         int res = solve(string);
         System.out.println(res);
     }
     public static int solve(String string) {
-        int countB = 0, countO = 0;
+        int res = 0;
 
-        for (int i = 0; i < string.length(); i++) {
-            char currentChar = string.charAt(i);
-            if (currentChar == 'b') countB++;
-            if (currentChar == 'o') countO++;
+        for (int i = 0; i + 2 < string.length(); i++) {
+            if (string.charAt(i) == 'b' &&
+                string.charAt(i + 1) == 'o' &&
+                string.charAt(i + 2) == 'b')
+                ++res;
         }
 
-        System.out.println(countB);
-        System.out.println(countO);
-        return  (countB + countO) / 2;
+//        for (int i = 0; i < string.length(); i++) {
+//            char c = string.charAt(i);
+//            StringBuilder sb = new StringBuilder();
+//            sb.append(c);
+//            for (int j = i + 1; j < string.length(); j++) {
+//                sb.append(string.charAt(j));
+//                if (sb.toString().equals("bob")) {
+//                    res++;
+//                }
+//            }
+//        }
+        return res;
     }
 }
