@@ -38,8 +38,23 @@
 
 package Hashing;
 
+import java.util.HashSet;
+
 public class CountDistinctElements {
     public static void main(String[] args) {
-        int[] array = {3, 3, 3 };
+        int[] array = {3, 4, 3, 6, 6};
+
+        int res = solve(array);
+        System.out.println(res);
+    }
+    public static int solve(int[] array) {
+         // O(N) time | O(N) space
+
+        HashSet<Long> hashSet = new HashSet<>();
+
+        for (int num : array)
+            hashSet.add((long) num);
+
+        return (int) hashSet.size();
     }
 }
