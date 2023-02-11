@@ -69,14 +69,9 @@ public class CheckAnagrams {
         return 1;
 
 //        char[] char1 = string1.toCharArray();
-//        Arrays.sort(char1);
-//
 //        char[] char2 = string2.toCharArray();
+//        Arrays.sort(char1);
 //        Arrays.sort(char2);
-//
-//        String str1 = new String(char1);
-//        String str2 = new String(char2);
-//
 //        if (str1.equals(str2)) return 1;
 //        return 0;
     }
