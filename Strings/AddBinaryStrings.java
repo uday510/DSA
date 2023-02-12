@@ -48,23 +48,37 @@
 
 package Strings;
 
+import com.google.common.base.Stopwatch;
+
 public class AddBinaryStrings {
     public static void main(String[] args) {
-        String str1 = "110";
-        String str2 = "10";
+        Stopwatch timer = Stopwatch.createStarted();
+        String str1 = "11";
+        String str2 = "1";
 
         String res = solve(str1, str2);
         System.out.println(res);
+        System.out.println("Runtime " + timer.stop());
     }
     public static String solve(String str1, String str2) {
-        int i = Integer.parseInt(str1);
-        int j = Integer.parseInt(str2);
 
-        System.out.println(i + j);
+        // O(N+M) time |O(N+M)
+        StringBuilder stringBuilder = new StringBuilder();
+        int i = str1.length() - 1, j = str2.length() - 1,
+        carry = 0;
 
-        System.out.println(Integer.toBinaryString(i + j));
+        while (i > -1 || j > -1) {
+            int sum = carry;
+            if (i >- 1) sum += str1.charAt(i) - '0'; // To convert to number subtract with 0
+            if (j > -1) sum += str2.charAt(j) - '0';
+            stringBuilder.append(sum % 2);
+            carry = sum / 2;
+            i--;
+            j--;
+        }
 
+        if (carry != 0) stringBuilder.append(carry);
 
-        return "";
+        return stringBuilder.reverse().toString();
     }
 }
