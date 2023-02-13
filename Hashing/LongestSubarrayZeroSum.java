@@ -56,8 +56,9 @@ public class LongestSubarrayZeroSum {
     }
     public static int solve(int[] array) {
         // O(N) time | O(N) space
-        int res = 0, prefixSum = 0;
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        int res = 0;
+        long prefixSum = 0;
+        HashMap<Long, Integer> hashMap = new HashMap<>();
 
         for (int i = 0; i < array.length; i++) {
             prefixSum += array[i];
