@@ -78,10 +78,12 @@ public class SubarrayWithSumZero {
         long prefixSum = 0;
         HashSet<Long> hashSet = new HashSet<>();
 
+        hashSet.add(0L); // You can put 0 or you can check in for loop if there exist element of 0
+
         for (int num: array) {
             prefixSum += num;
 
-            if (prefixSum == 0) return true;
+//            if (prefixSum == 0) return true;
 
             if (hashSet.contains(prefixSum)) return true;
 

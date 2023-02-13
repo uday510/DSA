@@ -79,6 +79,7 @@ public class CountSubarrayZeroSum {
 
             if (hashMap.containsKey(currentSum)) {
                 res += hashMap.get(currentSum);
+                System.out.println(res);
             }
             hashMap.put(currentSum, hashMap.getOrDefault(currentSum, 0) + 1);
         }
