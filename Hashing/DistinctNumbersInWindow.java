@@ -68,6 +68,7 @@ public class DistinctNumbersInWindow {
         System.out.println(Arrays.toString(res));
     }
     public static int[] solve(int[] array, int k) {
+        // O(N) time O(N) space
         ArrayList<Integer> arrayList = new ArrayList<>();
 
 
@@ -88,6 +89,7 @@ public class DistinctNumbersInWindow {
               } else {
                   hashMap.put(array[end], 1);
               }
+
               //Outgoing
              // Decrease frequency
              hashMap.put(array[start - 1], hashMap.get(array[start - 1]) - 1);
