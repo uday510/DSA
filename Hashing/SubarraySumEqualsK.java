@@ -33,6 +33,8 @@
  */
 package Hashing;
 
+import java.util.HashMap;
+
 public class SubarraySumEqualsK {
     public static void main(String[] args) {
         int[] array = {1, 1, 1};
@@ -40,8 +42,22 @@ public class SubarraySumEqualsK {
         int res = solve(array, k);
         System.out.println(res);
     }
-    public static int solve(int[] array, int k) {
-        int res = 0;
-        return res;
+    public static int solve(int[] array, int target) {
+        // O(N) time | O(N) space
+        int totalSubArrays = 0, sum = 0;
+        HashMap<Integer, Integer> hashmap = new HashMap<>();
+        hashmap.put(0, 1); // put 0 count as 1 >> TestCase: [2, 3]
+
+        for (int currentNum : array) {
+            sum += currentNum;
+
+            if (hashmap.containsKey(sum - target))
+                totalSubArrays += hashmap.get(sum - target);
+
+            hashmap.put(sum, hashmap.getOrDefault(sum, 0) + 1);
+
+        }
+
+        return totalSubArrays;
     }
 }
