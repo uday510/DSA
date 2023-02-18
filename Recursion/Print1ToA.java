@@ -47,15 +47,16 @@ package Recursion;
 
 public class Print1ToA {
     public static void main(String[] args) {
-        int a = 5;
+        int a = 10;
         solve(a);
     }
     public static void solve(int a) {
         if (a == 1) {
             System.out.print(a + " ");
-            return;
         }
-        solve(a-1);
-        System.out.print(a + " ");
+        else {
+            solve(a-1);
+            System.out.print(a + " ");
+        }
     }
 }

@@ -55,16 +55,37 @@
  */
 package Recursion;
 
+import java.util.HashMap;
+
 public class IsDictionary {
     public static void main(String[] args) {
-        String[] words = {"hello", "scaler", "interviewbit"};
-        String alienLanguage = "adhbcfegskjlponmirqtxwuvzy";
+//        String[] words = {"hello", "scaler", "interviewbit"};
+        String[] words = {"fine", "none", "no"};
+//        String alienLanguage = "adhbcfegskjlponmirqtxwuvzy";
+        String alienLanguage = "qwertyuiopasdfghjklzxcvbnm";
 
         int res = solve(words, alienLanguage);
         System.out.println(res);
     }
     public static int solve(String[] words, String alienLanguage) {
-        
-        return 0;
+
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < alienLanguage.length(); i++) {
+            char c = alienLanguage.charAt(i);
+            hashMap.put(c, i);
+        }
+
+        for (int i = 0; i < words.length - 1; i++) {
+            char c1 = words[i].charAt(0);
+            char c2 = words[i + 1].charAt(0);
+
+            if (hashMap.get(c1) > hashMap.get(c2)) {
+                return 0;
+            } else if (c1 == c2 && words[i].length() > words[i + 1].length() + 1) {
+                return 0;
+            }
+        }
+        return 1;
     }
 }
