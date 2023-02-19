@@ -60,7 +60,7 @@
  */
 package Hashing;
 
-public class KthSymbol {
+public class KthSymbolEasy {
     public static void main(String[] args) {
         int row = 3;
         int index = 0;
