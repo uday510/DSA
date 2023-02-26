@@ -86,6 +86,6 @@ public class NodesCount {
     public static int solve(TreeNode root) {
         if (root == null) return 0;
 
-        return root.val + solve(root.left) +solve(root.right);
+        return 1 + solve(root.left) +solve(root.right);
     }
 }
