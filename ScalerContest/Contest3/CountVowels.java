@@ -1,12 +1,10 @@
 package ScalerContest.Contest3;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class CountVowels {
     public static void main(String[] args) {
         String str = "interviewbit";
-        int[][] b = { {0, 5}, {4, 5}};
+        int[][] b = { {0, 5}, {4, 5} };
 
         int[] ans = solve(str, b);
         System.out.println(Arrays.toString(ans));
