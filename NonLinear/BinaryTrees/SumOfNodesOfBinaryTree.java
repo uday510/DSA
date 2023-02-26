@@ -60,11 +60,12 @@
 package NonLinear.BinaryTrees;
 
 public class SumOfNodesOfBinaryTree {
+    public static int count = 1;
 
     public static class TreeNode {
         int val;
-        NodesCount.TreeNode left;
-        NodesCount.TreeNode right;
+        TreeNode left;
+        TreeNode right;
 
         TreeNode(int x) {
             val = x;
@@ -74,21 +75,30 @@ public class SumOfNodesOfBinaryTree {
     }
 
     public static void main(String[] args) {
-
-        NodesCount.TreeNode root = new NodesCount.TreeNode(1);
-        NodesCount.TreeNode child1 = new NodesCount.TreeNode(4);
-        NodesCount.TreeNode child2 = new NodesCount.TreeNode(3);
+        TreeNode root = new TreeNode(4);
+        TreeNode child1 = new TreeNode(5);
+        TreeNode child2 = new TreeNode(2);
+        TreeNode child3 = new TreeNode(3);
+        TreeNode child4 = new TreeNode(6);
 
         root.left = child1;
         root.right = child2;
+        child2.left = child3;
+        child2.right = child4;
 
-        int ans = solve(root);
-        System.out.println(ans);
+        count = 0;
+        solve(root, Integer.MIN_VALUE);
+
+        System.out.println(count);
     }
 
-    public static int solve(NodesCount.TreeNode root) {
-        if (root == null) return 0;
+    public static void solve(TreeNode root, int ancestor) {
+        if (root == null) return;
 
-        return root.val + solve(root.left) + solve(root.right);
+        if (root.val > ancestor) {
+            count++;
+        }
+        solve(root.left, Math.max(ancestor, root.val));
+        solve(root.right, Math.max(ancestor, root.val));
     }
 }
