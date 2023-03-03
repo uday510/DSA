@@ -63,7 +63,8 @@ public class ContinuousSumQuery {
             int end = query[1];
             int value = query[2];
 
-            ans[start] += value;
+
+        ans[start] += value;
             if (end < ans.length) ans[end] -= value;
         }
         // prefix-sum
