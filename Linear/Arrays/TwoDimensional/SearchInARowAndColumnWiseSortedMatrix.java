@@ -69,6 +69,7 @@ public class SearchInARowAndColumnWiseSortedMatrix {
         System.out.println(ans);
     }
     public static int solve(int[][] array, int b) {
+        // O(N+M) time | O(1) space
         int row = 0, col = array[0].length - 1;
 
         while (row < array.length && col > -1) {
