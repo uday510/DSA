@@ -4,7 +4,7 @@ import java.util.*;
 public class CountVowels {
     public static void main(String[] args) {
         String str = "interviewbit";
-        int[][] b = { {0, 5}, {4, 5} };
+        int[][] b = { {0, 4}, {9, 10} };
 
         int[] ans = solve(str, b);
         System.out.println(Arrays.toString(ans));
@@ -25,6 +25,7 @@ public class CountVowels {
             }
         }
 
+        System.out.println();
         for (int[] k : b) {
             int m = k[0];
             int n = k[1];
@@ -34,7 +35,6 @@ public class CountVowels {
                 list.add(arr[n] - arr[m - 1]);
             }
         }
-
         return list.stream().mapToInt(i -> i).toArray();
     }
 }
