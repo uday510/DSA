@@ -56,11 +56,9 @@
 
 package InterviewProblems;
 
-import java.util.Arrays;
-
 public class FindMissingNumber {
     public static void main(String[] args) {
-        int[] arr = {2, 3, 1, 2, 2 };
+        int[] arr = {1,2,2,1,3,1,0,4,0};
 
         int ans = solve(arr);
         System.out.println(ans);
@@ -93,16 +91,40 @@ public class FindMissingNumber {
 //        return array.length + 1;
 
 
-        Arrays.sort(array);
-        int prev = 0;
+//        Arrays.sort(array);
+//        int prev = 0;
+//
+//        for (int curr : array) {
+//            if (curr < 0 || curr == 0 || prev == curr) {
+//                continue;
+//            }
+//            if (prev + 1 != curr) return prev + 1;
+//            else prev = curr;
+//        }
+//        return prev + 1;
 
-        for (int curr : array) {
-            if (curr < 0 || curr == 0 || prev == curr) {
-                continue;
+        // First find elements which are not equal to i + 1, then swap
+
+        for (int i = 0; i < array.length; i++) {
+
+            // keep swapping until array[i] = array[i+1]
+            while (array[i] > 0 && array[i] <= array.length && array[i] != i+1) {
+                int val = array[i];
+                if (array[i] == array[val-1]) break;
+                swap(i,val-1, array);
             }
-            if (prev + 1 != curr) return prev + 1;
-            else prev = curr;
         }
-        return prev + 1;
+
+        // iterate and find val where array[i] != array[i+1]
+
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] != i + 1) return i + 1;
+        }
+        return array.length + 1;
+    }
+    public static void swap(int i, int j,int[] array) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }
