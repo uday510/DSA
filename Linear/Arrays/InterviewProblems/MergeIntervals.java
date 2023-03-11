@@ -64,20 +64,14 @@ public class MergeIntervals {
         intervals.get(0).add(1);
         intervals.get(0).add(3);
 
-
         intervals.get(1).add(6);
         intervals.get(1).add(9);
-
-        System.out.println(intervals);
 
         ArrayList<Integer> mergeInterval = new ArrayList<>();
         mergeInterval.add(2);
         mergeInterval.add(5);
 
-        System.out.println(mergeInterval);
-
         ArrayList<ArrayList<Integer>> ans = solve(intervals, mergeInterval);
-
 
         System.out.println(ans);
     }
