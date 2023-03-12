@@ -1,3 +1,4 @@
+
 /**
  * Problem Description
  * Given an array A. For every pair of indices i and j (i != j), find the maximum A[i] & A[j].
@@ -46,7 +47,7 @@
  */
 package BitManipulation;
 
-public class MaximumANDPair {
+public class MaximiseBitwiseANDOfTriplets {
     public static void main(String[] args) {
         int[] arr = {53, 39, 88};
 
@@ -65,7 +66,7 @@ public class MaximumANDPair {
                 }
             }
 
-            if (setBitsCount >= 2) {
+            if (setBitsCount >= 3) {
                 // we can pick a pair for which
                 // ith bit in ans will be set.
                 ans = ans | (1 << i); // to set ith bit in ans
@@ -79,7 +80,7 @@ public class MaximumANDPair {
             }
         }
         return ans;
-}
+    }
     public static boolean isSetBit(int a, int i) {
         return (a & (1 << i)) != 0;
     }

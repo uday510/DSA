@@ -14,7 +14,7 @@ public class FindXORSumOfAllPairsBitwiseAND {
     }
 
     public static int solve(int[] arr) {
-        // O(N) time
+        // O(N) time | O(1) space
         int ans = 0;
         for (int i = 0; i < 31; i++) { //  32 bit number
 
