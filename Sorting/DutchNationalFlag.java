@@ -84,4 +84,31 @@ public class DutchNationalFlag {
         array[j] = array[i];
         array[i] = temp;
     }
+    public static void solve1(int[] array) {
+        int firstValue = 0;
+        int secondValue = 1;
+
+        int firstIdx = 0;
+        int secondIdx = 0;
+        int thirdIdx = array.length - 1;
+
+        while (secondIdx <= thirdIdx) {
+            int currentNum = array[secondIdx];
+
+            if (currentNum == firstValue) {
+                swap(firstIdx, secondIdx, array);
+            } else if (currentNum == secondValue) {
+                secondIdx++;
+            } else {
+                swap(secondIdx, thirdIdx, array);
+                thirdIdx--;
+            }
+        }
+    }
+
+
+
+
+
+
 }

@@ -26,4 +26,15 @@ public class PrimeNumbers {
         }
         return true;
     }
+
+
+    public static boolean prime(int num) {
+
+        if (num < 2) return false;
+        
+        for (int idx = 2; idx <= Math.sqrt(num); idx++) {
+            if (num % idx == 0) return false;
+        }
+        return true;
+    }
 }
