@@ -83,14 +83,15 @@ public class PairSumDivisibleByM {
         // 0 frequency
         if (map.containsKey(0)) {
             val = map.get(0);
-            ans = (ans +  val * (val - 1) / 2);
+            temp = (val * (val - 1) / 2);
+            ans = (temp + ans) % mod;
         }
 
         // even (b/2) case
         if (b % 2 == 0) {
             if(map.containsKey(b/2)) {
                 val = map.get(b / 2);
-                temp = ((long) val * (val - 1)) / 2;
+                temp = (val * (val - 1)) / 2;
                 ans = (temp + ans) % mod;
             }
         }

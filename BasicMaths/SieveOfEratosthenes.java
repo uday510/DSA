@@ -3,45 +3,33 @@ import java.util.Arrays;
 
 public class SieveOfEratosthenes {
     public static void main(String[] args) {
-        System.out.println(solve(100));
+        int n = 10;
+        int[] primes = solve(n);
+        System.out.println(Arrays.toString(primes));
     }
-
-    public static ArrayList solve(int num) {
-        boolean[] prime = new boolean[num + 1];
-        ArrayList<Integer> result = new ArrayList<>();
-        Arrays.fill(prime, true);
-
-        for (int p = 2; p * p <= num; p++) {
-
-            // If prime[p] is not changed, then it is prime.
-            if (prime[p] == true) {
-
-                // Update all multiples of p greater than or equal to the square of it.
-                // numbers which are multiple of p and are less than p^2 are already been marked.
-                for (int i = p * p; i <= num; i += p)
-                    prime[i] = false;
-//
+    public static int[] solve(int n) {
+        // time O(N(Log(LogN))) | space O(1)
+        ArrayList<Integer> ans = new ArrayList<>();
+        int[] primes = sieve(n);
+        for (int i = 2; i <= n; i++) {
+            if (primes[i] == 0) {
+                ans.add(i);
             }
         }
-        for (int p = 2; p <= num; p++) {
-            if (prime[p]) result.add(p);
-        }
-        return result;
+        return ans.stream().mapToInt(i -> i).toArray();
     }
+    public static int[] sieve(int n) {
+        int[] primes = new int[n + 1];
+        for (int i = 2; i*i <= n; i++) {
 
-    /**
-     *  boolean[] notPrime = new boolean[n];
-     *         int count = 0;
-     *         for (int i = 2; i < n; i++) {
-     *             if (notPrime[i] == false) {
-     *                 count++;
-     *                 for (int j = 2; i*j < n; j++) {
-     *                     notPrime[i*j] = true;
-     *                 }
-     *             }
-     *         }
-     *
-     *         return count;
-     *     }
-     */
+            // check ith element is prime or not
+            if (primes[i] == 0) {
+                for (int j = i*i; j <= n; j += i) {
+                    // make every multiple of j false i.e 1
+                    primes[j] = 1;
+                }
+            }
+        }
+        return primes;
+    }
 }

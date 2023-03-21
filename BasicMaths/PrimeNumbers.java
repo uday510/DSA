@@ -7,33 +7,18 @@ public class PrimeNumbers {
 
         System.out.println(solve(num));
     }
-
     public static ArrayList<Integer> solve(int num) {
-
+        // Time O(N√N) | space O(1)
         ArrayList<Integer> result = new ArrayList<>();
-        for(int val = 1; val <= num; val++) {
+        for(int val = 2; val <= num; val++) {
             if(isPrime(val)) result.add(val);
         }
         return result;
     }
-
     public static boolean isPrime(int num) {
-
-        if(num < 2) return false;
-
+        // time O(√N)
         for(int idx = 2; idx <= Math.sqrt(num); idx++){
             if(num % idx == 0) return false;
-        }
-        return true;
-    }
-
-
-    public static boolean prime(int num) {
-
-        if (num < 2) return false;
-        
-        for (int idx = 2; idx <= Math.sqrt(num); idx++) {
-            if (num % idx == 0) return false;
         }
         return true;
     }
