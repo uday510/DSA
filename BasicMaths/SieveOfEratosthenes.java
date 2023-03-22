@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class SieveOfEratosthenes {
     public static void main(String[] args) {
-        int n = 10;
+        int n = 49;
         int[] primes = solve(n);
         System.out.println(Arrays.toString(primes));
     }
