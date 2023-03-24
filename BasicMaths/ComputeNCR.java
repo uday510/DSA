@@ -56,13 +56,12 @@
  */
 public class ComputeNCR {
     public static void main(String[] args) {
-        int a = 6, b = 2, c = 13;
+        int a = 5, b = 2, c = 13;
         int ans = solve(a, b, c);
         System.out.println(ans);
     }
     public static int solve(int a, int b, int c) {
         int[][] arr = new int[a+1][b+1];
-
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length; j++) {
                 arr[j][0] = 1;
