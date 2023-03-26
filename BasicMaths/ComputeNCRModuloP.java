@@ -11,7 +11,7 @@ public class ComputeNCRModuloP {
         long nrPow = power(nrFactorial, p-2, p);
         long rPow = power(rFactorial, p-2, p);
 
-        long ans =  (((nFactorial%p) * (nrPow%p))%p * (rPow%p))%p;
+        long ans = (((nFactorial%p) * (nrPow%p))%p * (rPow%p))%p;
         return (int) ans;
     }
     public static int findFactorial(long a, long p) {
