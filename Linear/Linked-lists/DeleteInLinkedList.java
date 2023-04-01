@@ -48,7 +48,7 @@
  * The linked list after deletion is 3 -> 2 -> 1.
  */
 
-public class DeleteLinkedList {
+public class DeleteInLinkedList {
     public static class Node {
         public int val;
         public Node next;
@@ -80,9 +80,9 @@ public class DeleteLinkedList {
 
         solve(head, 4);
     }
-    public ListNode solve(ListNode A, int B) {
+    public static Node solve(Node A, int B) {
         if (B == 0) return A.next;
-        ListNode temp = A;
+        Node temp = A;
         int i = 0;
 
         while ( i < B - 1) {

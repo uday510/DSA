@@ -81,7 +81,7 @@ public class KthElementInLinkedList {
 
         int ans = solve(head, 4);
     }
-    public static int solve(Node node, k) {
+    public static int solve(Node node, int k) {
         int i = 0;
         Node temp = node;
 
