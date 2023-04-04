@@ -69,7 +69,7 @@ import java.util.Arrays;
 
 public class Flip {
     public static void main(String[] args) {
-        String str = "010";
+        String str = "01";
         int[] ans = solve(str);
         System.out.println(Arrays.toString(ans));
     }
@@ -99,15 +99,17 @@ public class Flip {
         int currSum = 0;
         int maxSum = 0;
         int leftIdx = 0;
-        int rightIdx = 0;
+        int rightIdx;
+        int[] ans = new int[2];
 
         for (int i = 0; i < arr.length; i++) {
             currSum += arr[i];
 
             if (currSum > maxSum) {
                 maxSum = currSum;
-                leftIdx = leftIdx + 1;
-                rightIdx = rightIdx + 1;
+                rightIdx = i;
+                ans[0] = leftIdx + 1;
+                ans[1] = rightIdx + 1;
             }
 
             if (currSum < 0) {
@@ -115,6 +117,6 @@ public class Flip {
                 leftIdx = rightIdx = i + 1;
             }
         }
-        return  new int[] {leftIdx, rightIdx};
+        return ans;
     }
 }
