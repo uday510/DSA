@@ -6,9 +6,8 @@ public class KadanesAlgorithm {
         int ans = solve(arr);
         System.out.println(ans);
     }
-    public static int solve(int[] array) {
+    public static int solve1(int[] array) {
         // O(N) time | O(1) space
-
         // To keep track of max sub-array sum
         int maxSoFar = array[0];
         // To keep track of current max sub-array sum at a particular index
@@ -23,4 +22,23 @@ public class KadanesAlgorithm {
         }
         return maxSoFar;
     }
+    public static int solve(int[] array) {
+        // O(N) time | O(1) space
+        int currentSum, maxSum;
+        currentSum = maxSum = 0;
+
+        for (int num : array) {
+            currentSum += num;
+
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+        }
+        return maxSum;
+    }
+
 }
