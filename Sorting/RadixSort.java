@@ -8,6 +8,7 @@ public class RadixSort {
         radixSort(array);
         System.out.println(Arrays.toString(array));
     }
+
     public static void radixSort(int[] arr) {
         int max = arr[0];
         for (int i = 1; i < arr.length; i++) {
@@ -20,6 +21,7 @@ public class RadixSort {
             exp *= 10;
         }
     }
+
     public static void countSort(int[] arr, int exp) {
         int n = arr.length;
         int[] p = new int[10]; // range of digits --> from 0 to 9
@@ -31,7 +33,7 @@ public class RadixSort {
 
         // 2. convert this array into pSum array
         for (int i = 1; i < p.length; i++) {
-            p[i] = p[i-1] + p[i];
+            p[i] = p[i - 1] + p[i];
         }
 
         // 3. traverse on the original array and try to update ans[]
@@ -43,9 +45,11 @@ public class RadixSort {
             p[(arr[i] / exp) % 10]--;
         }
 
-        // copy your ans to original array
-        for (int i = 0; i < ans.length; i++) {
-            arr[i] = ans[i];
-        }
+        // copy your answer to original array
+        System.arraycopy(ans, 0, arr, 0, ans.length);
     }
+
+
+
+
 }

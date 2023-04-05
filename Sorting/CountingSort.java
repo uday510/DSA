@@ -3,6 +3,15 @@ package Sorting;
 import java.util.Arrays;
 
 public class CountingSort {
+    /**
+     * 1. Find Max and Min Element
+     * 2. Create Array of Size RANGE(max - min + 1)
+     * 3. fill array with frequencies
+     * 4. convert array to prefix array
+     * 5. Create answer array && traverse through the array and put element in correct position
+     * 6. Copy all elements from answer array to input array.
+     * 7. return the input array.
+     */
     public static void main(String[] args) {
         int[] array = {-5, 4, 3, -2, 6};
 
@@ -36,7 +45,7 @@ public class CountingSort {
         // Build PREFIX array
 
         for (int i = 1; i < range; i++) {
-            freqArray[i] = freqArray[i-1] + freqArray[i];
+            freqArray[i] = freqArray[i - 1] + freqArray[i];
         }
 
         // Build answer array
