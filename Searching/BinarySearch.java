@@ -3,7 +3,7 @@ package Searching;
 public class BinarySearch {
 
     public static void main(String args[]) {
-        int array[] = {0, 1, 21, 33, 45, 45, 61, 71, 72, 73};
+        int[] array = {0, 1, 21, 33, 45, 45, 61, 71, 72, 73};
         int target = 33;
         System.out.println(binarySearchRecursion(array, target, 0, array.length - 1));
     }
