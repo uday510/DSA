@@ -20,6 +20,7 @@ public class FindFrequencyOfk {
             } else if (array[mid] < target) {
                 left = mid + 1;
             } else {
+                // find left extremity
                 if (goLeft) {
                     if (mid == 0 || array[mid-1] != target) {
                         finalRange[0] = mid;
@@ -28,6 +29,7 @@ public class FindFrequencyOfk {
                         right = mid - 1;
                     }
                 } else {
+                    // find right extremity
                     if (mid == array.length - 1 || array[mid+1] != target) {
                         finalRange[1] = mid;
                         return;
