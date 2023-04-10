@@ -7,7 +7,7 @@ package Searching;
 
 public class FindCountOfSmaller {
     public static void main(String[] args) {
-        int[] array = {11, 24, 18, 3, 5, 27, 34, 9, 40};
+        int[] array = {11, 11, 24, 18, 3, 5, 27, 34, 9, 40};
         int ans = solve(array, 4);
         System.out.println(ans);
     }
@@ -23,14 +23,13 @@ public class FindCountOfSmaller {
         }
 
         // 2.Apply binary search
-
         while (left <= right) {
             int mid = (left + right)/ 2;
 
-            int count = smallerElementsCount(array, mid);
+            int count = smallerElementsCount(array, mid); // get smaller count
 
             if (count <= k) {
-                ans = mid;
+                ans = mid; // update the ans
                 left = mid + 1; // look for last occurrence
             } else {
                 right = mid - 1;
@@ -48,6 +47,7 @@ public class FindCountOfSmaller {
                 count++;
             }
         }
+
         return count;
     }
 }
