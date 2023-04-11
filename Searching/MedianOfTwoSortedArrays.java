@@ -4,15 +4,13 @@ public class MedianOfTwoSortedArrays {
     public static void main(String[] args) {
         int[] array1 = {-41, -4, 15, 17, 28, 30, 40};
         int[] array2 = {-41, -40, -35, -30, -8, 6, 6, 15, 24};
-//        double ans = solve(array1, array2);
-        System.out.println(getCountOfSmallerElements(array2, 7));
+        double ans = solve(array1, array2);
+        System.out.println(ans);
     }
-
     public static double solve(int[] array1, int[] array2) {
 
         // O(Log(Max-Min)*LogN+LogM) time | O(1) space where
         //  N and M are length of array1 and array2.
-
 
         // 1. find min from array1 and array2;
         int len1 = array1.length;
@@ -48,12 +46,9 @@ public class MedianOfTwoSortedArrays {
         int len = len1 + len2;
         int k = (len1 + len2) / 2;
         if (len % 2 == 0) {
-            double ans1 = applyBinarySearch(array1, array2, 8, min, max);
-//            double ans2 = applyBinarySearch(array1, array2, k+1, min, max);
-//            System.out.println(ans1);
-//            System.out.println(ans2);
-//            return (ans1 + ans2)/2.0;
-            return ans1;
+            double ans1 = applyBinarySearch(array1, array2, k, min, max);
+            double ans2 = applyBinarySearch(array1, array2, k+1, min, max);
+            return (ans1 + ans2)/2.0;
         } else {
             return applyBinarySearch(array1, array2, k, min, max);
         }

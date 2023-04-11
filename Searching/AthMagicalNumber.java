@@ -63,33 +63,34 @@ package Searching;
 
 public class AthMagicalNumber {
     public static void main(String[] args) {
-        int a = 1, b = 2, c = 3;
+        int a = 807414236, b = 3788, c = 38141;
         int ans = solve(a, b, c);
         System.out.println(ans);
     }
     public static int solve(int a, int b, int c) {
         // O(Log(a*min(b,c))) time | O(1) space
 
-        int left = Math.min(b, c); // or simply min = 1
-        int right = a * Math.min(b, c);
-        int ans = 0;
+        long left = Math.min(b, c); // or simply min = 1
+        long right = (long) a * Math.min(b, c);
+        long ans = 0;
+        long mod = (long) 1e9 + 7;
 
-        int lcm = getLcm(b, c);
+        long lcm = getLcm(b, c);
+        System.out.println(lcm);
 
         while (left <= right) {
-            int middle = left + (right - left)/2;
-            int count = getMagicalNumsCount(b, c, middle, lcm);
-            System.out.println(left + " " + right + " " + middle +  " " + count );
+            long middle = left + (right - left)/2;
+            long magicalNumsCount = getMagicalNumsCount(b, c, middle, lcm);
 
-            if (count == a) {
+            if (magicalNumsCount == a) {
                 ans = middle;
                 right = middle - 1;
-            } else if (count > a) {
+            } else if (magicalNumsCount > a) {
                 right = middle - 1;
             } else {
                 left = middle + 1;
             }
-        } return ans;
+        } return (int) (ans % mod);
     }
     public static int getLcm(int a, int b) {
 
@@ -109,7 +110,7 @@ public class AthMagicalNumber {
 
         return (a * b) / gcd; // return lcm
     }
-    public static int getMagicalNumsCount(int a, int b, int middle, int lcm) {
+    public static long getMagicalNumsCount(long a, long b, long middle, long lcm) {
 
         return ( (middle/a) + (middle/b) - (middle/lcm) );
     }
