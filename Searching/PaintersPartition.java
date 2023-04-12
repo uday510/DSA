@@ -51,7 +51,6 @@
 
  11
 
-
  Example Explanation
  Explanation 1:
 
