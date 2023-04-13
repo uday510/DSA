@@ -78,6 +78,21 @@ public class MinimumDifference {
     }
     public static int solve(int[][] matrix, int rows, int cols) {
 
+        /**
+         *   -----  BRUTE FORCE ------
+         * int ans = Integer.MAX_VALUE;
+         *
+         *         for (int i = 0; i < rows-1; i++) {
+         *                for (int k = 0; k < cols; k++) {
+         *                    for (int p = 0; p < cols; p++){
+         *                        int diff = Math.abs(matrix[i][p] - matrix[i+1][k]);
+         *                        ans = Math.min(ans, diff);
+         *                    }
+         *                }
+         *            }
+         *         return ans;
+         */
+
         // O(row*col*Log(col)) time | O(1) space
         int ans = Integer.MAX_VALUE;
 

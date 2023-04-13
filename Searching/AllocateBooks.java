@@ -66,8 +66,8 @@ package Searching;
 
 public class AllocateBooks {
     public static void main(String[] args) {
-        int[] books = {31, 14, 19, 75 };
-        int students = 12;
+        int[] books = { 12, 34, 67, 90 };
+        int students = 2;
         int ans = solve(books, students);
         System.out.println(ans);
     }
@@ -84,8 +84,6 @@ public class AllocateBooks {
             left = Math.min(books[i], left);
             right += books[i];
         }
-        System.out.println(left);
-        System.out.println(right);
         int ans = -1;
 
         // binary search based on books

@@ -79,28 +79,27 @@ public class AddOrNot {
          *  O(N^2) time | O(1) space
          */
 
+         //        for (int i = 0; i < array.length; i++) {
+         //            int num = array[i];
+         //            int count = 0;
+         //            for (int j = i; j > -1; j--) {
+         //                if (array[i] - array[j] <= b) {
+         //                    count++;
+         //                    b -= array[i] - array[j];
+         //                } else {
+         //                    break;
+         //                }
+         //            }
+         //            if (count > ans[0] && array[i] > ans[1]) {
+         //                ans[0] = count;
+         //                ans[1] = array[i];
+         //            }
+         //        }
+
         Arrays.sort(array);
 
         int[] ans = new int[2];
         ans[0] = ans[1] = -1;
-
-//        for (int i = 0; i < array.length; i++) {
-//            int num = array[i];
-//            int count = 0;
-//            for (int j = i; j > -1; j--) {
-//                if (array[i] - array[j] <= b) {
-//                    count++;
-//                    b -= array[i] - array[j];
-//                } else {
-//                    break;
-//                }
-//            }
-//            if (count > ans[0] && array[i] > ans[1]) {
-//                ans[0] = count;
-//                ans[1] = array[i];
-//            }
-
-//        }
 
         long[] prefix = new long[array.length + 1];
         int n = array.length;
@@ -117,7 +116,7 @@ public class AddOrNot {
             // Binary search to find the value of count for i
             while (left <= right) {
                 int count = left + (right - left) / 2;
-                if ((long) array[i] * count - (prefix[i + 1] - prefix[i - count + 1]) <= b) {
+                if ( (long) array[i] * count - (prefix[i + 1] - prefix[i - count + 1]) <= b ) {
                     max = count;
                     left = count + 1;
                 } else {
