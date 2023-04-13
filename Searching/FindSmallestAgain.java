@@ -117,7 +117,7 @@ public class FindSmallestAgain {
     public static int getTripletsCount(int[] array, int target) {
         int count = 0;
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array.length - 2; i++) {
             int start = i + 1, end = array.length - 1;
 
             while (start < end) {
