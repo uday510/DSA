@@ -1,3 +1,5 @@
+package Linear.Arrays;
+
 import java.util.*;
 
 /**
@@ -20,11 +22,14 @@ import java.util.*;
 public class ThreeNumberSum {
     // O(n^2) time | O(n) space
     public static void main(String[] args){
-        int[] array = {12, 3, 1, 2, -6, 5, -8, 6};
+        int[] array = { 12, 3, 1, 2, -6, 5, -8, 6 };
         int targetSum = 0;
+
         List<Integer[]> triplets = solve(array, targetSum);
+
         for(var triplet: triplets) System.out.println(Arrays.toString(triplet));
     }
+
     public static List<Integer[]> solve(int[] array, int targetSum) {
         Arrays.sort(array);
         List<Integer[]> triplets = new ArrayList<>();

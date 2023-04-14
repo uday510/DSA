@@ -69,8 +69,8 @@ package Linear.Arrays;
 
 public class PairsWithGivenDifference {
     public static void main(String[] args) {
-        int[] array = { -3, 0, 1, 3, 6, 8, 11, 14, 18, 25, 30 };
-        int targetSum = 5;
+        int[] array = { 5, 2, 2, 4, 9, 8, 5, 3, 8, 8, 10, 4, 2, 10, 9, 7, 6, 1, 3, 9, 7, 1, 3, 5 };
+        int targetSum = 3;
         int ans = solve(array, targetSum);
         System.out.println(ans);
     }
@@ -82,7 +82,7 @@ public class PairsWithGivenDifference {
         int i = 0, j = 1;
 
         while (j < len) {
-            int currentSum = Math.abs(array[i] - array[j]);
+            int currentSum = Math.abs(array[j] - array[i]);
             if ( currentSum == targetSum ) {
                 pairs++;
                 i++;
