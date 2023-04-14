@@ -67,35 +67,75 @@
  */
 package Linear.Arrays;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class PairsWithGivenDifference {
     public static void main(String[] args) {
-        int[] array = { 5, 2, 2, 4, 9, 8, 5, 3, 8, 8, 10, 4, 2, 10, 9, 7, 6, 1, 3, 9, 7, 1, 3, 5 };
-        int targetSum = 3;
-        int ans = solve(array, targetSum);
+        int[] array = { 2, 5, 1, 2, 8, 1, 3, 5, 7, 1 };
+        int k = 2;
+        int ans = solve(array, k);
         System.out.println(ans);
     }
-    public static int solve(int[] array, int targetSum) {
-        // O(N) time | O(1) space
+    public static int solve(int[] nums, int k) {
+
+
+        Arrays.sort(nums); // sort the given array
+
         int pairs = 0;
 
-        int len = array.length;
-        int i = 0, j = 1;
+        // --- BRUTE FORCE --- O(N^2) time | O(1) space
 
-        while (j < len) {
-            int currentSum = Math.abs(array[j] - array[i]);
-            if ( currentSum == targetSum ) {
-                pairs++;
-                i++;
-                j++;
-            } else if ( currentSum < targetSum ) {
-                j++;
-            } else {
-                i++;
-                if (i == j) {
-                    j++;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j > i + 1 && nums[j] == nums[j-1]) continue;
+
+                if (Math.abs(nums[i] - nums[j]) == k) {
+                    pairs++;
                 }
             }
         }
+
+        // -- Two pointer approach O(NLogN) time | O(1) space
+
+        int left = 0, right = 1;
+
+        while (left < nums.length && right < nums.length) {
+            if (left == right || nums[right] - nums[left] < k) {
+                right++;
+            } else if (nums[right] - nums[left] > k) {
+                left++;
+            } else {
+                left++;
+                pairs++;
+                while (left < nums.length && nums[left] == nums[left - 1]) {
+                    left++;
+                }
+            }
+        }
+
+        // --- HASHMAP ---
+        // testCase: [1, 3, 1, 4, 5] CRITICAL
+
+        HashMap<Integer, Integer> counter = new HashMap<>();
+        for (int num : nums) {
+            counter.put(num, counter.getOrDefault(num, 0) + 1);
+        }
+
+        for (Map.Entry <Integer, Integer> entry: counter.entrySet()) {
+            int x = entry.getKey();
+            int val = entry.getValue();
+            if (k > 0 && counter.containsKey(x + k)) {
+                pairs++;
+            } else if (k == 0 && val > 1) {
+                pairs++;
+            }
+         }
         return pairs;
     }
+
+
 }
