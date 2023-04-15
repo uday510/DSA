@@ -119,6 +119,7 @@ public class FlipAndFindNearest {
                         // finds the nearest '1' on the left
                         left = set.floor(x);
                 }
+                // update the ans
                 if (left == -inf && right == inf) {
                     ans.add(-1);
                 } else if (x - left <= right - x) {
