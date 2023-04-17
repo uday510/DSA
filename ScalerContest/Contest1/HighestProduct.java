@@ -1,4 +1,4 @@
-package ScalerContest1;
+package ScalerContest.Contest1;
 
 import java.util.Arrays;
 
@@ -36,6 +36,7 @@ public class HighestProduct {
             shiftAndUpdate(threeLargest, num, 0);
         }
     }
+
     public static void updateMinimum(int[] twoMinimum, int num) {
         if (num < twoMinimum[1]) {
             shiftAndUpdate(twoMinimum, num, 1);

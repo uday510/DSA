@@ -1,3 +1,5 @@
+package Linear.Arrays;
+
 /**
  *
 
@@ -13,8 +15,8 @@
 
  true
 
-
  */
+
 public class ValidateSubsequence {
   public static void main(String[] args){
       int[] array = {5, 1, 22, 25, 6, -1, 8, 10};

@@ -1,3 +1,4 @@
+package BasicMaths;
 
 public class AddDigits {
 

@@ -43,8 +43,8 @@
  *
  *  No subarray sums up to 0.
  */
-package Hashing;
 
+package Hashing;
 import java.util.HashMap;
 
 public class LongestSubarrayZeroSum {
@@ -54,6 +54,7 @@ public class LongestSubarrayZeroSum {
         int res = solve(array);
         System.out.println(res);
     }
+
     public static int solve(int[] array) {
         // O(N) time | O(N) space
         int res = 0;
@@ -70,6 +71,7 @@ public class LongestSubarrayZeroSum {
                 res = Math.max(res, i - hashMap.get(prefixSum));
 
         }
+
         return res;
     }
 }

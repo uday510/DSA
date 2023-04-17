@@ -1,5 +1,4 @@
-package ScalerContest1;
-
+package ScalerContest.Contest1;
 import java.util.Arrays;
 
 /**

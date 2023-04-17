@@ -1,3 +1,5 @@
+package Linear.Arrays;
+
 import java.util.Arrays;
 
 /**
@@ -11,7 +13,6 @@ import java.util.Arrays;
  Sample Output
 
  [1, 4, 9, 25, 36, 64, 81]
-
 
  */
 public class SortedSquares {
