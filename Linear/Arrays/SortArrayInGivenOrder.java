@@ -106,18 +106,4 @@ public class SortArrayInGivenOrder {
         }
         return ans.stream().mapToInt( i -> i).toArray();
     }
-    public static boolean isContains(int[] arr, int val) {
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == val) return true;
-        }
-        return false;
-    }
-    public static boolean isContains(ArrayList<Integer> list, int val) {
-
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == val) return true;
-        }
-        return false;
-    }
 }
