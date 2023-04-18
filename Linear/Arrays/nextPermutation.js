@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/next-permutation/
 
 
+
 function nextPermutation(nums) {
     if(nums == null || nums.length <= 1) return nums;
 
