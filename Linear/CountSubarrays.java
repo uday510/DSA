@@ -61,7 +61,6 @@
 package Linear;
 
 import java.util.HashSet;
-import java.util.Set;
 
 public class CountSubarrays {
     public static void main(String[] args) {
@@ -72,23 +71,37 @@ public class CountSubarrays {
     }
 
     public static int solve(int[] arr) {
-        int count = 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i; j < arr.length; j++) {
-                Set<Integer> set = new HashSet<>();
-                boolean flag = true;
-                for (int k = i; k <= j; k++) {
-                    if (set.contains(arr[k])) {
-                        flag = false;
-                    }
-                    set.add(arr[k]);
-                }
-                if (flag) {
-                    count++;
-                }
+//        for (int i = 0; i < arr.length; i++) {
+//            for (int j = i; j < arr.length; j++) {
+//                Set<Integer> set = new HashSet<>();
+//                boolean flag = true;
+//                for (int k = i; k <= j; k++) {
+//                    if (set.contains(arr[k])) {
+//                        flag = false;
+//                    }
+//                    set.add(arr[k]);
+//                }
+//                if (flag) {
+//                    count++;
+//                }
+//            }
+//        }
+        HashSet<Integer> hs = new HashSet<>();
+        long ans = 0;
+        int n = arr.length, left = 0;
+
+        for (int right = 0; right < n; right++) {
+            // check if arr[right] is already there in the present window
+            while (hs.contains(arr[right])) { // increment left until arr[right] is present in window
+                hs.remove(arr[left]);
+                left++;
             }
+            // add the sub-arrays ending at position right
+            ans += right - left + 1;
+            hs.add(arr[right]);
         }
-        return count;
+
+        return (int) (ans % (long) (1e9 + 7));
     }
 }
