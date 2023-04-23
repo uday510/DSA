@@ -72,6 +72,7 @@ public class CountRightTriangles {
         System.out.println(ans);
     }
     public static int solve(int[] a, int[] b) {
+        // O(N) time | O(N) space
         int n = a.length;
         // stores the frequency of each x coordinate
         HashMap<Integer, Integer> hmX = new HashMap<>();
@@ -87,6 +88,7 @@ public class CountRightTriangles {
             // counts the no of triangles that forms a right angle at the i-th point
             ans = (ans + (long) (hmX.get(a[i]) - 1) * (hmY.get(b[i]) - 1) ) % mod;
         }
+
         return (int) ans;
     }
 }
