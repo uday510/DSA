@@ -89,7 +89,7 @@ public class PermutationsOfAInB {
         // move current window 1 step ahead
         for (int i = n, j = 0; i < m; i += 1, j += 1) {
             hash2[b.charAt(j) - 'a'] -= 1;
-            hash1[b.charAt(i) - 'a'] += 1;
+            hash2[b.charAt(i) - 'a'] += 1;
             count += check(hash1, hash2);
         }
         return count;
