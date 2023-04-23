@@ -53,6 +53,7 @@
  *                                            (1, 1), (3, 1), (3, 2), (1, 2)
  *                                            (2, 1), (3, 1), (3, 2), (2, 2)
  */
+
 package Linear.Arrays;
 
 import java.util.HashMap;
@@ -66,6 +67,7 @@ public class CountRectangles {
         int ans = solve(a, b);
         System.out.println(ans);
     }
+
     public static int solve(int[] a, int[] b) {
         // O(N^2) time | O(N) space
         int n = a.length;
@@ -82,7 +84,7 @@ public class CountRectangles {
                 h.add(b[i]);
                 mpX.put(a[i], h);
         }
-
+//        System.out.println(mpX);
         int ans = 0;
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
