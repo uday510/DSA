@@ -59,8 +59,8 @@ import java.util.HashMap;
 
 public class WindowString {
     public static void main(String[] args) {
-        String a = "Aa91b";
-        String b = "ab";
+        String a = "cabwefgewcwaefgcf";
+        String b = "cae";
 
         String ans = solve(a, b);
         System.out.println(ans);
@@ -100,7 +100,8 @@ public class WindowString {
                 // Now move the head pointer till popping out those characters
                 // still makes sure that all characters in b are covered.
                 while (counts.get(a.charAt(head)) == null || counts.get(a.charAt(head)) < 0) {
-                    if (counts.get(a.charAt(head)) != null) counts.put(a.charAt(head), counts.get(a.charAt(head)) + 1);
+                    if (counts.get(a.charAt(head)) != null)
+                        counts.put(a.charAt(head), counts.get(a.charAt(head)) + 1);
                     head++;
                 }
                 // Now [head - 1, tail] is valid substring. Update the answer.
