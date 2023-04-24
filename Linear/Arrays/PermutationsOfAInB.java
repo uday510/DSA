@@ -68,7 +68,7 @@ public class PermutationsOfAInB {
         System.out.println(ans);
     }
     public static int solve(String a, String b) {
-        // O(N) time | O(N) space
+        // O(N + M) time | O(N) space
         int count = 0;
         int n = a.length();
         int m = b.length();
