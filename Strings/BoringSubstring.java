@@ -53,8 +53,6 @@
  */
 package Strings;
 
-import java.util.Arrays;
-
 public class BoringSubstring {
     public static void main(String[] args) {
         String str = "abc";
@@ -63,31 +61,58 @@ public class BoringSubstring {
         System.out.println(ans);
     }
     public static int solve(String str) {
-        // O(NLogN) time | O(N) space
-        String odd = "", even = "";
-        // odd and even stores odd and even characters respectively
+
+        // O(N) time | O(1) space
+
+        // check for leftMin & rightMax or leftMax & rightMin
+
+        // odd , a is odd, because it's ascii is 97, it will be left min if available in string
+        int leftMin = Integer.MAX_VALUE;
+        int leftMax = Integer.MIN_VALUE;
+        // even
+        int rightMin = Integer.MAX_VALUE;
+        int rightMax = Integer.MIN_VALUE;
+
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c % 2 == 0) {
-                odd += c;
-            } else even += c ;
-        }
-        char[] ar = odd.toCharArray();
-        Arrays.sort(ar);
-        ar = even.toCharArray();
-        Arrays.sort(ar);
-        even = String.valueOf(ar);
-        // check if either (odd + even) or (even + odd) has no boring substrings
-        if (check(odd + even)) return 1;
-        else if (check(even + odd)) return 1;
-        return 0;
-    }
-    public static boolean check(String str) {
-        boolean ok = true;
 
-        for (int i = 0; i < str.length() - 1; i++) {
-            ok &= (Math.abs(str.charAt(i) - str.charAt(i + 1)) != 1);
+            if (c % 2 != 0) { // odd char, so keep in left side
+                leftMin = Math.min(leftMin, c - 96); // 96 because , a ASCII is 97 so 97 - 96 will become odd
+                leftMax = Math.max(leftMax, c - 96);
+            } else {
+                rightMin = Math.min(rightMin, c - 96);
+                rightMax = Math.max(rightMax, c - 96);
+            }
         }
-        return ok;
+
+        return (Math.abs (leftMin - rightMax) != 1 || Math.abs (leftMax - rightMin) != 1) ? 1 : 0;
+//        // O(NLogN) time | O(N) space
+//        StringBuilder odd = new StringBuilder();
+//        StringBuilder even = new StringBuilder();
+//        // odd and even stores odd and even characters respectively
+//        for (int i = 0; i < str.length(); i++) {
+//            char c = str.charAt(i);
+//            if (c % 2 == 0) {
+//                even.append(c);
+//            } else odd.append(c);
+//        }
+//        char[] ar = odd.toString().toCharArray();
+//        Arrays.sort(ar);
+//        odd = new StringBuilder(String.valueOf(ar));
+//        ar = even.toString().toCharArray();
+//        Arrays.sort(ar);
+//        even = new StringBuilder(String.valueOf(ar));
+//        // check if either (odd + even) or (even + odd) has no boring substrings
+//        if (check(odd + even.toString())) return 1;
+//        else if (check(even.toString() + odd)) return 1;
+//        return 0;
     }
+//    public static boolean check(String str) {
+//        boolean ok = true;
+//
+//        for (int i = 0; i < str.length() - 1; i++) {
+//            ok &= (Math.abs(str.charAt(i) - str.charAt(i + 1)) != 1);
+//        }
+//        return ok;
+//    }
 }
