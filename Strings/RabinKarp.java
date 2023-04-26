@@ -77,7 +77,7 @@ public class RabinKarp {
 
         for (int i = 0; i < inputLength - patternLength; i++) {
 
-            // remove ith and i+1th
+            // remove ith and i+1'th
            inputHash = ( (base * (inputHash - (powerFirst * input[i]) % mod)) % mod + input[i + patternLength]) % mod;
            if (inputHash < 0) {
                inputHash = (inputHash + mod);
