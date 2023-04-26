@@ -40,10 +40,10 @@
  */
 package Strings;
 
-public class RabinKarp {
+public class RabinKarpAlgorithm {
     public static void main(String[] args) {
-        String string = "acbac";
-        String pattern = "ac";
+        String string = "1001";
+        String pattern = "0011";
 
         int ans = solve(string, pattern);
         System.out.println(ans);
