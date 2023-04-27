@@ -7,8 +7,10 @@ package Strings;
 
 public class FindPattern {
     public static void main(String[] args) {
-        String string = "dogisbarking";
-        String pattern = "barking";
+//        String string = "dogisbarking";
+//        String pattern = "barking";
+        String string = "1001";
+        String pattern = "00110011";
 
         boolean ans = solve(string, pattern);
         System.out.println(ans);
@@ -17,6 +19,7 @@ public class FindPattern {
                 // O(N) time | O(N) space N > M
                 // N is length of string, M is length of pattern
         int[] zArray = getZArray(string, pattern);
+        System.out.println();
 
         for (int val : zArray) {
             if (val == pattern.length()) return true;
