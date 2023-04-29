@@ -82,7 +82,7 @@ public class WindowString {
 
         for (int head = 0, tail = 0; tail < a.length(); tail++) {
             if (counts.get(a.charAt(tail)) == null) {
-                // if this character is not present in b at all,
+                // if this character in 'a' is not present in b at all,
                 // we don't care about this character.
                 continue;
             }
