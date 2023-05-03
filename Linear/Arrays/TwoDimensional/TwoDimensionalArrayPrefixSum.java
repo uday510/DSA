@@ -1,4 +1,4 @@
-package TwoDimensional;
+package Linear.Arrays.TwoDimensional;
 
 import java.util.Arrays;
 

@@ -81,6 +81,7 @@ public class IsomorphicStrings {
                 if (hm.get(s.charAt(i)) != t.charAt(i)) return false;
             }
         }
+
         return true;
     }
 }

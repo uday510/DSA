@@ -41,7 +41,7 @@
  */
 
 // https://drive.google.com/file/d/15FWvDynWP2DkTA5oyCBvQgxWRNZd2AGi/view?usp=sharing
-package OneDimensional;
+package Linear.Arrays.OneDimensional;
 
 import java.util.Arrays;
 
@@ -55,23 +55,26 @@ public class ContinuousSumQuery {
         int[] ans = solve(beggars, queries);
         System.out.println(Arrays.toString(ans));
     }
-    public static int[] solve(int a, int[][] queries) {
-        int[] ans = new int[a];
+    public static int[] solve(int beggars, int[][] queries) {
+        // O(N) time | O(1) space
 
-        for (int[] query : queries) {
-            int start = query[0] - 1;
-            int end = query[1];
-            int value = query[2];
+        // coins is an array which denotes the number of coins that each
+        // beggar has. initially each has 0 coins.
+        int[] coins = new int[beggars];
 
+        for (int i = 0; i < queries.length; i++) {
+                int leftIndex = queries[i][0] - 1;
+                int rightIndex = queries[i][1] - 1;
 
-        ans[start] += value;
-            if (end < ans.length) ans[end] -= value;
+                int donationByDevotee = queries[i][2];
+                coins[leftIndex] += donationByDevotee;
+
+                if ((rightIndex + 1) < beggars) coins[rightIndex + 1] -= donationByDevotee;
         }
-        // prefix-sum
-
-        for (int i = 1; i < ans.length; i++) {
-            ans[i] += ans[i-1];
+        // prefix sum
+        for (int i = 1; i < coins.length; i++) {
+            coins[i] = coins[i - 1] + coins[i];
         }
-        return ans;
+        return coins;
     }
 }
