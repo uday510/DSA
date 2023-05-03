@@ -4,38 +4,30 @@ import java.util.Arrays;
 
 public class AddOneToNumber {
     public static void main(String[] args) {
-        int[] arr = {0, 0, 0, 9, 9, 9, 9, 9};
-        int[] ans = solve(arr);
+        int[] digits = {0, 0, 0, 9, 9, 9, 9, 9};
+
+        int[] ans = solve(digits);
         System.out.println(Arrays.toString(ans));
     }
-    public static int[] solve(int[] arr) {
-        int n = arr.length;
+    public static int[] solve(int[] digits) {
+        // O(N) time | O(1) space
+        int n = digits.length;
 
-        if (arr[0] == 0) {
-            int i = 0;
-            while (i < n && arr[i] == 0) {
-                i++;
+        // move along the input array starting from the end
+        for (int idx = n - 1; idx > -1; idx--) {
+            // set all the nines at the end of array to zeros
+            if (digits[idx] == 9) {
+                digits[idx] = 0;
+            } else {
+                // here we have the rightmost not-nine
+                digits[idx]++;
+                // and the job is done
+                return digits;
             }
-           return solve2(Arrays.copyOfRange(arr, i, n));
-        } else {
-            return solve2(arr);
         }
-    }
-
-    public static int[] solve2 (int[] arr) {
-
-        int n = arr.length;
-
-        for (int i = n - 1; i > -1; i--) {
-            if (arr[i] < 9) {
-                arr[i]++;
-                return arr;
-            }
-            arr[i] = 0;
-        }
-
-        int[] newNumbers = new int[n+1];
-        newNumbers[0] = 1;
-        return newNumbers;
+        // we're here because all the digits are nines
+        digits = new int[n + 1];
+        digits[0] = 1;
+        return digits;
     }
 }
