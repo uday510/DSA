@@ -69,11 +69,12 @@ import java.util.Arrays;
 
 public class Flip {
     public static void main(String[] args) {
-        String str = "01";
+        String str = "11000";
         int[] ans = solve(str);
         System.out.println(Arrays.toString(ans));
     }
     public static int[] solve(String str) {
+        // O(N) time | O(N) space
 
         int[] arr = new int[str.length()];
         boolean flag = true;
@@ -92,7 +93,7 @@ public class Flip {
         }
 
         if (flag) {
-            return new int[2];
+            return new int[] {};
         }
         // Apply kadane
 
@@ -108,10 +109,9 @@ public class Flip {
             if (currSum > maxSum) {
                 maxSum = currSum;
                 rightIdx = i;
-                ans[0] = leftIdx + 1;
+                ans[0] = leftIdx + 1; // it won't change
                 ans[1] = rightIdx + 1;
             }
-
             if (currSum < 0) {
                 currSum = 0;
                 leftIdx = rightIdx = i + 1;
