@@ -10,8 +10,19 @@ public class AddOneToNumber {
         System.out.println(Arrays.toString(ans));
     }
     public static int[] solve(int[] digits) {
-        // O(N) time | O(1) space
+        // O(N) time | O(N) space
         int n = digits.length;
+
+        // remove starting zero's
+        if (digits[0] == 0) {
+            int idx = 0;
+            while (idx < n && digits[idx] == 0) {
+                idx++;
+            }
+            digits = Arrays.copyOfRange(digits, idx, n);
+        }
+
+        n = digits.length;
 
         // move along the input array starting from the end
         for (int idx = n - 1; idx > -1; idx--) {
