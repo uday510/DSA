@@ -74,7 +74,9 @@ public class PrintLinkedList {
 
         solve(head);
     }
+
     public static void solve(Node node) {
+        
         Node temp = node;
 
         while (temp != null) {

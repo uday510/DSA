@@ -1,4 +1,4 @@
-package ArrayIntro;
+package Linear.Arrays.ArrayIntro;
 
 import java.util.*;
 
