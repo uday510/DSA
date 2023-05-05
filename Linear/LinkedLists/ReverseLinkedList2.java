@@ -1,5 +1,7 @@
 package Linear.LinkedLists;
 
+import java.util.List;
+
 /**
  * Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
  *
@@ -17,24 +19,51 @@ package Linear.LinkedLists;
  */
 public class ReverseLinkedList2 {
     public static class ListNode {
-        int val;
+        int value;
         ListNode next;
         ListNode () {}
-        ListNode (int val) { this.val = val;}
-        ListNode (int val, ListNode next) { this.val = val; this.next = next; }
+        ListNode (int value) { this.value = value;}
+        ListNode (int value, ListNode next) { this.value = value; this.next = next; }
     }
     public static void main(String[] args) {
-        ListNode node4 = new ListNode(5, null);
-        ListNode node3 = new ListNode(4, node4);
-        ListNode node2 = new ListNode(3, node3);
-        ListNode node1 = new ListNode(2, node2);
-        ListNode head = new ListNode(1, node1);
+        ListNode tail = new ListNode(5, null);
+        ListNode node4 = new ListNode(4, tail);
+        ListNode node3 = new ListNode(3, node4);
+        ListNode node2 = new ListNode(2, node3);
+        ListNode head = new ListNode(1, node2);
 
-        solve (head, 2, 4);
-
+        ListNode linkedList = solve (head, 2, 4);
+        while (linkedList != null) {
+            System.out.print(linkedList.value + " ");
+            linkedList = linkedList.next;
+        }
     }
-    public static void solve (ListNode head, int left, int right) {
-        
+    public static ListNode solve (ListNode head, int left, int right) {
+        // O(N) time | O(1) space
+        if (head == null || left == right) return head;
+
+        ListNode dummyNode = new ListNode(0, head);
+
+        ListNode before = dummyNode;
+
+        for (int i = 1; i < left; i++) {
+            before = before.next;
+        }
+
+        ListNode prevNode = before;
+        ListNode currNode = before.next;
+
+        for (int i = left; i <= right; i++) {
+            ListNode nextNode = currNode.next;
+            currNode.next = prevNode;
+            prevNode = currNode;
+            currNode = nextNode;
+        }
+
+        before.next.next = currNode;
+        before.next = prevNode;
+
+        return dummyNode.next;
     }
 
 }
