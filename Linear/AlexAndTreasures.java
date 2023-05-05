@@ -15,7 +15,6 @@ public class AlexAndTreasures {
 
     public static int[][] solve(int[][] a, int b) {
         int[][] ans = new int[b][2];
-
         int max = Integer.MIN_VALUE;
 
         for (int i = 0; i < a.length; i++) {
