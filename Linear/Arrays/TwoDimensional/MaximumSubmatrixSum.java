@@ -49,7 +49,7 @@
  * The sum is 45.
  */
 
-package TwoDimensional;
+package Linear.Arrays.TwoDimensional;
 
 public class MaximumSubmatrixSum {
 

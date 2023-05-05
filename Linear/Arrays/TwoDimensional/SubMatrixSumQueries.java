@@ -81,13 +81,14 @@ import java.util.Arrays;
 
 public class SubMatrixSumQueries {
     static long mod = (int) Math.pow(10, 9) + 7;
+
     public static void main(String[] args) {
 
-        int[][] array = { {1, 2, 3},
+        int[][] array = {{1, 2, 3},
                          {4, 5, 6},
-                         {7, 8, 9} };
+                         {7, 8, 9}};
 
-         // top left
+        // top left
         int[] b = {1, 2};
         int[] c = {1, 2};
 
@@ -132,7 +133,7 @@ public class SubMatrixSumQueries {
                 sum += ps[topRow - 1][topCol - 1];
             }
 
-            ans[i] = (int) ((sum + (mod * mod))  %  mod);
+            ans[i] = (int) ((sum + (mod * mod)) % mod);
 
         }
         return ans;
@@ -142,7 +143,6 @@ public class SubMatrixSumQueries {
     public static long[][] getPrefixSum(int[][] array) {
         // O(N*M) time | O(N*M) space
         int endRow = array.length, endCol = array[0].length;
-        long[][] prefixSum = new long[endRow][endCol];
 
         /**
          * prefix[i][j] = sum from arr[0][0] to arr[i][j]
@@ -154,24 +154,35 @@ public class SubMatrixSumQueries {
          */
 
         // row sum
+//      long[][] prefixSum = new long[endRow][endCol];
+//        for (int row = 0; row < endRow; row++) {
+//            prefixSum[row][0] = array[row][0];
+//            for (int col = 1; col < endCol; col++) {
+//                prefixSum[row][col] += prefixSum[row][col-1] + array[row][col] ;
+//
+//                prefixSum[row][col] %= mod;
+//            }
+//        }
+//
+//        // col sum
+//        for (int row = 1; row < endRow; row++) {
+//            for (int col = 0; col < endCol; col++) {
+//                prefixSum[row][col] += prefixSum[row - 1][col];
+//                prefixSum[row][col] %= mod;
+//            }
+//        }
+//        return prefixSum;
 
-        for (int row = 0; row < endRow; row++) {
-            prefixSum[row][0] = array[row][0];
-            for (int col = 1; col < endCol; col++) {
-                prefixSum[row][col] += prefixSum[row][col-1] + array[row][col] ;
+        /**
+         * OPTIMIZED WAY
+         */
+        long[][] dp = new long[endRow + 1][endCol + 1];
 
-                prefixSum[row][col] %= mod;
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                dp[i][j] = array[i - 1][j - 1] + dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1];
             }
         }
-
-        // col sum
-        for (int row = 1; row < endRow; row++) {
-            for (int col = 0; col < endCol; col++) {
-                prefixSum[row][col] += prefixSum[row - 1][col];
-                prefixSum[row][col] %= mod;
-            }
-        }
-
-        return prefixSum;
+        return dp;
     }
 }
