@@ -4,7 +4,6 @@ public class RemoveDuplicatesFromSortedList {
     public static class ListNode {
         int value;
         ListNode next;
-        ListNode() { }
         ListNode(int value) {
             this.value = value;
         }
