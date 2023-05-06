@@ -55,8 +55,6 @@
  */
 package Linear.LinkedLists;
 
-import java.util.List;
-
 public class RemoveLoopFromLinkedList {
     public static  class ListNode {
         public int val;
