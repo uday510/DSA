@@ -29,6 +29,7 @@ public class IntersectionOfTwoLinkedLists {
         ListNode p1 = head1;
         ListNode p2 = head2;
 
+        // if there is no intersection, then at one time p1 and p2 points to null, and exists the loop.
         while (p1 != p2) {
             p1 = p1 == null ? head2 : p1.next;
             p2 = p2 == null ? head1 : p2.next;
