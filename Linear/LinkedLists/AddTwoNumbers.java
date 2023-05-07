@@ -46,7 +46,7 @@ public class AddTwoNumbers {
         ListNode l1 = head1;
         ListNode l2 = head2;
 
-        while (l1 != null || l1 != null || carry != 0) {
+        while (l1 != null || l2 != null || carry != 0) {
             int valueOne = (l1 != null) ? l1.val : 0;
             int valueTwo = (l2 != null) ? l2.val : 0;
             int sumOfValues = valueOne + valueTwo + carry;
