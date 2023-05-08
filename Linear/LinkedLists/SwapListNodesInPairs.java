@@ -66,6 +66,7 @@ public class SwapListNodesInPairs {
 
         ListNode ans = solve(head);
 
+
         while (ans != null) {
             System.out.print(ans.val + " ");
             ans = ans.next;
