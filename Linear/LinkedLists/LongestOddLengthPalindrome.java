@@ -46,6 +46,6 @@ public class LongestOddLengthPalindrome {
             prevNode = prevNode.next;
             nextNode = nextNode.next;
         }
-        return count;
+        return count ;
     }
 }
