@@ -31,6 +31,10 @@ public class LongestPalindromicSubstring {
     }
     public static String solve(String string) {
         // O(N^2) time | O(1) space - where N is the length of string
+        /*
+        look for odd and even length palidrome
+        eg: abba, abcba
+         */
         int[] longest = {0, 1};
 
         for (int i = 1; i < string.length(); i++) {
@@ -48,6 +52,6 @@ public class LongestPalindromicSubstring {
             --leftIdx;
             ++rightIdx;
         }
-            return new int[] {leftIdx + 1, rightIdx};
+        return new int[] {leftIdx + 1, rightIdx};
     }
 }

@@ -49,7 +49,6 @@ public class LongestPalindrome {
                 hasOdd = true;
             }
         }
-
         if (hasOdd) length += 1;
         return length;
     }

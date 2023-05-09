@@ -54,7 +54,7 @@
  * First positive integer missing from the array is 3.
  */
 
-package InterviewProblems;
+package Linear.Arrays.InterviewProblems;
 
 public class FindMissingNumber {
     public static void main(String[] args) {
@@ -74,7 +74,6 @@ public class FindMissingNumber {
 //                }
 //            }
 //            if (!exists) {
-//                System.out.println("i: " + i);
 //                return i;
 //            }
 //        }
@@ -99,7 +98,7 @@ public class FindMissingNumber {
 //                continue;
 //            }
 //            if (prev + 1 != curr) return prev + 1;
-//            else prev = curr;
+//            prev = curr;
 //        }
 //        return prev + 1;
 
