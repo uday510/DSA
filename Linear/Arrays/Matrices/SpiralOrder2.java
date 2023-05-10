@@ -54,7 +54,7 @@
  * Explanation 3:
  */
 
-package Matrices;
+package Linear.Arrays.Matrices;
 
 import java.util.Arrays;
 
