@@ -60,7 +60,6 @@
  */
 package Linear.LinkedLists;
 
-import java.util.List;
 
 public class FlattenLinkedList {
     public static class ListNode {
