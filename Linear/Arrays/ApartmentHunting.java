@@ -1,3 +1,5 @@
+package Linear.Arrays;
+
 /**
  *
  You're looking to move into a new apartment on specific street, and you're given a list of contiguous blocks on that street where each block contains an apartment that you could move into.

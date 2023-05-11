@@ -31,14 +31,14 @@
  insertKeyValuePair("a", 5): - // "a" already exists in the cache so its value just gets replaced
  getValueFromKey("a"): 5
  */
-package Linear.LinkedLists;
 
+package Linear.LinkedLists;
 import java.util.HashMap;
 
 public class LRUCache {
     static HashMap<Integer, DoublyLinkedListNode> cache;
     int maxSize;
-    int currentSize = 0;
+    int currentSize;
     static DoublyLinkedList listOfMostRecent = new DoublyLinkedList();
     public LRUCache(int capacity) {
         this.currentSize = 0;
@@ -46,7 +46,6 @@ public class LRUCache {
         this.cache = new HashMap<>();
     }
     public static void main(String[] args) {
-
         LRUCache lruCache = new LRUCache(3);
         int ans = get(10);
         System.out.println(ans);
@@ -85,7 +84,6 @@ public class LRUCache {
     public static void updateMostRecent(DoublyLinkedListNode node) {
         listOfMostRecent.setHeadTo(node);
     }
-
     public void replaceKey(int key, int value) {
         if (!this.cache.containsKey(key)) {
             return;
@@ -96,10 +94,8 @@ public class LRUCache {
 class DoublyLinkedList {
     DoublyLinkedListNode head = null;
     DoublyLinkedListNode tail = null;
-
     public void setHeadTo(DoublyLinkedListNode node) {
         if (head == node) {
-            return;
         } else if (head == null) {
             head = node;
             tail = node;
@@ -135,12 +131,10 @@ class DoublyLinkedListNode {
     int value;
     DoublyLinkedListNode prev = null;
     DoublyLinkedListNode next = null;
-
     public DoublyLinkedListNode(int key, int value) {
         this.key = key;
         this.value = value;
     }
-
     public void removeBindings() {
         if (prev != null) {
             prev.next = next;
