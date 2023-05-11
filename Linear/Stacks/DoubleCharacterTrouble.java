@@ -68,22 +68,37 @@ public class DoubleCharacterTrouble {
     }
     public static String solve(String string) {
         // O(N) time | O(N) space
-        Stack<Character> stack = new Stack<>();
+//        Stack<Character> stack = new Stack<>();
+//
+//        for (int i = string.length() - 1; i > -1; i--) {
+//            char c = string.charAt(i);
+//
+//        if (stack.empty() || c != stack.peek()) {
+//                stack.push(c);
+//            } else {
+//                stack.pop();
+//            }
+//        }
+//        StringBuilder sb = new StringBuilder();
+//
+//        while (!stack.empty()) {
+//            sb.append(stack.pop());
+//        }
+//        return sb.toString();
 
-        for (int i = string.length() - 1; i > -1; i--) {
-            char c = string.charAt(i);
+        StringBuilder sb = new StringBuilder();
+        int sbLength = 0;
 
-        if (stack.empty() || c != stack.peek()) {
-                stack.push(c);
+        for (char c: string.toCharArray()) {
+            if (sbLength != 0 && c == sb.charAt(sbLength - 1)) {
+                sb.deleteCharAt(sbLength-- -1);
+//                sbLength--;
             } else {
-                stack.pop();
+                sb.append(c);
+                sbLength++;
             }
         }
-        StringBuilder sb = new StringBuilder();
-
-        while (!stack.empty()) {
-            sb.append(stack.pop());
-        }
         return sb.toString();
+
     }
 }
