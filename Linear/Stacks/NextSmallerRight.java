@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class NextSmallerRight {
     public static void main(String[] args) {
-        int[] array = {5, 2, 8, 10, 6, 1, 7, 15};
+        int[] array = {2, 1, 5, 6, 2, 3};
 
         int[] ans = solve(array);
         System.out.println(Arrays.toString(ans));
