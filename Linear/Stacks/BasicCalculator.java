@@ -41,7 +41,7 @@ public class BasicCalculator {
 
             // if the c is not digit continue
             if (Character.isDigit(c)) {
-                int val = 0 ;
+                int val = 0;
                 // get the digit , eg: 312
                 while (i < s.length() && Character.isDigit(s.charAt(i))) {
                     val = val * 10 + (s.charAt(i) - '0');
