@@ -39,15 +39,36 @@ public class DailyTemperatures {
     public static int[] solve(int[] temperatures) {
         // O(N) time | O(N) space
         int n = temperatures.length;
-        int[] ngr = ngr(temperatures);
-        int[] ans = new int[n];
+//        int[] ngr = ngr(temperatures);
+//        int[] ans = new int[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            if (ngr[i] != 0) {
+//                ans[i] = ngr[i] - i;
+//            }
+//        }
+//        return ans;
 
-        for (int i = 0; i < n; i++) {
-            if (ngr[i] != 0) {
-                ans[i] = ngr[i] - i;
+        // O(N) time | O(1) space
+        int hottest = 0;
+        int answer[] = new int[n];
+
+        for (int currDay = n - 1; currDay >= 0; currDay--) {
+            int currentTemp = temperatures[currDay];
+            if (currentTemp >= hottest) {
+                hottest = currentTemp;
+                continue;
             }
+
+            int days = 1;
+            while (temperatures[currDay + days] <= currentTemp) {
+                // Use information from answer to search for the next warmer day
+                days += answer[currDay + days];
+            }
+            answer[currDay] = days;
         }
-        return ans;
+
+        return answer;
     }
     public static int[] ngr(int[] temperatures) {
         int n = temperatures.length;
