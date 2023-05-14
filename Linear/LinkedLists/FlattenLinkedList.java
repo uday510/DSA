@@ -7,7 +7,6 @@
  * You are asked to flatten the linked list into a single list. Use down pointer to link nodes of the flattened list. The flattened linked list should also be sorted.
  *
  *
- *
  * Problem Constraints
  * 1 <= Total nodes in the list <= 100000
  *
@@ -27,7 +26,6 @@
  *
  * Example Input
  * Input 1:
- *
  *    3 -> 4 -> 20 -> 20 ->30
  *    |    |    |     |    |
  *    7   11   22    20   31
