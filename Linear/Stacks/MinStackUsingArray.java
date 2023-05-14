@@ -59,7 +59,7 @@
  */
 package Linear.Stacks;
 
-public class MinStack {
+public class MinStackUsingArray {
     static int topOfStack = -1;
 
     static int[] stack = new int[1000];

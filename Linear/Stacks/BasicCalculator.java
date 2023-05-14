@@ -38,7 +38,6 @@ public class BasicCalculator {
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-
             // if the c is not digit continue
             if (Character.isDigit(c)) {
                 int val = 0;
