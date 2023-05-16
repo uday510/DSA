@@ -50,15 +50,26 @@ public class MaximalRectangle {
         System.out.println(ans);
     }
     public static int solve(int[][] matrix) {
+        // O(N*M) time | O(N*M) space
+
         int ans = Integer.MIN_VALUE;
 
     /**
      * Row by Row apply maximum area of rectangle
      */
-    for (int i = 0; i < matrix.length; i++) {
-        ans = Math.max(ans, getMaxRectangle(matrix[i]));
-    }
+    int count[][] = new int[matrix.length][matrix[0].length];
 
+    for (int i = 0; i < matrix.length; i++) {
+        for (int j = 0; j < matrix[i].length; j++) {
+            if (i == 0) { count[i][j] = matrix[i][j]; }
+            else {
+                count[i][j] = matrix[i][j] == 0 ? 0 : count[i-1][j] + matrix[i][j];
+            }
+        }
+    }
+    for (int i = 0; i < count.length; i++) {
+        ans = Math.max(ans, getMaxRectangle(count[i]));
+    }
     return ans;
     }
 
