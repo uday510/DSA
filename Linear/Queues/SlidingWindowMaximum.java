@@ -38,8 +38,8 @@ import java.util.Deque;
 
 public class SlidingWindowMaximum {
     public static void main(String[] args) {
-        int[] nums = {1, 3, -1, -3, 5, 3, 6, 7};
-        int k = 3;
+        int[] nums = {10,9,8,7,6,5,4,3,2,1};
+        int k = 2;
 
         int[] ans = solve(nums, k);
         System.out.println(Arrays.toString(ans));
@@ -73,7 +73,7 @@ public class SlidingWindowMaximum {
             }
             // remove smaller elements in k range as they are useless
             while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-                deque.pollFirst();
+                deque.pollLast();
             }
             deque.offer(i);
             if (i >= k - 1) {

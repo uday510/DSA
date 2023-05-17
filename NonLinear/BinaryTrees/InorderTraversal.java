@@ -70,6 +70,8 @@
 package NonLinear.BinaryTrees;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
 
 public class InorderTraversal {
 
@@ -77,36 +79,58 @@ public class InorderTraversal {
         int val;
         TreeNode left;
         TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-            left = null;
-            right = null;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
     }
 
     public static void main(String[] args) {
 
-        TreeNode root = new TreeNode(1);
-        TreeNode child1 = new TreeNode(6);
-        TreeNode child2 = new TreeNode(2);
-        TreeNode child3 = new TreeNode(3);
+        TreeNode node7 = new TreeNode(7, null, null);
+        TreeNode node6 = new TreeNode(6, null, null);
+        TreeNode node5 = new TreeNode(5, node6, node7);
 
-        root.left = child1;
-        root.right = child2;
-        child2.left = child3;
+        TreeNode node3 = new TreeNode(4, null, null);
+        TreeNode node2 = new TreeNode(3, null, null);
+        TreeNode node1 = new TreeNode(2, node2, node3);
 
-        ArrayList<Integer> list = new ArrayList<>();
+        TreeNode root = new TreeNode(1, null, null);
 
-        solve(root, list);
-        System.out.println(list);
+        root.left = node1;
+        root.right = node5;
+
+
+        ArrayList<Integer> res = new ArrayList<>();
+        inorder(root, res);
+        System.out.println(res);
     }
-    public static void solve(TreeNode node, ArrayList<Integer> list) {
 
-        if (node == null) return;
+//    public static void inorder(TreeNode root, ArrayList<Integer> res) {
+//        if (root == null) return;
+//
+//        inorder(root.left, res);
+//        res.add(root.val);
+//        inorder(root.right, res);
+//    }
+    public static void inorder(TreeNode root, ArrayList<Integer> res) {
 
-        solve(node.left, list);
-        list.add(node.val);
-        solve(node.right, list);
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode currNode = root;
+
+        while (!stack.isEmpty() || currNode != null) {
+            while (currNode != null) {
+                stack.push(currNode);
+                currNode = currNode.left;
+            }
+            currNode = stack.pop();
+            res.add(currNode.val);
+
+            currNode = currNode.right;
+        }
     }
+
 }

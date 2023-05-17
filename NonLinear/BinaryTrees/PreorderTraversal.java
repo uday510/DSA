@@ -58,41 +58,62 @@
 package NonLinear.BinaryTrees;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class PreorderTraversal {
 
     public static class TreeNode {
         int val;
-        InorderTraversal.TreeNode left;
-        InorderTraversal.TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-            left = null;
-            right = null;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
     }
+
     public static void main(String[] args) {
-        InorderTraversal.TreeNode root = new InorderTraversal.TreeNode(1);
-        InorderTraversal.TreeNode child1 = new InorderTraversal.TreeNode(6);
-        InorderTraversal.TreeNode child2 = new InorderTraversal.TreeNode(2);
-        InorderTraversal.TreeNode child3 = new InorderTraversal.TreeNode(3);
 
-        root.left = child1;
-        root.right = child2;
-        child2.left = child3;
+        TreeNode node7 = new TreeNode(7, null, null);
+        TreeNode node6 = new TreeNode(6, null, null);
+        TreeNode node5 = new TreeNode(5, node6, node7);
 
-        ArrayList<Integer> list = new ArrayList<>();
+        TreeNode node3 = new TreeNode(4, null, null);
+        TreeNode node2 = new TreeNode(3, null, null);
+        TreeNode node1 = new TreeNode(2, node2, node3);
 
-        solve(root, list);
-        System.out.println(list);
+        TreeNode root = new TreeNode(1, null, null);
+
+        root.left = node1;
+        root.right = node5;
+
+
+        ArrayList<Integer> res = new ArrayList<>();
+        preorder(root, res);
+        System.out.println(res);
     }
-    public static void solve(InorderTraversal.TreeNode node, ArrayList<Integer> list) {
+//    public static void preorder(TreeNode root, ArrayList<Integer> res) {
+//        if (root == null) return;
+//
+//        res.add(root.val);
+//        preorder(root.left, res);
+//        preorder(root.right, res);
+//    }
+    public static void preorder(TreeNode root, ArrayList<Integer> res) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode currNode = root;
 
-        if (node == null) return;
-
-        list.add(node.val);
-        solve(node.left, list);
-        solve(node.right, list);
+        while (!stack.isEmpty() || currNode != null) {
+            while (currNode != null) {
+                res.add(currNode.val);
+                stack.push(currNode);
+                currNode = currNode.left;
+            }
+            currNode = stack.pop();
+            currNode = currNode.right;
+        }
     }
 }
