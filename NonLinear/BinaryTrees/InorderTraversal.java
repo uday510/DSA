@@ -108,15 +108,10 @@ public class InorderTraversal {
         System.out.println(res);
     }
 
-//    public static void inorder(TreeNode root, ArrayList<Integer> res) {
-//        if (root == null) return;
-//
-//        inorder(root.left, res);
-//        res.add(root.val);
-//        inorder(root.right, res);
-//    }
+
     public static void inorder(TreeNode root, ArrayList<Integer> res) {
 
+        // -------------- using stack --------------
         Stack<TreeNode> stack = new Stack<>();
         TreeNode currNode = root;
 
@@ -130,6 +125,13 @@ public class InorderTraversal {
 
             currNode = currNode.right;
         }
+
+// -------------- using recursion --------------
+//        if (root == null) return;
+//
+//        inorder(root.left, res);
+//        res.add(root.val);
+//        inorder(root.right, res);
     }
 
 }

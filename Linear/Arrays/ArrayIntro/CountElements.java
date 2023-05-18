@@ -1,3 +1,5 @@
+package Linear.Arrays.ArrayIntro;
+
 /**
  * Given an array A of N integers.
  * Count the number of elements that have at least 1 elements

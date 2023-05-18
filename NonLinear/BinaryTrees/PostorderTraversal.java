@@ -95,18 +95,11 @@ public class PostorderTraversal {
         postorder(root, res);
         System.out.println(res);
     }
-//    public static void postorder(TreeNode root, ArrayList<Integer> res) {
-//        if (root == null) return;
-//
-//        postorder(root.left, res);
-//        postorder(root.right, res);
-//        res.add(root.val);
-//    }
 
-public static void postorder(TreeNode root, ArrayList<Integer> res) {      // LEFT | RIGHT | ROOT
+public static void postorder(TreeNode root, ArrayList<Integer> res) {
     Stack<TreeNode> stack = new Stack<>();
     TreeNode currNode = root;
-    /**
+    /**         LEFT | RIGHT | ROOT
      *                    1
      *                  /   \
      *                 2     6
@@ -117,28 +110,58 @@ public static void postorder(TreeNode root, ArrayList<Integer> res) {      // LE
      *            / \
      *           N   N
      */
-        while (!stack.isEmpty() || currNode != null) {
-                if (currNode != null) {
-                    stack.push(currNode);
-                    currNode = currNode.left;
-                } else {
-                    TreeNode node = stack.peek();
-                    node = node.right;
 
-                    if (node == null) {
-                        node = stack.peek();
-                        stack.pop();
-                        res.add(node.val);
-                        while (!stack.isEmpty() &&
-                                node == stack.peek().right) {
-                            node = stack.peek();
-                            stack.pop();
-                            res.add(node.val);
-                        }
-                    } else {
-                        currNode = node;
-                    }
+//--------------- Using one stack-------------
+
+    while (currNode != null || !stack.isEmpty()) {
+        if (currNode != null) {
+            stack.push(currNode);
+            currNode = currNode.left;
+        } else {
+            TreeNode tempNode = stack.peek().right;
+            if (tempNode == null) {
+                tempNode = stack.peek();
+                stack.pop();
+                res.add(tempNode.val);
+                while (!stack.isEmpty() && tempNode == stack.peek().right) {
+                    tempNode = stack.peek();
+                    stack.pop();
+                    res.add(tempNode.val);
                 }
+             } else {
+                currNode = tempNode;
+            }
         }
     }
+
+
+//------------- using two stacks-------------
+//    Stack<TreeNode> stack1 = new Stack<>();
+//    Stack<TreeNode> stack2 = new Stack<>();
+//    stack1.push(root);
+//
+//         while (!stack1.isEmpty()) {
+//            root = stack1.pop();
+//            stack2.push(root);
+//            if (root.left != null)  stack1.push(root.left);
+//            if (root.right != null) stack1.push(root.right);
+//         }
+//
+//         while (!stack2.isEmpty()) {
+//             currNode = stack2.pop();
+//             res.add(currNode.val);
+//         }
+
+
+
+
+// -------------- using recursion --------------
+
+//    if (root == null) return;
+//
+//        postorder(root.left, res);
+//        postorder(root.right, res);
+//        res.add(root.val);
+
+}
 }
