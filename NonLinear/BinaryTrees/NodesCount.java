@@ -1,9 +1,6 @@
 /**
  * Problem Description
  * You are given the root node of a binary tree A. You have to find the number of nodes in this tree.
- *
- *
- *
  * Problem Constraints
  * 1 <= Number of nodes in the tree <= 105
  *
