@@ -95,14 +95,8 @@ public class PreorderTraversal {
         preorder(root, res);
         System.out.println(res);
     }
-//    public static void preorder(TreeNode root, ArrayList<Integer> res) {
-//        if (root == null) return;
-//
-//        res.add(root.val);
-//        preorder(root.left, res);
-//        preorder(root.right, res);
-//    }
     public static void preorder(TreeNode root, ArrayList<Integer> res) {
+        //--------------- Using stack-------------
         Stack<TreeNode> stack = new Stack<>();
         TreeNode currNode = root;
 
@@ -115,5 +109,13 @@ public class PreorderTraversal {
             currNode = stack.pop();
             currNode = currNode.right;
         }
+
+ // -------------- using recursion --------------
+
+//        if (root == null) return;
+//
+//        res.add(root.val);
+//        preorder(root.left, res);
+//        preorder(root.right, res);
     }
 }
