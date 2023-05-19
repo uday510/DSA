@@ -35,7 +35,6 @@ public class RemoveDuplicatesFromSortedList2 {
     public static ListNode solve(ListNode head) {
         // O(N) time | O(1) space
         ListNode tempNode = new ListNode(0, head);
-        tempNode.next = head;
         ListNode prevNode = tempNode;
         ListNode currNode = head;
 

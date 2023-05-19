@@ -50,6 +50,7 @@ public class ReverseLinkedList2 {
             before = before.next;
         }
 
+        // before is at node 1
         ListNode prevNode = before;
         ListNode currNode = before.next;
 
@@ -60,6 +61,10 @@ public class ReverseLinkedList2 {
             currNode = nextNode;
         }
 
+        /**
+         * before.next.next is 2.next i.e 2.next should point to currNode i.e 5
+         * before.next should point to last node of reversed i.e 4
+         */
         before.next.next = currNode;
         before.next = prevNode;
 

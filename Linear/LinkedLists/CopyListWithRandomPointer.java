@@ -94,7 +94,7 @@ public class CopyListWithRandomPointer {
          4. return new-list head;
          */
 
-        //1. create the new-node in between old nodes30    \][poiytrewq
+        //1. create the new-node in between old nodes
         Node currNode = head;
         while (currNode != null) {
             Node newNode = new Node(currNode.val);

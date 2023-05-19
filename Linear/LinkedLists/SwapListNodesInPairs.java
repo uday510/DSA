@@ -90,7 +90,9 @@ public class SwapListNodesInPairs {
         ListNode prevNode = tempNode;
         while (prevNode.next != null && prevNode.next.next != null) {
             ListNode firstNode = prevNode.next;
-            ListNode secondNode = prevNode.next.next;
+//            ListNode secondNode = prevNode.next.next;
+            //------------or--------------
+            ListNode secondNode = firstNode.next;
 
             firstNode.next = secondNode.next;
             secondNode.next = firstNode;
