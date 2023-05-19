@@ -66,6 +66,7 @@ public class DutchNationalFlag {
         while (secondIdx <= thirdIdx) {
             int value = array[secondIdx];
 
+            // [1, 0, 0, 0, 2....]
             if (value == firstValue) {
                 swap(firstIdx, secondIdx, array);
                 firstIdx += 1;

@@ -54,6 +54,7 @@ public class MergeTwoSortedLists {
         }
        tail.next = list1 == null ? list2 : list1;
 
+        // tail is pointing to head
         return head.next;
     }
 }

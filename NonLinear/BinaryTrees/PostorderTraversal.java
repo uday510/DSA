@@ -134,7 +134,6 @@ public static void postorder(TreeNode root, ArrayList<Integer> res) {
         }
     }
 
-
 //------------- using two stacks-------------
 //    Stack<TreeNode> stack1 = new Stack<>();
 //    Stack<TreeNode> stack2 = new Stack<>();
