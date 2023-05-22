@@ -73,7 +73,7 @@ public class FirstUniqueCharacter {
     public static String solve(String str) {
         // O(N) time | O(N) space
         Queue <Character> queue = new LinkedList<>();
-        //hm stores the character of each character
+        //hash map stores the character of each character
         HashMap<Character, Integer> hm = new HashMap<>();
         StringBuilder sb = new StringBuilder();
 
@@ -83,14 +83,15 @@ public class FirstUniqueCharacter {
             if (hm.get(c) != null) {
                 hm.put(c, 2);
             } else {
+                // if c is not present then only add to queue
                 queue.add(c);
                 hm.put(c, 1);
             }
             // remove from queue if the character repeats
-            while (queue.size() > 0 && hm.get(queue.peek()) > 1) {
-                queue.remove();
+            while (!queue.isEmpty() && hm.get(queue.peek()) > 1) {
+                queue.poll();
             }
-            if (queue.size() > 0) {
+            if (!queue.isEmpty()) {
                 sb.append(queue.peek());
             } else {
                 sb.append('#');

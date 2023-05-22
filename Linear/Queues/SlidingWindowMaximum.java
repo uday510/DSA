@@ -38,22 +38,20 @@ import java.util.Deque;
 
 public class SlidingWindowMaximum {
     public static void main(String[] args) {
-        int[] nums = {10,9,8,7,6,5,4,3,2,1};
-        int k = 2;
+        int[] nums = {1,3,1,2,0,5};
+        int k = 3;
 
         int[] ans = solve(nums, k);
         System.out.println(Arrays.toString(ans));
     }
     public static int[] solve(int[] nums, int k) {
 
-
-
         int n = nums.length;
         if (n*k == 0) return new int[0];
 
         int[] output = new int[n-k+1];
 
-//           O(N-K+1) time | O(K) space
+//        O(N-K+1) time | O(K) space
 //        for (int i = 0; i < n - k + 1; i++) {
 //            int max = Integer.MIN_VALUE;
 //            for (int j = i; j < i + k; j++) {
@@ -62,6 +60,7 @@ public class SlidingWindowMaximum {
 //            output[i] = max;
 //        }
 
+        // queue won't work here, for explanation purpose, dry run with the input
         int idx = 0;
         // store index
         // monotonous increasing queue
@@ -79,9 +78,7 @@ public class SlidingWindowMaximum {
             if (i >= k - 1) {
                 output[idx++] = nums[deque.peek()];
             }
-
         }
         return output;
-
     }
 }

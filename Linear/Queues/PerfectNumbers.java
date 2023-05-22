@@ -69,38 +69,38 @@ import java.util.Queue;
 
 public class PerfectNumbers {
     public static void main(String[] args) {
-        int a = 9;
+        int a = 4;
 
         String ans = solve(a);
         System.out.println(ans);
     }
     public static String solve(int a) {
         // O(a) time | O(a) space
-
-        Queue<String> queue = new LinkedList<>();
         if (a == 1) {
             return "11";
         } else if (a == 2) {
             return "22";
         }
+        Queue<String> queue = new LinkedList<>();
         queue.add("1");
         queue.add("2");
-        int cur = 2;
-        String ans = new String();
+        int currIdx = 2;
+        String ans;
+        StringBuilder sb;
         while (true) {
-            StringBuilder sb = new StringBuilder(queue.peek());
+            sb = new StringBuilder(queue.peek());
             queue.remove(); // remove first from queue
             sb.append("1"); // add 1 to it.
             queue.add(sb.toString()); // add to queue
-            cur++;
-            if (cur == a) {
+            currIdx++;
+            if (currIdx == a) {
                 ans = sb.toString();
                 break;
             }
             sb.deleteCharAt(sb.length() - 1); // remove last char append "b"
             sb.append("2");
-            cur++;
-            if (cur == a) {
+            currIdx++;
+            if (currIdx == a) {
                 ans = sb.toString();
                 break;
             }
@@ -108,7 +108,7 @@ public class PerfectNumbers {
         }
 
         // ans has the first half of our final answer
-        StringBuilder sb = new StringBuilder(ans);
+        sb = new StringBuilder(ans);
         return ans + sb.reverse();
 
     }

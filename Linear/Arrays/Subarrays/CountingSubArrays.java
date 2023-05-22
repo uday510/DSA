@@ -69,7 +69,6 @@ public class CountingSubArrays {
         int ans = solve(array, b);
         System.out.println(ans);
 
-
         System.out.println("Runtime " + (endTime - startTime) + " ms");
         System.out.println("Space " + actualMemUsed + " B");
     }
