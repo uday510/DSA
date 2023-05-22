@@ -79,7 +79,7 @@ public class SumOfMinAndMax {
         System.out.println(ans);
     }
     public static int solve(int[] array, int b) {
-        int mod = 1000 * 1000 * 1000 + 7;
+        int mod = (int) 1e9 + 7;
         int ans = 0;
         int currNum;
         int currSum;
