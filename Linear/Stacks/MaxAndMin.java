@@ -67,6 +67,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class MaxAndMin {
+    public static int mod = (int) 1e9 + 7;
     public static void main(String[] args) {
         int[] array = {4, 7, 3, 8};
 
@@ -75,155 +76,95 @@ public class MaxAndMin {
     }
     public static int solve(int[] array) {
         // Solution having some logic error
+            int NSEL[] = getNSEL(array);
+            int NSER[] = getNSER(array);
+            int NLEL[] = getNLEL(array);
+            int NLER[] = getNLER(array);
 
-        int[] ngl = getNextGreaterLeft(array);
-        System.out.println("GREATER LEFT" + Arrays.toString(ngl));
-        int[] ngr = getNextGreaterRight(array);
-        System.out.println("GREATER RIGHT" + Arrays.toString(ngr));
-
-        int[] nsl = getNextSmallerLeft(array);
-        System.out.println("SMALLER LEFT" + Arrays.toString(nsl));
-        int[] nsr = getNextSmallerRight(array);
-        System.out.println("SMALLER RIGHT" + Arrays.toString(nsr));
-
-        long max = 0;
-        long min = 0;
-        long mod = (long) (1e9 + 7);
-
-        // 4, 7, 3, 8
-        for (int i = 0; i < array.length; i++) {
-            int val = array[i];
-
-            max =  (max + (val * (i - ngl[i] + 1) * (ngr[i] - i + 1))) % mod;
-            min = (min + (val * (i - nsl[i] + 1) * (nsr[i] - i + 1))) % mod;
-        }
-        return (int) (max - min);
+            long sum = 0;
+            for(int i = 0;i<array.length;i++) {
+                long max = 1L*( NLER[i] - i + 1 ) * ( i - NLEL[i] + 1);
+                long min = 1L*( NSER[i] -i + 1) *(i - NSEL[i] + 1);
+                long s = (long) (max - min) * (long) array[i];
+                sum =  (sum %mod +  s%mod)%mod;
+            }
+            return (int)((sum + mod)%mod);
     }
-    public static int[] getNextSmallerLeft(int[] array) {
-        int n = array.length;
-        int[] ans = new int[n];
-        Stack<Integer> stack = new Stack<>();
+    public static int[] getNSEL(int arr[]) {
+        int n = arr.length;
+        int res[] = new int[n];
+        Stack<Integer> st = new Stack<>();
 
-        for (int i = 0; i < n; i++) {
-            int currNum = array[i];
-
-            if (stack.isEmpty()) {
-                stack.push(i);
+        for(int i= 0;i<n;i++) {
+            while(!st.isEmpty() && arr[st.peek()] >= arr[i]) {
+                st.pop();
             }
-            else if (array[stack.peek()] < currNum) {
-                ans[i] = stack.peek() + 1;
-                stack.push(i);
+            if(st.isEmpty()) {
+                res[i] = 0;
+            } else {
+                res[i] = st.peek() + 1;
             }
-            else {
-                while (!stack.isEmpty() && currNum <= array[stack.peek()]) {
-                    stack.pop();
-                }
-                if (!stack.isEmpty()) {
-                    ans[i] = stack.peek() + 1;
-                }
-//                else {
-//                    ans[i] = -1;
-//                }
-                stack.push(i);
-            }
+            st.push(i);
         }
-        return ans;
+        return res;
     }
-    public static int[] getNextSmallerRight(int[] array) {
-        int n = array.length;
-        int[] ans = new int[n];
-        Stack<Integer> stack = new Stack<>();
 
-        for (int i = n - 1; i > -1; i--) {
-            int currNum = array[i];
+    public static int[] getNSER(int arr[]) {
+        int n = arr.length;
+        int res[] = new int[n];
+        Stack<Integer> st = new Stack<>();
 
-            if (stack.isEmpty()) {
-                stack.push(i);
-                ans[i] = array.length - 1;
+        for(int i= n-1;i>=0;i--) {
+            while(!st.isEmpty() && arr[st.peek()] >= arr[i]) {
+                st.pop();
             }
-            else if (array[stack.peek()] < currNum) {
-                ans[i] = stack.peek();
-                stack.push(i);
+            if(st.isEmpty()) {
+                res[i] = n-1;
+            } else {
+                res[i] = st.peek() - 1;
             }
-            else {
-                while (!stack.isEmpty() && currNum <= array[stack.peek()]) {
-                    stack.pop();
-                }
-                if (!stack.isEmpty()) {
-                    ans[i] = stack.peek() - 1;
-                }
-                else {
-                    // keep default as array length
-                    ans[i] = array.length - 1;
-                }
-                stack.push(i);
-            }
-
+            st.push(i);
         }
-        return ans;
+        return res;
     }
-    public static int[] getNextGreaterLeft(int[] array) {
-        int n = array.length;
-        int[] ans = new int[n];
-        Stack<Integer> stack = new Stack<>();
 
-        for (int i = 0; i < n; i++) {
-            int currNum = array[i];
+    public static int[] getNLEL(int arr[]) {
+        int n = arr.length;
+        int res[] = new int[n];
+        Stack<Integer> st = new Stack<>();
 
-            if (stack.isEmpty()) {
-                stack.push(i);
-//                    ans[i] = -1;
+        for(int i= 0;i<n;i++) {
+            while(!st.isEmpty() && arr[st.peek()] <= arr[i]) {
+                st.pop();
             }
-            else if (array[stack.peek()] > currNum) {
-                ans[i] = stack.peek() + 1;
-                stack.push(i);
+            if(st.isEmpty()) {
+                res[i] = 0;
+            } else {
+                res[i] = st.peek() + 1;
             }
-            else {
-                while (!stack.isEmpty() && currNum >= array[stack.peek()]) {
-                    stack.pop();
-                }
-                if (!stack.isEmpty()) {
-                    ans[i] = stack.peek() + 1;
-                }
-//                else {
-//                    ans[i] = -1;
-//                }
-                stack.push(i);
-            }
+            st.push(i);
         }
-        return ans;
+        return res;
     }
-    public static int[] getNextGreaterRight(int[] array) {
-        int n = array.length;
-        int[] ans = new int[n];
-        Stack<Integer> stack = new Stack<>();
 
-        for (int i = n - 1; i > -1; i--) {
-            int currNum = array[i];
+    public static int[] getNLER(int arr[]) {
+        int n = arr.length;
+        int res[] = new int[n];
+        Stack<Integer> st = new Stack<>();
 
-            if (stack.isEmpty()) {
-                stack.push(i);
-                ans[i] = array.length;
+        for(int i= n-1;i>=0;i--) {
+            while(!st.isEmpty() && arr[st.peek()] <= arr[i]) {
+                st.pop();
             }
-            else if (array[stack.peek()] > currNum) {
-                ans[i] = stack.peek() - 1;
-                stack.push(i);
+            if(st.isEmpty()) {
+                res[i] = n-1;
+            } else {
+                res[i] = st.peek() - 1;
             }
-            else {
-                while (!stack.isEmpty() && currNum >= array[stack.peek()]) {
-                    stack.pop();
-                }
-                if (!stack.isEmpty()) {
-                    ans[i] = stack.peek();
-                }
-                else {
-                    // keep default as array length
-                    ans[i] = array.length;
-                }
-                stack.push(i);
-            }
-
+            st.push(i);
         }
-        return ans;
+        return res;
     }
+
+
 }
