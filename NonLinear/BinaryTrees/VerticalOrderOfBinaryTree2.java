@@ -67,17 +67,12 @@ public class VerticalOrderOfBinaryTree2 {
             ArrayDeque<Pair> queue = new ArrayDeque<>()
             {{offer(new Pair(root, 0, 0));}};;
 
-            int min = Integer.MAX_VALUE;
-            int max = Integer.MIN_VALUE;
 
             while (!queue.isEmpty()) {
-                TreeNode.Pair currPair = queue.poll();
+                Pair currPair = queue.poll();
                 TreeNode currNode = currPair.node;
                 int currLevel = currPair.row;
                 int currCol = currPair.col;
-
-                min = Math.min(min, currLevel);
-                max = Math.max(max, currLevel);
 
                 // add currNode in hm
                 if (!tm.containsKey(currLevel)) {
@@ -92,10 +87,10 @@ public class VerticalOrderOfBinaryTree2 {
                 tm.get(currLevel).get(currCol).offer(currNode.val);
 
                 if (currNode.left != null) {
-                    queue.offer(new TreeNode.Pair(currNode.left, currLevel - 1, currCol + 1));
+                    queue.offer(new Pair(currNode.left, currLevel - 1, currCol + 1));
                 }
                 if (currNode.right != null) {
-                    queue.offer(new TreeNode.Pair(currNode.right, currLevel + 1, currCol + 1));
+                    queue.offer(new Pair(currNode.right, currLevel + 1, currCol + 1));
                 }
             }
 
