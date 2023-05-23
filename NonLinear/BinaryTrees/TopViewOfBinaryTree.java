@@ -67,9 +67,7 @@
  */
 package NonLinear.BinaryTrees;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class TopViewOfBinaryTree {
     public static class TreeNode {
@@ -123,10 +121,11 @@ public class TopViewOfBinaryTree {
 
         if (root == null) return ans;
 
-        HashMap<Integer, Integer> hm = new HashMap<>();
+        Map<Integer, Integer> tm = new TreeMap<>();
 
-        ArrayDeque<Pair> queue = new ArrayDeque<>()
-        {{offer(new Pair(root, 0));}};;
+        ArrayDeque<Pair> queue = new ArrayDeque<>() {{
+            offer(new Pair(root, 0));
+        }};
 
         while (!queue.isEmpty()) {
             Pair currPair = queue.poll();
@@ -134,9 +133,8 @@ public class TopViewOfBinaryTree {
             int currNodeLevel = currPair.level;
 
             // add only first node of vertical level
-            if (!hm.containsKey(currNodeLevel)) {
-                hm.put(currNodeLevel, currNode.val);
-                ans.add(currNode.val);
+            if (tm.get(currNodeLevel) == null) {
+                tm.put(currNodeLevel, currNode.val);
             }
 
             if (currNode.left != null) {
@@ -146,7 +144,10 @@ public class TopViewOfBinaryTree {
                 queue.offer(new Pair(currNode.right, currNodeLevel + 1));
             }
         }
+        // traverse in tree map, which is from min to max and to ans
+        for (Map.Entry<Integer, Integer> entry : tm.entrySet()) {
+            ans.add(entry.getValue());
+        }
         return ans;
     }
-
 }
