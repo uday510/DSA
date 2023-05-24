@@ -93,16 +93,18 @@ public class BoundaryTraversalOfBinaryTree {
         public static ArrayList<Integer> solve(TreeNode root) {
             // O(N) time | O(N) space
             ArrayList<Integer> res = new ArrayList<>();
+
+            // add root node if it is not a leat node
             if (!isLeafNode(root)) res.add(root.val);
 
-            addLeftNodes(root, res);
+            addLeftNodes(root.left, res);
             addLeafNodes(root, res);
             addRightNodes(root.right, res);
 
             return res;
         }
-        public static void addLeftNodes(TreeNode root, ArrayList<Integer> res) {
-            TreeNode currNode = root.left;
+        public static void addLeftNodes(TreeNode node, ArrayList<Integer> res) {
+            TreeNode currNode = node;
 
             while (currNode != null) {
                 if (!isLeafNode(currNode)) res.add(currNode.val);
@@ -119,13 +121,13 @@ public class BoundaryTraversalOfBinaryTree {
            addLeafNodes(root.left, res);
            addLeafNodes(root.right, res);
         }
-        public static void addRightNodes(TreeNode root, ArrayList<Integer> res) {
-            if (root == null) return;
+        public static void addRightNodes(TreeNode node, ArrayList<Integer> res) {
+            if (node == null) return;
 
-            if (root.right != null) addRightNodes(root.right, res);
-            else addRightNodes(root.left, res);
+            if (node.right != null) addRightNodes(node.right, res);
+            else addRightNodes(node.left, res);
 
-            if (!isLeafNode(root)) res.add(root.val);
+            if (!isLeafNode(node)) res.add(node.val);
 
  //-------------------without recursion-----------------
 //            TreeNode currNode = root.right;
