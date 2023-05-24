@@ -111,12 +111,13 @@ public class BoundaryTraversalOfBinaryTree {
             }
         }
         public static void addLeafNodes(TreeNode root, ArrayList<Integer> res) {
+            if (root == null) return;
            if (isLeafNode(root)) {
                res.add(root.val);;
                return;
            }
-           if (root.left != null) addLeafNodes(root.left, res);
-           if (root.right != null) addLeafNodes(root.right, res);
+           addLeafNodes(root.left, res);
+           addLeafNodes(root.right, res);
         }
         public static void addRightNodes(TreeNode root, ArrayList<Integer> res) {
             if (root == null) return;
@@ -126,7 +127,7 @@ public class BoundaryTraversalOfBinaryTree {
 
             if (!isLeafNode(root)) res.add(root.val);
 
-            //without recursion
+ //-------------------without recursion-----------------
 //            TreeNode currNode = root.right;
 //            ArrayList<Integer> tempList = new ArrayList<>();
 //            while (currNode != null) {
