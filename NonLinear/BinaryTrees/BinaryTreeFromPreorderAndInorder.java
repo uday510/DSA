@@ -48,9 +48,10 @@ public class BinaryTreeFromPreorderAndInorder {
 
     public static void main(String[] args) {
 
-        int[] preorder = {};
-        int[] inorder = {};
+        int[] preorder = {2, 1, 7, 5, 4, 6};
+        int[] inorder = {1, 2, 4, 5, 6, 7};
         TreeNode root = solve(preorder, inorder);
+        System.out.println(root.val);
     }
     public static TreeNode solve(int[] preorder, int[] inorder) {
         // O(N) time | O(N) space
