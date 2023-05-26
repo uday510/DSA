@@ -49,30 +49,33 @@ public class DeleteNodeInBST {
 
         public static void main(String[] args) {
 
-            TreeNode node7 = new TreeNode(30, null, null);
-            TreeNode node6 = new TreeNode(10, null, null);
-            TreeNode node5 = new TreeNode(20, node6, node7);
+            TreeNode node8 = new TreeNode(6, null, null);
+            TreeNode node7 = new TreeNode(4, null, null);
+            TreeNode node6 = new TreeNode(5, node7, node8);
+            TreeNode node5 = new TreeNode(7, node6, null);
 
-            TreeNode node3 = new TreeNode(6, null, null);
-            TreeNode node2 = new TreeNode(4, null, null);
-            TreeNode node1 = new TreeNode(8, node2, node3);
 
-            TreeNode root = new TreeNode(10, null, null);
+            TreeNode node3 = new TreeNode(2, null, null);
+            TreeNode node1 = new TreeNode(1,null, node3);
 
-            root.left = node1;
-            root.right = node5;
+            TreeNode root = new TreeNode(3, node1, node5);
+
+
+            TreeNode ans = solve(root, 3);
+
+            System.out.println(ans.val);
 
         }
     public static TreeNode solve(TreeNode root, int key) {
 
         /**
-         *                      9
+         *                       9
          *                    /    \
          *                  8       12
          *                /       /   \
          *               5       10   13
          *             /   \      \
-         *            3      7     11
+         *            3      7    11
          *          /   \   /  \
          *         2     4  6    8
          *        /
@@ -105,7 +108,7 @@ public class DeleteNodeInBST {
         // main logic
         TreeNode currNode = root;
         while (currNode != null) {
-            if (currNode.val < key) {
+            if (key < currNode.val) {
                 if (currNode.left != null && currNode.val == key) {
                     currNode.left = helper(currNode.left);
                     break;
@@ -136,6 +139,6 @@ public class DeleteNodeInBST {
         while (node.right != null) {
             node = node.right;
         }
-        return node;
+        return node; // 2
     }
 }
