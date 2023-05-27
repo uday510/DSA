@@ -82,6 +82,10 @@ public class PathSum2 {
                 getPaths(currNode.left, remainingSum - currNode.val, currPath, pathLists);
                 getPaths(currNode.right, remainingSum - currNode.val, currPath, pathLists);
             }
+
+            // need to pop the node once we are done processing
+            // ALL of it's subtrees
+            currPath.remove(currPath.size() - 1);
         }
     }
 }
