@@ -47,22 +47,22 @@ public class MorrisTraversal {
 
 
             TreeNode currNode = root;
-            TreeNode tempNode;
+            TreeNode predecessor; //predecessor
 
             while (currNode != null) {
                 if (currNode.left == null) {
                     res.add(currNode.val);
                     currNode = currNode.right;
                 } else {
-                    tempNode = currNode.left;
-                    while (tempNode != null && tempNode.right != null) {
-                            tempNode = tempNode.right;
+                    predecessor = currNode.left;
+                    while (predecessor != null && predecessor.right != null) {
+                            predecessor = predecessor.right;
                     }
-                    if (tempNode.right == null) {
-                        tempNode.right = currNode;
+                    if (predecessor.right == null) {
+                        predecessor.right = currNode;
                         currNode = currNode.left;
                     } else {
-                        tempNode.right = null;
+                        predecessor.right = null;
                         res.add(currNode.val);
                         currNode = currNode.right;
                     }

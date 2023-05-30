@@ -8,7 +8,6 @@
  * Swapping 1 and 3 makes the BST valid.
  */
 package NonLinear.BinaryTrees;
-
 import java.util.ArrayList;
 
 public class RecoverBinarySearchTree {
@@ -37,9 +36,87 @@ public class RecoverBinarySearchTree {
 
             root.left = node1;
             root.right = node5;
-
         }
 
+        /**
+         * With help of morris traverse
+         *
+         * The idea of Morris
+         * algorithm is to set the temporary link between the node and its
+         * predecessor:
+         * predecessor.right = root.
+         * So one starts from the node, computes its predecessor and
+         * verifies if the link is present.
+         *
+         * There is no link? Set it and go to the left subtree.
+         *
+         * There is a link? Break it and go to the right subtree.
+         *
+         * There is one small issue to deal with : what if there is no
+         * left child, i.e. there is no left subtree?
+         * Then go straightforward to the right subtree.
+         */
+
+        public void solveUsingMorris(TreeNode root) {
+            // predecessor is a Morris predecessor.
+            // In the 'loop' cases it could be equal to the node itself predecessor == root.
+            // pred is a 'true' predecessor,
+            // the previous node in the inorder traversal.
+
+            TreeNode currNode = root, x = null, y = null, pred = null, predecessor = null;
+
+            while (currNode != null) {
+                if (currNode.left == null) {
+                    // check for the swapped nodes
+                    if (pred != null && currNode.val < pred.val) {
+                        y = currNode; // Eg.(inorder) [1, 3, 2, 4] -> y = 1
+                        if (x == null) x = pred; // Eg. (inorder) [1, 3, 2, 4] -> x = 3
+                    }
+                    pred = currNode;
+
+                    currNode = currNode.right; // go right
+                } else {
+                    // if there is a left child
+                    // then compute the predecessor
+                    // if there is no link predecessor.right = currNode --> set it.
+                    // if there is a link predecessor.right = currNode --> break it.
+
+                    // Predecessor node is one step left
+                    predecessor = currNode.left;
+                    while (predecessor.right != null && predecessor.right != currNode) {
+                        predecessor = predecessor.right;
+                    }
+
+                    //set link predecessor.right = currNode
+                    // and go to explore left subtree
+                    if (predecessor.right == null) {
+                        predecessor.right = currNode;
+                        currNode = currNode.left;
+                    }
+                    // break link predecessor.right = currNode
+                    // link broken : time to change subtree and go right
+                    else {
+                        // check for swapped nodes
+                        if (pred != null && currNode.val < pred.val) {
+                            y = currNode;
+                            if (x == null) x = pred;
+                        }
+                        pred = currNode;
+
+                        predecessor.right = null;
+                        currNode = currNode.right;
+                    }
+                }
+                swap(x, y);
+            }
+        }
+            public static void swap(TreeNode a, TreeNode b) {
+                int temp = a.val;
+                a.val = b.val;
+                b.val = temp;
+        }
+
+        // without morris traverse
         public void recoverTree(TreeNode root) {
             /**
              * Algorithm
@@ -76,13 +153,14 @@ public class RecoverBinarySearchTree {
             boolean swappedFirstOccurrence = false;
             for (int i = 0; i < n; ++i) {
                 if (nums.get(i+1) < nums.get(i)) {
+                    // traverse till we get second occurrence
                     y = nums.get(i+1);
-                    //first swap occurence
+                    //first swap occurrence
                     if (!swappedFirstOccurrence) {
                         x = nums.get(i);
                         swappedFirstOccurrence = true;
                     } else {
-                        // second swap occurence
+                        // second swap occurrence
                         break;
                     }
                 }
