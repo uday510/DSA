@@ -45,6 +45,23 @@ public class TrieConstruction {
         if (currNode.eow == true) return true;
         return false;
     }
+    public int getFreq(NonLinear.Tries.TrieNode root, String data) {
+        // O(L) time | O(1) space where L is length of data.
+        NonLinear.Tries.TrieNode currNode = root;
+        for (int i = 0; i < data.length(); i++) {
+            char c = data.charAt(i);
+            int idx = c - 'a'; // gives index
+            if (currNode.children[idx] == null) {
+                // insert current char
+                return 0;
+            }
+            System.out.print(currNode.freq + " ");
+            // go to next char index.
+            currNode = currNode.children[idx];
+        }
+        // mark eow = true
+        return currNode.freq;
+    }
     public void delete(TrieNode root, String word) {
         /**
          * Nodes that cannot be deleted
