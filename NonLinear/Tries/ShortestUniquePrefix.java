@@ -149,7 +149,7 @@ class Trie {
             currNode = currNode.children[idx];
         }
         // mark eow = true
-        if (currNode.eow = true) return true;
+        if (currNode.eow == true) return true;
         return false;
     }
     public void delete(TrieNode root, String word) {
