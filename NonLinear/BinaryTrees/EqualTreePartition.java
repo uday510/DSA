@@ -46,7 +46,6 @@ public class EqualTreePartition {
              * After removing some edge from parent to child,
              * (where the child cannot be the original root) the subtree
              * rooted at child must be half the sum of the entire tree.
-             *
              * Let's record the sum of every subtree.
              * We can do this recursively using depth-first search.
              * After, we should check that half the sum of the entire tree
@@ -55,7 +54,7 @@ public class EqualTreePartition {
              */
             seen = new Stack<>();
             long total = sum(root);
-            seen.pop();
+            seen.pop(); // remove total sum of subtree, as we don't need it. USE BRAIN.
             if (total % 2 == 0) {
                 for (long s : seen) {
                     if (s == total / 2);
