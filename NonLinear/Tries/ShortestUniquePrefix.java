@@ -1,3 +1,4 @@
+
 /**
  * Problem Description
  * Given a list of N words, find the shortest unique prefix to represent each word in the list.
@@ -57,8 +58,8 @@ package NonLinear.Tries;
 import java.util.Arrays;
 
 public class ShortestUniquePrefix {
-    static TrieNode root; // create root for trie.
-    static Trie trie;
+    static SUPTrieNode root; // create root for trie.
+    static SUPTrie trie;
     public static void main(String[] args) {
 //        String[] strings = {"zebra", "dog", "duck", "dove"};
         String[] strings = {"apple", "ball", "cat"};
@@ -72,8 +73,8 @@ public class ShortestUniquePrefix {
          * 1. create trie for given strings.
          *
          */
-        root = new TrieNode('$');
-        trie = new Trie();
+        root = new SUPTrieNode('$');
+        trie = new SUPTrie();
         String[] ans = new String[strings.length];
 
         for (int i = 0; i < strings.length; i++) {
@@ -82,7 +83,7 @@ public class ShortestUniquePrefix {
         }
 
         for (int i = 0; i < strings.length; i++) {  // ["zebra", "dog", "duck", "dove"]
-            TrieNode currNode = root;
+            SUPTrieNode currNode = root;
             String currString = strings[i];
 
             for (int j = 0; j < currString.length(); j++) { // z , e , b, r , a
@@ -100,44 +101,44 @@ public class ShortestUniquePrefix {
         return ans;
     }
 }
-class TrieNode {
+class SUPTrieNode {
     char data;
-    TrieNode[] children;
+    SUPTrieNode[] children;
     boolean eow; // marker for end-of-word
     int freq;
-    TrieNode () {
-        children = new TrieNode[26];
+    SUPTrieNode () {
+        children = new SUPTrieNode[26];
         eow = false;
         freq = 0;
     }
-    TrieNode (char data) {
+    SUPTrieNode (char data) {
         this.data = data;
-        children = new TrieNode[26];
+        children = new SUPTrieNode[26];
         eow = false;
         freq = 0;
     }
 }
-class Trie {
-    public void insert(TrieNode root, String data) {
+class SUPTrie {
+    public void insert(SUPTrieNode root, String data) {
         // O(L) time | O(L) space where L is length of data.
-        TrieNode currNode = root;
+        SUPTrieNode currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
             if (currNode.children[idx] == null) {
                 // insert current char
-                currNode.children[idx] = new TrieNode(c);
+                currNode.children[idx] = new SUPTrieNode(c);
             }
-            currNode.freq++;
             // go to next char index.
             currNode = currNode.children[idx];
+            currNode.freq++;
         }
         // mark eow = true
         currNode.eow = true;
     }
-    public boolean search(TrieNode root, String data) {
+    public boolean search(SUPTrieNode root, String data) {
         // O(L) time | O(1) space where L is length of data.
-        TrieNode currNode = root;
+        SUPTrieNode currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
@@ -152,7 +153,7 @@ class Trie {
         if (currNode.eow == true) return true;
         return false;
     }
-    public void delete(TrieNode root, String word) {
+    public void delete(SUPTrieNode root, String word) {
         /**
          * Nodes that cannot be deleted
          *  1. Nodes which has eow is true.
@@ -161,8 +162,8 @@ class Trie {
          *  keep track of last node which cannot be deleted,
          *  and it's next children.
          */
-        TrieNode currNode = root;
-        TrieNode tempNode = null; // to keep track of last node which cannot be deleted.
+        SUPTrieNode currNode = root;
+        SUPTrieNode tempNode = null; // to keep track of last node which cannot be deleted.
         char nextCharNode = '#';
         int count = 0;
 

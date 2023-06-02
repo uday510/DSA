@@ -80,8 +80,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ContactFinder {
-    static TrieNode root;
-    static Trie trie;
+    static CFTrieNode root;
+    static CFTrie trie;
     public static void main(String[] args) {
         String[] str = {"s","ss","sss","ssss","sssss","s","ss","sss","ssss","sssss","ssssss"};
         int[] a = {0,0,0,0,0,1,1,1,1,1,1};
@@ -90,8 +90,8 @@ public class ContactFinder {
         System.out.println(Arrays.toString(ans));
     }
     public static int[] solve(String[] strings, int[] A) {
-        root = new TrieNode('$');
-        trie = new Trie();
+        root = new CFTrieNode('$');
+        trie = new CFTrie();
         ArrayList<Integer> ans = new ArrayList<>();
 
         for (int i = 0; i < strings.length; i++) {
@@ -106,33 +106,35 @@ public class ContactFinder {
 
     }
 }
-class TrieNode {
+
+class CFTrieNode {
     char data;
-    TrieNode[] children;
+    CFTrieNode[] children;
     boolean eow; // marker for end-of-word
     int freq;
-    TrieNode () {
-        children = new TrieNode[26];
+    CFTrieNode() {
+        children = new CFTrieNode[26];
         eow = false;
         freq = 0;
     }
-    TrieNode (char data) {
+    CFTrieNode(char data) {
         this.data = data;
-        children = new TrieNode[26];
+        children = new CFTrieNode[26];
         eow = false;
         freq = 0;
     }
 }
-class Trie {
-    public void insert(TrieNode root, String data) {
+
+class CFTrie {
+    public void insert(CFTrieNode root, String data) {
         // O(L) time | O(L) space where L is length of data.
-        TrieNode currNode = root;
+        CFTrieNode currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
             if (currNode.children[idx] == null) {
                 // insert current char
-                currNode.children[idx] = new TrieNode(c);
+                currNode.children[idx] = new CFTrieNode(c);
             }
             // go to next char index and increase freq.
             currNode = currNode.children[idx];
@@ -141,9 +143,9 @@ class Trie {
         // mark eow = true
         currNode.eow = true;
     }
-    public int getFreq(TrieNode root, String data) {
+    public int getFreq(CFTrieNode root, String data) {
         // O(L) time | O(1) space where L is length of data.
-        TrieNode currNode = root;
+        CFTrieNode currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
@@ -158,7 +160,7 @@ class Trie {
         // mark eow = true
         return currNode.freq;
     }
-    public void delete(TrieNode root, String word) {
+    public void delete(CFTrieNode root, String word) {
         /**
          * Nodes that cannot be deleted
          *  1. Nodes which has eow is true.
@@ -167,8 +169,8 @@ class Trie {
          *  keep track of last node which cannot be deleted,
          *  and it's next children.
          */
-        TrieNode currNode = root;
-        TrieNode tempNode = null; // to keep track of last node which cannot be deleted.
+        CFTrieNode currNode = root;
+        CFTrieNode tempNode = null; // to keep track of last node which cannot be deleted.
         char nextCharNode = '#';
         int count = 0;
 

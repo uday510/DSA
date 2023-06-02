@@ -111,9 +111,20 @@ public class BoundaryTraversalOfBinaryTree {
                 if (currNode.left != null) currNode = currNode.left;
                 else currNode = currNode.right;
             }
+
+//            TreeNode currNode = root;
+//            while (currNode.left != null || currNode.right != null) {
+//                res.add(root.val);
+//
+//                if (currNode.left != null) {
+//                    currNode = currNode.left;
+//                } else {
+//                    currNode = currNode.right;
+//                }
+//            }
         }
         public static void addLeafNodes(TreeNode root, ArrayList<Integer> res) {
-            if (root == null) return;
+           if (root == null) return;
            if (isLeafNode(root)) {
                res.add(root.val);;
                return;

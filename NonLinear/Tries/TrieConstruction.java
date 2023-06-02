@@ -42,12 +42,11 @@ public class TrieConstruction {
             currNode = currNode.children[idx];
         }
         // mark eow = true
-        if (currNode.eow == true) return true;
-        return false;
+        return currNode.eow;
     }
-    public int getFreq(NonLinear.Tries.TrieNode root, String data) {
+    public int getFreq(CFTrieNode root, String data) {
         // O(L) time | O(1) space where L is length of data.
-        NonLinear.Tries.TrieNode currNode = root;
+        CFTrieNode currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
