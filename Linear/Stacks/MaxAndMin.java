@@ -63,7 +63,6 @@
  */
 package Linear.Stacks;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class MaxAndMin {
@@ -83,10 +82,10 @@ public class MaxAndMin {
 
             long sum = 0;
             for(int i = 0;i<array.length;i++) {
-                long max = 1L*( NLER[i] - i + 1 ) * ( i - NLEL[i] + 1);
-                long min = 1L*( NSER[i] -i + 1) *(i - NSEL[i] + 1);
+                long max = (long) (NLER[i] - i + 1) * (i - NLEL[i] + 1);
+                long min = (long) (NSER[i] - i + 1) * (i - NSEL[i] + 1);
                 long s = (long) (max - min) * (long) array[i];
-                sum =  (sum %mod +  s%mod)%mod;
+                sum =  (sum %mod + s%mod)%mod;
             }
             return (int)((sum + mod)%mod);
     }
@@ -165,6 +164,4 @@ public class MaxAndMin {
         }
         return res;
     }
-
-
 }

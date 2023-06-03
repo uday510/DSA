@@ -58,7 +58,7 @@ package NonLinear.Tries;
 import java.util.Arrays;
 
 public class ShortestUniquePrefix {
-    static SUPTrieNode root; // create root for trie.
+    static Node root; // create root for trie.
     static SUPTrie trie;
     public static void main(String[] args) {
 //        String[] strings = {"zebra", "dog", "duck", "dove"};
@@ -73,7 +73,7 @@ public class ShortestUniquePrefix {
          * 1. create trie for given strings.
          *
          */
-        root = new SUPTrieNode('$');
+        root = new Node('$');
         trie = new SUPTrie();
         String[] ans = new String[strings.length];
 
@@ -83,7 +83,7 @@ public class ShortestUniquePrefix {
         }
 
         for (int i = 0; i < strings.length; i++) {  // ["zebra", "dog", "duck", "dove"]
-            SUPTrieNode currNode = root;
+            Node currNode = root;
             String currString = strings[i];
 
             for (int j = 0; j < currString.length(); j++) { // z , e , b, r , a
@@ -101,33 +101,33 @@ public class ShortestUniquePrefix {
         return ans;
     }
 }
-class SUPTrieNode {
+class TrieNode {
     char data;
-    SUPTrieNode[] children;
+    Node[] children;
     boolean eow; // marker for end-of-word
     int freq;
-    SUPTrieNode () {
-        children = new SUPTrieNode[26];
+    TrieNode() {
+        children = new Node[26];
         eow = false;
         freq = 0;
     }
-    SUPTrieNode (char data) {
+    TrieNode(char data) {
         this.data = data;
-        children = new SUPTrieNode[26];
+        children = new Node[26];
         eow = false;
         freq = 0;
     }
 }
 class SUPTrie {
-    public void insert(SUPTrieNode root, String data) {
+    public void insert(Node root, String data) {
         // O(L) time | O(L) space where L is length of data.
-        SUPTrieNode currNode = root;
+        Node currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
             if (currNode.children[idx] == null) {
                 // insert current char
-                currNode.children[idx] = new SUPTrieNode(c);
+                currNode.children[idx] = new Node(c);
             }
             // go to next char index.
             currNode = currNode.children[idx];
@@ -136,9 +136,9 @@ class SUPTrie {
         // mark eow = true
         currNode.eow = true;
     }
-    public boolean search(SUPTrieNode root, String data) {
+    public boolean search(Node root, String data) {
         // O(L) time | O(1) space where L is length of data.
-        SUPTrieNode currNode = root;
+        Node currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
@@ -153,7 +153,7 @@ class SUPTrie {
         if (currNode.eow == true) return true;
         return false;
     }
-    public void delete(SUPTrieNode root, String word) {
+    public void delete(Node root, String word) {
         /**
          * Nodes that cannot be deleted
          *  1. Nodes which has eow is true.
@@ -162,8 +162,8 @@ class SUPTrie {
          *  keep track of last node which cannot be deleted,
          *  and it's next children.
          */
-        SUPTrieNode currNode = root;
-        SUPTrieNode tempNode = null; // to keep track of last node which cannot be deleted.
+        Node currNode = root;
+        Node tempNode = null; // to keep track of last node which cannot be deleted.
         char nextCharNode = '#';
         int count = 0;
 

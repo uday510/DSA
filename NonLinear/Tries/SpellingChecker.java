@@ -87,7 +87,6 @@ public class SpellingChecker {
             else ans[i] = 0;
         }
         return ans;
-
     }
 }
 class SCTrieNode {
