@@ -71,6 +71,7 @@ public class ReversingElementsOfQueue {
 
         for (int i = 0; i < n; i++) {
             queue.add(arr[i]);
+
         }
 
         int[] output = new int[n];

@@ -67,6 +67,7 @@ public class MinStackUsingStack {
     }
 }
 class MinStack {
+    //DAY: 59
     private Stack<Integer> stack = new Stack<>();
     private Stack<Integer> minStack = new Stack<>();
 
@@ -95,4 +96,3 @@ class MinStack {
         return minStack.peek();
     }
 }
-

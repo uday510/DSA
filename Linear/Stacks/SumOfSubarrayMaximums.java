@@ -1,45 +1,53 @@
-package Linear;
+package Linear.Stacks;
 
+import java.util.Arrays;
 import java.util.Stack;
 
-public class LargestRectangleInHistogram {
-
+// opposite of SumOfSubarrayMinimums
+public class SumOfSubarrayMaximums {
     public static void main(String[] args) {
-        int[] heights = {2, 1, 5, 6, 2, 3};
+        int[] arr = {71,55,82,55};
 
-        int ans = solve(heights);
+        int ans = solve(arr);
         System.out.println(ans);
     }
-    public static int solve(int[] heights) {
-        int ans = Integer.MIN_VALUE;
+    public static int solve(int[] arr) {
+        int MOD = (int) (1e9 + 7);
 
-        int[] NSL = getNsl(heights);
-        int[] NSR = getNsr(heights);
+        int[] NSEL = getNGEL(arr);
+        int[] NSER = getNGER(arr);
 
-        for (int i = 0; i < heights.length; i++) {
-            ans = Integer.max(ans, heights[i] *
-                    (NSR[i] - NSL[i] - 1));
+        System.out.print("NGEL " + Arrays.toString(NSEL));
+        System.out.println();
+        System.out.print("NGER " + Arrays.toString(NSER));
+
+        long sum = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            // contribution
+            sum += 1L* arr[i] * (i - NSEL[i]) * (NSER[i] - i);
+            sum = sum % MOD;
         }
-        return ans;
+        return (int) sum;
     }
-    public static int[] getNsl(int[] array) {
+    public static int[] getNGEL(int[] array) {
+        // nearest smaller element left hand side
         int n = array.length;
         int[] ans = new int[n];
         Stack<Integer> stack = new Stack<>();
 
         for (int i = 0; i < n; i++) {
             int currNum = array[i];
-
             if (stack.isEmpty()) {
                 stack.push(i);
                 ans[i] = -1;
             }
-            else if (array[stack.peek()] < currNum) {
+            else if (array[stack.peek()] > currNum) {
                 ans[i] = stack.peek();
                 stack.push(i);
             }
             else {
-                while (!stack.isEmpty() && currNum <= array[stack.peek()]) {
+                while (!stack.isEmpty() && currNum >= array[stack.peek()]) {
                     stack.pop();
                 }
                 if (!stack.isEmpty()) {
@@ -49,11 +57,12 @@ public class LargestRectangleInHistogram {
                 }
                 stack.push(i);
             }
-
         }
         return ans;
     }
-    public static int[] getNsr(int[] array) {
+
+    public static int[] getNGER(int[] array) {
+        // nearest smaller element right hand side
         int n = array.length;
         int[] ans = new int[n];
         Stack<Integer> stack = new Stack<>();
@@ -63,26 +72,26 @@ public class LargestRectangleInHistogram {
 
             if (stack.isEmpty()) {
                 stack.push(i);
-                ans[i] = -1;
+                ans[i] = array.length;
             }
-            else if (array[stack.peek()] < currNum) {
+            else if (array[stack.peek()] > currNum) {
                 ans[i] = stack.peek();
                 stack.push(i);
             }
             else {
-                while (!stack.isEmpty() && currNum <= array[stack.peek()]) {
+                while (!stack.isEmpty() && currNum > array[stack.peek()]) {
                     stack.pop();
                 }
                 if (!stack.isEmpty()) {
                     ans[i] = stack.peek();
                 } else {
-                    // keep default as array length
                     ans[i] = array.length;
                 }
                 stack.push(i);
             }
-
         }
+
+        // c[71,55,82,55]
         return ans;
     }
 }

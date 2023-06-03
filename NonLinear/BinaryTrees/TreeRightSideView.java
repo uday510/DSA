@@ -8,9 +8,6 @@
  */
 package NonLinear.BinaryTrees;
 
-import com.sun.source.tree.Tree;
-
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +41,7 @@ public class TreeRightSideView {
             root.right = node5;
 
             List<Integer> ans = solve(root);
+            System.out.println(ans);
         }
     }
     public static List<Integer> solve(TreeNode root) {

@@ -62,7 +62,6 @@
  */
 package NonLinear.BinaryTrees;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +94,8 @@ public class TreeLeftSideView {
             root.left = node1;
             root.right = node5;
 
-            solve(root);
+            List<Integer> ans = solve(root);
+            System.out.println(ans);
         }
         public static List<Integer> solve(TreeNode root) {
 
@@ -157,8 +157,6 @@ public class TreeLeftSideView {
                 helper(currNode.right, currLevel + 1);
             }
         }
-
-
 
     }
 }

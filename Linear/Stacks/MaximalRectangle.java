@@ -33,8 +33,6 @@
  */
 package Linear.Stacks;
 
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Stack;
 
 public class MaximalRectangle {
@@ -55,14 +53,14 @@ public class MaximalRectangle {
         int ans = Integer.MIN_VALUE;
 
     /**
-     * Row by Row apply maximum area of rectangle
+     * Row by Row apply The Largest Rectangle in Histogram
      */
     int count[][] = new int[matrix.length][matrix[0].length];
 
     for (int i = 0; i < matrix.length; i++) {
         for (int j = 0; j < matrix[i].length; j++) {
             if (i == 0) { count[i][j] = matrix[i][j]; }
-            else {
+            else { // need the longest consecutive 1's
                 count[i][j] = matrix[i][j] == 0 ? 0 : count[i-1][j] + matrix[i][j];
             }
         }

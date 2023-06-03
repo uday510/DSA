@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class NextGreaterRight {
+    // DAY 60
     public static void main(String[] args) {
         int[] array = {5, 2, 8, 10, 6, 1, 7, 15};
 
@@ -11,6 +12,7 @@ public class NextGreaterRight {
         System.out.println(Arrays.toString(ans));
     }
     public static int[] solve(int[] array) {
+        // O(N) time | O(N) space
         int n = array.length;
         int[] ans = new int[n];
         Stack<Integer> stack = new Stack<>();
@@ -37,9 +39,7 @@ public class NextGreaterRight {
                 }
                 stack.push(currNum);
             }
-
         }
         return ans;
     }
 }
-

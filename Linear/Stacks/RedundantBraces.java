@@ -53,9 +53,10 @@ package Linear.Stacks;
 
 import java.util.Stack;
 
-public class RedudantBraces {
+public class RedundantBraces {
+    // DAY: 59
     public static void main(String[] args) {
-        String string = "2-1+2";
+        String string = "((a+b))";
 
         int ans = solve(string);
         System.out.println(ans);
@@ -66,7 +67,7 @@ public class RedudantBraces {
 
         StringBuilder sb = new StringBuilder();
 
-        for (char c : string.toCharArray()) {
+        for (char c : string.toCharArray()) { // "((a+b))"
             // if c is an operand, add it to output string
             if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
                 sb.append(c);

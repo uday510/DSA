@@ -63,7 +63,7 @@
  *
  */
 
-package SlidingWindow;
+package Linear.Arrays.SlidingWindow;
 
 public class MinimumSwaps {
     public static void main(String[] args) {

@@ -11,6 +11,7 @@ public class NextSmallerLeft {
         System.out.println(Arrays.toString(ans));
     }
     public static int[] solve(int[] array) {
+        //DAY 60
         int n = array.length;
         int[] ans = new int[n];
         Stack<Integer> stack = new Stack<>();
@@ -37,7 +38,6 @@ public class NextSmallerLeft {
                 }
                 stack.push(currNum);
             }
-
         }
         return ans;
     }
