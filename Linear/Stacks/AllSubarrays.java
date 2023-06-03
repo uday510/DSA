@@ -64,6 +64,7 @@ package Linear.Stacks;
 import java.util.Stack;
 
 public class AllSubarrays {
+    // DAY: 60
     public static void main(String[] args) {
         int[] array = {2, 3, 1, 4};
 

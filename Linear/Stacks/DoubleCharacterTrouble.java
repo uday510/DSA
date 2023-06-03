@@ -57,9 +57,8 @@
  */
 package Linear.Stacks;
 
-import java.util.Stack;
-
 public class DoubleCharacterTrouble {
+    // DAY: 59
     public static void main(String[] args) {
         String string = "abccbc";
 
@@ -101,4 +100,27 @@ public class DoubleCharacterTrouble {
         return sb.toString();
 
     }
+    /**
+     * public class Solution {
+     *     public String solve(String A) {
+     *         // we maintain a stack for the characters of the string
+     *         Stack < Character > st = new Stack < Character > ();
+     *         for (int i = 0; i < A.length(); i++) {
+     *             // if the current character is equal to the top of the stack then they form
+     *             // a pair of consecutive similar characters therefore we pop from the stack,
+     *             // else we push the charcter in the stack
+     *             if (!st.empty() && st.peek() == A.charAt(i)) {
+     *                 st.pop();
+     *             } else st.push(A.charAt(i));
+     *         }
+     *         StringBuilder sb = new StringBuilder();
+     *         while (!st.empty()) {
+     *             sb.append(st.peek());
+     *             st.pop();
+     *         }
+     *         sb.reverse();
+     *         return sb.toString();
+     *     }
+     * }
+     */
 }

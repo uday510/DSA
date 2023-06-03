@@ -64,10 +64,11 @@ public class CheckTwoBracketExpressions {
         System.out.println(ans);
     }
     public static Boolean solve(String expr1, String expr2) {
+        // DAY: 59
         // O(N) time | O(N) space
         int v[] = new int[26]; // mapping
         eval(expr1, v, true);
-        // calls the second expressing with opposite sign
+        // calls the second expression with opposite sign
         eval(expr2, v, false);
         // check if both the expressions are equal
 
@@ -76,8 +77,7 @@ public class CheckTwoBracketExpressions {
         }
         return true;
     }
-
-    static void eval(String s, int v[], Boolean add) {
+    static void eval(String s, int v[], Boolean add) { // "-(a+b+c)"
         Stack<Boolean> stack = new Stack<>();
         stack.push(true); // {true, false}
         int i = 0;
@@ -95,7 +95,7 @@ public class CheckTwoBracketExpressions {
             } else if (c == ')') {
                 stack.pop(); // done with adjSign, pop it
             } else {
-                if (stack.peek()) { // if '+'
+                if (stack.peek()) { // if true
                     int x = 0;
                     // check for prev sign
                     if (adjSign(s, i)) {
@@ -112,7 +112,7 @@ public class CheckTwoBracketExpressions {
                         }
                     }
                     v[c - 'a'] += x;
-                } else {
+                } else { // false
                     int x = 0;
                     if (adjSign(s, i)) {
                         if (add) {
@@ -137,7 +137,4 @@ public class CheckTwoBracketExpressions {
         if (s.charAt(i - 1) == '-') return false;
         return true;
     }
-
-
 }
-
