@@ -51,7 +51,7 @@
  * There is no such index.
  */
 
-package PrefixSum;
+package Linear.Arrays.PrefixSum;
 
 import java.util.ArrayList;
 import java.util.Arrays;

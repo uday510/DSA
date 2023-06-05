@@ -119,18 +119,18 @@ public class AutoComplete {
             Arrays.sort(pairs, (a, b) -> b.weight - a.weight); // sort in decreasing order according to their weights
             TNode root = new TNode(); // create a root node
             for (int j = 0; j < pairs.length; j++) { addWord(root, pairs[j].word, j);}
-            for (int j = 0; j < prefixes.length; j++) { search(root, prefixes[j], pairs); }
+            for (String prefix : prefixes) { search(root, prefix, pairs); }
         }
     }
     public static void addWord(TNode root, String data, int index) {
         TNode currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
-            int idx = c - 'a'; // gives index
-            if (currNode.children[idx] == null) {
-                currNode.children[idx] = new TNode(); // create new node
+            int currCharIdx = c - 'a'; // gives index
+            if (currNode.children[currCharIdx] == null) {
+                currNode.children[currCharIdx] = new TNode(); // create new node
             }
-            currNode = currNode.children[idx];
+            currNode = currNode.children[currCharIdx];
             if (currNode.idx.size() < 5) currNode.idx.add(index);
         }
         currNode.eow = true;
