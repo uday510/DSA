@@ -45,7 +45,7 @@
  *
  * No water is trapped.
  */
-package InterviewProblems;
+package Linear.Arrays.InterviewProblems;
 
 public class RainWaterTrapped {
     public static void main(String[] args) {
@@ -54,28 +54,51 @@ public class RainWaterTrapped {
         int ans = solve(array);
         System.out.println(ans);
     }
-    public static int solve(int[] rainWater) {
-        int trapped = 0;
-        int[] leftMax = new int[rainWater.length];
-        int prevMax = rainWater[0];
+    public static int solve(int[] height) {
+        int n = height.length;
+        int left = 0, right = n - 1;
+        int leftMax = 0, rightMax = 0;
+        int ans = 0;
 
-        for (int i = 0; i < leftMax.length; i++) {
-            leftMax[i] = Math.max(prevMax, rainWater[i]);
-            prevMax = leftMax[i];
+        while (left <= right) {
+            if (height[left] <= height[right]) {
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];
+                } else {
+                    ans += (leftMax - height[left]);
+                }
+                ++left;
+            } else {
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];
+                } else {
+                    ans += (rightMax - height[right]);
+                }
+                --right;
+            }
         }
-
-        int[] rightMax = new int[rainWater.length];
-
-        prevMax = rainWater[rainWater.length - 1];
-
-        for (int i = rainWater.length - 1; i > -1; i--) {
-            rightMax[i] = Math.max(prevMax, rainWater[i]);
-            prevMax = rightMax[i];
-        }
-
-        for (int i = 0; i < rainWater.length; i++) {
-            trapped += Math.min(leftMax[i], rightMax[i]) - rainWater[i];
-        }
-        return trapped;
+        return ans;
+//        int trapped = 0;
+//        int[] leftMax = new int[rainWater.length];
+//        int prevMax = rainWater[0];
+//
+//        for (int i = 0; i < leftMax.length; i++) {
+//            leftMax[i] = Math.max(prevMax, rainWater[i]);
+//            prevMax = leftMax[i];
+//        }
+//
+//        int[] rightMax = new int[rainWater.length];
+//
+//        prevMax = rainWater[rainWater.length - 1];
+//
+//        for (int i = rainWater.length - 1; i > -1; i--) {
+//            rightMax[i] = Math.max(prevMax, rainWater[i]);
+//            prevMax = rightMax[i];
+//        }
+//
+//        for (int i = 0; i < rainWater.length; i++) {
+//            trapped += Math.min(leftMax[i], rightMax[i]) - rainWater[i];
+//        }
+//        return trapped;
     }
 }
