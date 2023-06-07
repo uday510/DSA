@@ -43,9 +43,22 @@ public class NumberOf1Bits {
         int ans = solve(num);
         System.out.println(ans);
     }
-    public static int solve(int num) {
-        // O(Log(N)) tine | O(1) space
-        int currentNum = num, count = 0;
+    public static int solve(int n) {
+        // int bit = 0;
+        // int ans = 0;
+
+        // for (int i = 0; i < 32; i++) {
+        //     if ( (n & (1 << i)) != 0) ans++;
+        // }
+        // return ans;
+        // return Integer.bitCount(n);
+        // int count = 0;
+        // while (n != 0) {
+        //     count += (n & 1);
+        //     n >>>= 1;
+        // }
+        // return count;
+        int currentNum = n, count = 0;
 
         while (currentNum != 0) {
             if ( (currentNum & 1) == 1) count++;
