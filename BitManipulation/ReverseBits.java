@@ -56,16 +56,27 @@ public class ReverseBits {
          long res = solve(num);
          System.out.println(res);
     }
-    public static long solve(long n) {
-        // O(1) time | O(1) space
-        long res = 0;
-        int i = 0;
+    public static long solve(long A) {
+        long rev = 0;
 
-        while (i < 32) {
-            if ( ( (n >> i) & 1) == 1)
-                    res += (long) Math.pow(2, 31 - i);
-            i++;
+        for (int i = 0; i < 32; i++) {
+
+            if ((A & (1 << i)) != 0) { // check bit
+                // if bit is set, then set at the position
+                rev = rev | (1L << 31 - i);
+            }
         }
-        return res;
+        return rev;
+        /**
+         * long rev = 0;
+         *
+         * 	    for (int i = 0; i < 32; i++) {
+         * 	        rev <<= 1;
+         * 	        if ((A & (1 << i)) != 0)
+         * 	            rev |= 1;
+         *                }
+         *
+         * 	    return rev;
+         */
     }
 }

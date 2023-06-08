@@ -1,3 +1,5 @@
+package FamousAlgorithms;
+
 import java.util.*;
 public class RecursiveSort {
         public static void main(String[] args) {
@@ -16,7 +18,6 @@ public class RecursiveSort {
             System.out.println(sum);
         }
 
-
         public static void sort(int arr[], int endIdx, int counter) {
             if(counter == arr.length) return;
             for(int i = 0; i < endIdx; i++) {
@@ -27,7 +28,6 @@ public class RecursiveSort {
             System.out.println(Arrays.toString(arr));
             sort(arr, endIdx - 1, counter + 1);
         }
-
         public static void swap(int i, int j, int arr[]) {
             int temp = arr[i];
             arr[i] = arr[j];

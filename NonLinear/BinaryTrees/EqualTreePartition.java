@@ -57,7 +57,7 @@ public class EqualTreePartition {
             seen.pop(); // remove total sum of subtree, as we don't need it. USE BRAIN.
             if (total % 2 == 0) {
                 for (long s : seen) {
-                    if (s == total / 2);
+                    if (s == total / 2)
                         return true;
                 }
             }

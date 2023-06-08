@@ -59,5 +59,4 @@ public class ToggleIthBit {
         return a ^ ( 1 << i );
 
     }
-
 }

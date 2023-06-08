@@ -101,23 +101,23 @@ public class ShortestUniquePrefix {
         return ans;
     }
 }
-class TrieNode {
-    char data;
-    Node[] children;
-    boolean eow; // marker for end-of-word
-    int freq;
-    TrieNode() {
-        children = new Node[26];
-        eow = false;
-        freq = 0;
-    }
-    TrieNode(char data) {
-        this.data = data;
-        children = new Node[26];
-        eow = false;
-        freq = 0;
-    }
-}
+//class TrieNode {
+//    char data;
+//    Node[] children;
+//    boolean eow; // marker for end-of-word
+//    int freq;
+//    TrieNode() {
+//        children = new Node[26];
+//        eow = false;
+//        freq = 0;
+//    }
+//    TrieNode(char data) {
+//        this.data = data;
+//        children = new Node[26];
+//        eow = false;
+//        freq = 0;
+//    }
+//}
 class SUPTrie {
     public void insert(Node root, String data) {
         // O(L) time | O(L) space where L is length of data.

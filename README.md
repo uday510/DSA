@@ -59,7 +59,7 @@ My solutions to the various problems available on various coding platforms.
 
 ## Recursion
 
-## Searching
+## Linear.BinarySearch
 
 ## Greedy Algorithms
 

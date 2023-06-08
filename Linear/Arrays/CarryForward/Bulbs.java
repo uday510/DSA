@@ -1,3 +1,5 @@
+package Linear.Arrays.CarryForward;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -68,7 +70,7 @@ public class Bulbs {
         System.out.println(solve(array));
     }
     public static int solve(ArrayList<Integer> A) {
-//        int switchCount = 0;
+        int switchCount = 0;
 //        for(int i = 0; i < A.size(); i++){
 //            if(switchCount % 2 != 0) {
 //                A.set(i, A.get(i) - 1);// to get the real state of i, because only odd number can change the state
@@ -78,20 +80,21 @@ public class Bulbs {
 //        return switchCount;
 
         // Carry Forward Approach
-        int count = 0;
-        if(A.size() == 0){
-            return 0;
-        }
-        if(A.get(0) == 0){
-            count = 1;
-        }
-        for(int i = 1; i < A.size(); i++){
-            if(A.get(i) != A.get(i-1)){
-                count++;
+        /**
+         * Observations
+         * 1. state of any bulb is just depending on count.
+         * 2. if count is even, state of build will remain same.
+         * 3. if count is odd, state of bulb will toggle.
+         */
+        for (int i = 0; i < A.size(); i++) {
+            int currBulbState = A.get(i);
+            if (switchCount % 2 == 0) {
+                currBulbState = A.get(i);
+            } else {
+                currBulbState = 1 - A.get(i);
             }
+            if (currBulbState == 0) switchCount++;
         }
-        return count;
+        return switchCount;
     }
-    }
-
-
+}

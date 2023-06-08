@@ -6,7 +6,7 @@
  Setting the head and tail of the linked list.
  Inserting nodes before and after other nodes as well as at given positions (the position of the head node is 1).
  Removing given nodes and removing nodes with given values.
- Searching for nodes with given values.
+ Linear.Searching for nodes with given values.
 
  Note that the setHead, setTail, insertBefore, insertAfter, insertAtPosition, and remove
  methods all take in actual Nodes as input parameters—not integers (except for insertAtPosition,

@@ -6,7 +6,7 @@
 package Linear.LinkedLists;
 
 public class AddTwoNumbers {
-      public static class ListNode {
+    public static class ListNode {
      int val;
      ListNode next;
      ListNode() {}

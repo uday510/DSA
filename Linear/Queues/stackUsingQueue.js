@@ -54,9 +54,7 @@ class StackUsingQueue {
         }
         return temp;
     }
-
 }
-
 
 const st = new StackUsingQueue();
 

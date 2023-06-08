@@ -45,7 +45,7 @@
  * The subarray for the first query is [2, 1, 8, 3] which contains 2 even numbers.
  * The subarray for the second query is [8, 3, 9] which contains 1 even number.
  */
-package PrefixSum;
+package Linear.Arrays.PrefixSum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
