@@ -58,7 +58,7 @@
  *  Subarrays of A that have unique elements only:
  *  [2], [1], [2, 1], [1, 2], [2]
  */
-package Linear;
+package Linear.Arrays;
 
 import java.util.HashSet;
 

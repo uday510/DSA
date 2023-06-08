@@ -63,7 +63,7 @@
  *  236 -> 36  (product of digits)
  *  This number is not a COLORFUL number since the product sequence 23  and sequence 6 is same.
  */
-package Linear;
+package Linear.Arrays;
 
 import java.util.Arrays;
 import java.util.HashSet;
