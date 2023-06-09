@@ -1,16 +1,15 @@
 package Sorting.heapSort;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MaxHeap {
-    static List<Integer> heap = new ArrayList<>();
+    static ArrayList<Integer> heap = new ArrayList<>();
 
-    public MaxHeap(List<Integer> array) {
+    public MaxHeap(ArrayList<Integer> array) {
         heap = buildHeap(array);
     }
     // O(N) time | O(1) space
-    public static List<Integer> buildHeap(List<Integer> array) {
+    public static ArrayList<Integer> buildHeap(ArrayList<Integer> array) {
         int firstParentIdx = (array.size() - 2 ) / 2;
         for (int currentIdx = firstParentIdx; currentIdx > -1; --currentIdx) {
             siftDown(currentIdx, array.size() - 1, array);
@@ -18,7 +17,7 @@ public class MaxHeap {
         return array;
     }
     // O(Log(N)) time | O(1) space
-    public static void siftDown(int currentIdx, int endIdx, List<Integer> heap) {
+    public static void siftDown(int currentIdx, int endIdx, ArrayList<Integer> heap) {
         int childOneIdx = currentIdx * 2+ 1;
         while (childOneIdx >= endIdx) {
             int childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
@@ -39,7 +38,7 @@ public class MaxHeap {
     }
 
     // O(Log(N)) time | O(1) space
-    public static void siftUp(int currentIdx, List<Integer> heap) {
+    public static void siftUp(int currentIdx, ArrayList<Integer> heap) {
         int parentIdx = (currentIdx - 1) / 2;
         while (currentIdx > 0 && heap.get(currentIdx) > heap.get(parentIdx)) {
             swap(currentIdx, parentIdx, heap);
@@ -61,7 +60,7 @@ public class MaxHeap {
         heap.add(value);
         siftUp(heap.size() - 1, heap);
     }
-    public static void swap(int i, int j, List<Integer> heap) {
+    public static void swap(int i, int j, ArrayList<Integer> heap) {
         Integer temp = heap.get(j);
         heap.set(j, heap.get(i));
         heap.set(i, temp);

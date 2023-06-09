@@ -19,7 +19,6 @@ public class HeapSort {
         // Average : O(NLog(N)) time | O(1) space
         // Worst : O(NLog(N)) time | O(1) space
        buildMaxHeap(array);
-       System.out.println(Arrays.toString(array));
        for (int endIdx = array.length - 1; endIdx > 0; --endIdx) {
            swap(0, endIdx, array);
            siftDown(0, endIdx - 1, array);
