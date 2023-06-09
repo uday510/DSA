@@ -46,3 +46,4 @@ class MinHeap {
         return this.heap[0];
     }
 
+}
