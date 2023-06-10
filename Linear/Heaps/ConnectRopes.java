@@ -63,7 +63,7 @@
  *
  *  So, total cost  to connect the ropes into one is 16 + 33 + 133 = 182.
  */
-package Sorting.heapSort;
+package Linear.Heaps;
 
 public class ConnectRopes {
     public static void main(String[] args) {

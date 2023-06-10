@@ -52,7 +52,7 @@
  *
  *  Final array after B modifications = [57, -3, 14, 87, 42, 38, 31, 7, 28, 61]
  */
-package Sorting.heapSort;
+package Linear.Heaps;
 
 import java.util.PriorityQueue;
 

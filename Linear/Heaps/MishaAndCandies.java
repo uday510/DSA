@@ -1,4 +1,4 @@
-package Sorting.heapSort; /**
+package Linear.Heaps; /**
  * Problem Description
  * Misha loves eating candies. She has been given N boxes of Candies.
  *

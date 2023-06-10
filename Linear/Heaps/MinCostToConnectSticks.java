@@ -30,7 +30,7 @@
  * Output: 0
  * Explanation: There is only one stick, so you don't need to do anything. The total cost is 0.
  */
-package Sorting.heapSort;
+package Linear.Heaps;
 
 import java.util.PriorityQueue;
 

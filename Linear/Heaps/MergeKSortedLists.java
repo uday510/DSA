@@ -1,4 +1,4 @@
-package Sorting.heapSort;
+package Linear.Heaps;
 
 class ListNode {
 
