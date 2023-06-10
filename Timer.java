@@ -5,8 +5,8 @@ public class Timer {
 
         Stopwatch timer = Stopwatch.createStarted();
 
-        for (int i = 0; i < Math.pow(10, 2); i++) {}
+        for (int i = 0; i < Math.pow(10, 8); i++) {}
 
-        System.out.println("Method took: " + timer.stop());
+        System.out.println("Runtime " + timer.stop());
     }
 }
