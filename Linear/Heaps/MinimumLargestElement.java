@@ -74,26 +74,20 @@ public class MinimumLargestElement {
         System.out.println(ans);
     }
     public static int solve(int[] A, int B) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
-        int n = A.length;
-        int ans = Integer.MIN_VALUE;
-        int[] states = new int[n];
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> (a[0] + a[1])));
 
-        for (int i = 0; i < n; i++) {
-            ans = Math.max(A[i], ans);
-            pq.add(new int[]{A[i]+A[i], i});
+        for (int val : A) {
+            pq.add(new int[] {val, val});
         }
 
-        for (int i = 0; i < B; i++) {
+        while (B-- > 0) {
             int[] temp = pq.poll();
-            int val = temp[0];
-            int idx = temp[1];
-            states[idx] = val;
-            pq.add(new int[] {A[idx] + val, idx});
+            pq.add(new int[] {temp[0] + temp[1], temp[1]});
         }
-
-        for (int val : states) {
-            ans = Math.max(val, ans);
+        int ans = Integer.MIN_VALUE;
+        while (!pq.isEmpty()) {
+            int[] temp = pq.poll();
+            ans = Math.max(ans, temp[0]);
         }
         return ans;
     }
