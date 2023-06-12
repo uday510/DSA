@@ -1,3 +1,5 @@
+package BasicMaths;
+
 public class FastPower {
 
     public static void main(String args[]) {

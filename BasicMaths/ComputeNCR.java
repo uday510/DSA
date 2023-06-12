@@ -1,3 +1,5 @@
+package BasicMaths;
+
 /**
  * Problem Description
  * Given three integers A, B, and C, where A represents n, B represents r, and C represents p and p is a prime number greater than equal to n, find and return the value of nCr % p where nCr % p = (n! / ((n-r)! * r!)) % p.

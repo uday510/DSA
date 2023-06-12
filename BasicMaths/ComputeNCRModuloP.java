@@ -1,3 +1,5 @@
+package BasicMaths;
+
 public class ComputeNCRModuloP {
     public static void main(String[] args) {
         int a = 5, b = 2, c = 13;
