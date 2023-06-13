@@ -2,7 +2,7 @@ package Linear.Greedy;
 
 public class Candy {
     public static void main(String[] args) {
-        int[] ratings = {1, 5, 2, 1};
+        int[] ratings = {5, 4, 3, 2, 1};
 
         int res = solve(ratings);
         System.out.println(res);
@@ -24,7 +24,6 @@ public class Candy {
                 up = 0;
                 ++down;
                 res += down + (peak >= down ? 0: 1);
-
             }
         }
         return res;
