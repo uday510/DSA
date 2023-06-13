@@ -99,14 +99,12 @@ public class Productof3 {
                 ans[i] = a * b * c;
             }
         }
-
-
         return ans;
     }
 }
     class CustomComp implements Comparator<Integer> {
         @Override
         public int compare(Integer a, Integer b) {
-            return b - a;
+            return b.compareTo(a);
         }
     }
