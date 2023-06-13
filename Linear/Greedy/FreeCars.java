@@ -98,8 +98,9 @@ public class FreeCars {
             if (currTime < curr.time) {
                 minHeap.add(curr.profit);
                 ++currTime;
-            }  else {
-                if (curr.profit <= minHeap.peek()) { } // ignore, because we want maximum profit
+            } else {
+                if (curr.profit <= minHeap.peek()) {
+                } // ignore, because we want maximum profit
                 else {
                     minHeap.poll();
                     minHeap.add(curr.profit);
@@ -114,18 +115,21 @@ public class FreeCars {
         }
         return res;
     }
-}
-class CustomComparator implements Comparator<Pair> {
-    @Override
-    public int compare(Pair p1, Pair p2) {
-        return p1.time - p2.time;
+
+    static class CustomComparator implements Comparator<Pair> {
+        @Override
+        public int compare(Pair p1, Pair p2) {
+            return p1.time - p2.time;
+        }
     }
-}
-class Pair {
-    int time;
-    int profit;
-    Pair(int time, int profit) {
-        this.time = time;
-        this.profit = profit;
+
+    static class Pair {
+        int time;
+        int profit;
+
+        Pair(int time, int profit) {
+            this.time = time;
+            this.profit = profit;
+        }
     }
 }
