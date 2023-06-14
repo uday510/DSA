@@ -1,36 +1,40 @@
 package NonLinear.Tries;
 
 public class TrieConstruction {
-    public class TrieNode {
+    public class Node {
         char data;
-        TrieNode[] children;
+        Node[] children;
         boolean eow; // marker for end-of-word
+        int freq;
 
-        TrieNode (char data) {
+
+        Node (char data) {
             this.data = data;
-            children = new TrieNode[26];
+            children = new Node[26];
             eow = false;
+            freq = 0;
         }
     }
-    public void insert(TrieNode root, String data) {
+    public void insert(Node root, String data) {
         // O(L) time | O(L) space where L is length of data.
-        TrieNode currNode = root;
+        Node currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
             if (currNode.children[idx] == null) {
                 // insert current char
-                currNode.children[idx] = new TrieNode(c);
+                currNode.children[idx] = new Node(c);
             }
             // go to next char index.
             currNode = currNode.children[idx];
+            currNode.freq++;
         }
         // mark eow = true
         currNode.eow = true;
     }
-    public boolean search(TrieNode root, String data) {
+    public boolean search(Node root, String data) {
         // O(L) time | O(1) space where L is length of data.
-        TrieNode currNode = root;
+        Node currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
@@ -44,9 +48,9 @@ public class TrieConstruction {
         // mark eow = true
         return currNode.eow;
     }
-    public int getFreq(CFTrieNode root, String data) {
+    public int getFreq(Node root, String data) {
         // O(L) time | O(1) space where L is length of data.
-        CFTrieNode currNode = root;
+        Node currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int idx = c - 'a'; // gives index
@@ -61,7 +65,7 @@ public class TrieConstruction {
         // mark eow = true
         return currNode.freq;
     }
-    public void delete(TrieNode root, String word) {
+    public void delete(Node root, String word) {
         /**
          * Nodes that cannot be deleted
          *  1. Nodes which has eow is true.
@@ -70,8 +74,8 @@ public class TrieConstruction {
          *  keep track of last node which cannot be deleted,
          *  and it's next children.
          */
-        TrieNode currNode = root;
-        TrieNode tempNode = null; // to keep track of last node which cannot be deleted.
+        Node currNode = root;
+        Node tempNode = null; // to keep track of last node which cannot be deleted.
         char nextCharNode = '#';
         int count = 0;
 
