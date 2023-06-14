@@ -117,26 +117,26 @@ public class AutoComplete {
             for (int j = 0; j < n; j++) { pairs[j] = new Pair(words[j], weights[j]); } // store each word and it's weight in pair
 //            System.out.println(Arrays.toString(pairs));
             Arrays.sort(pairs, (a, b) -> b.weight - a.weight); // sort in decreasing order according to their weights
-            TNode root = new TNode(); // create a root node
+            Node root = new Node(); // create a root node
             for (int j = 0; j < pairs.length; j++) { addWord(root, pairs[j].word, j);}
             for (String prefix : prefixes) { search(root, prefix, pairs); }
         }
     }
-    public static void addWord(TNode root, String data, int index) {
-        TNode currNode = root;
+    public static void addWord(Node root, String data, int index) {
+        Node currNode = root;
         for (int i = 0; i < data.length(); i++) {
             char c = data.charAt(i);
             int currCharIdx = c - 'a'; // gives index
             if (currNode.children[currCharIdx] == null) {
-                currNode.children[currCharIdx] = new TNode(); // create new node
+                currNode.children[currCharIdx] = new Node(); // create new node
             }
             currNode = currNode.children[currCharIdx];
             if (currNode.idx.size() < 5) currNode.idx.add(index);
         }
         currNode.eow = true;
     }
-    public static void search(TNode root, String prefix, Pair[] words) {
-       TNode currNode = root;
+    public static void search(Node root, String prefix, Pair[] words) {
+       Node currNode = root;
        for (int i = 0; i < prefix.length(); i++) {
            int idx = prefix.charAt(i) - 'a';
            if (currNode.children[idx] == null) {
@@ -147,24 +147,25 @@ public class AutoComplete {
        for (int i : currNode.idx) System.out.print(words[i].word + " ");
         System.out.println();
     }
-}
-class TNode {
-    TNode[] children;
-    ArrayList<Integer> idx;
-    boolean eow;
+    static class Node {
+        Node[] children;
+        ArrayList<Integer> idx;
+        boolean eow;
 
-    TNode() {
-        children = new TNode[26];
-        idx = new ArrayList<>();
-        eow = false;
+        Node() {
+            children = new Node[26];
+            idx = new ArrayList<>();
+            eow = false;
+        }
     }
-}
 
-class Pair {
-    String word;
-    int weight;
-    Pair(String word, int weight) {
-        this.word = word;
-        this.weight = weight;
+    static class Pair {
+        String word;
+        int weight;
+
+        Pair(String word, int weight) {
+            this.word = word;
+            this.weight = weight;
+        }
     }
 }
