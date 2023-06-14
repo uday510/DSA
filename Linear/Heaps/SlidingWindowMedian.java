@@ -35,12 +35,10 @@
  */
 package Linear.Heaps;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class SlidingWindowMedian {
+    static TreeSet<Integer> minHeap, maxHeap;
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
         int k = 3;
@@ -49,77 +47,38 @@ public class SlidingWindowMedian {
         System.out.println(Arrays.toString(ans));
     }
     public static double[] solve(int[] nums, int k) {
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-        HashMap<Integer, Integer> hm = new HashMap<>();
-        int n = nums.length;
-        double[] medians = new double[n-k+1];
-        int idx=-1;
+        // Two priority queues representing the low and high halves of the current window
+        Comparator<Integer> comparator = (a, b) -> nums[a] != nums[b] ?
+                Integer.compare(nums[a], nums[b]) : a - b;
+        minHeap = new TreeSet<>(comparator);
+        maxHeap = new TreeSet<>(comparator.reversed());
 
-        int i = 0;
+        double[] res = new double[nums.length - k + 1];
 
-        // initialize the heaps
-        while (i < k) {
-            maxHeap.add(nums[i++]);
+        int ans = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i >= k) {
+                minHeap.remove(i - k);
+                maxHeap.remove(i - k);
+            }
+            minHeap.add(i);
+            maxHeap.add(minHeap.pollFirst());
+
+             balanceHeaps();
+
+            if (i >= k - 1) res[ans++] = getMedian(nums, k);
         }
-        for (int j = 0; j < k / 2; j++) {
-            minHeap.add(maxHeap.peek());
-            maxHeap.poll();
-        }
-        System.out.println(minHeap);
-        System.out.println(maxHeap);
-
-        while (true) {
-            double temp;
-
-            if (i >= nums.length) break;
-
-            if (nums[i] > maxHeap.size()) {
-                minHeap.add(nums[i]);
-            } else {
-                maxHeap.add(nums[i]);
-            }
-            int diff = Math.abs(maxHeap.size() - minHeap.size());
-            if (diff > 1) {
-                balanceHeaps(maxHeap, minHeap);
-            }
-
-            if (maxHeap.size() > minHeap.size()) {
-                 temp = maxHeap.peek() * 1.0;
-            } else if (minHeap.size() > maxHeap.size()) {
-                temp = minHeap.peek() * 1.0;
-            } else {
-                temp = (maxHeap.peek() + minHeap.peek()) / 2.0;
-            }
-            medians[++idx] = temp;
-
-            int outNum = nums[i-k];
-            int inNum = nums[i++];
-            hm.put(outNum, hm.getOrDefault(outNum, 0) + 1);
-
-            while (hm.containsKey(maxHeap.peek())) {
-                hm.put(maxHeap.peek(), hm.get(maxHeap.peek())-1);
-                maxHeap.poll();
-            }
-
-            while (!minHeap.isEmpty() && hm.containsKey(minHeap.peek())) {
-                hm.put(minHeap.peek(), hm.get(minHeap.peek())-1);
-                minHeap.poll();
-            }
-        }
-        System.out.println(Arrays.toString(medians));
-
-        return medians;
+        return res;
     }
+    public static double getMedian(int[] nums, int k) {
+        if (k % 2 == 0) return (double) (nums[minHeap.first()] + nums[maxHeap.first()]) / 2;
 
-    public static void balanceHeaps(PriorityQueue<Integer> maxHeap, PriorityQueue<Integer> minHeap) {
-        int temp;
+        return nums[minHeap.first()];
+    }
+    public static void balanceHeaps() {
         if (maxHeap.size() > minHeap.size()) {
-            temp = maxHeap.poll();
-            minHeap.add(temp);
-        } else {
-            temp = minHeap.poll();
-            maxHeap.add(temp);
+            minHeap.add(maxHeap.pollFirst());
         }
     }
 }
