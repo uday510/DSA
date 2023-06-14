@@ -80,22 +80,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ContactFinder {
-    static CFTrieNode root;
-    static CFTrie trie;
+    static Node root;
+    static Trie trie;
     public static void main(String[] args) {
-        String[] str = {"s","ss","sss","ssss","sssss","s","ss","sss","ssss","sssss","ssssss"};
-        int[] a = {0,0,0,0,0,1,1,1,1,1,1};
+        String[] str = {"hack", "hacker", "hac", "hak"};
+        int[] a = {0, 0, 1, 1};
 
-        int[] ans = solve(str, a);
+        int[] ans = solve(a, str);
         System.out.println(Arrays.toString(ans));
     }
-    public static int[] solve(String[] strings, int[] A) {
-        root = new CFTrieNode('$');
-        trie = new CFTrie();
+    public static int[] solve(int[] A, String[] B) {
+        root = new Node('$');
+        trie = new Trie();
         ArrayList<Integer> ans = new ArrayList<>();
 
-        for (int i = 0; i < strings.length; i++) {
-            String currStr = strings[i];
+        for (int i = 0; i < B.length; i++) {
+            String currStr = B[i];
             if (A[i] == 0) {
                 trie.insert(root, currStr);
             } else {
@@ -105,96 +105,93 @@ public class ContactFinder {
         return ans.stream().mapToInt(i -> i).toArray();
 
     }
-}
-
-class CFTrieNode {
-    char data;
-    CFTrieNode[] children;
-    boolean eow; // marker for end-of-word
-    int freq;
-    CFTrieNode() {
-        children = new CFTrieNode[26];
-        eow = false;
-        freq = 0;
-    }
-    CFTrieNode(char data) {
-        this.data = data;
-        children = new CFTrieNode[26];
-        eow = false;
-        freq = 0;
-    }
-}
-
-class CFTrie {
-    public void insert(CFTrieNode root, String data) {
-        // O(L) time | O(L) space where L is length of data.
-        CFTrieNode currNode = root;
-        for (int i = 0; i < data.length(); i++) {
-            char c = data.charAt(i);
-            int idx = c - 'a'; // gives index
-            if (currNode.children[idx] == null) {
-                // insert current char
-                currNode.children[idx] = new CFTrieNode(c);
-            }
-            // go to next char index and increase freq.
-            currNode = currNode.children[idx];
-            currNode.freq++;
+    static class Node {
+        char data;
+        Node[] children;
+        boolean eow; // marker for end-of-word
+        int freq;
+        Node() {
+            children = new Node[26];
+            eow = false;
+            freq = 0;
         }
-        // mark eow = true
-        currNode.eow = true;
-    }
-    public int getFreq(CFTrieNode root, String data) {
-        // O(L) time | O(1) space where L is length of data.
-        CFTrieNode currNode = root;
-        for (int i = 0; i < data.length(); i++) {
-            char c = data.charAt(i);
-            int idx = c - 'a'; // gives index
-            if (currNode.children[idx] == null) {
-                // insert current char
-                return 0;
-            }
-            System.out.print(currNode.freq + " ");
-            // go to next char index.
-            currNode = currNode.children[idx];
+        Node(char data) {
+            this.data = data;
+            children = new Node[26];
+            eow = false;
+            freq = 0;
         }
-        // mark eow = true
-        return currNode.freq;
     }
-    public void delete(CFTrieNode root, String word) {
-        /**
-         * Nodes that cannot be deleted
-         *  1. Nodes which has eow is true.
-         *  2. Nodes which has two children.
-         *
-         *  keep track of last node which cannot be deleted,
-         *  and it's next children.
-         */
-        CFTrieNode currNode = root;
-        CFTrieNode tempNode = null; // to keep track of last node which cannot be deleted.
-        char nextCharNode = '#';
-        int count = 0;
-
-        for (int i = 0; i < word.length(); i++) {
-            // O(L) time | O(1) space, where L is length of word.
-            char c = word.charAt(i);
-            int idx = c - 'a';
-
-            // find no.of.nodes not null
-            for (int j = 0; j < 26; j++) {
-                if (currNode.children[j] != null) {
-                    count += 1;
+    static class Trie {
+        public void insert(Node root, String data) {
+            // O(L) time | O(L) space where L is length of data.
+            Node currNode = root;
+            for (int i = 0; i < data.length(); i++) {
+                char c = data.charAt(i);
+                int idx = c - 'a'; // gives index
+                if (currNode.children[idx] == null) {
+                    // insert current char
+                    currNode.children[idx] = new Node(c);
                 }
+                // go to next char index and increase freq.
+                currNode = currNode.children[idx];
+                currNode.freq++;
             }
-            if (count > 1 || currNode.eow == true) {
-                tempNode = currNode;
-                nextCharNode = c;
-            }
-            currNode = currNode.children[idx];
+            // mark eow = true
+            currNode.eow = true;
         }
-        // mark eow false for last char of word
-        currNode.eow = false;
-        // check for no.of.nodes not null of last char
-        if (count > 0) return;
-        else tempNode.children[nextCharNode - 'a'] = null;
+        public int getFreq(Node root, String data) {
+            // O(L) time | O(1) space where L is length of data.
+            Node currNode = root;
+            for (int i = 0; i < data.length(); i++) {
+                char c = data.charAt(i);
+                int idx = c - 'a'; // gives index
+                if (currNode.children[idx] == null) {
+                    // insert current char
+                    return 0;
+                }
+                // go to next char index.
+                currNode = currNode.children[idx];
+            }
+            // mark eow = true
+            return currNode.freq;
+        }
+        public void delete(Node root, String word) {
+            /**
+             * Nodes that cannot be deleted
+             *  1. Nodes which has eow is true.
+             *  2. Nodes which has two children.
+             *
+             *  keep track of last node which cannot be deleted,
+             *  and it's next children.
+             */
+            Node currNode = root;
+            Node tempNode = null; // to keep track of last node which cannot be deleted.
+            char nextCharNode = '#';
+            int count = 0;
+
+            for (int i = 0; i < word.length(); i++) {
+                // O(L) time | O(1) space, where L is length of word.
+                char c = word.charAt(i);
+                int idx = c - 'a';
+
+                // find no.of.nodes not null
+                for (int j = 0; j < 26; j++) {
+                    if (currNode.children[j] != null) {
+                        count += 1;
+                    }
+                }
+                if (count > 1 || currNode.eow == true) {
+                    tempNode = currNode;
+                    nextCharNode = c;
+                }
+                currNode = currNode.children[idx];
+            }
+            // mark eow false for last char of word
+            currNode.eow = false;
+            // check for no.of.nodes not null of last char
+            if (count > 0) return;
+            else tempNode.children[nextCharNode - 'a'] = null;
+        }
     }
 }
