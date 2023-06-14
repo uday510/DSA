@@ -48,29 +48,25 @@ public class MaximumXOR {
         System.out.println(ans);
     }
     public static int solve(int[] array) {
+        Node root = new Node();
 
-        TrieNode root = new TrieNode();
-        TrieNode currNode = root;
-        int maxNum = array[0];
-        for(int num : array) maxNum = Math.max(maxNum, num);
-        int L = (Integer.toBinaryString(maxNum)).length();
-
+        Node currNode = root;
         for (int num : array) {
-            for (int i = L-1; i > -1; i--) {
+            currNode = root;
+            for (int i = 31; i > -1; i--) {
                 if ((num & 1 << i) == 0) {
                     if (currNode.children[0] == null) {
-                        currNode.children[0] = new TrieNode();
+                        currNode.children[0] = new Node();
                     }
                     currNode = currNode.children[0];
                 } else {
                     if (currNode.children[1] == null) {
-                        currNode.children[1] = new TrieNode();
+                        currNode.children[1] = new Node();
                     }
                     currNode = currNode.children[1];
                 }
             }
         }
-
         int ans = 0;
         for (int i = 0; i < array.length; i++) {
             int num = array[i];
@@ -78,8 +74,7 @@ public class MaximumXOR {
             int xor = 0;
             currNode = root;
 
-
-            for (int j = L-1; j > -1; j--) {
+            for (int j = 31; j > -1; j--) {
                 if ((num & (1 << j)) == 0) {
                     if (currNode.children[1] != null) {
                         // set jth bit in xor value
@@ -102,9 +97,8 @@ public class MaximumXOR {
         }
         return ans;
     }
-}
-
-class TrieNode {
-    TrieNode[] children;
-    TrieNode() { this.children = new TrieNode[2]; }
+    static class Node {
+        Node[] children;
+        Node() { this.children = new Node[2]; }
+    }
 }
