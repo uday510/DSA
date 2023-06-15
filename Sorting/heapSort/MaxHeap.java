@@ -1,5 +1,4 @@
 package Sorting.heapSort;
-
 import java.util.ArrayList;
 
 public class MaxHeap {
