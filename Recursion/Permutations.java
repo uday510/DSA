@@ -57,6 +57,7 @@ public class Permutations {
         System.out.println(res);
     }
     public static ArrayList<ArrayList<Integer>> solve(int[] nums) {
+        // O(N*N!) time | O(N*N!) space
        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
 
        boolean[] visited = new boolean[nums.length];
@@ -73,7 +74,7 @@ public class Permutations {
         if (idx == nums.length) {
             ArrayList<Integer> temp = new ArrayList<>();
             for (int val : currPerm) temp.add(val);
-            perms.add(temp);
+            perms.add(new ArrayList<>() );
             return;
         }
         for (int i = 0; i < nums.length; ++i) { // All Possibilities
