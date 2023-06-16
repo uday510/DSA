@@ -32,7 +32,7 @@ public class subsets {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
 
-        List<List<Integer>> res = solve(nums);
+        List<List<Integer>> res = getSubsets(nums, nums.length - 1);
         System.out.println(res);
     }
     public static List<List<Integer>> solve(int[] nums) {
