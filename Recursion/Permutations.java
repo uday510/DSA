@@ -50,7 +50,7 @@ import java.util.ArrayList;
 
 public class Permutations {
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3};
+        int[] nums = {18, 7, 2};
 
         ArrayList<ArrayList<Integer>> res = solve(nums);
 
@@ -74,7 +74,7 @@ public class Permutations {
         if (idx == nums.length) {
             ArrayList<Integer> temp = new ArrayList<>();
             for (int val : currPerm) temp.add(val);
-            perms.add(new ArrayList<>() );
+            perms.add(new ArrayList<>(temp));
             return;
         }
         for (int i = 0; i < nums.length; ++i) { // All Possibilities

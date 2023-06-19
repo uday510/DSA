@@ -35,4 +35,4 @@ const DIGIT_LETTERS = {
 	9: ['w', 'x', 'y', 'z']
 };
 
-console.log(phoneNumberMnemonics('1905'));
+console.log(phoneNumberMnemonics('23'));

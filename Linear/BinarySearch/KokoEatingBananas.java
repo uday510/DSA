@@ -37,32 +37,73 @@ public class KokoEatingBananas {
     public static void main(String[] args) {
         int[] piles = {30,11,23,4,20};
 
-        int ans = solve(piles, 5);
+        int ans = solve(piles, 6);
         System.out.println(ans);
     }
     public static int solve(int[] piles, int h) {
 
-        int totalBananas = Arrays.stream(piles).sum();
+       int res;
+       res = minEatingSpeed(piles, h); // binary search
+       return res;
+    }
+    public static int minEatingSpeed(int[] piles, int h) {
+        // initialize the left and right boundaries
+        int left = 1,
+            right = Arrays.stream(piles).max().getAsInt(),
+                res = (int) 1e9;
 
-        System.out.println(totalBananas);
+        while (right > left) {
+            // Get the middle index between left and right boundary indexes.
+            // hourSpent stands for the total hour koko spends.
+            int middle = left + (right - left)/ 2;
+            int hourSpent = 0;
 
-        int left = 1;
-        int right = totalBananas;
-        int ans = Integer.MAX_VALUE ;
+            // iterate over the piles and calculate hourSpent
+            // We increase the hourSpent by ceil(pile/middle)
 
-        while (right >= left) {
 
-            int middle = left + right / 2;
-            if (canKokoEatBananasInMiddleTime(totalBananas, middle, h)) {
-                ans = middle;
-                right = middle - 1;
+            for (int pile : piles) {
+                hourSpent += Math.ceil((double) pile / middle);
+            }
+
+            // Check if middle is workable speed, and cut the search by half.
+            if (hourSpent <= h) {
+                res = middle;
+                right = middle-1;
             } else {
                 left = middle + 1;
             }
         }
-        return left;
+        //Once the left and right boundaries coincide, we find the target value,
+        // that is, the minimum workable eating speed.
+        return res;
     }
-    public static boolean canKokoEatBananasInMiddleTime(int totalBananas, int k, int h) {
-        return (totalBananas / k) <=  h;
+    public static int bruteForce(int[] piles, int h) {
+        // Start at an eating speed of 1.
+        int speed = 1;
+
+        while (true) {
+            // hourSpent stands for the total hour koko spends with
+            // the given eating speed.
+            int hourSpent = 0;
+
+            // Iterate over the piles and calculate hourSpent
+            // We increase the hourSpent by ceil(pile / speed)
+            for (int pile : piles) {
+                hourSpent += Math.ceil((double) pile / speed);
+                if (hourSpent > h) {
+                    break;
+                }
+            }
+
+            // Check if Koko can finish all the piles within h hours,
+            // If so, return speed. Otherwise, let speed increment by
+            // 1 and repeat the previous iteration.
+            if (hourSpent <= h) {
+                return speed;
+            } else {
+                speed += 1;
+            }
+        }
     }
 }

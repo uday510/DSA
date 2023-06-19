@@ -9,7 +9,6 @@
  * Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above
  */
 package Linear.Backtracking;
-
 import com.google.common.base.Stopwatch;
 
 import java.util.ArrayList;
@@ -51,7 +50,6 @@ public class NQueens {
             res.add(addPath(matrix));
             return;
         }
-
         for (int col = 0; col < n; ++col) {
             if (isQueenSafe(row, col, n)) {
                 matrix[row][col] = "Q";
@@ -66,27 +64,22 @@ public class NQueens {
             }
         }
     }
-
     public static boolean isQueenSafe(int row, int col, int n) {
         return (!cols[col] && !diagonal[row - col + n - 1] && !antiDiagonal[row + col]);
     }
     public static boolean isQueenSafe(String[][] matrix, int row, int col, int n) {
-
         // check for every row above on same col;
         for (int i = 0; i < row; ++i) {
             if (Objects.equals(matrix[i][col], "Q")) return false;
         }
-
         // check for left diagonal
         for (int i = row - 1, j = col - 1; i > -1 && j > -1; --i, --j) {
             if (Objects.equals(matrix[i][j], "Q")) return false;
         }
-
         // check for right diagonal
         for (int i = row - 1, j = col + 1; i > -1 && j < n; --i, ++j) {
             if (Objects.equals(matrix[i][j], "Q")) return false;
         }
-
         return true;
     }
     public static List<String> addPath(String[][] matrix) {

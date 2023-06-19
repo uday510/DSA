@@ -63,7 +63,6 @@ public class Permutations2 {
         for (int i = 0; i <= 10; ++i) {
             if (hm.containsKey(i) && hm.get(i) > 0) {
                 hm.put(i, hm.get(i) - 1);
-
                 perm[idx] = i;
                 getPermutations(idx+1, hm, perm, perms);
                 hm.put(i, hm.get(i) + 1);

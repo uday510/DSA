@@ -2,7 +2,7 @@ package Sorting.mergeSort;
 
 public class CountInversions {
     public static void main(String[] args) {
-        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int[] array = {10, 3, 8, 15, 6, 12, 2, 18, 7, 1};
         long ans = countInversionsHelper(array, 0, array.length - 1);
         System.out.println(ans);
     }
