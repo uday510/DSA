@@ -1,3 +1,5 @@
+package BasicMaths;
+
 import java.util.ArrayList;
 
 public class PrimeNumbers {
