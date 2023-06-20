@@ -19,8 +19,8 @@ My solutions to the various problems available on various coding platforms.
 
 - Arrays
 - Linked-lists
-- Queues
-- Stacks
+- Queue
+- Stack
 
 ## Non-Array
 
@@ -39,7 +39,7 @@ My solutions to the various problems available on various coding platforms.
 - Knuth-Morris-Pratt Algorithm
 - A* Algorithm
 
-## Sorting
+## Sort
 
 - Bubble Sort
 - Insertion Sort
@@ -53,7 +53,7 @@ My solutions to the various problems available on various coding platforms.
 
 ## Dynamic Programming
 
-## Heaps
+## Heap
 
 ## Patterns
 
@@ -63,4 +63,4 @@ My solutions to the various problems available on various coding platforms.
 
 ## Greedy Algorithms
 
-## Strings
+## String
