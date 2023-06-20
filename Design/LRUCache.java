@@ -32,7 +32,7 @@
  getValueFromKey("a"): 5
  */
 
-package LinkedList;
+package Design;
 import java.util.HashMap;
 
 public class LRUCache {

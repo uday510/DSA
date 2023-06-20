@@ -4,7 +4,7 @@
  * 1 -> blocked
  * 0 -> empty
  */
-package DynamicProgramming;
+package Backtracking;
 
 public class RatInAMaze1 {
         static int[] positionArray1 = {-1, 0, 1, 0};

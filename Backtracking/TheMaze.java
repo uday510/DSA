@@ -9,7 +9,7 @@
  * Output: true
  * Explanation: One possible way is : left -> down -> left -> down -> right -> down -> right.
  */
-package DynamicProgramming;
+package Backtracking;
 
 import java.util.Arrays;
 
