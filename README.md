@@ -15,14 +15,14 @@ My solutions to the various problems available on various coding platforms.
 
 </div>
 
-## Linear
+## Array
 
 - Arrays
 - Linked-lists
 - Queues
 - Stacks
 
-## Non-Linear
+## Non-Array
 
 - Graphs
 - Trees
@@ -59,7 +59,7 @@ My solutions to the various problems available on various coding platforms.
 
 ## Recursion
 
-## Linear.BinarySearch
+## BinarySearch
 
 ## Greedy Algorithms
 
