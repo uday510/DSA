@@ -53,28 +53,44 @@
  */
 package DynamicProgramming;
 
+import Timer.RunTime;
+
+
 public class MaxProductSubarray {
     public static void main(String[] args) {
         int[] array = {0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
+        RunTime runtime = new RunTime();
         int res = solve(array);
         System.out.println(res);
+        System.out.println("Runtime " + runtime.stopTimer());
     }
-    public static int solve(int[] array) {
-        int curr = 1;
-        int max = 0;
+    public static int solve(int[] nums) {
+        if (nums.length == 0) return 0;
 
-        for (int num : array) {
-            curr *= num;
+        int prefix = 1;
+        int suffix = 1;
+        int n = nums.length;
+        int max =  Integer.MIN_VALUE;
 
-            if (curr <= 0) {
-                curr = num;
-                System.out.println("curr " + curr);
-            }
-            if (curr > max) {
-                max = curr;
-            }
+        for (int i = 0; i < n; ++i) {
+            if (prefix == 0) prefix = 1;
+            if (suffix == 0) suffix = 1;
+
+            prefix = prefix * nums[i];
+            suffix = suffix * nums[n - i - 1];
+            max = Math.max(max, Math.max(prefix, suffix));
         }
         return max;
+
+//        int res = nums[0];
+//        for (int i = 0; i < nums.length; ++i) {
+//            int curr = 1;
+//            for (int j = i; j < nums.length; ++j) {
+//                curr *= nums[j];
+//                res = Math.max(res, curr);
+//            }
+//        }
+//        return res;
     }
 }

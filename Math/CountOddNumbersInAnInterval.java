@@ -7,7 +7,7 @@ public class CountOddNumbersInAnInterval {
 
         int res = solve(low, high);
         System.out.println(res);
-        System.out.println("RunTime" + timer.stop());
+        System.out.println("Timer" + timer.stop());
 
     }
     public static int solve(int low, int high) {
