@@ -32,12 +32,43 @@ public class HouseRobber {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 1};
 
-        int res = rob(nums);
+        int res = dp(nums);
         System.out.println(res);
     }
     public static int rob(int[] nums) {
         HashMap<Integer, Integer> memo = new HashMap<>();
         return dp(nums.length - 1, nums, memo);
+    }
+    public static int dp(int[] nums) {
+        // bottom-up
+        if (nums.length == 1) return nums[0];
+
+        int n = nums.length;
+//        int[] dp = new int[n];
+//        dp[0] = nums[0];
+//        dp[1] = Math.max(nums[0], nums[1]);
+//
+//        for (int i = 2; i < n; ++i) {
+//            dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i]);
+//        }
+//        return dp[n-1];
+
+        int robNext, robNextPlusOne;
+
+        //Base case initializations
+        robNextPlusOne = 0;
+        robNext = nums[n - 1];
+
+        //DP table calculations
+        for (int i = n - 2; i > -1; --i) {
+            int current = Math.max(robNext, robNextPlusOne + nums[i]);
+
+            // update the variables
+            robNextPlusOne = robNext;
+            robNext = current;
+        }
+        return robNext;
+
     }
     public static int dp(int i, int[] nums, HashMap<Integer, Integer> memo) {
         // Base Cases
