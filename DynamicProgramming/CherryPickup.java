@@ -18,10 +18,69 @@
  * Then, the player went left, up, up, left to return home, picking up one more cherry.
  * The total number of cherries picked up is 5, and this is the maximum possible.
  */
+
 package DynamicProgramming;
+
+import Timer.RunTime;
 
 public class CherryPickup {
     public static void main(String[] args) {
-        int[][] grid = {{0, 1, -1}, {1, 0, -1}, {1, 1, 1}};
+        int[][] grid = {{1,1,1,1,-1,-1,-1,1,0,0},
+                        {1,0,0,0,1,0,0,0,1,0},
+                        {0,0,1,1,1,1,0,1,1,1},
+                        {1,1,0,1,1,1,0,-1,1,1},
+                        {0,0,0,0,1,-1,0,0,1,-1},
+                        {0,0,0,0,1,-1,0,0,1,-1,1},
+                        {1,0,-1,0,-1,0,0,1,0,0},
+                        {0,0,-1,0,1,0,1,0,0,1}};
+
+        int[][] grid2 = {{1,1,-1},{1,-1,1},{-1,1,1}};
+
+        RunTime runtime = new RunTime();
+        int res = solve(grid2);
+        System.out.println(res);
+        System.out.println("Runtime " + runtime.stopTimer());
+    }
+    public static int solve(int[][] grid) {
+        int n = grid.length;
+        int[][][] dp = new int[n][n][n];
+        int res = cp(0, 0, 0, grid, dp);
+        return Math.max(res, 0);
+    }
+    public static int cp(int r1, int c1, int r2, int[][] grid, int[][][] dp) {
+        int c2 = r1 + c1 - r2;
+        if (r1 >= grid.length || r2 >= grid.length || c2 >= grid[0].length ||
+                c1 >= grid[0].length || grid[r1][c1] == -1 || grid[r2][c2] == -1) {
+            return Integer.MIN_VALUE;
+        }
+
+        // if p1 and p2 reach destination
+        if (r1 == grid.length - 1 && c1 == grid[0].length - 1) {
+            return grid[r1][c1];
+        }
+
+        if (r2 == grid.length - 1 && c2 == grid[0].length - 1) {
+            return grid[r2][c2];
+        }
+
+        if (dp[r1][c1][r2] != 0) {
+            return dp[r1][c1][r2];
+        }
+
+        int cherries = 0;
+        if (r1 == r2 && c1 == c2) {
+            cherries += grid[r1][c1];
+        } else {
+            cherries += grid[r1][c1] + grid[r2][c2];
+        }
+
+        int f1 = cp(r1, c1 + 1, r2, grid, dp); //h,h
+        int f2 = cp(r1 + 1, c1, r2, grid, dp); //v,h
+        int f3 = cp(r1 + 1, c1, r2 + 1, grid, dp); //v,v
+        int f4 = cp(r1, c1 + 1, r2 + 1, grid, dp); //h,v
+
+        cherries += Math.max(Math.max(f1, f2), Math.max(f3, f4));
+        dp[r1][c1][r2] = cherries;
+        return cherries;
     }
 }
