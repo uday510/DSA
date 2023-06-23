@@ -113,7 +113,7 @@ public class ModifiedSearch {
             }
         } else {
             if (currNode.children[c] != null) {
-                res = res || query(currNode.children[c], index + 1, data, modified, currNode.children[c].eow);
+                res = query(currNode.children[c], index + 1, data, modified, currNode.children[c].eow);
             }
         }
         return res;
