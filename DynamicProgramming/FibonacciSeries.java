@@ -7,7 +7,6 @@ public class FibonacciSeries {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
-
         solve(n);
     }
     public static void solve(int n) {
@@ -23,7 +22,7 @@ public class FibonacciSeries {
     }
     public static void bottomUpHelper2(int n) {
         int a = 0, b = 1;
-        for (int i = 3; i <= n; ++i) {
+        for (int i = 2; i <= n; ++i) {
             int c = a + b;
             a = b;
             b = c;
