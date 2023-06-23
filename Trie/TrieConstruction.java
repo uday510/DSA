@@ -1,12 +1,11 @@
 package Trie;
 
 public class TrieConstruction {
-    public class Node {
+    class Node {
         char data;
         Node[] children;
         boolean eow; // marker for end-of-word
         int freq;
-
 
         Node (char data) {
             this.data = data;

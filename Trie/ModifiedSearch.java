@@ -76,16 +76,47 @@ public class ModifiedSearch {
     public static void main(String[] args) {
 
     }
-    public static void solve(String[] A, String[] B) {
+    public static String solve(String[] A, String[] B) {
 
         Node root = new Node();
-        StringBuilder res = new StringBuilder();
 
         for (int i = 0; i < A.length; ++i) {
             insert(root, A[i]);
         }
-
-
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < B.length; ++i) {
+            if (query(root, 0, B[i], false, false)) {
+                res.append('1');
+            } else {
+                res.append('0');
+            }
+        }
+        return res.toString();
+    }
+    public static boolean query(Node currNode, int index, String data, boolean modified, boolean eow) {
+        boolean res = false;
+        int n = data.length();
+        if (index == n) {
+            return modified && eow;
+        }
+        int c = data.charAt(index) - 97;
+        if (!modified) {
+            for (int i = 0; i < 26; ++i) {
+                if (currNode.children[i] == null) {
+                    continue;
+                }
+                if (i == c) {
+                    res = res || query(currNode.children[i], index + 1, data, modified, currNode.children[i].eow);
+                } else {
+                    res = res || query(currNode.children[i], index + 1, data, !modified, currNode.children[i].eow);
+                }
+            }
+        } else {
+            if (currNode.children[c] != null) {
+                res = res || query(currNode.children[c], index + 1, data, modified, currNode.children[c].eow);
+            }
+        }
+        return res;
     }
     public static void insert(Node root, String data) {
         // O(L) time | O(L) space where L is length of data.
@@ -103,6 +134,7 @@ public class ModifiedSearch {
         // mark eow = true
         currNode.eow = true;
     }
+
     static class Node {
         Node[] children;
         boolean eow;
