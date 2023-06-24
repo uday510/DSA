@@ -65,12 +65,32 @@
  */
 package Heap;
 
+import java.util.PriorityQueue;
+
 public class ConnectRopes {
     public static void main(String[] args) {
-        int[] ropes = {1, 2, 3, 4, 5};
+        int[] ropes = {4};
 
-        int ans = solve(ropes);
+        int ans = connectRopes(ropes);
         System.out.println(ans);
+    }
+    public static int connectRopes(int[] A) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for (int stick : A) {
+            pq.offer(stick);
+        }
+        int minCost = 0;
+
+        while (pq.size() >= 2) {
+            int firstCost = pq.poll();
+            int secondCost = pq.poll();
+
+            int combinedCost = firstCost + secondCost;
+            minCost += combinedCost;
+            pq.offer(combinedCost);
+        }
+        return minCost;
     }
     public static int solve(int[] ropes) {
         buildMinHeap(ropes);
