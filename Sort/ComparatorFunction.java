@@ -46,7 +46,6 @@ package Sort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Objects;
 
 public class ComparatorFunction {
@@ -58,14 +57,11 @@ public class ComparatorFunction {
     }
 
     public static ArrayList<Integer> solve(ArrayList<Integer> array) {
-        array.sort(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                Integer count1 = getFactors(o1);
-                Integer count2 = getFactors(o2);
-                if (Objects.equals(count1, count2)) return o1 - o2;
-                return count1 - count2;
-            }
+        array.sort((o1, o2) -> {
+            Integer count1 = getFactors(o1);
+            Integer count2 = getFactors(o2);
+            if (Objects.equals(count1, count2)) return o1 - o2;
+            return count1 - count2;
         });
         return array;
     }
