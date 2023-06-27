@@ -64,13 +64,15 @@
  *
  *  Knapsack capacity is 10 but each item has weight greater than 10 so no items can be considered in the knapsack therefore answer is 0.
  */
-package Greedy;
+package DynamicProgramming;
+
+import java.util.Arrays;
 
 public class O1Knapsack {
     public static void main(String[] args) {
-        int[] A = {60, 100, 120};
-        int[] B = {10, 20, 30};
-        int c = 50;
+        int[] A = {12, 20, 15, 6, 10};
+        int[] B = {3, 6, 5, 2, 4};
+        int c = 8;
 
         int res = solve(A, B, c);
         System.out.println(res);
@@ -80,7 +82,28 @@ public class O1Knapsack {
         int n = values.length;
         Integer[][] dp = new Integer[n+1][capacity+1];
 
-       return solve(n-1, capacity, values, weights, dp);
+//       return solve(n-1, capacity, values, weights, dp);
+
+        return topDown(values, weights, capacity);
+    }
+    public static int topDown(int[] values, int[] weights, int capacity) {
+        // O(N*capacity) time | O(N*capacity) space
+        int n = values.length;
+        Integer[][] dp = new Integer[n+1][capacity+1];
+
+        Arrays.fill(dp[0], 0);
+        for (int i = 1; i < n+1; ++i) dp[i][0] = 0;
+
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= capacity; ++j) {
+                dp[i][j] = dp[i-1][j];
+                if (j - weights[i-1] >= 0) {
+                    dp[i][j] = Math.max(dp[i-1][j], values[i-1] + dp[i-1][j - weights[i-1]]);
+                }
+            }
+        }
+
+        return dp[n][capacity];
     }
     public static int solve(int i, int j, int[] values, int[] weights, Integer[][] dp) {
         if (i < 0 || j == 0) return 0;
