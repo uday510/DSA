@@ -74,7 +74,7 @@ public class O1Knapsack {
         int[] B = {3, 6, 5, 2, 4};
         int c = 8;
 
-        int res = solve(A, B, c);
+        int res = optimised(A, B, c);
         System.out.println(res);
     }
     public static int solve(int[] values, int[] weights, int capacity) {
@@ -85,6 +85,20 @@ public class O1Knapsack {
 //       return solve(n-1, capacity, values, weights, dp);
 
         return topDown(values, weights, capacity);
+    }
+    public static int optimised(int[] A, int[] B, int C) {
+        int n = A.length;
+        int[] dp = new int[C+1];
+
+        for (int i = 1; i <= n; ++i) {
+            for (int j = C; j > -1; --j) {
+                if (j - B[i-1] >= 0) {
+                    dp[j] = Math.max(dp[j], A[i-1] + dp[j - B[i-1]]);
+                }
+            }
+        }
+        System.out.println(Arrays.toString(dp));
+        return dp[C];
     }
     public static int topDown(int[] values, int[] weights, int capacity) {
         // O(N*capacity) time | O(N*capacity) space
@@ -102,7 +116,7 @@ public class O1Knapsack {
                 }
             }
         }
-
+        for (Integer[] ar : dp) System.out.println(Arrays.toString(ar));
         return dp[n][capacity];
     }
     public static int solve(int i, int j, int[] values, int[] weights, Integer[][] dp) {
