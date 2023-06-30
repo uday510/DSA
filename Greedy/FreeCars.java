@@ -80,7 +80,6 @@ public class FreeCars {
         int ans = solve(A, B);
         System.out.println(ans);
     }
-
     public static int solve(int[] A, int[] B) {
         int n = A.length;
         Pair[] pairs = new Pair[n];

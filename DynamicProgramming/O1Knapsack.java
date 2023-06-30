@@ -82,9 +82,9 @@ public class O1Knapsack {
         int n = values.length;
         Integer[][] dp = new Integer[n+1][capacity+1];
 
-//       return solve(n-1, capacity, values, weights, dp);
+       return solve(n-1, capacity, values, weights, dp);
 
-        return topDown(values, weights, capacity);
+//        return topDown(values, weights, capacity);
     }
     public static int optimised(int[] A, int[] B, int C) {
         int n = A.length;
