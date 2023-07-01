@@ -65,6 +65,7 @@
  */
 package DynamicProgramming;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class O1KnapSack2 {
@@ -78,6 +79,30 @@ public class O1KnapSack2 {
     }
     public static int solve(int[] A, int[] B, int C) {
         return KnapSack(A, B, C);
+    }
+    public static int optimized(int[] A, int[] B, int C) {
+        int k = IntStream.of(A).sum();
+        int n = A.length;
+        int[] dp = new int[k + 1];
+        Arrays.fill(dp, (int) 1e8);
+        dp[0] = 0;
+        for (int i = 1; i <= n; ++i) {
+            for (int j = k; j > -1; --j) {
+                if (A[i - 1] <= j && dp[j - A[i - 1]] != Integer.MAX_VALUE) {
+                    dp[j] = Math.min(dp[j], dp[j - A[i - 1]] + B[i - 1]);
+                } else {
+                    dp[j] = dp[j];
+                }
+            }
+        }
+        int res = 0;
+        for (int j = k; j > -1; --j) {
+            if (dp[j] <= C) {
+                res = j;
+                break;
+            }
+        }
+        return res;
     }
     public static int KnapSack(int[] A, int[] B, int C) {
         // O(n*k) time and O(n*k) space
