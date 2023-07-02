@@ -25,7 +25,6 @@
  * Output Format
  * Return the equilibrium index of the given array. If no such index is found then return -1.
  *
- *
  * Example Input
  * Input 1:
  * A=[-7, 1, 5, 2, -4, 3, 0]
@@ -52,7 +51,6 @@
  */
 
 package Array;
-
 import java.util.stream.IntStream;
 
 public class EquilibriumIndex {
