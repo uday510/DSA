@@ -61,7 +61,6 @@ public class LongestCommonSubsequence {
         int[] dp = new int[m+1];
         dp[0] = A.charAt(0) == B.charAt(0) ? 1 : 0;
 
-
         for (int i = 1; i < n+1; ++i) {
             for (int j = 1; j < m+1; ++j) {
                 if (A.charAt(i-1) == B.charAt(j-1)) {
