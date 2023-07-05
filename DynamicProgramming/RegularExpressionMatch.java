@@ -53,11 +53,13 @@
  *
  *  '?' matches any single character. First two character in string A will be match.
  *  But the last character i.e 'z' != 'a'. Return 0.
+ *
  */
 package DynamicProgramming;
-
 import java.util.Arrays;
 
+// https://www.interviewbit.com/problems/regular-expression-match/
+// https://leetcode.com/problems/wildcard-matching/description/
 public class RegularExpressionMatch {
     public static void main(String[] args) {
         String A = "xbbzz";
