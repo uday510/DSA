@@ -21,8 +21,7 @@ public class ImplementStackUsingArray {
             System.out.println("Stack is under flow");
             return -1;
         } else {
-            int val = stack[topOfStack--];
-            return val;
+            return stack[topOfStack--];
         }
     }
     public static int getTopOfStack() {
