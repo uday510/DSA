@@ -47,23 +47,54 @@ package BitManipulation;
 public class subArrayWithBitwiseOR1 {
     public static void main(String[] args) {
         int[] array = {1, 0, 1};
-        int n = 3;
-        int ans = solve(array, n);
+        long ans = solve(array);
         System.out.println(ans);
     }
-    public static int solve(int[] array, int len) {
+    public static long solve(int[] array) {
         // O(N) time | O(1) space
-        int possibleSubarraysWithThisIdx = 0;
-        int ans = 0;
-
-        for (int i = 0; i < len; i++) {
-            int currentNum = array[i];
-            if (currentNum == 1)
-                possibleSubarraysWithThisIdx = i + 1;
-
-            ans += possibleSubarraysWithThisIdx;
+        long count = 0;
+        long zeroes = 0;
+        long N = array.length;
+        for (int i = 0; i < array.length; ++i) {
+            if (array[i] == 0) {
+                zeroes++;
+            } else {
+                count += (zeroes * (zeroes + 1)) / 2;
+                zeroes = 0;
+            }
         }
+        count += (zeroes * (zeroes + 1)) / 2;
 
-        return ans;
+        return (N * (N + 1) / 2) - count;
+    }
+    public static int solve2(int[] array) {
+        // O(N^2) time | O(1) space
+        int count = 0;
+        for (int i = 0; i < array.length; ++i) {
+            int val = 0;
+            for (int j = i; j < array.length; ++j) {
+                val = val | array[j];
+                if (val == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    public static int bruteForce(int[] array) {
+        // O(N^3) time | O(1) space
+        int count = 0;
+        for (int i = 0; i < array.length; ++i) {
+            for (int j = i; j < array.length; ++j) {
+                int val = 0;
+                for (int k = i; k <= j; ++k) {
+                    val = val | array[k];
+                }
+                if (val == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

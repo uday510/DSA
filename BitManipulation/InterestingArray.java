@@ -23,4 +23,5 @@ public class InterestingArray {
 
         return oddCount % 2 != 0 ? "No" : "Yes";
     }
+
 }
