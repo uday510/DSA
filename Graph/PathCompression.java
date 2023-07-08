@@ -4,6 +4,7 @@ public class PathCompression {
     private static int[] root;
 
     public PathCompression(int n) {
+        // O(N) time | O(N) space
         root = new int[n];
         for (int i = 0; i < n; ++i) {
             root[i] = i;
@@ -25,12 +26,14 @@ public class PathCompression {
         System.out.println(pc.connected(0, 7));
     }
     public static int find(int x) {
+        // O(logN) time | O(1) space
         if (x == root[x]) {
             return x;
         }
         return root[x] = find(root[x]);
     }
     public static void union(int x, int y) {
+        // O(logN) time | O(1) space
         int rootX = find(x);
         int rootY = find(y);
         if (rootX != rootY) {
@@ -38,6 +41,7 @@ public class PathCompression {
         }
     }
     public static boolean connected(int x, int y) {
+        // O(logN) time | O(1) space
         return find(x) == find(y);
     }
 }
