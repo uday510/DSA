@@ -34,6 +34,7 @@ public class UnionFind {
         // O(N) time | O(1) space
         int rootX = find(x); // find root of x
         int rootY = find(y); // find root of y
+        if (rootX == rootY) return; // already connected
         for (int i = 0; i < root.length; ++i) {
             if (root[i] == rootY) {
                 root[i] = rootX; // set root of y to root of x
