@@ -15,7 +15,7 @@ public class UnionByRank {
         }
     }
     public static void main(String[] args) {
-        UnionByRank uf = new UnionByRank(10);
+        UnionByRank uf = new UnionByRank(10); // O(n)
         // 1-2-5-6-7 3-8-9 4
         uf.union(1, 2);
         uf.union(2, 5);
@@ -30,12 +30,14 @@ public class UnionByRank {
         System.out.println(uf.find(7)); // 1
     }
     public static int find(int x) {
+        // O(logn) time | O(1) space
         while (x != root[x]) {
             x = root[x];
         }
         return x;
     }
     public static void union(int x, int y) {
+        // O(logn) time | O(1) space
         int rootX = find(x);
         int rootY = find(y);
 
@@ -51,5 +53,9 @@ public class UnionByRank {
             root[rootY] = rootX;
             rank[rootX] += 1;
         }
+    }
+    public static boolean connected(int x, int y) {
+        // O(logn) time | O(1) space
+        return find(x) == find(y);
     }
 }
