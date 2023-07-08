@@ -4,7 +4,6 @@ public class ImplementStackUsingArray {
     static int topOfStack = -1;
     static int[] stack = new int[4];
 
-
     public static void main(String[] args) {
 
     }
