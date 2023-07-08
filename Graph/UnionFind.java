@@ -27,7 +27,7 @@ public class UnionFind {
      }
 
     public static void main(String[] args) {
-        UnionFind unionFind = new UnionFind(10);
+        new UnionFind(10);
         // 1-2-5-6-7 3-8-9 4
         union(1, 2);
         union(2, 5);
