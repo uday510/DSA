@@ -39,7 +39,6 @@ public class NumberOfProvinces {
         public void unionSet(int x, int y) {
             int xset = find(x);
             int yset = find(y);
-
             if (xset == yset) {
                 return;
             }
