@@ -79,7 +79,6 @@ public class SmallestStringWithSwaps {
                 sortedCharacters.add(s.charAt(index));
             }
             Collections.sort(sortedCharacters);
-            System.out.println(sortedCharacters);
 
             // Store the sorted characters in the smallestString
             for (int index = 0; index < indices.size(); ++index) {
