@@ -18,6 +18,8 @@
  */
 package Graph;
 
+import java.util.*;
+
 public class FindIfPathExistsInGraph {
     public static void main(String[] args) {
         int[][] edges = {{0,1},{0,2},{3,5},{5,4},{4,3}};
@@ -27,13 +29,51 @@ public class FindIfPathExistsInGraph {
         System.out.println(validPath(n, edges, source, destination));
     }
     public static boolean validPath(int n, int[][] edges, int source, int destination) {
-        // O(m * log(n)) time complexity | O(n) space complexity
-        UnionFind dsu = new UnionFind(n);
+        List<List<Integer>> adjacencyList = new ArrayList<>();
+        for (int i = 0; i < n; ++i) {
+            adjacencyList.add(new ArrayList<>());
+        }
 
         for (int[] edge : edges) {
-            dsu.union(edge[0], edge[1]);
+            adjacencyList.get(edge[0]).add(edge[1]);
+            adjacencyList.get(edge[1]).add(edge[0]);
         }
-        return dsu.find(source) == dsu.find(destination);
+
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(source);
+        boolean[] seen = new boolean[n];
+        Arrays.fill(seen, false);
+
+        while (!stack.isEmpty()) {
+            // Get the current node
+            int node = stack.pop();
+
+            // Check if the node is the destination
+            if (node == destination) {
+                return true;
+            }
+
+            //Check if the node is seen
+            if (seen[node]) {
+                continue;
+            }
+
+            seen[node] = true; // Mark the node as seen
+
+            // Add all the neighbors of the node to the stack
+            for (int neighbor : adjacencyList.get(node)) {
+                stack.push(neighbor);
+            }
+        }
+        return false;
+
+        // O(m * log(n)) time complexity | O(n) space complexity
+//        UnionFind dsu = new UnionFind(n);
+//
+//        for (int[] edge : edges) {
+//            dsu.union(edge[0], edge[1]);
+//        }
+//        return dsu.find(source) == dsu.find(destination);
     }
     static class UnionFind {
         private int[] root;
