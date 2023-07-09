@@ -143,9 +143,9 @@ public class WaterDistributionInAVillage {
             }
 
             // attach the group with lower rank to the one with higher rank
-            if (rank[person1] > rank[person2]) {
+            if (rank[group1] > rank[group1]) {
                 group[group2] = group1;
-            } else if (rank[person2] > rank[person1]) {
+            } else if (rank[group2] > rank[group2]) {
                 group[group1] = group2;
             } else {
                 group[group2] = group1;

@@ -23,3 +23,12 @@ Each edge in a “weighted graph” has an associated weight.
 The weight can be of any metric, such as time, distance, size, etc. 
 The most commonly seen “weighted map” in our daily life might be a city map. 
 In Figure 3, each edge is marked with the distance, which can be regarded as the weight of that edge.
+
+DSU or disjoint set union or simpy union-find is a data structure is used to
+check the connectivity between two vertices in a graph.
+
+
+In Graph theory, the depth-first search algorithm (abbreviated as DFS) is mainly used to:
+
+Traverse all vertices in a “graph”;
+Traverse all paths between any two vertices in a “graph
