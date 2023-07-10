@@ -19,19 +19,19 @@ public class AllPathsFromSourceLeadToDestination {
     // We don't use the state WHITE as such anywhere, Instead, the "null" values in the states array are interpreted as WHITE.
 
     enum Color { GRAY, BLACK };
-    public static void main(String[] args) {
-        int[][] edges = {{0, 1}, {0, 2}};
+    public static void main(String[] ags) {
+        int[][] edges = {{0, 1}, {0, 2}, {1, 3}, {2, 3}};
         int source = 0;
-        int destination = 2;
-        int n = 3;
-        System.out.println(leadToDestination(n, edges, source, destination));
+        int destination = 3;
+        int n = 4;
+        System.out.println(leadsToDestination(n, edges, source, destination));
     }
-    public static boolean leadToDestination(int n, int[][] edges, int source, int destination) {
+    public static boolean leadsToDestination(int n, int[][] edges, int source, int destination) {
         // O(V + E) time complexity | O(E) space complexity
         List<Integer>[] graph = buildDigraph(n, edges);
-        return leadToDestination(graph, source, destination, new Color[n]);
+        return leadsToDestination(graph, source, destination, new Color[n]);
     }
-    public static boolean leadToDestination(List<Integer>[] graph, int node, int destination, Color[] states) {
+    public static boolean leadsToDestination(List<Integer>[] graph, int node, int destination, Color[] states) {
 
         // if the state is GRAY, this is a backward edge and hence, it creates a cycle.
         if (states[node] != null) {
@@ -46,7 +46,7 @@ public class AllPathsFromSourceLeadToDestination {
         states[node] = Color.GRAY;
 
         for (int next : graph[node]) {
-            if (!leadToDestination(graph, next, destination, states)) {
+            if (!leadsToDestination(graph, next, destination, states)) {
                 return false;
             }
         }

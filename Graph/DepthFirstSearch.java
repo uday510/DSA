@@ -21,7 +21,6 @@ public class DepthFirstSearch {
 
         //Create a stack to store the nodes
         boolean[] seen = new boolean[n];
-        seen[source] = true;
         // stack or deque both will work
 //        Deque<Integer> stack = new ArrayDeque<>();
         Stack<Integer> stack = new Stack<>();
