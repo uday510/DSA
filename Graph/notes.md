@@ -32,3 +32,23 @@ In Graph theory, the depth-first search algorithm (abbreviated as DFS) is mainly
 
 Traverse all vertices in a “graph”;
 Traverse all paths between any two vertices in a “graph
+
+Previously, we discussed the “depth-first search” algorithm.
+This section will talk about a closely related and equally popular algorithm called “breadth-first search”.
+Similarly, the “breadth-first search” algorithm can traverse all vertices of a “graph” and traverse all paths between two vertices. 
+However, the most advantageous use case of “breadth-first search” is to efficiently find the shortest path between two vertices 
+in a “graph” where all edges have equal and positive weights.
+
+Although the “depth-first search” algorithm can find the shortest path between two vertices in a “graph”
+with equal and positive weights, it must traverse all paths between two vertices before finding the shortest one.
+The “breadth-first search” algorithm, in most cases, can find the shortest path without traversing all paths.
+This is because when using "breadth-first search", as soon as a path between the source vertex and target vertex is found,
+it is guaranteed to be the shortest path between the two nodes.
+
+In Graph theory, the primary use cases of the “breadth-first search” (“BFS”) algorithm are:
+
+Traversing all vertices in the “graph”;
+Finding the shortest path between two vertices in a graph where all edges have equal and positive weights.
+
+DFS --> Stack
+BFS --> Queue
