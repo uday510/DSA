@@ -100,7 +100,7 @@ public class ShortestPathInBinaryMatrix {
 //            if (row == grid.length - 1 && col == grid[0].length - 1) {
 //                return distance;
 //            }
-//
+
 //            // Otherwise, process all the neighboring cells
 //            for (int[] neighbor : getNeighbors(row, col, grid)) {
 //                int neighborRow = neighbor[0];
