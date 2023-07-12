@@ -87,7 +87,6 @@ public class SurroundedRegions {
     public static void dfs(char[][] board, int row, int col, int[][] visited) {
         visited[row][col] = 1;
 
-
         for (int[] direction : directions) {
             int newRow = row + direction[0];
             int newCol = col + direction[1];
