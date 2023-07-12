@@ -69,18 +69,21 @@ public class NumberOfIslands2 {
             dsu.addLand(landPosition); // add land at position landPosition
 
             for (int[] direction : directions) {
-                int newX = x + direction[0];
-                int newY = y + direction[1];
+                int neighborX = x + direction[0];
+                int neighborY = y + direction[1];
 
-                int newLandPosition = newX*n + newY; // convert 2D position to 1D position
+                int newLandPosition = neighborX*n + neighborX; // convert 2D position to 1D position
 
-                if (newX >= 0 && newX < m && newY >= 0 && newY < n && dsu.isLand(newLandPosition)) {
-                    dsu.union(landPosition, newLandPosition); // union landPosition and newLandPosition
+                if (isValidNeigbhor(neighborX, neighborY, newLandPosition, m, n, dsu)) {
+                    dsu.union(landPosition, newLandPosition);
                 }
             }
             ans.add(dsu.numberOfIslands()); // add number of islands to ans
         }
         return ans; // return ans
+    }
+    public static boolean isValidNeigbhor(int row, int col, int position, int m, int n, UnionFind dsu) {
+        return (row >= 0 && col >= 0 && row < m && col < n && dsu.isLand(position));
     }
 
     static class UnionFind {
