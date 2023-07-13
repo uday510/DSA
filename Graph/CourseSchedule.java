@@ -23,8 +23,8 @@ import java.util.Queue;
 
 public class CourseSchedule {
     public static void main(String[] args) {
-        int[][] prerequisites = {{1,0},{0,1}};
-        int numCourses = 2;
+        int[][] prerequisites = {{1,2},{2,3}};
+        int numCourses = 3;
         System.out.println(canFinish(numCourses, prerequisites));
     }
     public static boolean canFinish(int numCourses, int[][] prerequisites) {
