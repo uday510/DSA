@@ -52,3 +52,15 @@ Finding the shortest path between two vertices in a graph where all edges have e
 
 DFS --> Stack
 BFS --> Queue
+
+
+Applications of DSU:
+
+        1. Detecting cycle in a graph
+        2. Checking connectivity of a graph
+        3. Finding connected components in a graph
+        4. Finding MST of a graph
+        5. Finding the shortest path between two nodes in a graph
+        6. Finding the number of connected components in a graph
+        7. Finding the number of edges in a graph
+        8. Finding the number of vertices in a graph
