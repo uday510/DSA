@@ -27,6 +27,8 @@
  */
 package Array;
 
+import java.util.Arrays;
+
 public class ThreeNumberClosest {
     public static void main(String[] args) {
         int[] nums = {-1,2,1,-4};
@@ -37,6 +39,7 @@ public class ThreeNumberClosest {
         int n = nums.length;
         int closest = Integer.MAX_VALUE;
         int difference = Integer.MAX_VALUE;
+        Arrays.sort(nums);
         for (int i = 0; i < n; ++i) {
             int j = i + 1;
             int k = n - 1;
