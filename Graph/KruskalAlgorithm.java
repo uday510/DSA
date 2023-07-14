@@ -57,22 +57,24 @@ public class KruskalAlgorithm {
     public static int[][][] kruskalsAlgorithm(int[][][] edges) {
         // O(ElogE + ElogV) time | O(E + V) space
         ArrayList<List<Integer>> sortedEdges = new ArrayList<>();
-        for (int i = 0; i < edges.length;i++) {
-            for (int[] edge : edges[i]) {
+        int vertices = edges.length;
+        for (int vertex = 0; vertex < vertices; vertex++) {
+            for (int[] edge : edges[vertex]) {
                 List<Integer> newEdge = new ArrayList<>();
-                if (edge[0] > i) { // only add the edge once to the sortedEdges
-                    newEdge.add(i);
+                if (edge[0] > vertex) { // only add the edge once to the sortedEdges
+                    newEdge.add(vertex);
                     newEdge.add(edge[0]);
                     newEdge.add(edge[1]); // add the weight of the edge
                     sortedEdges.add(newEdge);
                 }
             }
         }
+        System.out.println(sortedEdges);
 
         UnionFind dsu = new UnionFind(edges.length); // disjoint set union
         sortedEdges.sort((edge1, edge2) -> edge1.get(2) - edge2.get(2)); // sort the edges by weight
         ArrayList<ArrayList<int[]>> mst = new ArrayList<>();
-        for (int i = 0;i < edges.length;i++) {
+        for (int i = 0; i < edges.length;i++) {
             mst.add(i, new ArrayList<>());
         }
         for (List<Integer> edge : sortedEdges) {
