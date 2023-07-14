@@ -64,3 +64,153 @@ Applications of DSU:
         6. Finding the number of connected components in a graph
         7. Finding the number of edges in a graph
         8. Finding the number of vertices in a graph
+
+
+Spanning Tree:
+    
+    Spanning tree is a subset of Graph G, which has all the vertices covered with minimum possible number of edges.
+    Hence, a spanning tree does not have cycles and it cannot be disconnected.
+    Also, it is a connected and acyclic graph.
+    There can be many spanning trees possible in a graph.
+    A graph can have many spanning trees.
+
+Minimum Cost Spanning Tree:
+    
+    Spanning tree with less weight is called Minimum Cost Spanning Tree or Minimum Spanning Tree.
+
+To Construct Minimum Spanning Tree, below are the algorithms:
+
+    1. Kruskal’s Algorithm
+    2. Prim’s Algorithm
+
+Kruskal’s Algorithm:
+
+    Kruskal’s Algorithm builds the spanning tree by adding edges one by one into a growing spanning tree.
+    Kruskal's algorithm follows greedy approach as in each iteration it finds an edge which has least weight and add it to the growing spanning tree.
+    Algorithm Steps:
+
+        1. Sort the graph edges with respect to their weights.
+        2. Start adding edges to the MST from the edge with the smallest weight until the edge of the largest weight.
+        3. Only add edges which doesn't form a cycle , edges which connect only disconnected components.
+        4. So now the question is how to check if two vertices are connected or not ? We can use Disjoint sets here to check if two vertices are connected or not.
+        5. If the two vertices are connected then adding an edge between them will create a cycle , otherwise it won't.
+        6. Initially all vertices are disconnected , so first step is to make each of them a separate disjoint set.
+        7. Now iterate over all the edges and keep adding all those edges whose vertices are not in the same disjoint set.
+        8. Stop when we have v-1 edges in the spanning tree , where v is the number of vertices in the graph.
+
+Prim’s Algorithm:
+
+    Prim’s Algorithm also use Greedy approach to find the minimum spanning tree.
+    In Prim’s Algorithm we grow the spanning tree from a starting position.
+    Unlike an edge in Kruskal's, we add vertex to the growing spanning tree in Prim's.
+    We randomly select a vertex from the graph and then add the least weighted edge connecting the vertex to the growing spanning tree.
+    After the first vertex is added to the growing spanning tree, we add the next least weighted edge which has one vertex from the growing spanning tree and other from the vertices which are not yet added to the spanning tree.
+    This process continues until all the vertices are added to the spanning tree.
+    Algorithm Steps:
+
+        1. Maintain two disjoint sets of vertices. One containing vertices that are in the growing spanning tree and other that are not in the growing spanning tree.
+        2. Select the cheapest vertex that is connected to the growing spanning tree and is not in the growing spanning tree and add it into the growing spanning tree. This can be done using Priority Queues. Insert all the edges that are connected to growing spanning tree in the Priority Queue and the edge with the smallest weight is the root of the Priority Queue.
+        3. Remove the edge with the smallest weight from the Priority Queue. If the removed edge connects two vertices that are in the different sets then add it into the minimum spanning tree and merge two sets into one. Otherwise discard the removed edge.
+        4. Repeat step 2 and step 3 until there are no more edges left in the Priority Queue.
+
+
+
+Single Source Shortest Path:
+
+    Single source shortest path is a path between a source vertex and all other vertices in the graph.
+    The source vertex is the first vertex in the path and the destination vertex is the last vertex in the path.
+    There can be many paths between the source and destination vertices.
+    The shortest path is the path with minimum number of edges in the graph.
+    There can be many shortest paths between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+    The shortest path can also be defined as the path with minimum weight in the graph.
+    There can be many paths with minimum weight between the source and destination vertices.
+
+Algorithms to find Single Source Shortest Path:
+
+    1. Dijkstra’s Algorithm
+    2. Bellman-Ford Algorithm
+    3. Floyd-Warshall Algorithm (All pairs shortest path)
+
+
+Dijkstra’s Algorithm:
+        
+    Dijkstra’s Algorithm is used to find the shortest path from a source vertex to all other vertices in a graph.
+    It works only for the graphs with non-negative edge weights.
+    It is a Greedy Algorithm.
+    It finds a shortest path tree for a weighted undirected graph.
+    This means it finds the shortest paths between nodes in a graph, which may represent, for example, road networks.
+    It was conceived by computer scientist Edsger W. Dijkstra in 1956 and published three years later.
+    The algorithm exists in many variants. Dijkstra's original algorithm found the shortest path between two given nodes,
+    but a more common variant fixes a single node as the "source" node and finds shortest paths from the source to all other nodes in the graph,
+    producing a shortest-path tree.
+    For a given source node in the graph, the algorithm finds the shortest path between that node and every other.
+    It can also be used for finding the shortest paths from a single node to a single destination node by stopping the algorithm once the shortest path to the destination node has been determined.
+    For example, if the nodes of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road (for simplicity, ignore red lights, stop signs, toll roads and other obstructions),
+    Dijkstra's algorithm can be used to find the shortest route between one city and all other cities.
+    A widely used application of shortest path algorithm is network routing protocols, most notably IS-IS (Intermediate System to Intermediate System) and Open Shortest Path First (OSPF).
+    It is also employed as a subroutine in other algorithms such as Johnson's.
+    The importance of shortest path algorithm derives from the fact that shortest paths are widely used in application-level routing and as a subroutine in other graph algorithms.
+    It is also sometimes used to solve the Travelling Salesman Problem.
+    For a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+    It can also be used for finding costs of shortest paths from a single vertex to a single destination vertex by stopping the algorithm once the shortest path to the destination vertex has been determined.
+    For example, if the vertices of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road (for simplicity, ignore red lights,
+
+
+Bellman-Ford Algorithm:
+
+    Bellman-Ford algorithm is used to find the shortest paths from the source vertex to all other vertices in a weighted graph.
+    It depends on the following concept: Shortest path contains at most n-1 edges, because the shortest path couldn't have a cycle.
+    So why shortest path shouldn't have a cycle ?
+    There is no need to pass a vertex again, because the shortest path to all other vertices could be found without the need for a second visit for any vertices.
+    So, in order to relax all edges (shorten the paths) of a graph, Bellman-Ford uses relaxation principle over and over again.
+    In the beginning all vertices have a weight of infinity, except the source vertex, weigth of source vertex is 0.
+    So, the algorithm relaxes all edges n-1 times, where n is the number of vertices in the graph.
+    This algorithm is correct, and it works for graphs with negative edges, but if there is a negative cycle, it fails.
+    Because, as we said before, shortest path couldn't have a cycle, but if there is a negative cycle, pathes could be shorten infinitely.
+    So, Bellman-Ford algorithm can detect negative cycles.
+    If there is a negative cycle, it reports it.
+    So, Bellman-Ford algorithm reports the shortest path from the source vertex to all other vertices, and it also reports if there is a negative cycle reachable from the source.
+    Bellman-Ford algorithm is slower than Dijkstra.
+    Dijkstra is a greedy algorithm, and Bellman-Ford is not a greedy algorithm.
+    Bellman-Ford algorithm is slower than Dijkstra, because it checks all edges n-1 times for relaxation.
+    So, the time complexity of Bellman-Ford is O(VE), which is asymptotically equal to O(V^2), since E is O(V^2).
+    Bellman-Ford algorithm is slower than Dijkstra, because it checks all edges n-1 times for relaxation.
+    So, the time complexity of Bellman-Ford is O(VE), which is asymptotically equal to O(V^2), since E is O(V^2).
+    Bellman-Ford algorithm is slower than Dijkstra, because it checks all edges n-1 times for relaxation.
+    So, the time complexity of Bellman-Ford is O(VE), which is asymptotically equal to O(V^2), since E is O(V^2).
+
+
+
+Floyd-Warshall Algorithm:
+
+
+    Floyd-Warshall algorithm is used to find all pair shortest path problem from a given weighted graph.
+    As a result of this algorithm, it will generate a matrix, which will represent the minimum distance from any node to all other nodes in the graph.
+    It is used for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.
+    It was published by Robert Floyd and Stephen Warshall in 1962.
+    The algorithm is an example of dynamic programming.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
+    So, it uses the results of the previous sub-problems to solve the next sub-problems.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
+    So, it uses the results of the previous sub-problems to solve the next sub-problems.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
+    So, it uses the results of the previous sub-problems to solve the next sub-problems.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
+    So, it uses the results of the previous sub-problems to solve the next sub-problems.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
+    So, it uses the results of the previous sub-problems to solve the next sub-problems.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
+    So, it uses the results of the previous sub-problems to solve the next sub-problems.
+    Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub
