@@ -1,127 +1,132 @@
-/**
- Kruskal's Algorithm
-
- You're given a list of edges representing a weighted, undirected graph with at least one node.
-
- The given list is what's called an adjacency list, and it represents a graph. The number of vertices in the graph is equal to the length of edges, where each index i in edges contains vertex i's siblings, in no particular order. Each of these siblings is an array of length two, with the first value denoting the index in the list that this vertex is connected to, and and the second value denoting the weight of the edge. Note that this graph is undirected, meaning that if a vertex appears in the edge list of another vertex, then the inverse will also be true (along with the same weight).
-
- Write a function implementing Kruskal's Algorithm to return a new edges array that represents a minimum spanning tree. A minimum spanning tree is a tree containing all of the vertices of the original graph and a subset of the edges. These edges should connect all of the vertices with the minimum total edge weight and without generating any cycles.
-
- If the graph is not connected, your function should return the minimum spanning forest (i.e. all of the nodes should be able to reach the same nodes as they could in the initial edge list).
-
- Note that the graph represented by edges won't contain any self-loops (vertices that have an outbound edge to themselves) and will only have positively weighted edges (i.e., no negative distances).
-
- If you're unfamiliar with Kruskal's algorithm, we recommend watching the Conceptual Overview section of this question's video explanation before starting to code. If you're unfamiliar with the Union Find data structure, we recommend completing that problem before attempting this one.
- Sample Input
-
- edges = [
- [[1, 3], [2, 5]],
- [[0, 3], [2, 10], [3, 12]],
- [[0, 5], [1, 10]],
- [[1, 12]]
- ]
-
- Sample Output
-
- [
- [[1, 3], [2, 5]],
- [[0, 3], [3, 12]],
- [[0, 5]],
- [[1, 12]]
- ]
-
-
- */
+// Note: Kruskal's Algorithm may not give the minimum spanning tree in some cases
 package Graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class KruskalAlgorithm {
     // Kruskal's Algorithm may not give the minimum spanning tree in some cases
     public static void main(String[] args) {
-        int[][][] edges = {
-                {{1, 3}, {2, 5}},
-                {{0, 3}, {2, 10}, {3, 12}},
-                {{0, 5}, {1, 10}},
-                {{1, 12}}
+        int[][] graph = {
+                {0, 1, 4},
+                {0, 2, 13},
+                {0, 3, 7},
+                {0, 4, 7},
+                {1, 3, 3},
+                {1, 4, 7},
+                {2, 1, 9},
+                {2, 3, 10},
+                {3, 4, 4}
         };
-        int[][][] result = kruskalsAlgorithm(edges);
-        for (int[][] arr : result) {
-            for (int[] edge : arr) {
-                System.out.print("[" + edge[0] + ", " + edge[1] + "] ");
-            }
-            System.out.println();
-        }
-    }
-    public static int[][][] kruskalsAlgorithm(int[][][] edges) {
-        // O(ElogE + ElogV) time | O(E + V) space
-        ArrayList<List<Integer>> sortedEdges = new ArrayList<>();
-        int vertices = edges.length;
-        for (int vertex = 0; vertex < vertices; vertex++) {
-            for (int[] edge : edges[vertex]) {
-                List<Integer> newEdge = new ArrayList<>();
-                if (edge[0] > vertex) { // only add the edge once to the sortedEdges
-                    newEdge.add(vertex);
-                    newEdge.add(edge[0]);
-                    newEdge.add(edge[1]); // add the weight of the edge
-                    sortedEdges.add(newEdge);
-                }
-            }
-        }
-        System.out.println(sortedEdges);
 
-        UnionFind dsu = new UnionFind(edges.length); // disjoint set union
-        sortedEdges.sort((edge1, edge2) -> edge1.get(2) - edge2.get(2)); // sort the edges by weight
-        ArrayList<ArrayList<int[]>> mst = new ArrayList<>();
-        for (int i = 0; i < edges.length;i++) {
-            mst.add(i, new ArrayList<>());
-        }
-        for (List<Integer> edge : sortedEdges) {
-            int u = edge.get(0);
-            int v = edge.get(1);
-            if (dsu.find(u) != dsu.find(v)) {
-                dsu.union(u, v);
-                mst.get(u).add(new int[] {v, edge.get(2)}); // add the edge to the mst
-                mst.get(v).add(new int[] {u, edge.get(2)});
-            }
-        }
-        int[][][] result = new int[mst.size()][][];
-        for (int i = 0; i < mst.size();i++) {
-            result[i] = new int[mst.get(i).size()][2];
-            for (int j = 0; j < mst.get(i).size();j++) {
-                result[i][j] = mst.get(i).get(j);
-            }
-        }
-        return result;
+        int[][] mst = kruskal(graph);
+        System.out.println("Minimum Spanning Tree: " + Arrays.deepToString(mst));
     }
-    static class UnionFind {
-        int[] parent;
+    public static int[][] kruskal(int[][] graph) {
+        // Time Complexity: O(ElogE) or O(ElogV). Sorting of edges takes O(ELogE) time. After sorting, we iterate through all edges and apply find-union algorithm.
+
+        /**
+         * 1.Ascending sort the edges based on their weights
+         * 2. Pick the edge with the minimum weight and check if it forms a cycle with the spanning tree formed so far.
+         *   If cycle is not formed, include this edge. Else, discard it.
+         * 3. Repeat step#2 until there are (V-1) edges in the spanning tree.
+         * 4. Return the spanning tree.
+         */
+        if (graph == null || graph.length == 0) { // check if graph is null or empty
+            return new int[0][0]; // return empty array
+        }
+        int size = graph.length; // get the size of the graph
+        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>((a, b) -> a.weight - b.weight); // create a priority queue to store the edges
+        UnionFind dsu = new UnionFind(size); // create a union find object
+
+        // add all the edges to the priority queue
+        for (int[] ints : graph) {
+            priorityQueue.offer(new Edge(ints[0], ints[1], ints[2]));
+        }
+
+        List<ArrayList<Integer>> mst = new ArrayList<>(); // create a list to store the minimum spanning tree
+
+        while (!priorityQueue.isEmpty()) {
+            Edge edge = priorityQueue.poll(); // get the edge with the minimum weight
+            int vertex1 = edge.vertex1; // get the first vertex
+            int vertex2 = edge.vertex2; // get the second vertex
+
+            if (!dsu.connected(vertex1, vertex2)) { // check if the two vertices are connected
+                dsu.union(vertex1, vertex2); // connect the two vertices
+                ArrayList<Integer> list = new ArrayList<>(); // create a list to store the vertices and the weight of the edge
+                list.add(vertex1); // add the first vertex to the list
+                list.add(vertex2); // add the second vertex to the list
+                list.add(edge.weight); // add the weight of the edge to the list
+                mst.add(list); // add the list to the minimum spanning tree
+            }
+        }
+        System.out.println("Minimum Spanning Tree: " + mst);
+        int index = 0;
+
+        int[][] finalMst = new int[mst.size()][3]; // create a 2D array to store the minimum spanning tree
+        for (ArrayList<Integer> list : mst) { // loop through the list
+            finalMst[index][0] = list.get(0); // add the first vertex to the 2D array
+            finalMst[index][1] = list.get(1); // add the second vertex to the 2D array
+            finalMst[index][2] = list.get(2); // add the weight of the edge to the 2D array
+            index++; // increment the index
+        }
+        return finalMst; // return the minimum spanning tree
+    }
+    static class Edge {
+        int vertex1;
+        int vertex2;
+        int weight;
+
+        Edge(int v1, int v2, int w) {
+            vertex1 = v1;
+            vertex2 = v2;
+            weight = w;
+        }
+    }
+    static class UnionFind{
+        int[] root;
         int[] rank;
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            for (int i = 0;i < n;i++) {
-                parent[i] = i;
+
+        public UnionFind(int size) {
+            root = new int[size];
+            rank = new int[size];
+
+            for (int i = 0; i < size; ++i) {
+                root[i] = i;
                 rank[i] = 1;
             }
         }
         public int find(int x) {
-            if (parent[x] == x) return x;
-            return parent[x] = find(parent[x]);
+            if (root[x] == x) {
+                return x;
+            }
+            return root[x] = find(root[x]);
         }
+
         public void union(int x, int y) {
-            int px = find(x);
-            int py = find(y);
-            if (px == py) return;
-            if (rank[px] > rank[py]) {
-                parent[py] = px;
-            } else if (rank[py] > rank[px]) {
-                parent[px] = py;
+            int rootX = find(x);
+            int rootY = find(y);
+
+            if (rootX == rootY) {
+                return;
+            }
+
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                root[rootX] = rootY;
             } else {
-                parent[px] = py;
-                rank[py]++;
+                root[rootY] = rootX;
+                rank[rootX]++;
             }
         }
+
+        public boolean connected(int x, int y) {
+            return find(x) == find(y);
+        }
+
     }
+
 }
