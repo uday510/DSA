@@ -42,12 +42,12 @@ public class Dijkstra {
             {},
             {}
         };
-        int[] result = dijkstrasAlgorithm(start, edges);
+        int[] result = dijkstrasAlgorithmUsingArray(start, edges);
         for (int i : result) {
             System.out.print(i + " ");
         }
     }
-    public static int[] dijkstrasAlgorithm(int start, int[][][] edges) {
+    public static int[] dijkstrasAlgorithmUsingArray(int start, int[][][] edges) {
         // O(v^2 + e) time | O(v) space where v is the number of vertices and e is the number of edges
         int numberOfVertices = edges.length; // number of vertices
 

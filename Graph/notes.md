@@ -68,20 +68,23 @@ Applications of DSU:
 
 Spanning Tree:
     
-    Spanning tree is a subset of Graph G, which has all the vertices covered with minimum possible number of edges.
-    Hence, a spanning tree does not have cycles and it cannot be disconnected.
-    Also, it is a connected and acyclic graph.
-    There can be many spanning trees possible in a graph.
-    A graph can have many spanning trees.
+    A spanning tree is a connected subgraph in an undirected graph where all vertices are connected 
+    with the minimum number of edges. In Figure 9, all pink edges [(A, B), (A, C), (A, D), (A, E)] form a tree,
+    which is a spanning tree of this undirected graph. Note that [(A, E), (A, B), (B, C), (C, D)] is also 
+    a spanning tree of the undirected graph. Thus, an “undirected graph” can have multiple spanning trees.
 
 Minimum Cost Spanning Tree:
-    
-    Spanning tree with less weight is called Minimum Cost Spanning Tree or Minimum Spanning Tree.
+
+    A minimum spanning tree is a spanning tree with the minimum possible total edge weight in a “weighted undirected graph”.
 
 To Construct Minimum Spanning Tree, below are the algorithms:
 
-    1. Kruskal’s Algorithm
-    2. Prim’s Algorithm
+    1. Kruskal’s Algorithm (https://leetcode.com/problems/min-cost-to-connect-all-points/editorial/)
+    2. Prim’s Algorithm (https://leetcode.com/problems/min-cost-to-connect-all-points/editorial/)
+
+Cut Property:
+
+    cut is a partition of vertices in a “graph” into two disjoint subsets.
 
 Kruskal’s Algorithm:
 
