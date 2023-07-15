@@ -40,7 +40,7 @@ public class PrimsAlgorithm {
         visited[root] = true;
         for (int i = 0; i < size; i++) {
             if (graph[i][0] == root) {
-               priorityQueue.offer(new Edge(graph[i][0], graph[i][1], graph[i][2]));
+               priorityQueue.offer(new Edge(root, graph[i][1], graph[i][2]));
             }
         }
 
