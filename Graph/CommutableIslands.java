@@ -145,7 +145,7 @@ public class CommutableIslands {
             if (rank[rootX] > rank[rootY]) {
                 parent[rootY] = rootX;
             } else if (rank[rootY] > rank[rootX]) {
-                parent[rootY] = rootX;
+                parent[rootX] = rootY;
             } else {
                 parent[rootY] = rootX;
                 rank[rootX]++;
