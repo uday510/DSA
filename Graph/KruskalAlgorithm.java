@@ -62,7 +62,6 @@ public class KruskalAlgorithm {
                 mst.add(list); // add the list to the minimum spanning tree
             }
         }
-        System.out.println("Minimum Spanning Tree: " + mst);
         int index = 0;
 
         int[][] finalMst = new int[mst.size()][3]; // create a 2D array to store the minimum spanning tree
