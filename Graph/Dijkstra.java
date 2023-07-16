@@ -125,6 +125,9 @@ public class Dijkstra {
             for (int[] neighbor : graph.getOrDefault(dest, new ArrayList<>())) {
                 int neighborDest = neighbor[0];
                 int neighborCost = neighbor[1];
+
+                if (distancesFromSrc[neighborDest] != INFINITY) { continue; }
+
                 minHeap.offer(new Edge(neighborDest, neighborCost + cost));
             }
         }
