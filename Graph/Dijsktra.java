@@ -67,34 +67,39 @@ import java.util.*;
 
 public class Dijsktra {
     public static void main(String[] args) {
-        int n = 7;
-        int[][] edges = {{1, 2, 7},
-                         {1, 3, 8},
-                         {2, 4, 6},
-                         {3, 5, 3},
-                         {4, 6, 5},
-                         {5, 6, 5},
-                         {5, 7, 2},
-                         {6, 7, 3},
-                         {3, 4, 4},
-                         {4, 5, 2}};
-        int src = 1;
+        int n = 6;
+        int[][] edges = { {0, 4, 9},
+                          {3, 4, 6},
+                          {1, 2, 1},
+                          {2, 5, 1},
+                          {2, 4, 5},
+                          {0, 3, 7},
+                          {0, 1, 1},
+                          {4, 5, 7},
+                          {0, 5, 1} };
+
+        int src = 4;
         int[] res = dijkstra(n, edges, src);
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i] + " ");
+        for (int re : res) {
+            System.out.print(re + " ");
         }
     }
     public static int[] dijkstra(int n, int[][] edges, int source) {
         // O(ElogV) time complexity | O(E + V) space complexity
+
         Map<Integer, List<int[]>> graph = new HashMap<>(); // adjacency list
-        int[] distances = new int[n+1]; // distances array
+        int[] distancesFromSrc = new int[n]; // distancesFromSrc array
         int INFINITY = Integer.MAX_VALUE;
-        Arrays.fill(distances, INFINITY); // fill the distances array with infinity
+
+        Arrays.fill(distancesFromSrc, INFINITY); // fill the distancesFromSrc array with infinity
+
         PriorityQueue<Edge> minHeap = new PriorityQueue<>((a, b) -> a.cost - b.cost);
+
         for (int[] edge : edges) {
            int src = edge[0]; // source node
            int dest = edge[1]; // destination node
            int cost = edge[2]; // cost of the edge
+
            graph.putIfAbsent(src, new ArrayList<>()); // add the source node to the graph
            graph.get(src).add(new int[]{dest, cost}); // add the destination node and the cost to the source node
 
@@ -103,16 +108,17 @@ public class Dijsktra {
         }
 
         minHeap.offer(new Edge(source, 0)); // source node
-        distances[source] = 0; // distance to the source node is 0
+        distancesFromSrc[source] = 0; // distance to the source node is 0
 
         while (!minHeap.isEmpty()) {
             Edge currEdge = minHeap.poll(); // poll the current edge
+
             int dest = currEdge.destination; // destination node
             int cost = currEdge.cost; // cost of the edge
 
-            if (cost > distances[dest]) continue; // if the cost is greater than the current distance, then we have already found a better path
+            if (cost > distancesFromSrc[dest]) continue; // if the cost is greater than the current distance, then we have already found a better path
 
-            distances[dest] = cost; // update the distance of the current node [dest
+            distancesFromSrc[dest] = cost; // update the distance of the current node [dest
 
             if (!graph.containsKey(dest)) continue; // if the current node is not in the graph, then we have already found the shortest path to it (since we are using a minHeap
 
@@ -122,11 +128,11 @@ public class Dijsktra {
                 minHeap.offer(new Edge(neighborDest, neighborCost + cost));
             }
         }
-        for (int i = 1; i < distances.length; i++) {
-            if (distances[i] == INFINITY) distances[i] = -1;
+        for (int i = 1; i < distancesFromSrc.length; i++) {
+            if (distancesFromSrc[i] == INFINITY) distancesFromSrc[i] = -1;
         } // if the distance is still infinity, then we have not found a path to it
 
-        return distances;
+        return distancesFromSrc;
     }
     static class Edge {
         int destination;
