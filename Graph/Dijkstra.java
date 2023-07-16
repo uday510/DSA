@@ -1,119 +1,145 @@
 /**
- * Dijkstra's Algorithm
+ * Problem Description
+ * Given a weighted undirected graph having A nodes and M weighted edges, and a source node C.
  *
- * You're given an integer start and a list edges of pairs of integers.
+ * You have to find an integer array D of size A such that:
  *
- * The list is what's called an adjacency list, and it represents a graph. The number of vertices in the graph is equal to the length of edges, where each index i in edges contains vertex i's outbound edges, in no particular order. Each individual edge is represented by an pair of two numbers, [destination, distance], where the destination is a positive integer denoting the destination vertex and the distance is a positive integer representing the length of the edge (the distance from vertex i to vertex destination). Note that these edges are directed, meaning that you can only travel from a particular vertex to its destination—not the other way around (unless the destination vertex itself has an outbound edge to the original vertex).
+ * D[i]: Shortest distance from the C node to node i.
+ * If node i is not reachable from C then -1.
+ * Note:
  *
- * Write a function that computes the lengths of the shortest paths between start and all of the other vertices in the graph using Dijkstra's algorithm and returns them in an array. Each index i in the output array should represent the length of the shortest path between start and vertex i. If no path is found from start to vertex i, then output[i] should be -1.
+ * There are no self-loops in the graph.
+ * There are no multiple edges between two pairs of vertices.
+ * The graph may or may not be connected.
+ * Nodes are numbered from 0 to A-1.
+ * Your solution will run on multiple test cases. If you are using global variables, make sure to clear them.
  *
- * Note that the graph represented by edges won't contain any self-loops (vertices that have an outbound edge to themselves) and will only have positively weighted edges (i.e., no negative distances).
  *
- * If you're unfamiliar with Dijkstra's algorithm, we recommend watching the Conceptual Overview section of this question's video explanation before starting to code.
- * Sample Input
+ * Problem Constraints
+ * 1 <= A <= 1e5
  *
- * start = 0
- * edges = [
- *   [[1, 7]],
- *   [[2, 6], [3, 20], [4, 3]],
- *   [[3, 14]],
- *   [[4, 2]],
- *   [],
- *   [],
- * ]
+ * 0 <= B[i][0],B[i][1] < A
  *
- * Sample Output
+ * 0 <= B[i][2] <= 1e3
  *
- * [0, 7, 13, 27, 10, -1]
+ * 0 <= C < A
+ *
+ *
+ *
+ * Input Format
+ * The first argument is an integer A, representing the number of nodes in the graph.
+ * The second argument is a matrix B of size M x 3, where each row represents an edge in the graph. The three columns of each row denote the source node B[i][0], the destination node B[i][1], and the weight of the edge B[i][2].
+ * The third argument is an integer C, representing the source node for which the shortest distance to all other nodes needs to be found.
+ *
+ *
+ * Output Format
+ * Return the integer array D.
+ *
+ *
+ *
+ * Example Input
+ * Input 1:
+ *
+ * A = 6
+ * B = [   [0, 4, 9]
+ *         [3, 4, 6]
+ *         [1, 2, 1]
+ *         [2, 5, 1]
+ *         [2, 4, 5]
+ *         [0, 3, 7]
+ *         [0, 1, 1]
+ *         [4, 5, 7]
+ *         [0, 5, 1] ]
+ * C = 4
+ * Input 2:
+ *
+ * A = 5
+ * B = [   [0, 3, 4]
+ *         [2, 3, 3]
+ *         [0, 1, 9]
+ *         [3, 4, 10]
+ *         [1, 3, 8]  ]
+ * C = 4
  */
 package Graph;
 
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
 
 public class Dijkstra {
     public static void main(String[] args) {
-        int start = 0;
-        int[][][] edges = {
-            {{1, 7}},
-            {{2, 6}, {3, 20}, {4, 3}},
-            {{3, 14}},
-            {{4, 2}},
-            {},
-            {}
-        };
-        int[] result = dijkstrasAlgorithmUsingArray(start, edges);
-        for (int i : result) {
-            System.out.print(i + " ");
+        int n = 6;
+        int[][] edges = { {0, 4, 9},
+                          {3, 4, 6},
+                          {1, 2, 1},
+                          {2, 5, 1},
+                          {2, 4, 5},
+                          {0, 3, 7},
+                          {0, 1, 1},
+                          {4, 5, 7},
+                          {0, 5, 1} };
+
+        int src = 4;
+        int[] res = dijkstra(n, edges, src);
+        for (int re : res) {
+            System.out.print(re + " ");
         }
     }
-    public static int[] dijkstrasAlgorithmUsingArray(int start, int[][][] edges) {
-        // O(v^2 + e) time | O(v) space where v is the number of vertices and e is the number of edges
-        int numberOfVertices = edges.length; // number of vertices
+    public static int[] dijkstra(int n, int[][] edges, int source) {
+        // O(ElogV) time complexity | O(E + V) space complexity
 
-        int[] minDistances = new int[numberOfVertices]; // min distance from start to each vertex
-        Arrays.fill(minDistances, Integer.MAX_VALUE); // initialize minDistances to infinity
-        minDistances[start] = 0;// distance from start to start is 0
+        Map<Integer, List<int[]>> graph = new HashMap<>(); // adjacency list
+        int[] distancesFromSrc = new int[n]; // distancesFromSrc array
+        int INFINITY = Integer.MAX_VALUE;
 
-        Set<Integer> visited = new java.util.HashSet<>(); // visited vertices
+        Arrays.fill(distancesFromSrc, INFINITY); // fill the distancesFromSrc array with infinity
 
-        while (visited.size() != numberOfVertices) {
-            int[] getVertexData = getVertexWithMinDistance(minDistances, visited);
-            int currentVertex = getVertexData[0];
-            int currentMinDistance = getVertexData[1];
+        PriorityQueue<Edge> minHeap = new PriorityQueue<>((a, b) -> a.cost - b.cost);
 
-            if (currentMinDistance == Integer.MAX_VALUE) { // if current min distance is infinity
-                break; // break
-            }
+        for (int[] edge : edges) {
+           int src = edge[0]; // source node
+           int dest = edge[1]; // destination node
+           int cost = edge[2]; // cost of the edge
 
-            visited.add(currentVertex); // add current vertex to visited
+           graph.putIfAbsent(src, new ArrayList<>()); // add the source node to the graph
+           graph.get(src).add(new int[]{dest, cost}); // add the destination node and the cost to the source node
 
-            for (int[] edge : edges[currentVertex]) {
-                int destination = edge[0];
-                int distanceToDestination = edge[1];
-
-                if (visited.contains(destination)) { // if destination is visited, continue
-                    continue;
-                }
-
-                int newPathDistance = currentMinDistance + distanceToDestination; // new path distance
-                int currentDestinationDistance = minDistances[destination]; // current distance from start to destination
-                if (newPathDistance < currentDestinationDistance) {
-                    minDistances[destination] = newPathDistance;
-                }
-            }
+           graph.putIfAbsent(dest, new ArrayList<>()); // add the destination node to the graph
+           graph.get(dest).add(new int[]{src, cost}); // add the source node and the cost to the destination node
         }
 
-        int[] finalDistance = new int[minDistances.length];
-        for (int i = 0; i < minDistances.length; ++i) {
-            int distance = minDistances[i];
-            if (distance == Integer.MAX_VALUE) {
-                finalDistance[i] = -1;
-            } else {
-                finalDistance[i] = distance;
+        minHeap.offer(new Edge(source, 0)); // source node
+        distancesFromSrc[source] = 0; // distance to the source node is 0
+
+        while (!minHeap.isEmpty()) {
+            Edge currEdge = minHeap.poll(); // poll the current edge
+
+            int dest = currEdge.destination; // destination node
+            int cost = currEdge.cost; // cost of the edge
+
+            if (cost > distancesFromSrc[dest]) continue; // if the cost is greater than the current distance, then we have already found a better path
+
+            distancesFromSrc[dest] = cost; // update the distance of the current node [dest
+
+            if (!graph.containsKey(dest)) continue; // if the current node is not in the graph, then we have already found the shortest path to it (since we are using a minHeap
+
+            for (int[] neighbor : graph.getOrDefault(dest, new ArrayList<>())) {
+                int neighborDest = neighbor[0];
+                int neighborCost = neighbor[1];
+                minHeap.offer(new Edge(neighborDest, neighborCost + cost));
             }
         }
+        for (int i = 1; i < distancesFromSrc.length; i++) {
+            if (distancesFromSrc[i] == INFINITY) distancesFromSrc[i] = -1;
+        } // if the distance is still infinity, then we have not found a path to it
 
-        return finalDistance;
+        return distancesFromSrc;
     }
-    public static int[] getVertexWithMinDistance(int[] distances, Set<Integer> visited) {
-        int minDistance = Integer.MAX_VALUE; // min distance from start to vertex
-        int vertex = -1; // vertex with min distance
-
-        for (int vertexIdx = 0; vertexIdx < distances.length; ++vertexIdx) { // for each vertex
-            int currentDistance = distances[vertexIdx]; // get distance from start to vertex
-
-            if (visited.contains(vertexIdx)) { // if vertex is visited, continue
-                continue;
-            }
-
-            if (currentDistance <= minDistance) { // if current distance is less than min distance
-                vertex = vertexIdx; // update vertex
-                minDistance = currentDistance;  // update min distance
-            }
+    static class Edge {
+        int destination;
+        int cost;
+        Edge(int destination, int cost) {
+            this.destination = destination;
+            this.cost = cost;
         }
-
-        return new int[] {vertex, minDistance}; // return vertex and min distance
     }
-
 }
