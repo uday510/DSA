@@ -130,8 +130,8 @@ public class AnotherBFS {
     public static int solve(int A, int[][] B, int C, int D) {
          // O(V + E) time complexity | O(V + E) space complexity
         int n = 200009;
-        List<ArrayList<Integer>> adjList = new ArrayList<>();
-        boolean[] visited = new boolean[200009];
+        List<ArrayList<Integer>> adjList = new ArrayList<>(); // adjacency list
+        boolean[] visited = new boolean[200009]; // visited array
 
         for (int i = 0; i < n; i++) {
             adjList.add(new ArrayList<>());
@@ -145,27 +145,27 @@ public class AnotherBFS {
                 adjList.get(src).add(dest);
                 adjList.get(dest).add(src);
             } else {
-                adjList.get(src).add(src + A);
-                adjList.get(src + A).add(dest);
+                adjList.get(src).add(src + A); // add A to the node
+                adjList.get(src + A).add(dest); // add the destination node
 
-                adjList.get(dest).add(dest + A);
-                adjList.get(dest + A).add(src);
+                adjList.get(dest).add(dest + A); // add A to the node
+                adjList.get(dest + A).add(src); // add the source node
             }
         }
-        visited[C] = true;
-        Queue<Edge> queue = new java.util.LinkedList<>();
-        queue.add(new Edge(C, 0));
+        visited[C] = true; // mark the source node as visited
+        Queue<Edge> queue = new java.util.LinkedList<>(); // queue for BFS
+        queue.add(new Edge(C, 0)); // add the source node
 
         while (!queue.isEmpty()) {
             Edge curr = queue.poll();
             int currNode = curr.dest;
             int currWeight = curr.weight;
 
-            if (currNode == D) {
-                return currWeight;
+            if (currNode == D) { // if the current node is the destination node
+                return currWeight; // return the weight
             }
 
-            for (int nextNode : adjList.get(currNode)) {
+            for (int nextNode : adjList.get(currNode)) { // get the adjacent nodes
                 if (!visited[nextNode]) {
                     visited[nextNode] = true;
                     queue.add(new Edge(nextNode, currWeight + 1));
