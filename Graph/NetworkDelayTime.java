@@ -17,30 +17,30 @@ public class NetworkDelayTime {
         System.out.println(networkDelayTime(times, n, k));
     }
     public static int networkDelayTime(int[][] times, int n, int k) {
-        Map<Integer, List<int[]>> graph = new HashMap<>();
-        int INFINITY = Integer.MAX_VALUE;
-        int[] dist = new int[n+1];
+        Map<Integer, List<int[]>> graph = new HashMap<>(); // graph : src -> dest, weight
+        int INFINITY = Integer.MAX_VALUE; // infinity value
+        int[] dist = new int[n+1]; // distance from src to dest
 
-        for(int i = 1; i <= n; i++) {
-            dist[i] = INFINITY;
-        }
+        Arrays.fill(dist, INFINITY); // initialize dist array
 
-        for (int[] time : times) {
+        for (int[] time : times) { // build graph
             int src = time[0];
             int dest = time[1];
             int weight = time[2];
 
-            if (!graph.containsKey(src)) {
+            if (!graph.containsKey(src)) { // if src is not in graph, add src to graph
                 graph.put(src, new ArrayList<>());
             }
-            graph.get(src).add(new int[]{dest, weight});
+
+            graph.get(src).add(new int[]{dest, weight}); // add dest and weight to src
         }
 
-        PriorityQueue<Edge> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight);
+        PriorityQueue<Edge> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight); // min heap
+
         pq.offer(new Edge(k, 0));
         dist[k] = 0;
 
-        while(!pq.isEmpty()) {
+        while(!pq.isEmpty()) { // dijkstra algorithm
             Edge curr = pq.poll();
             int dest = curr.dest;
             int weight = curr.weight;
@@ -60,6 +60,7 @@ public class NetworkDelayTime {
                 pq.offer(new Edge(nextDest, nextWeight + weight));
             }
         }
+
         int max = 0;
         for(int i = 1; i <= n; i++) {
             if(dist[i] == INFINITY) return -1;
