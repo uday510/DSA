@@ -20,17 +20,43 @@ public class CoinChange0 {
 //        System.out.println(coinChange(coins, amount));
     }
     public static int optimized(int[] coins, int amount) {
+        // Induction rule: dp[i] = min(dp[i], dp[i - coin] + 1)
         int n = coins.length;
         int[] dp = new int[amount+1];
         dp[0] = 1;
-        for (int i = 1; i <= n; ++i) {
-            for (int j = amount; j > -1; --j) {
-                if (j - coins[i-1] >= 0) {
-                    dp[j] = dp[j] + dp[j - coins[i-1]];
-                }
+        for (int i = 1; i <= amount; ++i) {
+            for (int coin : coins) {
+                if (coin <= i) dp[i] = Math.min(dp[i], dp[i-coin] + 1);
             }
         }
-        return dp[amount];
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+    public int coinChange(int[] coins, int remain, Integer[] memo) {
+        if (remain < 0) return -1;
+        if (remain == 0) return 0;
+
+        if (memo[remain] != null) return memo[remain];
+
+        int min = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int count = coinChange(coins, remain - coin, memo);
+            if (count >= 0 && count < min) {
+                min = count + 1;
+            }
+        }
+        return memo[remain] = (min == Integer.MAX_VALUE) ? -1 : min;
+    }
+    public int bruteForce(int[] coins, int amount) {
+        if (amount < 1) return -1;
+
+        int min = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int count = bruteForce(coins, amount - coin);
+            if (count >= 0 && count < min) {
+                min = count + 1;
+            }
+        }
+        return (min == Integer.MAX_VALUE) ? -1 : min;
     }
     public static int coinChange(int[] coins, int amount) {
         // O(N*amount) time | O(N*amount) space
