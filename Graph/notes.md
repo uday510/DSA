@@ -217,3 +217,15 @@ Floyd-Warshall Algorithm:
     Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub-problem.
     So, it uses the results of the previous sub-problems to solve the next sub-problems.
     Floyd-Warshall algorithm is a good example of dynamic programming, because it solves a sub-problem, then saves the result of this sub-problem to solve the next sub
+
+
+Chromatic Number
+
+    In graph theory, the chromatic number of a graph is the smallest number of colors needed to color the vertices of so that no two adjacent vertices share the same color.
+
+Bipartite graph
+
+    Any graph with chromatic number 2 is called a bipartite graph.
+
+        Eg: A graph is bipartite if and only if it is 2-colorable, which means that its vertices can be colored with two colors (i.e., the graph is 2-colorable).
+            Tree, Even length cycle graph, Complete graph with even number of vertices are bipartite graphs.

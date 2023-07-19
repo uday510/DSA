@@ -29,7 +29,7 @@ public class CoinChange0 {
                 if (coin <= i) dp[i] = Math.min(dp[i], dp[i-coin] + 1);
             }
         }
-        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+        return dp[amount] == amount + 1 ? -1 : dp[amount];
     }
     public int coinChange(int[] coins, int remain, Integer[] memo) {
         if (remain < 0) return -1;
