@@ -44,21 +44,18 @@ public class MedianOfTwoSortedArrays {
 
         // -- Actual Logic
         int len = len1 + len2;
-        int k = (len1 + len2) / 2;
+        int median = (len1 + len2) / 2;
         if (len % 2 == 0) {
-            double ans1 = applyBinarySearch(array1, array2, k, min, max);
-            double ans2 = applyBinarySearch(array1, array2, k+1, min, max);
+            double ans1 = applyBinarySearch(array1, array2, median, min, max);
+            double ans2 = applyBinarySearch(array1, array2, median+1, min, max);
             return (ans1 + ans2)/2.0;
         } else {
-            return applyBinarySearch(array1, array2, k, min, max);
+            return applyBinarySearch(array1, array2, median, min, max);
         }
     }
 
     public static double applyBinarySearch(int[] array1, int[] array2, int target, int left, int right) {
-        int len1 = array1.length;
-        int len2 = array2.length;
 
-        int k = (len1 + len2) / 2;
         int ans= 0;
         while (left <= right) {
             int mid = (left + right) / 2;
@@ -91,7 +88,7 @@ public class MedianOfTwoSortedArrays {
 
             if (currentNum <= k) {
                 if (currentNum == k) {
-                    count = mid; // [1, 2, 3, 4 , 4, 5, 6, 6]
+                    count = mid; // [1, 2, 3, 4, 4, 5, 6, 6]
                     right = mid - 1;
                 } else {
                     count = mid + 1;

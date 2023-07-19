@@ -35,7 +35,6 @@ public class MergeSort {
             if (leftSubArray[i] < rightSubArray[j]) {
                 array[k++] = leftSubArray[i++];
             } else {
-
                 array[k++] = rightSubArray[j++];
             }
         }

@@ -26,7 +26,7 @@ public class FindCountOfSmaller {
         while (left <= right) {
             int mid = (left + right)/ 2;
 
-            int count = smallerElementsCount(array, mid); // get smaller count
+            int count = getSmallerCount(array, mid); // get smaller count
 
             if (count <= k) {
                 ans = mid; // update the ans
@@ -34,11 +34,10 @@ public class FindCountOfSmaller {
             } else {
                 right = mid - 1;
             }
-
         }
         return ans;
     }
-    public static int smallerElementsCount(int[] array, int mid) {
+    public static int getSmallerCount(int[] array, int mid) {
 
         int count = 0;
 

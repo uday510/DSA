@@ -58,7 +58,7 @@ package Array;
 
 public class FindMissingNumber {
     public static void main(String[] args) {
-        int[] arr = {1,2,2,1,3,1,0,4,0};
+        int[] arr = {1,2,2,1,3,1,0,4,0, -1};
 
         int ans = solve(arr);
         System.out.println(ans);
