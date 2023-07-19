@@ -47,9 +47,10 @@ package Graph;
 public class FloydWarshall {
     public static void main(String[] args) {
         int[][] graph = {
-            {0, 50, 39},
-            {-1, 0, 1},
-            {-1, 10, 0}
+            {0, -1, -1, -1},
+            {-1, 0, 3, 1},
+            {-1, 3, 0, 1},
+            {-1, 1, 1, 0}
         };
         int[][] dist = floydWarshall(graph);
         for (int[] row : dist) {
