@@ -78,6 +78,7 @@ public class RainWaterTrapped {
             }
         }
         return ans;
+
 //        int trapped = 0;
 //        int[] leftMax = new int[rainWater.length];
 //        int prevMax = rainWater[0];
@@ -100,5 +101,6 @@ public class RainWaterTrapped {
 //            trapped += Math.min(leftMax[i], rightMax[i]) - rainWater[i];
 //        }
 //        return trapped;
+
     }
 }
