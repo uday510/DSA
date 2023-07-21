@@ -1,7 +1,5 @@
 package LinkedList;
 
-import java.util.List;
-
 /**
  * Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
  *
@@ -50,6 +48,8 @@ public class ReverseLinkedList2 {
             before = before.next;
         }
 
+        System.out.println("before: " + before.value);
+
         // before is at node 1
         ListNode prevNode = before;
         ListNode currNode = before.next;
@@ -65,6 +65,7 @@ public class ReverseLinkedList2 {
          * before.next.next is 2.next i.e 2.next should point to currNode i.e 5
          * before.next should point to last node of reversed i.e 4
          */
+
         before.next.next = currNode;
         before.next = prevNode;
 

@@ -63,6 +63,7 @@ public class FindPeakElement {
         if (array.length == 1) {
             return array[0];
         }
+
         if (array[0] <= array[1]) return array[0];
         if (array[array.length - 1] <= array[array.length - 2]) {
             return array[array.length - 1];
@@ -80,9 +81,11 @@ public class FindPeakElement {
              *    \    /
              *     peak
              */
+
             if (array[mid - 1] >= array[mid] && array[mid] <= array[mid + 1]) {
                 return array[mid];
             }
+
             if (array[mid-1] < array[mid]) {
                 right = mid - 1;
             } else {
