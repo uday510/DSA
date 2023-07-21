@@ -37,17 +37,40 @@ public class ValidPalindrome {
     }
 
     public static boolean isPalindrome(String s) {
-      StringBuilder sb = new StringBuilder();
 
-      for (char c : s.toCharArray()) {
-          if (Character.isLetterOrDigit(c)) {
-                sb.append(Character.toLowerCase(c));
-          }
-      }
-      String filteredString = sb.toString();
-      String reversedString = sb.reverse().toString();
+        int l = 0, r = s.length() - 1;
 
-      return filteredString.equals(reversedString);
+        while (l < r) {
+
+            while (l < r && !alphaNumeric(s.charAt(l))) {
+                ++l;
+            }
+            while (l < r && !alphaNumeric(s.charAt(r))) {
+                --r;
+            }
+
+            if (Character.toLowerCase(s.charAt(l)) != Character.toLowerCase(s.charAt(r))) {
+                return false;
+            }
+            ++l;
+            --r;
+        }
+        return true;
 
     }
+    public static boolean alphaNumeric(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z');
+     }
 }
+
+//      StringBuilder sb = new StringBuilder();
+//
+//      for (char c : s.toCharArray()) {
+//          if (Character.isLetterOrDigit(c)) {
+//                sb.append(Character.toLowerCase(c));
+//          }
+//      }
+//      String filteredString = sb.toString();
+//      String reversedString = sb.reverse().toString();
+//
+//      return filteredString.equals(reversedString);
