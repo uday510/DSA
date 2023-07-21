@@ -29,7 +29,7 @@ public class CoinChange0 {
                 if (coin <= i) dp[i] = Math.min(dp[i], dp[i-coin] + 1);
             }
         }
-        return dp[amount] == amount + 1 ? -1 : dp[amount];
+        return dp[amount] >= amount + 1 ? -1 : dp[amount];
     }
     public int coinChange(int[] coins, int remain, Integer[] memo) {
         if (remain < 0) return -1;
@@ -48,6 +48,7 @@ public class CoinChange0 {
     }
     public int bruteForce(int[] coins, int amount) {
         if (amount < 1) return -1;
+        if (amount == 0) return 0;
 
         int min = Integer.MAX_VALUE;
         for (int coin : coins) {

@@ -52,12 +52,14 @@
  *
  * A = [1, 2, 0]
  * First positive integer missing from the array is 3.
+ *
+ * NOTE : duplicate numbers are allowed
  */
-
 package Array;
 
-public class FindMissingNumber {
+class FindMissingInteger {
     public static void main(String[] args) {
+        //TODO : duplicate numbers are allowed
         int[] arr = {1,2,2,1,3,1,0,4,0, -1};
 
         int ans = solve(arr);
@@ -89,7 +91,6 @@ public class FindMissingNumber {
 //        }
 //        return array.length + 1;
 
-
 //        Arrays.sort(array);
 //        int prev = 0;
 //
@@ -108,8 +109,8 @@ public class FindMissingNumber {
 
             // keep swapping until array[i] = array[i+1]
             while (array[i] > 0 && array[i] <= array.length && array[i] != i+1) {
-                int val = array[i];
-                if (array[i] == array[val-1]) break;
+                int val = array[i]; // position where array[i] should be
+                if (array[i] == array[val-1]) break; // for duplicate elements
                 swap(i,val-1, array);
             }
         }
