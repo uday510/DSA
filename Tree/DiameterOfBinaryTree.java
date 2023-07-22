@@ -32,5 +32,4 @@ public class DiameterOfBinaryTree {
             // remember to add 1 for the path connecting the node and its parent
             return Math.max(leftPath, rightPath + 1);
         }
-    }
 }

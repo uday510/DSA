@@ -38,5 +38,4 @@ public class BinaryTreePaths {
                 solve(root.right, path, paths);
             }
         }
-    }
 }

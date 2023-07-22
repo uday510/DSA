@@ -1,5 +1,4 @@
-package Tree;
-
+package Recursion;
 
 public class TreeNode {
     int val;
