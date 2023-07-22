@@ -1,5 +1,7 @@
 package DynamicProgramming;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FibonacciSeries {
@@ -55,5 +57,21 @@ public class FibonacciSeries {
 
         dp[n] = topDownHelper(n-1 , dp) + topDownHelper(n-2, dp);
         return dp[n];
+    }
+    static Map<Integer, Integer> cache = new HashMap<>();
+
+    public static int getFib(int n) {
+       if (cache.containsKey(n)) {
+           return cache.get(n);
+       }
+       int result;
+       if (n < 2) {
+           result = 2;
+       } else {
+           result = getFib(n-1) + getFib(n-2);
+       }
+       cache.put(n, result);
+
+       return result;
     }
 }
