@@ -6,26 +6,12 @@
 
 package Tree;
 
-import com.sun.source.tree.Tree;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class BinaryTreeFromInorderAndPostorder {
     static int postorderIndex;
     static Map<Integer, Integer> inorderIndexMap;
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
     public static void main(String[] args) {
         int[] inorder = {9, 3, 15, 20, 7};

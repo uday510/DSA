@@ -44,39 +44,15 @@ package LinkedList;
  */
 
 public class CheckSortedLinkedList {
-    public static class Node {
-        public int val;
-        public Node next;
-
-        Node(int x) {
-            val = x;
-            next = null;
-        }
-    }
 
     public static void main(String[] args) {
 
-        Node head = new Node(10);
-        Node node1 = new Node(20);
-        Node node2 = new Node(30);
-        Node node3 = new Node(40);
-        Node node4 = new Node(50);
-        Node node5 = new Node(60);
-        Node node6 = new Node(70);
-        Node node7 = new Node(80);
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(3))));
 
-        head.next = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-        node6.next = node7;
-
-        solve(head);
+        System.out.println(solve(head));
     }
-    public static int solve(Node head) {
-       Node temp = head;
+    public static int solve(ListNode head) {
+       ListNode temp = head;
 
        while (temp != null) {
            if (temp.next != null) {

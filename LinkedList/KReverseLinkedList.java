@@ -24,12 +24,6 @@
 package LinkedList;
 
 public class KReverseLinkedList {
-    public static class ListNode {
-        int value;
-        ListNode next;
-        ListNode(int value) { this.value = value; }
-        ListNode(int value, ListNode next) { this.value = value; this.next = next; }
-    }
     public static void main(String[] args) {
 
         ListNode tail = new ListNode(8, null);
@@ -44,7 +38,7 @@ public class KReverseLinkedList {
         ListNode linkedList = solve(head, 3);
 
         while (linkedList != null) {
-            System.out.print(linkedList.value + " ");
+            System.out.print(linkedList.val + " ");
             linkedList = linkedList.next;
         }
     }

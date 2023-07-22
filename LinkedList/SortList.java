@@ -47,15 +47,7 @@
  */
 package LinkedList;
 
-import java.util.List;
-
 public class SortList {
-    public static class ListNode {
-        public int val;
-        public ListNode next;
-        ListNode(int x) { val = x; next = null; }
-        ListNode(int x, ListNode next) { val = x; this.next = next; }
-    }
     public static void main(String[] args) {
         ListNode tail = new ListNode(8);
         ListNode node2 = new ListNode(2, tail);

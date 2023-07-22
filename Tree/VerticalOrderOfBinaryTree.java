@@ -11,17 +11,6 @@ package Tree;
 import java.util.*;
 
 public class VerticalOrderOfBinaryTree {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
 
         public static class Pair {
             TreeNode node;
@@ -33,18 +22,7 @@ public class VerticalOrderOfBinaryTree {
         }
         public static void main(String[] args) {
 
-            TreeNode node7 = new TreeNode(7, null, null);
-            TreeNode node6 = new TreeNode(6, null, null);
-            TreeNode node5 = new TreeNode(3, node6, node7);
-
-            TreeNode node3 = new TreeNode(5, null, null);
-            TreeNode node2 = new TreeNode(4, null, null);
-            TreeNode node1 = new TreeNode(2, node2, node3);
-
-            TreeNode root = new TreeNode(1, null, null);
-
-            root.left = node1;
-            root.right = node5;
+            TreeNode root = new TreeNode(6, new TreeNode(3, new TreeNode(2), new TreeNode(5)), new TreeNode(7, new TreeNode(8), new TreeNode(9)));
 
             solve(root);
         }
@@ -93,5 +71,4 @@ public class VerticalOrderOfBinaryTree {
             }
             return ans;
         }
-    }
 }

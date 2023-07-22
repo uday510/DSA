@@ -4,17 +4,6 @@ import java.util.ArrayList;
 
 public class ReverseInorder {
     static ArrayList<Integer> list;
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
         public static void main(String[] args) {
 
             TreeNode node7 = new TreeNode(30, null, null);
@@ -31,7 +20,6 @@ public class ReverseInorder {
             root.right = node5;
 
         }
-    }
     public static void reverseInorder(TreeNode root) {
         if (root == null) return;
 

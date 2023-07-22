@@ -12,21 +12,7 @@
  */
 package LinkedList;
 
-import java.util.List;
-
 public class LinkedListCycle {
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-        ListNode(int x, ListNode next) {
-            val = x;
-            this.next = next;
-        }
-    }
     public static void main(String[] args) {
         ListNode node2 = new ListNode(0);
         ListNode node1 = new ListNode(2, node2);

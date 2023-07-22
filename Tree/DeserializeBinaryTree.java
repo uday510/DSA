@@ -69,17 +69,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class DeserializeBinaryTree {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
 
         public static void main(String[] args) {
             int[] a = {1, 2, 3, 4, 5, -1, 6, -1, -1, -1, -1, -1, -1};
@@ -115,5 +104,4 @@ public class DeserializeBinaryTree {
             }
             return root;
         }
-    }
 }

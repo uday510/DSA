@@ -51,40 +51,16 @@ package LinkedList;
  */
 
 public class DeleteInLinkedList {
-    public static class Node {
-        public int val;
-        public Node next;
-
-        Node(int x) {
-            val = x;
-            next = null;
-        }
-    }
 
     public static void main(String[] args) {
 
-        Node head = new Node(10);
-        Node node1 = new Node(20);
-        Node node2 = new Node(30);
-        Node node3 = new Node(40);
-        Node node4 = new Node(50);
-        Node node5 = new Node(60);
-        Node node6 = new Node(70);
-        Node node7 = new Node(80);
-
-        head.next = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-        node6.next = node7;
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
 
         solve(head, 4);
     }
-    public static Node solve(Node A, int B) {
+    public static ListNode solve(ListNode A, int B) {
         if (B == 0) return A.next;
-        Node temp = A;
+        ListNode temp = A;
         int i = 0;
 
         while ( i < B - 1) {

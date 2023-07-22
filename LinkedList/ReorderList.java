@@ -1,18 +1,8 @@
 package LinkedList;
 
 public class ReorderList {
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
     public static void main(String[] args) {
-        ListNode tail = new ListNode(40, null);
-        ListNode node2 = new ListNode(30, tail);
-        ListNode node1 = new ListNode(20, node2);
-        ListNode head = new ListNode(10, node1);
+       ListNode head = new ListNode(10, new ListNode(20, new ListNode(30, new ListNode(40, new ListNode(50, new ListNode(60))))));
 
         ListNode ans = solve(head);
 

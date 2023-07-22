@@ -56,18 +56,6 @@
 package LinkedList;
 
 public class RemoveLoopFromLinkedList {
-    public static  class ListNode {
-        public int val;
-        public ListNode next;
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-        ListNode(int x, ListNode next) {
-            val = x;
-            this.next = next;
-        }
-    }
 
     public static void main(String[] args) {
             ListNode node2 = new ListNode(4);

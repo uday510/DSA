@@ -69,17 +69,7 @@ package Tree;
 public class MirrorProduct {
     static long ans = 0;
     static long MOD = (long) 1e9 + 7;
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
+
         public static void main(String[] args) {
 
             TreeNode node7 = new TreeNode(30, null, null);
@@ -96,7 +86,6 @@ public class MirrorProduct {
             root.right = node5;
 
         }
-    }
     public static long solve(TreeNode root) {
         ans = 0;
 

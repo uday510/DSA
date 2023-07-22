@@ -67,8 +67,8 @@ public class PopulatingNextRightPointersInEachNode {
 
               if (i < size - 1) currNode.next = queue.poll();
 
-                if (currNode.left != null) queue.add(currNode.left);
-                if (currNode.right != null) queue.add(currNode.right);
+              if (currNode.left != null) queue.add(currNode.left);
+              if (currNode.right != null) queue.add(currNode.right);
             }
         }
         return root;

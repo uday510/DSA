@@ -67,17 +67,6 @@
 package Tree;
 
 public class LCAScaler {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
         public static void main(String[] args) {
 
             TreeNode node7 = new TreeNode(30, null, null);
@@ -134,5 +123,4 @@ public class LCAScaler {
 
             return isExists(root.left, val) || isExists(root.right, val);
         }
-    }
 }

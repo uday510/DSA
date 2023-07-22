@@ -56,32 +56,16 @@
 package Tree;
 
 public class CountingTheNodes {
-    public static class TreeNode {
-        int val;
-        NodesCount.TreeNode left;
-        NodesCount.TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-            left = null;
-            right = null;
-        }
-    }
 
     public static void main(String[] args) {
 
-        NodesCount.TreeNode root = new NodesCount.TreeNode(1);
-        NodesCount.TreeNode child1 = new NodesCount.TreeNode(4);
-        NodesCount.TreeNode child2 = new NodesCount.TreeNode(3);
-
-        root.left = child1;
-        root.right = child2;
+       TreeNode root = new TreeNode(3, new TreeNode(4, new TreeNode(5), null), new TreeNode(2, new TreeNode(3), new TreeNode(6)));
 
         int ans = solve(root);
         System.out.println(ans);
     }
 
-    public static int solve(NodesCount.TreeNode root) {
+    public static int solve(TreeNode root) {
         if (root == null) return 0;
 
         return root.val + solve(root.left) + solve(root.right);

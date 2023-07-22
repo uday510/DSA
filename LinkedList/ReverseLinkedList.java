@@ -53,21 +53,9 @@ package LinkedList;
  */
 public class ReverseLinkedList {
 
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode () {}
-        ListNode (int val) { this.val = val;}
-        ListNode (int val, ListNode next) { this.val = val;this.next = next; }
-    }
     public static void main(String[] args) {
 
-        ListNode node4 = new ListNode(50, null);
-        ListNode node3 = new ListNode(40, node4);
-        ListNode node2 = new ListNode(30, node3);
-        ListNode node1 = new ListNode(20, node2);
-        ListNode head = new ListNode(10, node1);
-
+        ListNode head = new ListNode(10, new ListNode(20, new ListNode(30, new ListNode(40, new ListNode(50)))));
         ListNode ans = solve(head);
 
         while (ans != null) {

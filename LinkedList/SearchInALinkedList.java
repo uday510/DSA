@@ -51,38 +51,15 @@ The first node has a value 4.
 
 public class SearchInALinkedList {
 
-    public static class Node {
-        public int val;
-        public Node next;
 
-        Node(int x) {
-            val = x;
-            next = null;
-        }
-    }
     public static void main(String[] args) {
 
-        Node head = new Node(10);
-        Node node1 = new Node(20);
-        Node node2 = new Node(30);
-        Node node3 = new Node(40);
-        Node node4 = new Node(50);
-        Node node5 = new Node(60);
-        Node node6 = new Node(70);
-        Node node7 = new Node(80);
-
-        head.next = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-        node6.next = node7;
+        ListNode head = new ListNode(10, new ListNode(20, new ListNode(30, new ListNode(40, new ListNode(50, new ListNode(60))))));
 
         solve(head, 60);
     }
-    public static int solve(Node node, int b) {
-        Node temp = node;
+    public static int solve(ListNode node, int b) {
+        ListNode temp = node;
 
         while (temp != null) {
             if (node.val == b) return 1;

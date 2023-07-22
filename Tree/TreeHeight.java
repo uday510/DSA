@@ -66,27 +66,9 @@ package Tree;
 
 public class TreeHeight {
 
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-            left = null;
-            right = null;
-        }
-    }
     public static void main(String[] args) {
 
-        TreeNode root = new TreeNode(1);
-        TreeNode child1 = new TreeNode(4);
-        TreeNode child2 = new TreeNode(3);
-        TreeNode child3 = new TreeNode(2);
-
-        root.left = child1;
-        root.right = child2;
-        child1.left = child3;
+       TreeNode root = new TreeNode(1, new TreeNode(4, null, null), new TreeNode(3, null, null));
 
         int ans = solve(root);
         System.out.println(ans);

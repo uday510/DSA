@@ -1,16 +1,6 @@
 package LinkedList;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class IntersectionOfTwoLinkedLists {
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
     public static void main(String[] args) {
         ListNode tail = new ListNode(6, null);
         ListNode node2 = new ListNode(5, tail);

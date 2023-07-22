@@ -15,42 +15,23 @@ public class PathSum3 {
     static int count;
     static int k;
     static HashMap<Long, Integer> hm;
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-        public static void main(String[] args) {
 
-            TreeNode node7 = new TreeNode(30, null, null);
-            TreeNode node6 = new TreeNode(10, null, null);
-            TreeNode node5 = new TreeNode(20, node6, node7);
+    public static void main(String[] args) {
 
-            TreeNode node3 = new TreeNode(6, null, null);
-            TreeNode node2 = new TreeNode(4, null, null);
-            TreeNode node1 = new TreeNode(8, node2, node3);
+        TreeNode root = new TreeNode(10, new TreeNode(5, new TreeNode(3, new TreeNode(3), new TreeNode(-2)), new TreeNode(2, null, new TreeNode(1))), new TreeNode(-3, null, new TreeNode(11)));
 
-            TreeNode root = new TreeNode(10, null, null);
+        int ans = solve(root, 10);
+        System.out.println(ans);
 
-            root.left = node1;
-            root.right = node5;
+    }
 
-            int ans = solve(root , 10);
-            System.out.println(ans);
-
-        }
-    } public static int solve(TreeNode root, int targetSum) {
+    public static int solve(TreeNode root, int targetSum) {
         k = targetSum;
         hm = new HashMap<>();
         preorder(root, 0L);
         return count;
     }
+
     public static void preorder(TreeNode node, long currSumFromRoot) {
         if (node == null) return;
 
@@ -81,28 +62,7 @@ public class PathSum3 {
         // the parallel subtree processing
         hm.put(currSumFromRoot, hm.get(currSumFromRoot) - 1);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
     /**
      * // O(N^2) time | O(N) space
@@ -123,4 +83,3 @@ public class PathSum3 {
      *         helper(root.right, remainingSum);
      *     }
      */
-}

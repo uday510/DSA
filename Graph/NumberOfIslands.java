@@ -32,10 +32,9 @@ public class NumberOfIslands {
     private static final int[][] directions = new int[][] { {0,1}, {1,0}, {0,-1}, {-1,0} };
     public static void main(String[] args) {
         char[][] grid = new char[][]{
-                {'1','1','1','1','0'},
-                {'1','1','0','1','1'},
-                {'1','1','0','0','0'},
-                {'0','0','0','0','0'}
+                {'1', '0', '0', '0', '0', '0', },
+                {'1','1', '1'},
+                {'1','1', '1'}
         };
         System.out.println(numIslands(grid));
     }
@@ -43,6 +42,7 @@ public class NumberOfIslands {
         int[][] visited = new int[grid.length][grid[0].length];
         visited[0][0] = 1;
         int numIslands = 0;
+
         
         for(int i=0; i<grid.length; i++) {
             for(int j=0; j<grid[0].length;j++) {

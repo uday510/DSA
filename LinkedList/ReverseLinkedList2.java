@@ -16,23 +16,13 @@ package LinkedList;
  * Output: [5]
  */
 public class ReverseLinkedList2 {
-    public static class ListNode {
-        int value;
-        ListNode next;
-        ListNode () {}
-        ListNode (int value) { this.value = value;}
-        ListNode (int value, ListNode next) { this.value = value; this.next = next; }
-    }
+
     public static void main(String[] args) {
-        ListNode tail = new ListNode(5, null);
-        ListNode node4 = new ListNode(4, tail);
-        ListNode node3 = new ListNode(3, node4);
-        ListNode node2 = new ListNode(2, node3);
-        ListNode head = new ListNode(1, node2);
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 
         ListNode linkedList = solve (head, 2, 4);
         while (linkedList != null) {
-            System.out.print(linkedList.value + " ");
+            System.out.print(linkedList.val + " ");
             linkedList = linkedList.next;
         }
     }
@@ -48,7 +38,7 @@ public class ReverseLinkedList2 {
             before = before.next;
         }
 
-        System.out.println("before: " + before.value);
+        System.out.println("before: " + before.val);
 
         // before is at node 1
         ListNode prevNode = before;

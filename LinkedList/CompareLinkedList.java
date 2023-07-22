@@ -46,58 +46,18 @@ package LinkedList;
 
 public class CompareLinkedList {
 
-    public static class Node {
-        public int val;
-        public Node next;
-
-        Node(int x) {
-            val = x;
-            next = null;
-        }
-    }
-
     public static void main(String[] args) {
 
-        Node head1 = new Node(10);
-        Node node1 = new Node(20);
-        Node node2 = new Node(30);
-        Node node3 = new Node(40);
-        Node node4 = new Node(50);
-        Node node5 = new Node(60);
-        Node node6 = new Node(70);
-        Node node7 = new Node(80);
+        ListNode head1 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 
-        Node head2 = new Node(10);
-        Node node8 = new Node(20);
-        Node node9 = new Node(30);
-        Node node10 = new Node(40);
-        Node node11 = new Node(50);
-        Node node12 = new Node(60);
-        Node node13 = new Node(70);
-        Node node14 = new Node(80);
-
-        head1.next = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-        node6.next = node7;
-
-        head2.next = node8;
-        node8.next = node9;
-        node9.next = node10;
-        node10.next = node11;
-        node11.next = node12;
-        node12.next = node13;
-        node13.next = node14;
+        ListNode head2 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 
         System.out.println(solve(head1, head2));
     }
 
-    public static int solve(Node head1, Node head2) {
-            Node temp1 = head1;
-            Node temp2 = head2;
+    public static int solve(ListNode head1, ListNode head2) {
+            ListNode temp1 = head1;
+            ListNode temp2 = head2;
 
             while (temp1 != temp2) {
                 if (temp1.val != temp2.val) return 0;

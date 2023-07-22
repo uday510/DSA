@@ -68,34 +68,15 @@ package Tree;
 public class SumofLeafLeaves {
 
     public static int count = 0;
-    public static class TreeNode {
-        int val;
-        SumOfNodesOfBinaryTree.TreeNode left;
-        SumOfNodesOfBinaryTree.TreeNode right;
 
-        TreeNode(int x) {
-            val = x;
-            left = null;
-            right = null;
-        }
-    }
     public static void main(String[] args) {
-        NodesCount.TreeNode root = new NodesCount.TreeNode(3);
-        NodesCount.TreeNode child1 = new NodesCount.TreeNode(9);
-        NodesCount.TreeNode child2 = new NodesCount.TreeNode(20);
-        NodesCount.TreeNode child3 = new NodesCount.TreeNode(15);
-        NodesCount.TreeNode child4 = new NodesCount.TreeNode(7);
-
-        root.left = child1;
-        root.right = child2;
-        child2.left = child3;
-        child2.right = child4;
+       TreeNode root = new TreeNode(10, new TreeNode(5, new TreeNode(3, null, null), new TreeNode(7, null, null)), new TreeNode(15, null, new TreeNode(18, null, null)));
 
         count = 0;
         solve(root);
         System.out.println(count);
     }
-    public static void solve(NodesCount.TreeNode node) {
+    public static void solve(TreeNode node) {
         if (node == null) return;
 
         if (node.left != null && node.left.left == null && node.left.right == null) {

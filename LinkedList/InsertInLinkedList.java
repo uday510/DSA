@@ -55,26 +55,17 @@ package LinkedList;
 
 public class InsertInLinkedList {
 
-    public static class Node {
-        public int val;
-        public Node next;
-
-        Node(int x) {
-            val = x;
-            next = null;
-        }
-    }
 
     public static void main(String[] args) {
 
-        Node head = new Node(10);
-        Node node1 = new Node(20);
-        Node node2 = new Node(30);
-        Node node3 = new Node(40);
-        Node node4 = new Node(50);
-        Node node5 = new Node(60);
-        Node node6 = new Node(70);
-        Node node7 = new Node(80);
+        ListNode head = new ListNode(10);
+        ListNode node1 = new ListNode(20);
+        ListNode node2 = new ListNode(30);
+        ListNode node3 = new ListNode(40);
+        ListNode node4 = new ListNode(50);
+        ListNode node5 = new ListNode(60);
+        ListNode node6 = new ListNode(70);
+        ListNode node7 = new ListNode(80);
 
         head.next = node1;
         node1.next = node2;
@@ -86,9 +77,9 @@ public class InsertInLinkedList {
 
         solve(head, 9, 90);
     }
-    public static Node solve(Node node, int position, int x) {
-        Node newNode = new Node(x);
-        Node temp = node;
+    public static ListNode solve(ListNode node, int position, int x) {
+        ListNode newNode = new ListNode(x);
+        ListNode temp = node;
 
         if (position == 0) {
             newNode.next = temp;

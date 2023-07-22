@@ -62,29 +62,9 @@ package Tree;
 public class SumOfNodesOfBinaryTree {
     public static int count = 1;
 
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-            left = null;
-            right = null;
-        }
-    }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(4);
-        TreeNode child1 = new TreeNode(5);
-        TreeNode child2 = new TreeNode(2);
-        TreeNode child3 = new TreeNode(3);
-        TreeNode child4 = new TreeNode(6);
-
-        root.left = child1;
-        root.right = child2;
-        child2.left = child3;
-        child2.right = child4;
+        TreeNode root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(6, new TreeNode(5), new TreeNode(7)));
 
         count = 0;
         solve(root, Integer.MIN_VALUE);

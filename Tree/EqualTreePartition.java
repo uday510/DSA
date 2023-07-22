@@ -11,17 +11,6 @@ import java.util.Stack;
 
 public class EqualTreePartition {
     static Stack<Long> seen;
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
         public static void main(String[] args) {
 
             TreeNode node7 = new TreeNode(30, null, null);
@@ -68,5 +57,4 @@ public class EqualTreePartition {
             seen.push(sum(root.left) + sum(root.right) + root.val);
             return seen.peek();
         }
-    }
 }

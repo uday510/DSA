@@ -94,7 +94,7 @@ public class BoundaryTraversalOfBinaryTree {
             // O(N) time | O(N) space
             ArrayList<Integer> res = new ArrayList<>();
 
-            // add root node if it is not a leat node
+            // add root node if it is not a leaf node
             if (!isLeafNode(root)) res.add(root.val);
 
             addLeftNodes(root.left, res);
