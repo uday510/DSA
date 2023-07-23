@@ -53,7 +53,6 @@
 package Sort;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class LargestNumber {
 
@@ -70,22 +69,29 @@ public class LargestNumber {
         int len = array.length;
         //1. Convert int array to String array
         String[] stringArray = new String[len];
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++) {
             stringArray[i] = String.valueOf(array[i]);
+        }
+        System.out.println(Arrays.toString(stringArray));
+
 
         //2. custom comparator to decide which string should come first.
-        Comparator<String> comparator = new Comparator<>() {
-            @Override
-            public int compare(String o1, String o2) { // Eg: s1 = "9", s2 = "31"
-                String s1 = o1 + o2; // "931"
-                String s2 = o2 + o1; // "319"
+//        Comparator<String> comparator = new Comparator<>() {
+//            @Override
+//            public int compare(String o1, String o2) { // Eg: s1 = "9", s2 = "31"
+//                String s1 = o1 + o2; // "931"
+//                String s2 = o2 + o1; // "319"
+//
+//                return s2.compareTo(s1); // reverse order
+//            }
+//        };
+//
+//        //3. Sort Strings according to custom comparator
+//        Arrays.sort(stringArray, comparator);
 
-                return s2.compareTo(s1); // reverse order
-            }
-        };
+        Arrays.sort(stringArray, (s1, s2) -> (s2 + s1).compareTo(s1 + s2));
 
-        //3. Sort Strings according to custom comparator
-        Arrays.sort(stringArray, comparator);
+        System.out.println(Arrays.toString(stringArray));
 
         // An extreme edge case by leetcode, say you have only a bunch of 0 in your int array
         //  If, after being sorted, the largest number is `0`, the entire number
@@ -96,6 +102,7 @@ public class LargestNumber {
         for (String string : stringArray) {
             stringBuilder.append(string);
         }
-    return stringBuilder.toString();
+
+        return stringBuilder.toString();
     }
 }
