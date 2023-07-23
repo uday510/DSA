@@ -28,10 +28,36 @@ import java.util.Queue;
 public class GenerateParentheses {
     public static void main(String[] args) {
         int n = 3;
-        List<String> res = generateParentheses(n);
+        List<String> res = generateParenthesis(n);
         System.out.println(res);
     }
-    public static List<String> generateParentheses(int n) {
+    public static List<String> generateParenthesis(int n) {
+        //TODO <-- BACKTRACKING -->
+        // O(2^2n * n) time | O(1) space
+       List<String> res = new ArrayList<>();
+       backtracking(res, new StringBuilder(), 0, 0, n);
+
+       return res;
+    }
+    public static void backtracking(List<String> res, StringBuilder curr, int open, int close, int n) {
+        if (curr.length() == 2 * n) {
+            res.add(curr.toString());
+            return;
+        }
+
+        if (open < n) {
+            curr.append("(");
+            backtracking(res, curr, open + 1, close, n);
+            curr.deleteCharAt(curr.length() - 1);
+        }
+
+        if (close < open) {
+            curr.append(")");
+            backtracking(res, curr, open, close + 1, n);
+            curr.deleteCharAt(curr.length() - 1);
+        }
+    }
+    public static List<String> solve(int n) {
         //TODO <-- BRUTE FORCE -->
         // O(2^2n * n) time | O(1) space
         List<String> res = new ArrayList<>();
