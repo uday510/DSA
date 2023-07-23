@@ -32,8 +32,8 @@
  */
 package DynamicProgramming;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DeleteAndEarn {
     public static void main(String[] args) {
@@ -43,27 +43,47 @@ public class DeleteAndEarn {
         System.out.println(res);
     }
     public static int deleteAndEarn(int[] nums) {
-        HashMap<Integer, Integer> points = new HashMap<>();
+        Map<Integer, Integer> points = new HashMap<>();
         int maxNumber = 0;
 
-        // Precompute how many points we gain from taking an element
         for (int num : nums) {
-            points.put(num, points.getOrDefault(num, 0) + num);
+            points.put (num, points.getOrDefault(num, 0) + num);
             maxNumber = Math.max(maxNumber, num);
         }
 
-        // Declare our array along with base cases
-        int[] maxPoints = new int[maxNumber + 1];
-        maxPoints[1] = points.getOrDefault(1, 0);
+        int prev2 = 0;
+        int prev1 = points.getOrDefault(1, 0);
 
-        for (int num = 2; num < maxPoints.length; num++) {
-            // Apply recurrence relation
-            int gain = points.getOrDefault(num, 0);
-            maxPoints[num] = Math.max(maxPoints[num - 1], maxPoints[num - 2] + gain);
+        for (int i = 2; i <= maxNumber; ++i) {
+            int curr = Math.max(prev1, prev2 + points.getOrDefault(i, 0));
+            prev2 = prev1;
+            prev1 = curr;
         }
-        System.out.println(Arrays.toString(maxPoints));
 
-        return maxPoints[maxNumber];
+        return prev1;
+
+//        HashMap<Integer, Integer> points = new HashMap<>();
+//        int maxNumber = 0;
+//
+//        // Precompute how many points we gain from taking an element
+//        for (int num : nums) {
+//            points.put(num, points.getOrDefault(num, 0) + num);
+//            maxNumber = Math.max(maxNumber, num);
+//        }
+//
+//        // Declare our array along with base cases
+//        int[] maxPoints = new int[maxNumber + 1];
+//        maxPoints[1] = points.getOrDefault(1, 0);
+//
+//        for (int num = 2; num < maxPoints.length; num++) {
+//            // Apply recurrence relation
+//            int gain = points.getOrDefault(num, 0);
+//            maxPoints[num] = Math.max(maxPoints[num - 1], maxPoints[num - 2] + gain);
+//        }
+//        System.out.println(Arrays.toString(maxPoints));
+//
+//        return maxPoints[maxNumber];
+
     }
     public static int solve(int[] nums) {
         HashMap<Integer, Integer> points = new HashMap<>();

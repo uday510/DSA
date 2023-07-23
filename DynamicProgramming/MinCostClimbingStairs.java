@@ -39,7 +39,7 @@ import java.util.HashMap;
 
 public class MinCostClimbingStairs {
     public static void main(String[] args) {
-        int[] nums = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
+        int[] nums = {10, 15, 20};
 
         int res = solve(nums);
         System.out.println(res);
@@ -48,15 +48,17 @@ public class MinCostClimbingStairs {
        return minCost(nums);
     }
     public static int minCost(int[] cost) {
-        int downOne = 0;
         int downTwo = 0;
-        for (int i = 2; i < cost.length + 1; ++i) {
-            int temp = downOne;
-            downOne = Math.min(downOne + cost[i - 1], downTwo + cost[i - 2]);
-            downTwo = temp;
+        int downOne = cost[0];
+
+        for (int i = 1; i < cost.length; ++i) {
+            int current = Math.min(downOne, downTwo) + cost[i];
+            downTwo = downOne;
+            downOne = current;
         }
-        return downOne;
+        return Math.min(downOne, downTwo);
     }
+
     public static int minCostClimbingStairs(int index, int[] cost, HashMap<Integer, Integer> memo) {
         if (index <= 1) {
             return 0;
