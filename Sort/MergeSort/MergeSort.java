@@ -3,14 +3,16 @@ import java.util.Arrays;
 
 public class MergeSort {
     public static void main(String[] args) {
-        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int[] array = {5,1,1,2,0,0};
         mergeSortHelper(array, 0, array.length - 1);
         System.out.println(Arrays.toString(array));
     }
     public static void mergeSortHelper(int[] array, int startIdx, int endIdx) {
         // O(NLogN) time | O(N) space
         if (startIdx == endIdx) return;
-        int midIdx = (int) Math.floor(startIdx + (endIdx - startIdx) / 2);
+
+        int midIdx = (startIdx + endIdx) / 2;
+
         mergeSortHelper(array, startIdx, midIdx);
         mergeSortHelper(array, midIdx + 1, endIdx);
         doMerge(array, startIdx, midIdx, midIdx + 1, endIdx);
@@ -29,7 +31,6 @@ public class MergeSort {
         int i = 0;
         int j = 0;
         int k = leftStartIdx;
-        int count = 0;
 
         while (i < leftArrLen && j < rightArrLen) {
             if (leftSubArray[i] < rightSubArray[j]) {

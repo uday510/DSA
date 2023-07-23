@@ -3,13 +3,13 @@ package Queue;
 import java.util.ArrayList;
 import java.util.List;
 
-class Queue<I extends Number> {
+class QueueImplementation<I extends Number> {
     // store elements
     private List<Integer> data;
     // a pointer to indicate the start position
     private int start;
 
-    public Queue() {
+    public QueueImplementation() {
         data = new ArrayList<Integer>();
         start = 0;
     }
@@ -35,7 +35,7 @@ class Queue<I extends Number> {
     }
 
     public static void main(String[] args) {
-        Queue<Number> q = new Queue<Number>();
+        QueueImplementation<Number> q = new QueueImplementation<Number>();
         q.enQueue(5);
         q.enQueue(3);
         if (!q.isEmpty()) {
