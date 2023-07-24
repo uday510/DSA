@@ -46,8 +46,26 @@
 package HashTable;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RomanToInteger {
+    static Map<String, Integer> values = new HashMap<>();
+
+    static {
+        values.put("I", 1);
+        values.put("V", 5);
+        values.put("X", 10);
+        values.put("L", 50);
+        values.put("C", 100);
+        values.put("D", 500);
+        values.put("M", 1000);
+        values.put("IV", 4);
+        values.put("IX", 9);
+        values.put("XL", 40);
+        values.put("XC", 90);
+        values.put("CD", 400);
+        values.put("CM", 900);
+    }
     public static void main(String[] args) {
         String s = "MCMXCIV";
 
@@ -55,52 +73,27 @@ public class RomanToInteger {
         System.out.println(ans);
     }
     public static int  solve(String s) {
-        int res = 0, n = s.length();
-//        int i = 0,j = -1;
-        HashMap<Character, Integer> values = new HashMap<>();
-        values.put('I', 1);
-        values.put('V', 5);
-        values.put('X', 10);
-        values.put('L', 50);
-        values.put('C', 100);
-        values.put('D', 500);
-        values.put('M', 1000);
+        // O(1) time complexity | O(1) space complexity
+        int currentSum = 0;
+        int i = 0;
+        while (i < s.length()) {
 
-//        while (i < n) {
-//            char c = s.charAt(i);
-//            System.out.print(c + ": ");
-//            j = i;
-//
-//                if (c == 'I' && i+1 < n && (s.charAt(i + 1) == 'V' || s.charAt(i + 1) == 'X')) {
-//                    res += hashMap.get(s.charAt(i+1)) - hashMap.get(c);
-//                    j = i + 1;
-//                } else if (c == 'X' && i+1 < n && (s.charAt(i + 1) == 'L' || s.charAt(i + 1) == 'C')) {
-//                    res +=  hashMap.get(s.charAt(i+1)) - hashMap.get(c);
-//                    j = i + 1;
-//                } else if (c == 'C' && i+1 < n && (s.charAt(i + 1) == 'D' || s.charAt(i + 1) == 'M')) {
-//                    res  +=  hashMap.get(s.charAt(i+1)) - hashMap.get(c);
-//                    j = i + 1;
-//                } else {
-//                    res += hashMap.get(c);
-//                }
-//                if (i == j - 1) i += 2;
-//                else i++;
-//            }
+            if (i < s.length() - 1) {
+                String doubleSymbol = s.substring(i, i + 2);
 
-        char lastSymbol = s.charAt(s.length() - 1);
-        int lastValue = values.get(lastSymbol);
-        res = lastValue;
-
-        for (int i = s.length() - 2; i > -1; i--) {
-            char currentSymbol = s.charAt(i);
-            int currentValue = values.get(currentSymbol);
-            if (currentValue < lastValue) {
-                res -= currentValue;
-            } else {
-                res += currentValue;
+                // Check if this is a valid double symbol
+                if (values.containsKey(doubleSymbol)) {
+                    currentSum += values.get(doubleSymbol);
+                    i += 2;
+                    continue; // continue to the next iteration
+                }
             }
-            lastValue = currentValue;
+
+            // Otherwise, it must be a single symbol
+            String singleSymbol = s.substring(i, i + 1);
+            currentSum += values.get(singleSymbol);
+            i += 2;
         }
-        return res;
+        return currentSum;
     }
 }
