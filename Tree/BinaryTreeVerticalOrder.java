@@ -13,7 +13,7 @@ import java.util.*;
  *
  * Return the vertical order traversal of the binary tree.
  */
-public class VerticalOrderOfBinaryTree2 {
+public class BinaryTreeVerticalOrder {
 
 
         public static class Pair {
