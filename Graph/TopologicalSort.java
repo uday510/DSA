@@ -2,7 +2,8 @@
  * Problem Description
  * Given an directed acyclic graph having A nodes. A matrix B of size M x 2 is given which represents the M edges such that there is a edge directed from node B[i][0] to node B[i][1].
  *
- * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge uv, vertex u comes before v in the ordering. Topological Sorting for a graph is not possible if the graph is not a DAG.
+ * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge uv, vertex u comes before v in the ordering.
+ * Topological Sorting for a graph is not possible if the graph is not a DAG.
  *
  * Return the topological ordering of the graph and if it doesn't exist then return an empty array.
  *
@@ -110,6 +111,7 @@ public class TopologicalSort {
                 queue.add(i);
             }
         }
+
         while (!queue.isEmpty()) {
             int curr = queue.poll();
             res[++index] = curr;
@@ -120,6 +122,7 @@ public class TopologicalSort {
                 }
             }
         }
+
         for (int i = 1; i <= A; ++i) {
             if (indegree[i] != 0) {
                 return new int[] {};
