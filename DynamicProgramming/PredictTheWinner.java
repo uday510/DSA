@@ -40,7 +40,7 @@ public class PredictTheWinner {
         // O(N^2) time | O(N) space (N is the length of the array)
         int[] dp = new int[nums.length];
 
-        for(int start = nums.length-1; start >= 0; --start) { // start is the start index
+        for(int start = nums.length - 1; start > -1; --start) { // start is the start index
             dp[start] = nums[start]; // dp[i] is the score of the first player when the array is nums[i]
 
             for(int end = start + 1; end < nums.length; ++end) { // end is the end index
@@ -48,6 +48,6 @@ public class PredictTheWinner {
             }
         }
 
-        return dp[nums.length-1] >= 0; // if the first player's score is greater than or equal to 0, then the first player wins
+        return dp[nums.length-1] > -1; // if the first player's score is greater than or equal to 0, then the first player wins
     }
 }
