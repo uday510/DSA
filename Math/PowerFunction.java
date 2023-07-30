@@ -14,4 +14,15 @@ public class PowerFunction {
         return (int) ((a * temp2));
     return (int) ((a * temp1));
   }
+    public static long pow(long a, long b){
+        long res = 1;
+        while(b > 0){ // binary exponentiation
+            if((b & 1) != 0){ // if b is odd
+                res = (res * a) % 998244353; // multiply res with a
+            }
+            a = (a * a) % 998244353; // square a
+            b = b >> 1; // divide b by 2
+        }
+        return res;
+    }
 }

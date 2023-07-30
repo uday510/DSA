@@ -4,7 +4,8 @@
  *
  * You have to write a number on each vertex of the graph. Each number should be 1, 2 or 3. The graph becomes Poisonous if for each edge the sum of numbers on vertices connected by this edge is odd.
  *
- * Calculate the number of possible ways to write numbers 1, 2 or 3 on vertices so the graph becomes poisonous. Since this number may be large, return it modulo 998244353.
+ * Calculate the number of possible ways to write numbers 1, 2 or 3 on vertices so the graph becomes poisonous.
+ * Since this number may be large, return it modulo 998244353.
  *
  * NOTE:
  *
@@ -32,7 +33,8 @@
  *
  *
  * Output Format
- * Return one integer denoting the number of possible ways to write numbers 1, 2 or 3 on the vertices of given graph so it becomes Poisonous . Since answer may be large, print it modulo 998244353.
+ * Return one integer denoting the number of possible ways to write numbers 1, 2 or 3 on the vertices of given graph so it becomes Poisonous .
+ * Since answer may be large, print it modulo 998244353.
  *
  *
  *
@@ -75,76 +77,77 @@
 package Graph;
 
 
-import java.util.Queue;
+import java.util.ArrayList;
 
 public class PoisonousGraph {
-    static int[][] directions = new int[][] {
-            {0, 1},
-            {1, 0},
-            {0, -1},
-            {-1, 0}
-    };
 
     public static void main(String[] args) {
-        int[][] A = new int[][] {
-                {0, 0, 0, 1},
-                {0, 0, 1, 1},
-                {0, 1, 1, 0}
-        };
-        int[][] res = solve(A);
-        for (int[] row : res) {
-            for (int col : row) {
-                System.out.print(col + " ");
-            }
-            System.out.println();
-        }
+       int A = 2;
+         int[][] B = {{1, 2}};
 
+        System.out.println(solve(A, B));
     }
-    public static int[][] solve(int[][] A) {
-        // BFS
-        // O(n * m) time | O(n * m) space
-        int[][] res = new int[A.length][A[0].length];
+    public static int solve(int A, int[][] B) {
 
-        Queue<Edge> queue = new java.util.LinkedList<>();
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
 
-        boolean[][] visited = new boolean[A.length][A[0].length];
-
-        for (int i = 0; i < A.length; i++) {
-            for (int j = 0 ; j < A[0].length; j++) {
-               if (A[i][j] == 1) queue.add(new Edge(i, j, 0));
-            }
+        for(int i = 0; i <= A; i++){
+            adj.add(new ArrayList<>());
         }
 
-        while (!queue.isEmpty()) {
-            Edge e = queue.poll();
+        for (int[] ints : B) {
+            adj.get(ints[0]).add(ints[1]);
+            adj.get(ints[1]).add(ints[0]);
+        }
 
+        int[] color = new int[A + 1]; // color of each node
+        int[] visited = new int[A + 1]; // visited array
 
-            if (A[e.x][e.y] == 1) {
-                res[e.x][e.y] = 0;
-            } else {
-                res[e.x][e.y] = e.dist;
+        // 0 -> not visited, 1 -> visited
+
+        // check for all connected components
+
+        long ans = 1;
+
+        for(int i = 1; i <= A; i++) {
+            if(visited[i] == 0){ // if node is not visited
+                int[] count = new int[2]; // count of 0 and 1
+                if(!dfs(i, adj, color, visited, count)){
+                    return 0;
+                }
+                ans = (ans * (pow(2, count[0]) + pow(2, count[1]))) % 998244353;
             }
+        }
+        return (int) ans;
+    }
+    public static boolean dfs(int node, ArrayList<ArrayList<Integer>> adj, int[] color, int[] visited, int[] count){
+        visited[node] = 1;
 
-            for (int[] dir : directions) {
-                int x = e.x + dir[0];
-                int y = e.y + dir[1];
+        count[color[node]]++;
 
-                if (x < 0 || x >= A.length || y < 0 || y >= A[0].length || visited[x][y]) continue;
-
-                visited[x][y] = true;
-                queue.add(new Edge(x, y, e.dist + 1));
+        for(int it : adj.get(node)){
+            if(visited[it] == 0){ // if adjacent node is not visited
+                color[it] = 1 - color[node]; // color of adjacent node will be opposite to current node
+                if(!dfs(it, adj, color, visited, count)){ // if any of the adjacent node returns false, return false
+                    return false;
+                }
             }
+            else if(color[it] == color[node]){ // if adjacent node is already visited and has same color as current node, return false
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static long pow(long a, long b){
+        long res = 1;
+        while(b > 0){ // binary exponentiation
+            if((b & 1) != 0){ // if b is odd
+                res = (res * a) % 998244353; // multiply res with a
+            }
+            a = (a * a) % 998244353; // square a
+            b = b >> 1; // divide b by 2
         }
         return res;
-    }
-    static class Edge {
-        int x;
-        int y;
-        int dist;
-        public Edge(int x, int y, int dist) {
-            this.x = x;
-            this.y = y;
-            this.dist = dist;
-        }
     }
 }
