@@ -41,29 +41,29 @@ public class SearchInRotatedSortedArray {
         System.out.println(ans);
     }
     public static int search(int[] array, int target) {
-        int l = 0, r = array.length - 1;
+        int left = 0, right = array.length - 1;
 
-        while (l <= r) {
+        while (left <= right) {
+            int midIdx = left + (right - left) / 2;
 
-            int midIdx = l + (r - l) / 2;
-
-            int val = array[midIdx];
-
-            if (val == target) {
+            if (array[midIdx] == target) {
                 return midIdx;
-            } else if (array[l] <= val) {
-                if (target >= array[l] && target < val) {
-                    r = midIdx - 1;
+            }
+
+            if (array[left] <= array[midIdx]) {
+                if (target >= array[left] && target < array[midIdx]) {
+                    right = midIdx - 1;
                 } else {
-                    l = midIdx + 1;
+                    left = midIdx + 1;
                 }
             } else {
-                if (target > val && target <= array[r]) {
-                    l = midIdx + 1;
+                if (target > array[midIdx] && target <= array[right]) {
+                    left = midIdx + 1;
                 } else {
-                    r = midIdx - 1;
+                    right = midIdx - 1;
                 }
             }
-        } return -1;
+        }
+        return -1;
     }
 }
