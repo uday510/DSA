@@ -10,7 +10,7 @@ public class BinarySearch {
     public static int binarySearch(int array[], int target, int left, int right) {
         // O(log(n)) time | O(1) space
         while(left <= right) {
-            int mid = left + (right - left) / 2;
+            int mid = left + (right - left) >> 1;
             int potentialMatch = array[mid];
             if(target == potentialMatch) return mid;
             else if(target < potentialMatch) left = mid + 1;
