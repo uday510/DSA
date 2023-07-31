@@ -55,31 +55,53 @@ package BinarySearch;
 
 public class SquareRootOfInteger {
     public static void main(String[] args) {
-        int a = 2;
+        int a = 9;
         int ans = solve(a);
         System.out.println(ans);
     }
     public static int solve(int x) {
         // O(LogN) time | O(1) space
+//        if (x < 2) return x;
+//
+//        int res = 1;
+//        int left = 2, right = x / 2;
+//
+//        while (left <= right) {
+//            int mid = left + (right - left) / 2;
+//            long val = (long) mid * mid;
+//
+//            if (val == x) {
+//                return mid;
+//            } else if (val < x) {
+//                res = mid;
+//                left = mid + 1;
+//            } else {
+//                right = mid - 1;
+//            }
+//        }
+//
+//        return res;
+
         if (x < 2) return x;
 
-        int res = 1;
         int left = 2, right = x / 2;
 
         while (left <= right) {
-            int mid = left + (right - left) / 2;
-            long val = (long) mid * mid;
 
-            if (val == x) {
-                return mid;
-            } else if (val < x) {
-                res = mid;
-                left = mid + 1;
+            int midIdx = left + (right - left) / 2;
+
+            long num = (long) midIdx * midIdx;
+
+            if (num == x) {
+                return midIdx;
+            }
+
+            if (num < x) {
+                left = midIdx + 1;
             } else {
-                right = mid - 1;
+                right = midIdx - 1;
             }
         }
-
-        return res;
+        return right;
     }
 }
