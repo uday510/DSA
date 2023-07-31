@@ -30,12 +30,35 @@ package DynamicProgramming;
 
 public class MinimumASCIIDeleteSum {
     public static void main(String[] args) {
-        String s1 = "sea", s2 = "eat";
+        String s1 = "delete", s2 = "leet";
         System.out.println(minimumDeleteSum(s1, s2));
     }
-    public static int minimumDeleteSum(String s1, String s2) {
-        return minimumDeleteSum(s1, s2, s1.length() - 1,
-                s2.length() - 1, new Integer[s1.length()][s2.length()]);
+    public static int minimumDeleteSum(String s1, String s2){
+
+        int[] dp = new int[s2.length() + 1];
+
+        for (int j = 1; j < s2.length() + 1; ++j) {
+            dp[j] = dp[j - 1] + s2.charAt(j - 1); // if s1 is empty, then we have to delete all the characters of s2
+        }
+
+        for (int i = 1; i < s1.length() + 1; ++i) {
+
+            int[] prev = new int[s2.length() + 1];
+
+            prev[0] = dp[0] + s1.charAt(i - 1); // if s2 is empty, then we have to delete all the characters of s1
+
+            for (int j = 1; j < s2.length() + 1; ++j) {
+
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) { // if the characters are equal, then we don't have to delete any character
+                    prev[j] = dp[j - 1];
+                } else {
+                    prev[j] = Math.min(s1.charAt(i - 1) + dp[j], s2.charAt(j - 1) + prev[j - 1]);
+                }
+            }
+            dp = prev;
+        }
+        return dp[s2.length()];
+
     }
     public static int minimumDeleteSum(String s1, String s2, int i, int j, Integer[][] dp) {
 
