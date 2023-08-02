@@ -35,7 +35,6 @@ public class ShortestPathInBinaryMatrix {
         // Mark the start cell as visited
         visited[0][0] = true;
 
-
         // Start BFS
         while (!queue.isEmpty()) {
             int[] cell = queue.poll();
@@ -49,16 +48,31 @@ public class ShortestPathInBinaryMatrix {
             }
 
             // Otherwise, process all the neighboring cells
-            for (int[] neighbor : getNeighbors(row, col, grid)) {
-                int neighborRow = neighbor[0];
-                int neighborCol = neighbor[1];
-                if (visited[neighborRow][neighborCol]) {
-                    // If the neighbor was already visited, skip it
+//            for (int[] neighbor : getNeighbors(row, col, grid)) {
+//                int neighborRow = neighbor[0];
+//                int neighborCol = neighbor[1];
+//                if (visited[neighborRow][neighborCol]) {
+//                    // If the neighbor was already visited, skip it
+//                    continue;
+//                }
+//                // Mark the neighbor as visited
+//                visited[neighborRow][neighborCol] = true;
+//                queue.add(new int[] {neighborRow, neighborCol, distance + 1});
+//            }
+
+            for (int[] dir: directions) {
+
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+
+                if (newRow < 0 || newCol < 0 || newRow >= grid.length ||
+                        newCol >= grid[0].length || grid[newRow][newCol] != 0 || visited[newRow][newCol]) {
                     continue;
                 }
-                // Mark the neighbor as visited
-                visited[neighborRow][neighborCol] = true;
-                queue.add(new int[] {neighborRow, neighborCol, distance + 1});
+
+                visited[newRow][newCol] = true;
+
+                queue.add(new int[] {newRow, newCol, distance + 1});
             }
         }
         // The target cell was unreachable

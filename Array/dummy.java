@@ -1,36 +1,52 @@
-package Array;
+/*
+You are given a read only array of n integers from 1 to n.
 
-import java.util.Arrays;
+Each integer appears exactly once except A which appears twice and B which is missing.
+
+Return A and B.
+
+Note: Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Note that in your output A should precede B.
+
+Example:
+
+Input:[3 1 2 5 3]
+
+Output:[3, 4]
+
+A = 3, B = 4
+ */
+package Array;
 
 public class dummy {
     public static void main(String[] args) {
-        int[] arr = {4, 1, 8, 6, 2, 5, 3};
 
-        int ans = solve(arr);
-        System.out.println(ans);
+        int[] array = {3, 1, 2, 5, 3};
+
+        int[] result = repeatedNumber(array);
+
+        System.out.println(result[0] + " " + result[1]);
     }
-    public static int solve(int[] array) {
-        for (int i = 0; i < array.length; i++) {
+    public static int[] repeatedNumber(int[] array) {
 
-            // keep swapping until array[i] = array[i+1]
-            while ( array[i] <= array.length && array[i] != i+1) {
-                int val = array[i];
-                if (array[i] == array[val-1]) break;
-                swap(i,val-1, array);
-                System.out.println(Arrays.toString(array));
+        int[] result = new int[2]; // result[0] = repeated number, result[1] = missing number
+
+        for (int i = 0; i < array.length; ++i) {
+
+            if (array[Math.abs(array[i]) - 1] < 0) { // if the number is already negative, it means it is repeated
+                result[0] = Math.abs(array[i]); // so we store it in result[0]
+            } else {
+                array[Math.abs(array[i]) - 1] = -array[Math.abs(array[i]) - 1]; // else we make it negative
             }
         }
 
-        // iterate and find val where array[i] != array[i+1]
-
-        for (int i = 0; i < array.length; i++) {
-            if(array[i] != i + 1) return i + 1;
+        for (int i = 0; i < array.length; ++i) { // now we check which number is positive, that is the missing number
+            if (array[i] > 0) { // we store it in result[1]
+                result[1] = i + 1; // we add 1 because the array starts from 1
+            }
         }
-        return array.length + 1;
-    }
-    public static void swap(int i, int j,int[] array) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+        return result;
+
     }
 }

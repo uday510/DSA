@@ -55,44 +55,28 @@ package BinarySearch;
 
 public class FindPeakElement {
     public static void main(String[] args) {
-        int[] array = {1, 100, 100};
+        int[] array = {1, 2, 3, 4, 5, 6};
         int ans = solve(array);
         System.out.println(ans);
     }
     public static int solve(int[] array) {
-        if (array.length == 1) {
-            return array[0];
-        }
 
-        if (array[0] <= array[1]) return array[0];
-        if (array[array.length - 1] <= array[array.length - 2]) {
-            return array[array.length - 1];
-        }
+        for (int i = 0; i < array.length - 1; ++i) {
 
-        // to get rid of index out of bounds
-        int left = 1, right = array.length - 2;
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-
-            /**
-             *   \      /
-             *    \    /
-             *     peak
-             */
-
-            if (array[mid - 1] >= array[mid] && array[mid] <= array[mid + 1]) {
-                return array[mid];
+            if (array[i] > array[i + 1]) {
+                return array[i];
             }
-
-            if (array[mid-1] < array[mid]) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
-
         }
-        return  -1;
+
+        /*
+
+        1. First element > left neighbor
+        2. Last element > right neighbour
+        3. No adjacent elements are equal
+
+         -Infinity [1, 2, 3, 4, 5, 6] -Infinity
+
+         */
+        return array[array.length - 1];
     }
 }

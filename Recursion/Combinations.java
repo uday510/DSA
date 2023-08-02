@@ -67,27 +67,42 @@
 package Recursion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Combinations {
     static ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
     public static void main(String[] args) {
         int k = 2, n = 4;
-        solve(k, n, 1, new ArrayList<Integer>());
-        System.out.println(ans);
+        List<List<Integer>> res = solve(k, n);
+        System.out.println(res);
     }
-    public static void solve(int k, int n, int first, ArrayList<Integer> curr) {
-        // if the combination is done
-        if (curr.size() == k)
-            ans.add(curr);
+    public static List<List<Integer>> solve(int k, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> curr = new ArrayList<>();
 
-        for (int i = first; i < n + 1; ++i) {
-            // add i into the current combination
-            curr.add(i);
-            // use next integers to complete the combination
-            solve(k, n, i+1, curr);
-            // backtrack
-            curr.remove(curr.size() - 1);
+        solve(1, k, n, curr, ans);
+
+        return ans;
+
+    }
+
+    public static void solve(int idx, int k, int n, List<Integer> curr, List<List<Integer>> ans) {
+
+        if (curr.size() == k) {
+            ans.add(new ArrayList<>(curr));
+            return;
         }
 
+        if (idx == n + 1) {
+            return;
+        }
+
+        // add
+        curr.add(idx);
+        solve(idx + 1, k, n, curr, ans);
+
+        // remove
+        curr.remove(curr.size() - 1);
+        solve(idx + 1, k, n, curr, ans);
     }
 }
