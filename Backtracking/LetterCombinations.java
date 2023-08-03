@@ -46,9 +46,7 @@
  */
 package Backtracking;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LetterCombinations {
     static Map<Character, String[]> DIGIT_LETTERS = new HashMap<>();
@@ -73,10 +71,36 @@ public class LetterCombinations {
     public static ArrayList<String> solve(String digits) {
         // O(4^n * n) time | O(4^n * n) space
 
-        String[] curr = new String[digits.length()];
+//        String[] curr = new String[digits.length()];
 
         ArrayList<String> res = new ArrayList<>();
-        helper(0, digits, curr, res);
+//        helper(0, digits, curr, res);
+        // solve using iterative approach
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char digit : digits.toCharArray()) { // add all digits to stack
+            stack.push(digit);
+        }
+
+
+        while (!stack.isEmpty()) {
+            char digit = stack.pop();
+            String[] digitLetters = DIGIT_LETTERS.get(digit);
+
+            if (res.size() == 0) {
+                res.addAll(Arrays.asList(digitLetters)); // add all letters of first digit to res
+                continue;
+            }
+
+            ArrayList<String> temp = new ArrayList<>();
+            for (String letter: digitLetters) {
+                for (String str : res) { // add all letters of current digit to all strings in res
+                        temp.add(letter + str); // add to temp
+                }
+            }
+            res = temp; // update res
+        }
 
         return res;
     }
