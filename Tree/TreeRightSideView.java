@@ -71,6 +71,7 @@ public class TreeRightSideView {
 //                if (currNode.left != null) {
 //                    queue.offer(currNode.left);
 //                }
+
 //                if (currNode.right != null) {
 //                    queue.offer(currNode.right);
 //                }
