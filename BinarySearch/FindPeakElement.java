@@ -61,12 +61,13 @@ public class FindPeakElement {
     }
     public static int solve(int[] array) {
 
-        for (int i = 0; i < array.length - 1; ++i) {
+//        for (int i = 0; i < array.length - 1; ++i) {
+//
+//            if (array[i] > array[i + 1]) {
+//                return array[i];
+//            }
+//        }
 
-            if (array[i] > array[i + 1]) {
-                return array[i];
-            }
-        }
 
         /*
 
@@ -77,6 +78,20 @@ public class FindPeakElement {
          -Infinity [1, 2, 3, 4, 5, 6] -Infinity
 
          */
-        return array[array.length - 1];
+//        return array[array.length - 1];
+
+        // -- BINARY SEARCH SOLUTION --
+        int left = 0, right = array.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (array[mid] > array[mid + 1]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
     }
 }
