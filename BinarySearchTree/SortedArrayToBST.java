@@ -10,53 +10,35 @@
 package BinarySearchTree;
 
 public class SortedArrayToBST {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+    public static class Pair {
+        TreeNode node;
+        int row;
+        int col;
 
-        TreeNode() {
+        Pair(TreeNode node, int row, int col) {
+            this.node = node;
+            this.row = row;
+            this.col = col;
         }
+    }
 
-        TreeNode(int val) {
-            this.val = val;
-        }
+    public static void main(String[] args) {
 
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
+        int[] nums = {-10, -3, 0, 5, 9};
 
-        public static class Pair {
-            TreeNode node;
-            int row;
-            int col;
+        helper(nums, 0, nums.length - 1);
 
-            Pair(TreeNode node, int row, int col) {
-                this.node = node;
-                this.row = row;
-                this.col = col;
-            }
-        }
+    }
 
-        public static void main(String[] args) {
+    static TreeNode helper(int[] nums, int left, int right) {
+        if (left > right) return null;
 
-            int[] nums = {-10,-3,0,5,9};
+        int idx = (left + right) / 2;
+        TreeNode node = new TreeNode(nums[idx]);
 
-            helper(nums, 0, nums.length -1);
+        node.left = helper(nums, left, idx - 1);
+        node.right = helper(nums, idx + 1, right);
 
-        }
-        static TreeNode helper(int[] nums, int left, int right) {
-            if (left > right) return null;
-
-            int idx = (left + right) / 2;
-            TreeNode node = new TreeNode(nums[idx]);
-
-            node.left = helper(nums, left, idx - 1);
-            node.right = helper(nums, idx + 1, right);
-
-            return node;
-        }
+        return node;
     }
 }

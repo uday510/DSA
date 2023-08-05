@@ -34,19 +34,6 @@ public class DeleteNodeInBST {
             this.right = right;
         }
     }
-
-        public static class Pair {
-            TreeNode node;
-            int row;
-            int col;
-
-            Pair(TreeNode node, int row, int col) {
-                this.node = node;
-                this.row = row;
-                this.col = col;
-            }
-        }
-
         public static void main(String[] args) {
 
             TreeNode node8 = new TreeNode(6, null, null);

@@ -65,58 +65,48 @@ package BinarySearchTree;
 import java.util.ArrayList;
 
 public class TwoSumBST {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+    public static void main(String[] args) {
+
+        TreeNode node7 = new TreeNode(30, null, null);
+        TreeNode node6 = new TreeNode(10, null, null);
+        TreeNode node5 = new TreeNode(20, node6, node7);
+
+        TreeNode node3 = new TreeNode(6, null, null);
+        TreeNode node2 = new TreeNode(4, null, null);
+        TreeNode node1 = new TreeNode(8, node2, node3);
+
+        TreeNode root = new TreeNode(10, null, null);
+
+        root.left = node1;
+        root.right = node5;
+
+        int ans = solve(root, 8);
+        System.out.println(ans);
+    }
+
+    public static int solve(TreeNode root, int k) {
+        ArrayList<Integer> list = new ArrayList<>();
+
+        inorder(root, list);
+
+        int l = 0;
+        int r = list.size() - 1;
+
+        while (l < r) {
+            int sum = list.get(l) + list.get(r);
+
+            if (sum == k) return 1;
+            if (sum < k) l++;
+            else r--;
         }
-        public static void main(String[] args) {
+        return 0;
+    }
 
-            TreeNode node7 = new TreeNode(30, null, null);
-            TreeNode node6 = new TreeNode(10, null, null);
-            TreeNode node5 = new TreeNode(20, node6, node7);
+    public static void inorder(TreeNode root, ArrayList<Integer> list) {
+        if (root == null) return;
 
-            TreeNode node3 = new TreeNode(6, null, null);
-            TreeNode node2 = new TreeNode(4, null, null);
-            TreeNode node1 = new TreeNode(8, node2, node3);
-
-            TreeNode root = new TreeNode(10, null, null);
-
-            root.left = node1;
-            root.right = node5;
-
-            int ans = solve(root, 8);
-            System.out.println(ans);
-        }
-        public static int solve(TreeNode root, int k) {
-            ArrayList<Integer> list = new ArrayList<>();
-
-            inorder(root, list);
-
-            int l = 0;
-            int r = list.size() - 1;
-
-            while (l < r) {
-                int sum = list.get(l) + list.get(r);
-
-                if (sum == k) return 1;
-                if (sum < k) l++;
-                else r--;
-            }
-            return 0;
-        }
-        public static void inorder(TreeNode root, ArrayList<Integer> list) {
-            if (root == null) return;
-
-            inorder(root.left, list);
-            list.add(root.val);
-            inorder(root.right, list);
-        }
+        inorder(root.left, list);
+        list.add(root.val);
+        inorder(root.right, list);
     }
 }

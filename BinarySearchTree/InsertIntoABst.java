@@ -12,47 +12,38 @@
 package BinarySearchTree;
 
 public class InsertIntoABst {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+    public static class Pair {
+        TreeNode node;
+        int row;
+        int col;
+
+        Pair(TreeNode node, int row, int col) {
+            this.node = node;
+            this.row = row;
+            this.col = col;
         }
+    }
 
-        public static class Pair {
-            TreeNode node;
-            int row;
-            int col;
-            Pair(TreeNode node, int row, int col) {
-                this.node = node;
-                this.row = row;
-                this.col = col;
-            }
-        }
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 
-            TreeNode node7 = new TreeNode(30, null, null);
-            TreeNode node6 = new TreeNode(10, null, null);
-            TreeNode node5 = new TreeNode(20, node6, node7);
+        TreeNode node7 = new TreeNode(30, null, null);
+        TreeNode node6 = new TreeNode(10, null, null);
+        TreeNode node5 = new TreeNode(20, node6, node7);
 
-            TreeNode node3 = new TreeNode(6, null, null);
-            TreeNode node2 = new TreeNode(4, null, null);
-            TreeNode node1 = new TreeNode(8, node2, node3);
+        TreeNode node3 = new TreeNode(6, null, null);
+        TreeNode node2 = new TreeNode(4, null, null);
+        TreeNode node1 = new TreeNode(8, node2, node3);
 
-            TreeNode root = new TreeNode(10, null, null);
+        TreeNode root = new TreeNode(10, null, null);
 
-            root.left = node1;
-            root.right = node5;
+        root.left = node1;
+        root.right = node5;
 
-            TreeNode ans = solve(root, 50);
-        }
-        public static TreeNode solve(TreeNode root, int val) {
-            // O(H) time | O(H) where H is the H of given BST.
+        TreeNode ans = solve(root, 50);
+    }
+
+    public static TreeNode solve(TreeNode root, int val) {
+        // O(H) time | O(H) where H is the H of given BST.
 //            if (root == null) return new TreeNode(val);
 //
 //            // insert into the right subtree
@@ -62,30 +53,29 @@ public class InsertIntoABst {
 //
 //            return root;
 
-            /**
-             * Iterative way
-             */
-            TreeNode currNode = root;
+        /**
+         * Iterative way
+         */
+        TreeNode currNode = root;
 
-            while (currNode != null) {
-                //insert into right subtree
-                if (val > currNode.val) {
-                    // insert right now
-                    if (currNode.right == null) {
-                        currNode.right = new TreeNode(val);
-                        return root;
-                    } else currNode = currNode.right;
-                }
-                // insert into the left subtree
-                else {
-                    // insert right now
-                    if (currNode.left == null) {
-                        currNode.left = new TreeNode(val);
-                        return root;
-                    } else currNode = currNode.left;
-                }
+        while (currNode != null) {
+            //insert into right subtree
+            if (val > currNode.val) {
+                // insert right now
+                if (currNode.right == null) {
+                    currNode.right = new TreeNode(val);
+                    return root;
+                } else currNode = currNode.right;
             }
-            return new TreeNode(val);
+            // insert into the left subtree
+            else {
+                // insert right now
+                if (currNode.left == null) {
+                    currNode.left = new TreeNode(val);
+                    return root;
+                } else currNode = currNode.left;
+            }
         }
+        return new TreeNode(val);
     }
 }

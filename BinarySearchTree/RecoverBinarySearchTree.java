@@ -11,17 +11,6 @@ package BinarySearchTree;
 import java.util.ArrayList;
 
 public class RecoverBinarySearchTree {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
         public static void main(String[] args) {
 
             TreeNode node7 = new TreeNode(30, null, null);
@@ -174,5 +163,4 @@ public class RecoverBinarySearchTree {
             nums.add(root.val);
             inorder(root.right, nums);
         }
-    }
 }

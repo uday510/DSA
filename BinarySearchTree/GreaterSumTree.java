@@ -66,17 +66,6 @@ public class GreaterSumTree {
     // Contest 5, Jun 2 2023
 
     static int sum;
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
         public static void main(String[] args) {
 
             TreeNode node7 = new TreeNode(30, null, null);
@@ -93,7 +82,6 @@ public class GreaterSumTree {
             root.right = node5;
 
         }
-    }
     public static TreeNode solve(TreeNode root) {
         sum = 0;
 

@@ -14,23 +14,6 @@ public class KthSmallestElementInBST {
 
     int count;
     int ans;
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
 
         public void main(String[] args) {
 
@@ -87,5 +70,4 @@ public class KthSmallestElementInBST {
                 currNode = currNode.right;
             }
         }
-    }
 }
