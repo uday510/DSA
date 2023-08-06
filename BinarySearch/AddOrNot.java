@@ -7,8 +7,6 @@
  * Find the number with the maximum number of occurrences and return an array C of size 2, where C[0] is the number of occurrences, and C[1] is the number with maximum occurrence.
  * If there are several such numbers, your task is to find the minimum one.
  *
- *
- *
  * Problem Constraints
  * 1 <= N <= 105
  *
