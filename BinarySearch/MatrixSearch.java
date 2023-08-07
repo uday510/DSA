@@ -81,10 +81,22 @@ public class MatrixSearch {
         int row = 0;
         int col = matrix[0].length - 1;
 
-        while (row < matrix.length && col > -1) {
-            if (matrix[row][col] == target) return 1;
+//        while (row < matrix.length && col > -1) {
+//            if (matrix[row][col] == target) return 1;
+//
+//            if (matrix[row][col] > target) {
+//                col--;
+//            } else {
+//                row++;
+//            }
+//        }
 
-            if (matrix[row][col] > target) {
+        for (; row < matrix.length && col > -1; ) {
+            int curr = matrix[row][col];
+
+            if (curr == target) return 1;
+
+            if (curr > target) {
                 col--;
             } else {
                 row++;

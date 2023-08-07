@@ -34,7 +34,7 @@ package DynamicProgramming;
 public class NumberOfMusicPlaylists {
     private static final int MOD = (int) (1e9 + 7);
     public static void main(String[] args) {
-        int n = 3, goal = 3, k = 1;
+        int n = 2, goal = 3, k = 0;
         System.out.println(numMusicPlaylists(n, goal, k));
     }
     public static int numMusicPlaylists(int n, int goal, int k) {
@@ -44,12 +44,29 @@ public class NumberOfMusicPlaylists {
 
         // O(goal * n) time | O(goal * n) space
 
-        Long[][] dp = new Long[goal + 1][n + 1];
-        dp[0][0] = 1L; // 0 songs in playlist, 0 songs in library , empty playlist
+//        Long[][] dp = new Long[goal + 1][n + 1];
+//        dp[0][0] = 1L; // 0 songs in playlist, 0 songs in library , empty playlist
+//
+//        numMusicPlaylists(goal, n, k, n, dp);
+//
+//
+//        return Math.toIntExact(dp[goal][n]);
 
-        numMusicPlaylists(n, goal, k, n, dp);
+       long[] dp = new long[n + 1];
+       dp[0] = 1L;
 
-        return Math.toIntExact(dp[goal][n]);
+       for (int i = 1; i <= goal; i++) {
+           long[] next = new long[n + 1];
+           for (int j = 1; j <= n; j++) {
+               next[j] = dp[j - 1] * (n - j + 1) % MOD;
+               if (j > k) {
+                   next[j] += dp[j] * (j - k) % MOD;
+               }
+               next[j] %= MOD;
+           }
+           dp = next;
+       }
+         return Math.toIntExact(dp[n]);
     }
     public static int numMusicPlaylists(int i, int j, int k, int n, Long[][] dp) {
         if (i == 0 && j == 0) {
@@ -63,10 +80,13 @@ public class NumberOfMusicPlaylists {
             return Math.toIntExact(dp[i][j]);
         }
 
+        // if we add a new song
         dp[i][j] = ((long) numMusicPlaylists(i - 1, j - 1, k, n, dp) * (n - j + 1)) % MOD;
 
+        // if we add a song that we have already seen, we have j - k songs to choose from
         if (i > k) {
-            dp[i][j] += ( (long) numMusicPlaylists(i - 1, j, k , n, dp) * (i - k)) % MOD;
+            dp[i][j] += ((long) numMusicPlaylists(i - 1, j, k , n, dp) * (j - k)) % MOD;
+            dp[i][j] %= MOD;
         }
 
         return Math.toIntExact(dp[i][j]);
