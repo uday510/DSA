@@ -43,7 +43,6 @@
  */
 
 package String;
-
 public class CountOccurrences {
     public static void main(String[] args) {
         String string = "bobob";
