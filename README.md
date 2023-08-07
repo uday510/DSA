@@ -12,7 +12,6 @@ My solutions to the various problems available on various coding platforms.
 <a href="https://github.com/uday510/DSA"><img src="https://img.shields.io/badge/language-JAVASCRIPT-blue.svg"></a>
 <a href="https://github.com/uday510/DSA"><img src="https://img.shields.io/badge/language-C++-red.svg"></a>
 
-
 </div>
 
 ## Array
