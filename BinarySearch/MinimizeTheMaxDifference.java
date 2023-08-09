@@ -26,20 +26,44 @@ Constraints:
 0 <= nums[i] <= 109
 0 <= p <= (nums.length)/2
  */
-package Array;
+package BinarySearch;
 
-public class MinimizeTheMaximumDifference {
+import java.util.Arrays;
+
+public class MinimizeTheMaxDifference {
     public static void main(String[] args) {
-        int[] nums = {0,5,3,4};
-        int p = 0;
-        System.out.println(minimumDifference(nums, p));
+        int[] arr = {10, 1, 2, 7, 1, 3};
+        int p = 2;
+        System.out.println(minimumDifference(arr, p));
     }
-    public static int minimumDifference(int[] nums, int p) {
-        int max = Integer.MIN_VALUE;
+    public static int minimumDifference(int[] arr, int p) {
+        int left = 0, right = (int) 1e9;
 
+        Arrays.sort(arr);
 
+        while (left < right) {
+            int mid = left + (right - left) / 2;
 
-        return max;
+            if (isValid(arr, mid, p)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
     }
+    public static boolean isValid(int[] arr, int mid, int p) {
+        int count = 0;
+        int i = 1;
 
+        while ( i < arr.length) {
+            if (arr[i] - arr[i - 1] <= mid) {
+                count++;
+                i += 2;
+            } else {
+                i++;
+            }
+        }
+        return count >= p;
+    }
 }
