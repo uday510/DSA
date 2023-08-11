@@ -44,18 +44,20 @@ public class CoinChange2 {
     public static void main(String[] args) {
 
     }
-    public static int change(int amount, int[] coins) {
-        int n = coins.length;
-        int[] dp = new int[amount+1];
-        dp[0] = 1;
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= amount; ++j) {
-                if (j - coins[i-1] >= 0) {
-                    dp[j] = dp[j] + dp[j - coins[i-1]];
+    public static int change(int totalAmount, int[] coins) {
+        int[] dp = new int[totalAmount + 1];
+        dp[0] = 1; // Initialize first column with 1
+
+        for (int coin : coins) {
+
+            for (int currAmount = 1; currAmount <= totalAmount; ++currAmount) {
+
+                if (coin <= currAmount) {
+                    dp[currAmount] += dp[currAmount-coin];
                 }
             }
         }
-        return dp[amount];
+        return dp[totalAmount];
     }
     public static int coinChange(int[] coins, int amount) {
         // O(N*amount) time | O(N*amount) space
