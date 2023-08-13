@@ -59,6 +59,7 @@ public class FindNthMagicNumber {
         int res = solve(a);
         System.out.println(res);
     }
+
     public static int solve(int a) {
         // O(N) time | O(1) space
         int res = 0, i = 1, currentNum = a;
