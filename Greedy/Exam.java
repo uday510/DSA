@@ -102,6 +102,7 @@ public class Exam {
                 if (i == node) {
                     continue;
                 }
+
                 descendants.set(i, descendants.get(i) + descendants.get(child) + (node == i ? 1 : 0));
             }
 
