@@ -41,15 +41,16 @@ public class CountNegativeNumbersInSortedMatrix {
         int row = 0;
         int col = grid[0].length - 1;
 
-        while (row < grid.length && col > -1) {
-            if (grid[row][col] > 0) {
-                row++;
-            } else {
+        while (row < grid.length && col >= 0) {
+
+            if (grid[row][col] < 0) { // if negative, then all the elements in the same column are negative
                 res += grid.length - row;
-                System.out.println(row + " " + col + " " +  res);
-               col--;
+                col--; // move to the left, why ? because the elements in the same row are sorted in non-increasing order
+            } else {
+                row++; // move to the next row to find the negative elements
             }
         }
+
         return res;
 
     }
