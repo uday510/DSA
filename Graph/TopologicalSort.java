@@ -124,7 +124,7 @@ public class TopologicalSort {
         }
 
         for (int i = 1; i <= A; ++i) {
-            if (indegree[i] != 0) {
+            if (indegree[i] != 0) { // cycle exists
                 return new int[] {};
             }
         }
