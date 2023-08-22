@@ -43,29 +43,16 @@ public class RepeatedSubstringPattern {
         // Find all the factors of the length.
         for (int i = n / 2; i > 0; --i) {
 
-            // why n/2 ? because if the length is 10,
-            // then the substring can be of length 5, 2, 1.
-            // But if the length is 10,
-            // then the substring can't be of length 6, 7, 8, 9.
-            // why substring can't be of length 6, 7, 8, 9 ?
-            // because if the substring is of length 6,
-            // it can be repeated only 1 time.
+            String substring  = s.substring(0, i);
 
-            if (n % i == 0) {
-                // For each factor, check if the substring of that length is repeated.
-                int m = n / i; // number of times the substring is repeated.
+            StringBuilder sb = new StringBuilder();
 
-                String sub = s.substring(0, i);
-                StringBuilder sb = new StringBuilder();
+            sb.append(substring.repeat(n / i));
 
-                sb.append(sub.repeat(m)); // repeat the substring m times.
-
-                if (sb.toString().equals(s)) {
-                    // if the repeated substring is equal
-                    // to the original string, return true.
-                    return true;
-                }
+            if (sb.toString().equals(s)) {
+                return true;
             }
+
 
         }
         return false;
