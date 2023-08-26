@@ -78,7 +78,7 @@ public class Permutations {
             return;
         }
         for (int i = 0; i < nums.length; ++i) { // All Possibilities
-            if (visited[i] == false) {
+            if (!visited[i]) {
                 visited[i] = true;    // make changes
                 currPerm[idx] = nums[i];
                 getPermutations(nums, idx+1, visited, currPerm, perms); // recursive call
