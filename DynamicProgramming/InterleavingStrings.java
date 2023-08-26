@@ -77,9 +77,9 @@ public class InterleavingStrings {
             for (int j = 0; j < dp[0].length; ++j) {
                 if (i == 0 && j == 0) { dp[i][j] = true; }
                 else if (i == 0) {
-                    dp[i][j] = s2.charAt(j-1) == s3.charAt(i + j - 1) ? dp[i][j-1] : false;
+                    dp[i][j] = s2.charAt(j - 1) == s3.charAt(i + j - 1) && dp[i][j - 1];
                 } else if (j == 0) {
-                    dp[i][j] = s1.charAt(i-1) == s3.charAt(i + j - 1) ? dp[i-1][j] : false;
+                    dp[i][j] = s1.charAt(i - 1) == s3.charAt(i + j - 1) && dp[i - 1][j];
                 } else {
                   if (s1.charAt(i-1) == s3.charAt(i + j - 1)) {
                       dp[i-1][j] = dp[i-1][j];
@@ -101,19 +101,24 @@ public class InterleavingStrings {
 
         if (dp[i][j] != null) return dp[i][j];
 
-        if (i < s1.length() && s1.charAt(i) == s3.charAt(i + j)) {
+        boolean isMatch1 = i < s1.length() && s1.charAt(i) == s3.charAt(i + j);
+        boolean isMatch2 = j < s2.length() && s2.charAt(j) == s3.charAt(i + j);
+
+        if (isMatch1 && isMatch2) {
+            dp[i][j] = solution2(s1, s2, s3, i + 1, j, dp) || solution2(s1, s2, s3, i, j + 1, dp);
+        } else if (isMatch1) {
             dp[i][j] = solution2(s1, s2, s3, i + 1, j, dp);
-            if (dp[i][j]) return true;
-        }
-        if (j < s2.length() && s2.charAt(j) == s3.charAt(i + j)) {
+        } else if (isMatch2) {
             dp[i][j] = solution2(s1, s2, s3, i, j + 1, dp);
-            if (dp[i][j]) return true;
+        } else {
+            dp[i][j] = false;
         }
-        return dp[i][j] = false;
+        return dp[i][j];
+
     }
     public static int isInterleave(String s1, String s2, String s3, int i, int j, int index) {
         if (index < 0) {
-            if (i == s1.length() -1 || j == s2.length() - 1) return 0;
+            if (i == s1.length() - 1 || j == s2.length() - 1) return 0;
             else {
                 return 1;
             }
