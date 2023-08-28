@@ -106,7 +106,7 @@ public class PaintersPartition {
         long sum = boards[0];
 
         for (int i = 1; i < boards.length; i++) {
-            maxBoard = Math.max(maxBoard, (long) boards[i]);
+            maxBoard = Math.max(maxBoard, boards[i]);
             sum = sum + (long) boards[i];
         }
 

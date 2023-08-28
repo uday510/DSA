@@ -9,7 +9,7 @@ public class CountInversions {
     public static long countInversionsHelper(int[] array, int startIdx, int endIdx) {
         long mod=1000000007;
         if (startIdx == endIdx) return 0L;
-        int midIdx = (int) Math.floor((int) (startIdx + (endIdx - startIdx) / 2) ) ;
+        int midIdx =  startIdx + (endIdx - startIdx) / 2;
 
         long leftInversions = countInversionsHelper(array, startIdx, midIdx) % mod;
         long rightInversions = countInversionsHelper(array, midIdx + 1, endIdx) % mod;

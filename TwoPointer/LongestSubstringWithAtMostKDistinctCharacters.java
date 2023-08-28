@@ -52,7 +52,6 @@ public class LongestSubstringWithAtMostKDistinctCharacters {
 
             max = Math.max(max, end - start + 1);
         }
-
         return max;
 
     }
