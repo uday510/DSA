@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class InsertionSort {
     public static void main(String[] args) {
-        int[] array = {8, 5, 2, 9, 5, 6, 3};
+        int[] array = {8, 2, 5, 3, 4, 7, 1, 9};
         int[] ans = solve(array);
         System.out.println(Arrays.toString(ans));
     }
@@ -21,6 +21,7 @@ public class InsertionSort {
                 swap(j, j - 1, array);
                 j -= 1;
             }
+            System.out.println(Arrays.toString(array));
         }
         return array;
     }

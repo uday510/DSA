@@ -1,17 +1,22 @@
 package BinarySearch;
 
+import java.util.Arrays;
+
 public class BinarySearch {
 
     public static void main(String args[]) {
-        int[] array = {0, 1, 21, 33, 45, 45, 61, 71, 72, 73};
-        int target = 33;
-        System.out.println(binarySearchRecursion(array, target, 0, array.length - 1));
+        int[] array = {56, 27, 18, 92, 25, 18, 24, 77, 86, 48};
+        int target = 86;
+        Arrays.sort(array);
+        System.out.println(binarySearch(array, target, 0, array.length - 1));
     }
-    public static int binarySearch(int array[], int target, int left, int right) {
+    public static int binarySearch(int[] array, int target, int left, int right) {
+        System.out.println("hi");
         // O(log(n)) time | O(1) space
         while(left <= right) {
             int mid = left + (right - left) >> 1;
             int potentialMatch = array[mid];
+            System.out.println(mid);
             if(target == potentialMatch) return mid;
             else if(target < potentialMatch) left = mid + 1;
             else right = mid - 1;
