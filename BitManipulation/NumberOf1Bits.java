@@ -40,30 +40,19 @@ package BitManipulation;
 public class NumberOf1Bits {
     public static void main(String[] args) {
         int num = 11;
-        int ans = solve(num);
+        int ans = hammingWeight(num);
         System.out.println(ans);
     }
-    public static int solve(int n) {
-        // int bit = 0;
-        // int ans = 0;
+    public static int hammingWeight(int n) {
+        int bits = 0;
+        int mask = 1;
 
-        // for (int i = 0; i < 32; i++) {
-        //     if ( (n & (1 << i)) != 0) ans++;
-        // }
-        // return ans;
-        // return Integer.bitCount(n);
-        // int count = 0;
-        // while (n != 0) {
-        //     count += (n & 1);
-        //     n >>>= 1;
-        // }
-        // return count;
-        int currentNum = n, count = 0;
-
-        while (currentNum != 0) {
-            if ( (currentNum & 1) == 1) count++;
-            currentNum = currentNum >> 1;
+        for (int i = 0; i < 32; ++i) {
+            if ( (n & mask) != 0) {
+                bits++;
+            }
+            mask <<= 1;
         }
-        return count;
+        return bits;
     }
 }
