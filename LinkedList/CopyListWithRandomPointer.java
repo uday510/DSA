@@ -87,7 +87,7 @@ public class CopyListWithRandomPointer {
     public static Node solve(Node head) {
         // O(N) time | O(1) space
 
-        /**
+        /*
          1. create new nodes in between the list
          2. update randomPointer for new-nodes
          3. split the old and new-nodes
@@ -107,32 +107,36 @@ public class CopyListWithRandomPointer {
         }
 
         //2. update new-nodes random pointers
-        currNode = head;
-        while (currNode != null) {
-            if (currNode.random == null) {
-                currNode.next.random = null;
-                currNode = currNode.next.next;
-                continue;
+        Node oldNode = head;
+        while (oldNode != null) {
+            Node newNode = oldNode.next;
+            if (oldNode.random == null) {
+                newNode.random = null;
+            } else {
+                Node oldRandom = oldNode.random;
+                Node newRandom = oldNode.random.next;
+
+                newNode.random = newRandom;
             }
-            currNode.next.random = currNode.random.next;
-            currNode = currNode.next.next;
+            oldNode = newNode.next;
         }
+
         // 3. separate the old and new nodes from the list
-        Node oldHead = head;
         Node newHead = head.next;
-        Node temp1 = oldHead;
-        Node temp2 = newHead;
+        oldNode = head;
+        Node newNode = newHead;
 
-        while (temp2.next != null) {
-            temp1.next = temp1.next.next;
-            temp2.next = temp2.next.next;
+        while (newNode.next != null) {
+            oldNode.next = oldNode.next.next;
+            newNode.next = newNode.next.next;
 
-            temp1 = temp1.next;
-            temp2 = temp2.next;
+            oldNode = oldNode.next;
+            newNode = newNode.next;
         }
+
         // remove all old-node pointer which is pointing to
         // new-node tail
-        temp1.next = null;
+        oldNode.next = null;
         return newHead;
     }
 }
