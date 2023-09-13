@@ -26,6 +26,7 @@ public class Candy {
                 res += down + (peak >= down ? 0: 1);
             }
         }
+
         return res;
         // O(N) time | O(N) space
 //        int n = ratings.length;
