@@ -24,99 +24,103 @@ Output Format
  */
 package Graph;
 
-import java.util.*;
+import java.util.PriorityQueue;
 
 public class dummy {
     public static void main(String[] args) {
-
-        int[][] edges = {{1,3}, {1, 2}, {3, 5}, {4, 2}, {5, 1}, {6, 4}};
-
-
-        int n = 6;
-
-        int result = findShortestPath(edges, n, 1, 5);
-
-        System.out.println(result);
+        int[][] points = {{0,0},{2,2},{3,10},{5,2},{7,0}};
+        System.out.println(minCostConnectPoints(points));
     }
-    public static int findShortestPath(int[][] edges, int n, int start, int end) {
+    public static int minCostConnectPoints(int[][] points) {
 
-        List<List<Integer>> graph = new ArrayList<>();
-        List<List<Integer>> reverseGraph = new ArrayList<>();
+        int n = points.length;
+        UnionFind dsu = new UnionFind(n);
+        PriorityQueue<Edge> pq = new PriorityQueue<>((a, b) -> a.dist - b.dist);
 
-        for (int i = 0; i <= n; i++) {
-            graph.add(new ArrayList<>());
-            reverseGraph.add(new ArrayList<>());
-        }
+        for (int i = 0; i < n; ++i) {
+            int[] coordinate1 = points[i];
+            for (int j = i+1; j < n; ++j) {
+                int[] coordinate2 = points[j];
+                int cost = Math.abs(coordinate1[0] - coordinate2[0]) +
+                        Math.abs(coordinate1[1] - coordinate2[1]);
 
-        for (int[] edge : edges) {
-            graph.get(edge[0]).add(edge[1]);
-            reverseGraph.get(edge[1]).add(edge[0]);
-        }
-
-
-        int[] distance = new int[n + 1];
-
-        for (int i = 0; i <= n; i++) {
-            distance[i] = -1;
-        }
-
-        distance[start] = 0;
-
-        boolean[] visited = new boolean[n + 1];
-        visited[start] = true;
-
-        Queue<Edge> queue = new LinkedList<>();
-
-        queue.offer(new Edge(start, start, 0, false));
-
-
-        while (!queue.isEmpty()) {
-
-            Edge e = queue.poll();
-
-            int node = e.dist;
-            int cost = e.weight;
-            boolean isReversed = e.isReversed;
-
-            if (!isReversed) {
-                for (int next : reverseGraph.get(node)) {
-                    if (!visited[next]) {
-                        visited[next] = true;
-                        distance[next] = cost + 1;
-                        queue.offer(new Edge(node, next, cost + 1, true));
-                    }
-                }
+                Edge edge = new Edge(i, j, cost);
+                pq.offer(edge);
             }
+        }
+        int minCost = 0;
+        int edges = n - 1;
 
-            if (node == end) {
-                return cost;
-            }
+        while (!pq.isEmpty() && edges > 0) {
+            Edge edge = pq.poll();
+            int x = edge.x;
+            int y = edge.y;
+            int dist = edge.dist;
 
-            for (int next : graph.get(node)) {
-                if (!visited[next]) {
-                    visited[next] = true;
-                    distance[next] = cost + 1;
-                    queue.offer(new Edge(node, next, cost + 1, false));
-                }
-
+            if (!dsu.isConnected(x, y)) {
+                dsu.union(x, y);
+                minCost += dist;
+                --edges;
             }
 
         }
-        return -1;
 
+        return minCost;
     }
-
     static class Edge {
-        int src;
-        int dist;
-        int weight;
-        boolean isReversed;
+        int x;
+        int y;
 
-        Edge (int src, int dist, int weight, boolean isReversed) {
-            this.src = src;
-            this.dist = dist;
-            this.weight = weight;
-            this.isReversed = isReversed;
+        int dist;
+
+        Edge(int p1, int p2, int d) {
+            x = p1;
+            y = p2;
+            dist = d;
+        }
+    }
+    static class UnionFind {
+        int[] root;
+        int[] rank;
+
+        UnionFind(int n) {
+            root = new int[n];
+            rank = new int[n];
+
+            for (int i = 0; i < n; ++i) {
+
+                rank[i] = 1;
+                root[i] = i;
+            }
+        }
+
+        public int find(int x) {
+            if (x == root[x]) {
+                return x;
+            }
+            return root[x] = find(root[x]);
+        }
+
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+
+            if (rootX == rootY) {
+                return;
+            }
+
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootY] > rank[rootX]) {
+                rank[rootX] = rootY;
+            } else {
+                root[rootX] = rootY;
+                rank[rootY]++;
+            }
+        }
+
+        public boolean isConnected(int x, int y) {
+            return find(x) == find(y);
         }
     }
 }
