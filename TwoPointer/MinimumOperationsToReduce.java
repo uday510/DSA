@@ -5,6 +5,7 @@ public class MinimumOperationsToReduce {
 
     public int minOperations(int[] nums, int x) {
 
+
         int n = nums.length;
         int totalSum = Arrays.stream(nums).sum();
         int currSum = 0;
