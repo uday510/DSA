@@ -145,7 +145,7 @@ public class AutoComplete {
            } currNode = currNode.children[idx];
        }
        for (int i : currNode.idx) System.out.print(words[i].word + " ");
-        System.out.println();
+       System.out.println();
     }
     static class Node {
         Node[] children;
