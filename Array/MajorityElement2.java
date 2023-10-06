@@ -35,7 +35,9 @@ public class MajorityElement2 {
     }
     public static List<Integer> solve(int[] nums) {
         // O(N) time | O(1) space
-        int num1 = -1, num2 = -1, count1 = 0, count2 = 0, len = nums.length;
+        int num1, num2, count1, count2, len = nums.length;
+        num1 = num2 = -1;
+        count1 = count2 = 0;
 
         for (int num : nums) {
             if (num == num1) count1++;
