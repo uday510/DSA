@@ -1,8 +1,13 @@
 package DynamicProgramming;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
 public class IntegerBreak {
     public static void main(String[] args) {
-        int n = 58;
+        int n = 4;
 
         System.out.println(integerBreak(n));
     }
@@ -18,11 +23,12 @@ public class IntegerBreak {
 
         int res = n;
 
-        for (int i = 2; i < (n+1/2); ++i) {
+        for (int i = 2; i <= n; ++i) {
             res = Math.max(res, i * integerBreak(n-i));
             System.out.println(res);
         }
         dp[n] = res;
+
 
         return res;
     }
