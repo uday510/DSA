@@ -29,4 +29,5 @@ public class MergeStringsAlternately {
 
         return sb.toString();
     }
+
 }
