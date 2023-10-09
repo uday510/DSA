@@ -39,44 +39,29 @@ public class FindFirstAndLastPosition {
         System.out.println(result[0] + " " + result[1]);
     }
     public static int[] searchRange(int[] nums, int target) {
+        int N = nums.length;
+        int first = binarySearch(nums, target);
+        if (first >= N || nums[first] != target) {
+            return new int[] {-1, -1};
+        }
 
-        int[] result = {-1, -1};
-
-        searchRange(nums, target, result, true); // search for first occurrence , go left
-        searchRange(nums, target, result, false); // search for last occurrence , go right
-
-        return result;
+        int last = binarySearch(nums, target+1)-1;
+        return new int[] {first, last};
     }
-    public static void searchRange(int[] nums, int target, int[] res, boolean goLeft) {
 
-        int left = 0, right = nums.length - 1;
+    public static int binarySearch(int[] array, int target) {
+        int left = 0;
+        int right = array.length;
 
-        while (left <= right) {
+        while (left < right) {
+            int midIdx = (left + right) >> 1;
 
-            int mid = left + (right - left) / 2;
-
-            if (nums[mid] == target) {
-                if (goLeft) {
-                    if (mid == 0 || nums[mid - 1] != target) {
-                        res[0] = mid;
-                        return;
-                    } else {
-                        right = mid - 1;
-                    }
-                } else {
-                    if (mid == nums.length - 1 || nums[mid + 1] != target) {
-                        res[1] = mid;
-                        return;
-                    } else {
-                        left = mid + 1;
-                    }
-                }
-            }
-            else if (nums[mid] < target) {
-                left = mid + 1;
+            if (array[midIdx] < target) {
+                left = midIdx + 1;
             } else {
-                right = mid - 1;
+                right = midIdx;
             }
         }
+        return left;
     }
 }
