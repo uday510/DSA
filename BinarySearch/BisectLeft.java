@@ -12,7 +12,6 @@ public class BisectLeft {
 
         while (left < right) {
             int mid = (left + right) >> 1;
-
             if (array[mid] < target) {
                 left = mid + 1;
             } else {
