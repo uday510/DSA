@@ -18,6 +18,6 @@ public class BisectLeft {
                 right = mid;
             }
         }
-        return left; // TODO : Trick to find the right most index
+        return left; // TODO : Trick to find the left most index
     }
 }
