@@ -14,19 +14,18 @@ public class BinarySearch {
     //TODO: STANDARD BINARY SEARCH TEMPLATE
 
     public static int binarySearch(int[] array, int target) {
-        int left = 0, right = array.length - 1;
+        int left = 0, right = array.length;
 
-        while (left <= right) {
-            int mid = (left + right) >> 1;
+        while (left < right) {
+            int midIdx = (left + right) >> 1;
 
-            if (array[mid] < target) {
-                left = mid + 1;
-            } else if (array[mid] > target) {
-                right = mid - 1;
+            if (array[midIdx] < target) {
+                left = midIdx + 1;
             } else {
-                return mid;
+                right = midIdx;
             }
         }
-        return -1;
+
+        return (left < array.length && array[left] == target) ? left : -1;
     }
 }
