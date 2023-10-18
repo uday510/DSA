@@ -30,27 +30,35 @@ public class KahnsAlgorithm {
         }
     }
     public static int[] findOrder(int numCourses, int[][] prerequisites) {
+        /*
+            TODO:      Limitation of the Algorithm
+            TODO 1. “Topological sorting” only works with graphs that are directed and acyclic.
+            TODO 2. There must be at least one vertex in the “graph” with an “in-degree” of 0.
+                    If all vertices in the “graph” have a non-zero “in-degree”,
+                    then all vertices need at least one vertex as a predecessor.
+                    In this case, no vertex can serve as the starting vertex.
+         */
         // Kahn's algorithm for topological sort
         // Time complexity: O(V + E) | Space complexity: O(V + E)
         int[] result = new int[numCourses]; // result array
-        int[] indegree = new int[numCourses]; // indegree array
+        int[] indegree = new int[numCourses]; // indegree array  O(V)
         int index = -1; // index for result array
 
-        List<List<Integer>> graph = new ArrayList<>(); // graph
+        List<List<Integer>> graph = new ArrayList<>(); // graph O(E)
 
         for (int i = 0; i < numCourses; i++) {
             graph.add(new ArrayList<>());
         }
 
-        for (int[] prerequisite : prerequisites) { // build graph and indegree array
+        for (int[] prerequisite : prerequisites) { // build graph and in-degree array
             graph.get(prerequisite[1]).add(prerequisite[0]); // add to graph
-            ++indegree[prerequisite[0]]; // increment indegree
+            ++indegree[prerequisite[0]]; // increment in-degree
         }
 
         Queue<Integer> queue = new LinkedList<>();
 
         for (int i = 0; i < numCourses; ++i) {
-            if (indegree[i] == 0) { // add all nodes with indegree 0 to queue
+            if (indegree[i] == 0) { // add all nodes with in-degree 0 to queue
                 queue.add(i);
             }
         }
@@ -61,15 +69,15 @@ public class KahnsAlgorithm {
             result[++index] = currNode; // add to result array
 
             for (int edge : graph.get(currNode)) {
-                --indegree[edge]; // decrement indegree
+                --indegree[edge]; // decrement in-degree
 
-                if (indegree[edge] == 0) { // if indegree is 0 add to queue
-                    queue.add(edge);
+                if (indegree[edge] == 0) { // if in-degree is 0 add to queue
+                    queue.offer(edge);
                 }
             }
         }
-        // if all nodes are not visited return empty array
 
+        // if all nodes are not visited return empty array, because we found a cycle
         for (int i = 0; i < numCourses; ++i) {
             if (indegree[i] != 0) {
                 return new int[0];

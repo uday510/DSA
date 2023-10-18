@@ -42,9 +42,11 @@ public class CourseSchedule2 {
             graph.add(new ArrayList<>());
         }
 
-        for (int[] prerequisite : prerequisites) { // build graph and indegree array
-            graph.get(prerequisite[1]).add(prerequisite[0]); // add to graph
-            ++indegree[prerequisite[0]]; // increment indegree
+        for (int[] p : prerequisites) { // build graph and indegree array
+            int from = p[1];
+            int to = p[0];
+            graph.get(from).add(to); // add to graph
+            ++indegree[to]; // increment indegree
         }
 
         Queue<Integer> queue = new LinkedList<>();
@@ -68,8 +70,8 @@ public class CourseSchedule2 {
                 }
             }
         }
-        // if all nodes are not visited return empty array
 
+        // if all nodes are not visited return empty array, because cycle found
         for (int i = 0; i < numCourses; ++i) {
             if (indegree[i] != 0) {
                 return new int[0];
