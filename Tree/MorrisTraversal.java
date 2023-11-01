@@ -17,7 +17,6 @@ public class MorrisTraversal {
              */
             ArrayList<Integer> res = new ArrayList<>();
 
-
             TreeNode currNode = root;
             TreeNode predecessor; //predecessor
 
