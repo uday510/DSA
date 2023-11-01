@@ -42,12 +42,8 @@ public class FindMode {
             }
             prev = curr;
         }
-        int[] res = new int[modes.size()];
-        int i = 0;
-        for (int mode : modes) {
-            res[i++] = mode;
-        }
-        return res;
+        
+        return modes.stream().mapToInt(Integer::intValue).toArray();
     }
 
     private void dfs(TreeNode node) {
