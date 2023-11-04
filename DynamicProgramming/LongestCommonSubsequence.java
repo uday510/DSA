@@ -95,7 +95,7 @@ public class LongestCommonSubsequence {
         if (A.charAt(i) == B.charAt(j)) {
             dp[i][j] = 1 + longestCommonSubsequence(A, B, i-1, j-1, dp);
         } else {
-            dp[i][j] =  Math.max(
+            dp[i][j] = Math.max(
                     longestCommonSubsequence(A, B, i-1, j, dp),
                     longestCommonSubsequence(A, B, i, j-1, dp));
         }
