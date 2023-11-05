@@ -50,34 +50,67 @@ https://leetcode.com/problems/maximum-number-of-books-you-can-take/description
  */
 package DynamicProgramming;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Stack;
+
 public class MaxNumberOfBooks {
     public static void main(String[] args) {
 
     }
     public static long maximumBooks(int[] books) {
+        int N = books.length;
+        long[] maxEndingAt = new long[N]; // dp
 
-        // PASSED ONLY 42 TEST CASES
-//        int N = books.length;
-//        if (N == 1) return books[0];
-//        long MAX = 0L;
+        long res;
+        maxEndingAt[0] = books[0];
+        res = books[0];
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+
+        for (int i = 1; i < N; ++i) {
+            while (!stack.isEmpty()) {
+                int j = stack.pop();
+                if (books[j] < books[j] - i + j) {
+                    break;
+                }
+            }
+
+            int j =  stack.isEmpty() ? -1 : stack.peek();
+            long maxEndingAtI = (j >= 0 ? maxEndingAt[j] : 0) +
+                    triangularNumber(books[i]) - triangularNumber(books[i] - i + j);
+
+            res = Math.max(res, maxEndingAtI);
+            maxEndingAt[i] = maxEndingAtI;
+            stack.push(i);
+        }
+        return res;
+
+
+
+
+        //TODO: TLE
+//        long res = 0;
+//        long N = books.length;
 //
-//        long[] dp = new long[N];
-//        if (books[1] > books[0]) {
-//            dp[0] = (long) books[1] - 1;
-//        }
+//        for (int i = 0; i < N; ++i) {
+//            int prevTaken = books[i];
+//            int currMax = prevTaken;
 //
-//        for (int i = 1; i < N; ++i) {
-//            int prevSelf = books[i-1];
-//            int currSelf = books[i];
+//            for (int j = i - 1; j > -1; --j) {
+//                int currTaken = Math.min(books[j], prevTaken-1);
+//                if (currTaken < 1) break;
 //
-//            if (currSelf > prevSelf) {
-//                dp[i] = dp[i - 1] + currSelf;
-//            } else if (currSelf < prevSelf) {
-//                dp[i] = currSelf + currSelf-1;
+//                currMax += currTaken;
+//                prevTaken = currTaken;
 //            }
-//            MAX = Math.max(dp[i], MAX);
+//            res = Math.max(res, currMax);
 //        }
-//        return MAX;
-        return 0L;
+//        return res;
+    }
+    private static long triangularNumber(int n) {
+        if (n <= 0) return 0;
+        return n * (n + 1L) / 2;
     }
 }
