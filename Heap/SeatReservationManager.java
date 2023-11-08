@@ -18,9 +18,6 @@ public class SeatReservationManager {
             }
         }
 
-        public int reserve() {
-            bookings.
-        }
 
         public void unreserve(int seatNumber) {
 
