@@ -30,7 +30,7 @@ public class RottingOranges {
         System.out.println(orangesRotting(grid));
     }
     public static int orangesRotting(int[][] grid) {
-        Queue<Pair> queue = new ArrayDeque();
+        Queue<Pair> queue = new ArrayDeque<>();
 
         // build the initial set of rotten oranges
         int freshOranges = 0;
@@ -49,7 +49,6 @@ public class RottingOranges {
 
         // Mark the round / level, _i.e_ the ticker of timestamp
         queue.add(new Pair(-1, -1));
-
 
         // start the rotting process via BFS
         int minutesElapsed = -1;
