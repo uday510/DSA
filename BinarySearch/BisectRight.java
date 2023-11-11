@@ -14,7 +14,7 @@ public class BisectRight {
         int left = 0, right = array.length;
 
         while (left < right) {
-            int mid = (left + right) >> 1;
+            int mid = (left + right) >>> 1;
 
             if (array[mid] < target) {
                 left = mid + 1;
