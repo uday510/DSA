@@ -59,49 +59,23 @@ public class SquareRootOfInteger {
         int ans = solve(a);
         System.out.println(ans);
     }
-    public static int solve(int x) {
+    public static int solve(int num) {
         // O(LogN) time | O(1) space
-//        if (x < 2) return x;
-//
-//        int res = 1;
-//        int left = 2, right = x / 2;
-//
-//        while (left <= right) {
-//            int mid = left + (right - left) / 2;
-//            long val = (long) mid * mid;
-//
-//            if (val == x) {
-//                return mid;
-//            } else if (val < x) {
-//                res = mid;
-//                left = mid + 1;
-//            } else {
-//                right = mid - 1;
-//            }
-//        }
-//
-//        return res;
+        if (num <= 1) return num;
+        long left = 1;
+        long right = num;
 
-        if (x < 2) return x;
+        while (left < right) {
+            long mid = (left + right) >>> 1;
+            long val = (mid * mid);
 
-        int left = 2, right = x / 2;
-
-        while (left <= right) {
-
-            int midIdx = left + (right - left) / 2;
-
-            long num = (long) midIdx * midIdx;
-
-            if (num == x) {
-                return midIdx;
-            }
-
-            if (num < x) {
-                left = midIdx + 1;
+            if (val == num) return (int) mid;
+            if (val < num) {
+                left = mid + 1;
             } else {
-                right = midIdx - 1;
+                right = mid;
             }
         }
-        return right;
+        return (int) left-1;
     }
 }
