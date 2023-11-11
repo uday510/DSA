@@ -42,19 +42,21 @@ public class GuessNumber {
         System.out.println(guessNumber(n, pick));
     }
     public static int guessNumber(int n, int pick) {
-        int low = 1;
-        int high = n;
-        while(low <= high) {
-            int mid = low + (high - low)/2;
-            if(guess(mid) == 0) {
-                return mid;
-            } else if(guess(mid) == 1) {
-                low = mid + 1;
+        int left = 1;
+        int right = n;
+
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+
+            int num = guess(mid);
+
+            if (num > 0) {
+                left = mid + 1;
             } else {
-                high = mid - 1;
+                right = mid;
             }
         }
-        return -1; // not found
+        return guess(left) == 0 ? left : -1;
     }
     public static int guess(int num) {
         int pick = 6;
