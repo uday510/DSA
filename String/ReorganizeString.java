@@ -50,7 +50,7 @@ public class ReorganizeString {
 
             Pair first = pq.poll();
 
-            if (sb.length() == 0 || first.c != sb.charAt(sb.length() - 1)) {
+            if (sb.isEmpty() || first.c != sb.charAt(sb.length() - 1)) {
                 sb.append(first.c);
                 if (--first.count > 0) {
                     pq.offer(first);
