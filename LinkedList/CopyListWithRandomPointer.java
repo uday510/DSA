@@ -114,6 +114,8 @@ public class CopyListWithRandomPointer {
                 newNode.random = null;
             } else {
                 Node oldRandom = oldNode.random;
+
+                // newRandom lies at oldNode.random.next
                 Node newRandom = oldNode.random.next;
 
                 newNode.random = newRandom;
