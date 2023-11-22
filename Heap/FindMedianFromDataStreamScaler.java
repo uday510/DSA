@@ -11,7 +11,6 @@ public class FindMedianFromDataStreamScaler {
     }
     public static int[] solve(int[] nums) {
         List<Integer> list = new ArrayList<>();
-
         // For smaller elements
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
         // For larger elements
