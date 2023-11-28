@@ -34,115 +34,60 @@
 
 package Design;
 import java.util.HashMap;
+import java.util.Map;
 
 public class LRUCache {
-    static HashMap<Integer, DoublyLinkedListNode> cache;
-    int maxSize;
-    int currentSize;
-    static DoublyLinkedList listOfMostRecent = new DoublyLinkedList();
+    Node head = new Node(0, 0);
+    Node tail = new Node(0, 0);
+    Map<Integer, Node> map = new HashMap<>();
+    int capacity;
     public LRUCache(int capacity) {
-        this.currentSize = 0;
-        this.maxSize =  capacity;
-        this.cache = new HashMap<>();
+        this.capacity = capacity;
+        head.next = tail;
+        tail.prev = head;
     }
-    public static void main(String[] args) {
-        LRUCache lruCache = new LRUCache(3);
-        int ans = get(10);
-        System.out.println(ans);
-    }
-    public static int get(int key) {
-        if (!cache.containsKey(key)) {
+    public int get(int key) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            remove(node);
+            insert(node);
+            return node.value;
+        } else {
             return -1;
         }
-        updateMostRecent(cache.get(key));
-        return cache.get(key).value;
     }
     public void put(int key, int value) {
-        if (!cache.containsKey(key)) {
-            if (currentSize == maxSize) {
-                evictLeastRecent();
-            } else {
-                currentSize += 1;
-            }
-            cache.put(key, new DoublyLinkedListNode(key, value));
-        } else {
-            replaceKey(key, value);
+        if (map.containsKey(key)) {
+             remove(map.get(key));
         }
-        updateMostRecent(cache.get(key));
-    }
-    public int getMostRecentKey() {
-        if (listOfMostRecent.head == null) {
-            return -1;
+        if (map.size() == capacity) {
+             remove(tail.prev);
         }
-        return listOfMostRecent.head.key;
+         insert(new Node(key, value));
     }
-    public void evictLeastRecent() {
-        int keyToRemove = listOfMostRecent.tail.key;
-        listOfMostRecent.removeTail();
-        cache.remove(keyToRemove);
+    private void remove(Node node) {
+        map.remove(node.key);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
-    public static void updateMostRecent(DoublyLinkedListNode node) {
-        listOfMostRecent.setHeadTo(node);
+    private void insert(Node node) {
+        map.put(node.key, node);
+        Node headNext = head.next;
+        head.next = node;
+       node.prev = head;
+       headNext.prev = node;
+       node.next = headNext;
+
     }
-    public void replaceKey(int key, int value) {
-        if (!this.cache.containsKey(key)) {
-            return;
+
+     static class Node {
+        Node prev, next;
+        int key, value;
+        Node(int key, int value) {
+            this.key = key;
+            this.value = value;
         }
-        cache.get(key).value = value;
     }
 }
-class DoublyLinkedList {
-    DoublyLinkedListNode head = null;
-    DoublyLinkedListNode tail = null;
-    public void setHeadTo(DoublyLinkedListNode node) {
-        if (head == node) {
-        } else if (head == null) {
-            head = node;
-            tail = node;
-        } else if (head == tail) {
-            tail.prev = node;
-            head = node;
-            head.next = tail;
-        } else {
-            if (tail == node) {
-                removeTail();
-            }
-            node.removeBindings();
-            head.prev = node;
-            node.next = head;
-            head = node;
-        }
-    }
-    public void removeTail() {
-        if (tail == null) {
-            return;
-        }
-        if (tail == head) {
-            head = null;
-            tail = null;
-            return;
-        }
-        tail = tail.prev;
-        tail.next = null;
-    }
-}
-class DoublyLinkedListNode {
-    int key;
-    int value;
-    DoublyLinkedListNode prev = null;
-    DoublyLinkedListNode next = null;
-    public DoublyLinkedListNode(int key, int value) {
-        this.key = key;
-        this.value = value;
-    }
-    public void removeBindings() {
-        if (prev != null) {
-            prev.next = next;
-        }
-        if (next != null) {
-            next.prev = prev;
-        }
-        prev = null;
-        next = null;
-    }
-}
+
+
