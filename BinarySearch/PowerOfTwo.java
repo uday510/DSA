@@ -23,4 +23,13 @@ public class PowerOfTwo {
         }
         return (i < n && Math.pow(2, i) == n);
     }
+    public double dfs(double x, long n) {
+        if (n <= 0) return 1.0;
+        double val = dfs(x, n/2);
+        val *= val;
+        if (n%2 != 0) {
+            val *= x;
+        }
+        return val;
+    }
 }
