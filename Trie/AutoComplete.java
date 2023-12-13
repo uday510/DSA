@@ -158,7 +158,6 @@ public class AutoComplete {
             eow = false;
         }
     }
-
     static class Pair {
         String word;
         int weight;
@@ -169,3 +168,36 @@ public class AutoComplete {
         }
     }
 }
+
+
+
+/*
+
+
+cities:
+    id: Number
+    name; string
+
+airport:
+    id: Number
+    name: string
+    city_id: number
+
+flight:
+    id: Number
+    name: string
+    source_airport: number
+    desitnation_airport: number
+
+
+    SELECT * FROM
+        flight
+        WHERE
+           desitnation_airport = (
+        SELECT id FROM
+            airport
+            WHERE name = 'kochi'
+            );
+ */
+
+
