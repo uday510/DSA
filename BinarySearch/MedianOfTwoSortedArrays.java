@@ -8,17 +8,19 @@ public class MedianOfTwoSortedArrays {
         int[] array2 = {-41, -40, -35, -30, -8, 6, 6, 15, 24};
     }
 
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int m = nums1.length;
-        int n = nums2.length;
-        int median = (m+n)/2;
+//    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+//        int m = nums1.length;
+//        int n = nums2.length;
+//        int median = (m+n)/2;
+//
+//        if (m*n == 0) return 0;
+//
+//        if ((m+n) % 2 == 0) {
+//
+//        }
+//
+//    }
 
-        if (m*n == 0) return 0;
-
-        if ((m+n) % 2 == 0) {
-
-        }
-    }
 }
 
 
