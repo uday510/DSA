@@ -3,8 +3,6 @@ package Design;
 import java.util.*;
 
 public class DesignFoodRatingSystem {
-
-
     static class FoodRatings {
         Map<String, PriorityQueue<Pair>> map;
         Map<String, Pair> menu;
@@ -32,7 +30,7 @@ public class DesignFoodRatingSystem {
         }
 
         public String highestRated(String cuisine) {
-            return map.get(cuisine).peek().food;
+            return Objects.requireNonNull(map.get(cuisine).peek()).food;
         }
     }
 

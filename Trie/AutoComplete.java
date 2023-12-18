@@ -170,10 +170,7 @@ public class AutoComplete {
 }
 
 
-
 /*
-
-
 cities:
     id: Number
     name; string
