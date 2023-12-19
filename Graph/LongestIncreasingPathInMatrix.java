@@ -27,6 +27,7 @@ package Graph;
 
 public class LongestIncreasingPathInMatrix {
     private static final int[][] directions = new int[][] {{0,1},{0,-1},{1,0},{-1,0}};
+
     public static void main(String[] args) {
         int[][] matrix = {{9,9,4},{6,6,8},{2,1,1}};
         System.out.println(longestIncreasingPath(matrix));
