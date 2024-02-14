@@ -24,6 +24,8 @@ package DynamicProgramming;
 import Timer.RunTime;
 
 public class CherryPickup {
+    static int n;
+    static int[][][][] dp;
     public static void main(String[] args) {
         int[][] grid = {{1,1,1,1,-1,-1,-1,1,0,0},
                         {1,0,0,0,1,0,0,0,1,0},
@@ -35,52 +37,65 @@ public class CherryPickup {
                         {0,0,-1,0,1,0,1,0,0,1}};
 
         int[][] grid2 = {{1,1,-1},{1,-1,1},{-1,1,1}};
+        n = grid.length;
+        dp = new int[n][n][n][n];
 
         RunTime runtime = new RunTime();
-        int res = solve(grid2);
-        System.out.println(res);
-        System.out.println("Runtime " + runtime.stopTimer());
     }
-    public static int solve(int[][] grid) {
-        int n = grid.length;
-        int[][][] dp = new int[n][n][n];
-        int res = cp(0, 0, 0, grid, dp);
-        return Math.max(res, 0);
-    }
-    public static int cp(int r1, int c1, int r2, int[][] grid, int[][][] dp) {
-        int c2 = r1 + c1 - r2;
-        if (r1 >= grid.length || r2 >= grid.length || c2 >= grid[0].length ||
-                c1 >= grid[0].length || grid[r1][c1] == -1 || grid[r2][c2] == -1) {
+    public static int dfs(int r1, int c1, int r2, int c2, int[][] grid) {
+        if (r1 >= n || r2 >= n || c1 >= n || c2 >= n || grid[r1][c1] == -1 || grid[r2][c2] == -1)
             return Integer.MIN_VALUE;
-        }
 
-        // if p1 and p2 reach destination
-        if (r1 == grid.length - 1 && c1 == grid[0].length - 1) {
-            return grid[r1][c1];
-        }
+        if (r1 == n - 1 && c1 == n - 1) return grid[r1][c1];
+        if (r2 == n - 1 && c2 == n - 1) return grid[r2][c2];
 
-        if (r2 == grid.length - 1 && c2 == grid[0].length - 1) {
-            return grid[r2][c2];
-        }
+        if (dp[r1][c1][r2][c2] != 0)
+            return dp[r1][c1][r2][c2];
 
-        if (dp[r1][c1][r2] != 0) {
-            return dp[r1][c1][r2];
-        }
+        int picked = 0;
+        if (r1 == r2 && c1 == c2)
+            picked += grid[r1][c1];
+        else
+            picked += grid[r1][c1] + grid[r2][c2];
 
-        int cherries = 0;
-        if (r1 == r2 && c1 == c2) {
-            cherries += grid[r1][c1];
-        } else {
-            cherries += grid[r1][c1] + grid[r2][c2];
-        }
+        int m1 = dfs(r1, c1 + 1, r2, c2 + 1, grid);
+        int m2 = dfs(r1 + 1, c1, r2, c2 + 1, grid);
+        int m3 = dfs(r1 + 1, c1, r2 + 1, c2, grid);
+        int m4 = dfs(r1, c1 + 1, r2 + 1, c2, grid);
 
-        int f1 = cp(r1, c1 + 1, r2, grid, dp); //h,h
-        int f2 = cp(r1 + 1, c1, r2, grid, dp); //v,h
-        int f3 = cp(r1 + 1, c1, r2 + 1, grid, dp); //v,v
-        int f4 = cp(r1, c1 + 1, r2 + 1, grid, dp); //h,v
+        picked += Math.max(Math.max(m1, m2), Math.max(m3, m4));
 
-        cherries += Math.max(Math.max(f1, f2), Math.max(f3, f4));
-        dp[r1][c1][r2] = cherries;
-        return cherries;
+        dp[r1][c1][r2][c2] = picked;
+        return picked;
     }
+    public static int cherryPickup(int[][] grid) {
+        int n = grid.length;
+        int[][] dp = new int[n][n];
+        dp[0][0] = grid[0][0];
+        for (int i = 1; i < n; i++) {
+            if (grid[i][0] == -1) {
+                dp[i][0] = -1;
+            } else {
+                dp[i][0] = dp[i - 1][0] + grid[i][0];
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            if (grid[0][i] == -1) {
+                dp[0][i] = -1;
+            } else {
+                dp[0][i] = dp[0][i - 1] + grid[0][i];
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < n; j++) {
+                if (grid[i][j] == -1) {
+                    dp[i][j] = -1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+                }
+            }
+        }
+        return dp[n - 1][n - 1];
+    }
+
 }

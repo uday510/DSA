@@ -55,30 +55,18 @@ public class MergeSortedArray {
 
         // O(M + N) time complexity | O(M + N) space complexity
 
-        int i = 0;
-        int j = 0;
-        int k = 0;
+        int index = nums1.length - 1, i = m - 1, j = n - 1;
 
-        int[] temp1 = new int[m];
-        int[] temp2 = new int[n];
-
-        System.arraycopy(nums1, 0, temp1, 0, m);
-        System.arraycopy(nums2, 0, temp2, 0, n);
-
-        while (i < m && j < n) {
-            if (temp1[i] < temp2[j]) {
-                nums1[k++] = temp1[i++];
+        while (i > -1 && j > -1) {
+            if (nums1[i] > nums2[j]) {
+                nums1[index--] = nums1[i--];
             } else {
-                nums1[k++] = temp2[j++];
+                nums1[index--] = nums2[j--];
             }
         }
 
-        while (i < m) {
-            nums1[k++] = temp1[i++];
-        }
-
-        while (j < n) {
-            nums1[k++] = temp2[j++];
+        while (j > -1) {
+            nums1[index--] = nums2[j--];
         }
     }
 }
