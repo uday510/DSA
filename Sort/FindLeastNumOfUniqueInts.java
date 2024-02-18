@@ -23,15 +23,26 @@ public class FindLeastNumOfUniqueInts {
         }
 
         int count = map.size();
+        // count represents the number of unique elements in the array  => count = 4
+        // freq[i] represents the number of elements with frequency i in the array
+
         for (int i = 1; i < freq.length; i++) {
             // If k is greater than or equal to i * freq[i],
             // then we can remove all the elements with frequency i
+
             if (k >= i * freq[i]) {
+                // if k is greater than or equal to i * freq[i]
+                // which means we can remove all the elements with frequency i
+                // so we can remove freq[i] elements
                 k -= i * freq[i];
-                count -= freq[i];
+                count -= freq[i];  // count -= 2 => current count = 2
+                // why count -= freq[i]? because we are removing freq[i]
+                // elements from the array and count is the number of unique elements in the array
+                // so we are removing freq[i] unique elements from the array
             } else {
                 // If k is less than i * freq[i], then we can remove only k / i elements
                 // and further we can't remove any more elements
+                // count -= k / i => count -= 1 => current count = 1
                 count -= k / i;
                 break;
             }
