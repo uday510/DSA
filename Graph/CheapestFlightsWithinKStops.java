@@ -43,7 +43,7 @@ public class CheapestFlightsWithinKStops {
                 int to = flight[1];
                 int price = flight[2];
 
-                if (previous[from] < Integer.MAX_VALUE) { // if we can reach from from src
+                if (previous[from] != Integer.MAX_VALUE) { // if we can reach from src
                     current[to] = Math.min(current[to], previous[from] + price);
                 }
             }
@@ -53,3 +53,77 @@ public class CheapestFlightsWithinKStops {
         return current[dst] == Integer.MAX_VALUE ? -1 : current[dst]; // if we can't reach dst, return -1
     }
 }
+
+/**
+ * Input:
+ * 	n = 4,
+ * 	flights = [
+ * 				[0, 1, 100],
+ * 				[1, 2, 100],
+ * 				[2, 0, 100],
+ * 				[1, 3, 600],
+ * 				[2, 3, 200]
+ * 				],
+ * 	src = 0,
+ * 	dst = 3,
+ * 	k = 1
+ *
+ *
+ * Output: 700
+ *
+ *
+ *
+ *
+ * => from src to dest there are 2 stops (i.e src and dest)
+ * => we can reach from src to dest with at most 1 stop
+ *
+ *
+ * Bellman Ford Algorithm
+ *
+ *  1. Initialize the minimum cost from src to i with at most k stops
+ *  2. For k = 1, we have 2 edges at most, so i < k + 2
+ *  3. current[i] is the minimum cost from src to i with at most k + 1 stops
+ *
+ *  initialize previous and current array with Integer.MAX_VALUE
+ *  previous[src] = 0
+ *  current[src] = 0
+ *
+ *  for k = 1, we have 2 edges at most, so i < k + 2
+ *
+ * current = [Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ * previous = [Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *
+ *  previous[src] = 0 because we can reach from src to src with 0 cost
+ *
+ *
+ * i = 1
+ *        -->
+ *          before  : previous = [0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *                  current = [Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *
+ *          after   : previous = [0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *          current = [0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *
+ * i = 2
+ *         before  : previous = [0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *         current = [0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *
+ *         after   : previous = [0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE]
+ *         current = [0, 100, 100, Integer.MAX_VALUE]
+ *
+ *
+ * i = 3
+ *
+ *        before  : previous = [0, 100, 100, Integer.MAX_VALUE]
+ *        current = [0, 100, 100, Integer.MAX_VALUE]
+ *
+ *        after   : previous = [0, 100, 100, Integer.MAX_VALUE]
+ *        current = [0, 100, 100, 600]
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
