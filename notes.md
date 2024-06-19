@@ -76,3 +76,13 @@ Abstraction:
     Abstraction is the process of hiding the internal details and showing only the functionality 
     to the users. It helps in reducing programming complexity and efforts. 
     It is achieved using abstract classes and interfaces.
+
+
+
+
+
+Properties of Unit Tests:
+
+    1. Isolated: Each unit test should be independent of other unit tests and should not rely on the
+    2. Repeatable: A unit test should produce the same result every time it is run.
+    3. Fast: Unit tests should be fast to execute so that they can be run frequently.
