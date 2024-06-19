@@ -1,23 +1,38 @@
 # DSA
-My solutions to the various problems available on various coding platforms.
 <h1 align="center">Data Structures and Algorithms</h1>
 
-<div align="center">
+<p align="center">
+  <img src="https://img.shields.io/github/stars/uday510/DSA" alt="Stars Badge"/>
+  <img src="https://img.shields.io/github/forks/uday510/DSA" alt="Forks Badge"/>
+  <img src="https://img.shields.io/github/contributors/uday510/DSA?color=2b9348" alt="GitHub contributors"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"/>
+  <img src="https://img.shields.io/badge/language-JAVA-orange.svg" alt="Language: Java"/>
+  <img src="https://img.shields.io/badge/language-JAVASCRIPT-blue.svg" alt="Language: JavaScript"/>
+  <img src="https://img.shields.io/badge/language-C++-red.svg" alt="Language: C++"/>
+</p>
 
-<a href="https://github.com/uday510/DSA/"><img src="https://img.shields.io/github/stars/uday510/DSA" alt="Stars Badge"/></a>
-<a href="https://github.com/uday510/DSA/network/members"><img src="https://img.shields.io/github/forks/uday510/DSA" alt="Forks Badge"/></a>
-<a href="https://github.com/UDAY510/DSA"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/uday510/DSA?color=2b9348"></a>
-<a href="https://github.com/uday510/DSA/blob/master/LICENSE.md">![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-<a href="https://github.com/uday510/DSA"><img src="https://img.shields.io/badge/language-JAVA-orange.svg"></a>
-<a href="https://github.com/uday510/DSA"><img src="https://img.shields.io/badge/language-JAVASCRIPT-blue.svg"></a>
-<a href="https://github.com/uday510/DSA"><img src="https://img.shields.io/badge/language-C++-red.svg"></a>
+<p align="center">
+  My solutions to various problems available on different coding platforms.
+</p>
 
-</div>
+## Table of Contents
+
+- [Array](#array)
+- [Non-Array](#non-array)
+- [Famous Algorithms](#famous-algorithms)
+- [Sort](#sort)
+- [Dynamic Programming](#dynamic-programming)
+- [Heap](#heap)
+- [Patterns](#patterns)
+- [Recursion](#recursion)
+- [Binary Search](#binary-search)
+- [Greedy Algorithms](#greedy-algorithms)
+- [String](#string)
 
 ## Array
 
 - Arrays
-- Linked-lists
+- Linked Lists
 - Queue
 - Stack
 
@@ -27,7 +42,7 @@ My solutions to the various problems available on various coding platforms.
 - Trees
 - Tries
 
-## Famous-Algorithms
+## Famous Algorithms
 
 - Kadane's Algorithm
 - Stable Internships
@@ -52,14 +67,28 @@ My solutions to the various problems available on various coding platforms.
 
 ## Dynamic Programming
 
+- To be added
+
 ## Heap
+
+- To be added
 
 ## Patterns
 
+- To be added
+
 ## Recursion
 
-## BinarySearch
+- To be added
+
+## Binary Search
+
+- To be added
 
 ## Greedy Algorithms
 
+- To be added
+
 ## String
+
+- To be added
