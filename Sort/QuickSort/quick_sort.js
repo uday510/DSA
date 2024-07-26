@@ -18,7 +18,7 @@ function quickSortHelper(array, startIdx, endIdx) {
 
 function partition(array, leftIdx, rightIdx) {
     let i = leftIdx;
-    let pivot = array[i];
+    let pivot = array[rightIdx];
     for(let j = i + 1; j <= rightIdx; j++) {
         if(array[j] < pivot) {
             i++;

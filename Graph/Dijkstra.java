@@ -126,6 +126,7 @@ public class Dijkstra {
                 int neighborDest = neighbor[0];
                 int neighborCost = neighbor[1];
 
+                // if the cost is less than the current cost to reach the node from the source
                 if (distancesFromSrc[neighborDest] != INFINITY) { continue; }
 
                 minHeap.offer(new Edge(neighborDest, neighborCost + cost));
