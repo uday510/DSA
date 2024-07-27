@@ -60,6 +60,7 @@
  *  Maximum occurence =  3
  *  Minimum value of element with maximum occurence = 5
  */
+
 package BinarySearch;
 
 import java.util.Arrays;
