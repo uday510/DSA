@@ -50,6 +50,7 @@ import java.util.*;
 
 public class LetterCombinations {
     static Map<Character, String[]> DIGIT_LETTERS = new HashMap<>();
+    static ArrayList<String> res = new ArrayList<>();
     static {
         DIGIT_LETTERS.put('0', new String[] {"0"});
         DIGIT_LETTERS.put('1', new String[] {"1"});
@@ -64,9 +65,24 @@ public class LetterCombinations {
     }
     public static void main(String[] args) {
         String digits = "23";
-
-        ArrayList<String> res = solve(digits);
+        dfs(0, digits, new StringBuilder());
         System.out.println(res);
+    }
+    public static void dfs(int i, String digits, StringBuilder sb) {
+        if (i == digits.length()) {
+            res.add(sb.toString());
+            return;
+        }
+
+        char digit = digits.charAt(i);
+
+        String[] digitLetters = DIGIT_LETTERS.get(digit);
+
+        for (String letter : digitLetters) {
+            sb.append(letter);
+            dfs(i+1, digits, sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
     }
     public static ArrayList<String> solve(String digits) {
         // O(4^n * n) time | O(4^n * n) space
@@ -96,7 +112,7 @@ public class LetterCombinations {
             ArrayList<String> temp = new ArrayList<>();
             for (String letter: digitLetters) {
                 for (String str : res) { // add all letters of current digit to all strings in res
-                        temp.add(letter + str); // add to temp
+                    temp.add(letter + str); // add to temp
                 }
             }
             res = temp; // update res
@@ -118,4 +134,5 @@ public class LetterCombinations {
             helper(i+1, digits, curr, res);
         }
     }
+
 }
