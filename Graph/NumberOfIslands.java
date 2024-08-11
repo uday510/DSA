@@ -40,29 +40,34 @@ public class NumberOfIslands {
         System.out.println(numIslands(grid));
     }
     public static int numIslands(char[][] grid) {
-        int[][] visited = new int[grid.length][grid[0].length];
+        int N = grid.length;
+        int M = grid[0].length;
         int numIslands = 0;
+        boolean[][] vis = new boolean[N][M];
 
         for(int i=0; i<grid.length; i++) {
             for(int j=0; j<grid[0].length;j++) {
-                if(grid[i][j] == '1' && visited[i][j] == 0) {
+                if(grid[i][j] == '1' && !vis[i][j]) {
                     numIslands++;
-                    dfs(grid, visited, i, j);
+                    dfs(grid, vis, i, j);
                 }
             }
         }
         return numIslands;
     }
-    public static void dfs(char[][] grid, int[][] visited, int i, int j) {
-        visited[i][j] = 1;
+    public static void dfs(char[][] grid, boolean[][] vis, int i, int j) {
+        if (i < 0 || i >= grid.length
+                || j < 0 || j >= grid[0].length ||
+                grid[i][j] == '0' || vis[i][j]) {
+            return;
+        }
 
-        for (int[] direction : directions) {
-            int newRow = i + direction[0];
-            int newCol = j + direction[1];
-
-            if (newRow >= 0 && newRow < grid.length && newCol >= 0 && newCol < grid[0].length && grid[newRow][newCol] == '1' && visited[newRow][newCol] == 0) {
-                dfs(grid, visited, newRow, newCol);
-            }
+        vis[i][j] = true;
+        for (int[] dir : directions) {
+            int newRow = dir[0] + i;
+            int newCol = dir[1] + j;
+            dfs(grid, vis, newRow, newCol);
         }
     }
+
 }

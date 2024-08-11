@@ -7,9 +7,11 @@ import java.util.List;
 /**
  *
 
- Write a function that takes in an n x m two-dimensional array (that can be square-shaped when n == m) and returns a one-dimensional array of all the array's elements in zigzag order.
+ Write a function that takes in an n x m two-dimensional array (that can be square-shaped when n == m) and
+ returns a one-dimensional array of all the array's elements in zigzag order.
 
- Zigzag order starts at top-left corner of the two-dimensional array, goes down by one element, and proceeds in a zigzag pattern all the way to the bottom right corner.
+ Zigzag order starts at top-left corner of the two-dimensional array,
+ goes down by one element, and proceeds in a zigzag pattern all the way to the bottom right corner.
  Sample Input
 
  array = [
@@ -26,7 +28,7 @@ import java.util.List;
 
  */
 public class ZigzagTraverse {
-    public static void main(String[] args) {
+    public static void wmain(String[] args) {
         List<List<Integer>> array =
         Arrays.asList(Arrays.asList(1, 3, 4, 10),
                 Arrays.asList(2, 5, 9, 11),
