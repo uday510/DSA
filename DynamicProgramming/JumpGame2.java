@@ -28,6 +28,8 @@
  */
 package DynamicProgramming;
 
+import java.util.Arrays;
+
 public class JumpGame2 {
     static int minSteps = Integer.MAX_VALUE;
     public static void main(String[] args) {
@@ -35,20 +37,50 @@ public class JumpGame2 {
         System.out.println(jump(nums));
     }
     public static int jump(int[] nums) {
-        // Then starting range of the jump is 0 to nums[0]
-        int answer = 0, n = nums.length;
-        int currEnd = 0, currFar = 0;
+        /**
+         * Approach: 1
+         * Backtracking
+         * Time Complexity: O(2^n)
+         *
+         * Approach: 2
+         * Dynamic Programming
+         * Time Complexity: O(n^2)
+         *
+         * Approach: 3
+         * Greedy
+         * Time Complexity: O(n)
+         * Space Complexity: O(1)
+         */
 
-        for (int i = 0; i < n - 1; ++i) {
-            currFar = Math.max(currFar, i + nums[i]);
+        // Approach 1
 
-            // if we have reached the end of the current range
-            // then we need to make a jump
-            if (i == currEnd) {
-                ++answer;
-                currEnd = currFar;
+//        return jump(nums, 0, 0);
+
+        // Approach 2
+
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+
+        dp[0] = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            for (int j = i+1; j <= i + nums[i] && j < nums.length; ++j) {
+                dp[j] = Math.min(dp[j], dp[i] + 1);
             }
         }
-        return answer;
+        return dp[nums.length - 1];
+    }
+    public static int jump(int[] nums, int index, int steps) {
+        if (index == nums.length - 1) {
+            minSteps = Math.min(minSteps, steps);
+            return minSteps;
+        }
+
+        int farthestJump = Math.min(index + nums[index], nums.length - 1);
+
+        for (int i = index + 1; i <= farthestJump; i++) {
+            jump(nums, i, steps + 1);
+        }
+
+        return minSteps;
     }
 }

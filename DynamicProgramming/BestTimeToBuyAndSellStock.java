@@ -33,13 +33,27 @@ public class BestTimeToBuyAndSellStock {
         System.out.println(maxProfit(prices));
     }
     public static int maxProfit(int[] prices) {
-        int minPrice = Integer.MAX_VALUE;
-        int maxProfit = 0;
+//        int minPrice = Integer.MAX_VALUE;
+//        int maxProfit = 0;
+//
+//        for (int price : prices) {
+//            maxProfit = Math.max(maxProfit, price - minPrice);
+//            minPrice = Math.min(minPrice, price);
+//        }
+//        return maxProfit;
+        /**
+         * DYANMIC PROGRAMMING APPROACH
+         */
 
-        for (int price : prices) {
-            maxProfit = Math.max(maxProfit, price - minPrice);
-            minPrice = Math.min(minPrice, price);
+        int[] dp = new int[prices.length];
+        dp[0] = 0;
+        int minPrice = prices[0];
+
+        for (int i = 1; i < prices.length; i++) {
+            dp[i] = Math.max(dp[i - 1], prices[i] - minPrice);
+            minPrice = Math.min(minPrice, prices[i]);
         }
-        return maxProfit;
+
+        return dp[prices.length - 1];
     }
 }

@@ -76,8 +76,29 @@ public class BestTimeToBuyAndSellStock2 {
                 maxProfit += prices[i + 1] - prices[i];
             }
         }
-        return maxProfit;
+//        return maxProfit;
 
+        maxProfit = 0;
 
+        /**
+         * DYNAMIC PROGRAMMING APPROACH
+         * We can find the maximum profit by using dynamic programming.
+         *
+         * We can create a dp array of size n, where n is the length of the prices array.
+         * The dp array will store the maximum profit that can be achieved by buying and selling the stock on the ith day.
+         *
+         * The dp array will be initialized with 0.
+         *
+         * We can iterate over the prices array and update the dp array.
+         */
+
+        int n = prices.length;
+        int[] dp = new int[n];
+        dp[0] = 0;
+
+        for (int i = 1; i < n; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 1] + prices[i] - prices[i - 1]);
+        }
+        return dp[n - 1];
     }
 }
