@@ -50,7 +50,7 @@ public class MinDays {
 
         for(int i=0; i<grid.length; i++) {
             for(int j=0; j<grid[0].length;j++) {
-                if(grid[i][j] == '1' && !vis[i][j]) {
+                if(grid[i][j] == 1 && !vis[i][j]) {
                     numIslands++;
                     dfs(grid, vis, i, j);
                 }

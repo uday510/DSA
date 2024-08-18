@@ -40,21 +40,44 @@ public class BestTimeToBuyAndSellStock2 {
         System.out.println(maxProfit(prices));
     }
     public static int maxProfit(int[] prices) {
+        /**
+         * The idea is to buy the stock at the lowest price and sell it at the highest price.
+         * We can hold at most one share of the stock at any time.
+         * So, we can buy the stock at the lowest price and sell it at the highest price.
+         * We can buy it then immediately sell it on the same day.
+         */
+
+        /**
+         * BRUTE FORCE APPROACH
+         * We can use two loops to find the maximum profit.
+         * The first loop will iterate over the prices array and the second loop will iterate from the current index of the first loop to the end of the prices array.
+         */
         int maxProfit = 0;
-        int minPrice = Integer.MAX_VALUE;
 
-        for (int i = 0; i < prices.length; ++i) {
-            minPrice = Math.min(minPrice, prices[i]);
-
-            if (i + 1 < prices.length && prices[i+1] < prices[i]) {
-                maxProfit += prices[i] - minPrice;
-                minPrice = Integer.MAX_VALUE;
-            } else {
-                if (i == prices.length - 1) {
-                    maxProfit += prices[i] - minPrice;
+        for (int i = 0; i < prices.length - 1; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+                int profit = prices[j] - prices[i];
+                if (profit > 0) {
+                    maxProfit += profit;
                 }
             }
         }
+//        return maxProfit;
+
+        maxProfit = 0;
+        /**
+         * OPTIMAL APPROACH
+         * We can find the maximum profit by iterating over the prices array only once.
+         * We can buy the stock at the lowest price and sell it at the highest price.
+         * We can buy it then immediately sell it on the same day.
+         */
+        for (int i = 0; i < prices.length - 1; i++) {
+            if (prices[i] < prices[i + 1]) {
+                maxProfit += prices[i + 1] - prices[i];
+            }
+        }
         return maxProfit;
+
+
     }
 }
