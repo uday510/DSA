@@ -58,16 +58,35 @@ public class JumpGame2 {
 
         // Approach 2
 
-        int[] dp = new int[nums.length];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+//        int[] dp = new int[nums.length];
+//        Arrays.fill(dp, Integer.MAX_VALUE);
+//
+//        dp[0] = 0;
+//        for (int i = 0; i < nums.length; ++i) {
+//            for (int j = i+1; j <= i + nums[i] && j < nums.length; ++j) {
+//                dp[j] = Math.min(dp[j], dp[i] + 1);
+//            }
+//        }
+//        return dp[nums.length - 1];
 
-        dp[0] = 0;
-        for (int i = 0; i < nums.length; ++i) {
-            for (int j = i+1; j <= i + nums[i] && j < nums.length; ++j) {
-                dp[j] = Math.min(dp[j], dp[i] + 1);
+        // Approach 3
+
+        int jumps = 0;
+        int currentJumpEnd = 0; // The end of the current jump
+        int farthestJump = 0; // The farthest jump
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            // Find the farthest jump
+            farthestJump = Math.max(farthestJump, i + nums[i]);
+
+            // If we have reached the end of the current jump, then we need to make another jump
+            if (i == currentJumpEnd) {
+                jumps++;
+                currentJumpEnd = farthestJump;
             }
         }
-        return dp[nums.length - 1];
+
+        return jumps;
     }
     public static int jump(int[] nums, int index, int steps) {
         if (index == nums.length - 1) {
