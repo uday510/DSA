@@ -29,6 +29,7 @@ package DynamicProgramming;
 public class StrangePrinter {
     public static void main(String[] args) {
         String s = "aaaaaaaaaaaaaaaaaaaaa";
+        s = removeDuplicates(s);
         System.out.println(strangePrinter(s));
     }
     public static int strangePrinter(String s) {
@@ -74,5 +75,20 @@ public class StrangePrinter {
 
         return minPrints;
     }
+    public static String removeDuplicates(String s) {
+        StringBuilder sb = new StringBuilder();
+        int n = s.length();
 
+        for (int i  = 0; i < n;) {
+            char c = s.charAt(i);
+            sb.append(c);
+
+            int j = i + 1;
+            while (j < n && s.charAt(j) == c) {
+                ++j;
+            }
+            i = j;
+        }
+        return sb.toString();
+    }
 }
