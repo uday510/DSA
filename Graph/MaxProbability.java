@@ -8,11 +8,11 @@ public class MaxProbability {
         int[][] edges = {{0, 1}, {1, 2}, {0, 2}};
         double[] succProb = {0.5, 0.5, 0.2};
         int start = 0, end = 2;
-        System.out.println(maxProbability(n, edges, succProb, start, end));
+        System.out.println(calculateMaxProbability(edges, succProb, start, end, n));
     }
-    public static double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
 
-        // 1. Brute Force
+    private static final double INITIAL_PROBABILITY = 1.0;
+    // 1. Brute Force
 //        double[] prob = new double[n];
 //        prob[start] = 1;
 //        for (int i = 0; i < n; i++) {
@@ -26,39 +26,58 @@ public class MaxProbability {
 //        }
 //        return prob[end];
 
-        // 2. Dijkstra's Algorithm
-        Map<Integer, List<Hop<Integer, Double>>> graph = new HashMap<>();
-        for (int i = 0; i < edges.length; i++) {
-            int u = edges[i][0];
-            int v = edges[i][1];
-           double prob = succProb[i];
-           graph.computeIfAbsent(u, k -> new ArrayList<>()).add(new Hop<>(v, prob));
-           graph.computeIfAbsent(v, k -> new ArrayList<>()).add(new Hop<>(u, prob));
-        }
+    // 2. Dijkstra's Algorithm
 
-        double[] prob = new double[n];
-        prob[start] = 1;
+    /**
+     * Calculates the maximum probability path from the start node to the end node.
+     *
+     * @param edges          the edges of the graph
+     * @param succProb       the success probabilities of the edges
+     * @param start          the starting node
+     * @param end            the ending node
+     * @param n              the number of nodes
+     * @return the maximum probability of reaching the end node
+     */
+    public static double calculateMaxProbability(int[][] edges, double[] succProb, int start, int end, int n) {
+        var adjacencyList = buildGraph(edges, succProb);
 
-        PriorityQueue<Hop<Integer, Double>> pq = new PriorityQueue<>((a, b) -> Double.compare(b.weight, a.weight));
-        pq.add(new Hop<>(start, 1.0));
+        double[] probabilities = new double[n];
+        probabilities[start] = INITIAL_PROBABILITY;
 
-        while (!pq.isEmpty()) {
-            var edge = pq.poll();
-            int u = edge.getKey();
-            double p = edge.getValue();
-            if (u == end) return p;
+        PriorityQueue<Hop<Integer, Double>> priorityQueue = new PriorityQueue<>((a, b) -> Double.compare(b.getWeight(), a.getWeight()));
+        priorityQueue.add(new Hop<>(start, INITIAL_PROBABILITY));
 
-            for (var next : graph.getOrDefault(u, new ArrayList<>())) {
-                System.out.println(STR."\{u} --> \{next.destination} prob: \{next.weight}");
-                int v = next.destination;
-                double nextProb = next.weight;
-                if (prob[v] < p * nextProb) {
-                    prob[v] = p * nextProb;
-                    pq.add(new Hop<>(v, prob[v]));
+        while (!priorityQueue.isEmpty()) {
+            var currentHop = priorityQueue.poll();
+            int currentNode = currentHop.getDestination();
+            double currentProbability = currentHop.getWeight();
+
+            if (currentNode == end) {
+                return currentProbability;
+            }
+
+            for (var nextHop : adjacencyList.getOrDefault(currentNode, Collections.emptyList())) {
+                int nextNode = nextHop.getDestination();
+                double nextProbability = nextHop.getWeight() * currentProbability;
+
+                if (nextProbability > probabilities[nextNode]) {
+                    probabilities[nextNode] = nextProbability;
+                    priorityQueue.add(new Hop<>(nextNode, nextProbability));
                 }
             }
         }
         return 0d;
+    }
+    public static Map<Integer, List<Hop<Integer, Double>>> buildGraph(int[][] edges, double[] succProb) {
+        Map<Integer, List<Hop<Integer, Double>>> graph = new HashMap<>();
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            double p = succProb[i];
+            graph.computeIfAbsent(u, x -> new ArrayList<>()).add(new Hop<>(v, p));
+            graph.computeIfAbsent(v, x -> new ArrayList<>()).add(new Hop<>(u, p));
+        }
+        return graph;
     }
     static class Hop<T1, T2> {
         public T1 destination;
@@ -69,11 +88,11 @@ public class MaxProbability {
             this.weight = distance;
         }
 
-        public T1 getKey() {
+        public T1 getDestination() {
             return destination;
         }
 
-        public T2 getValue() {
+        public T2 getWeight() {
             return weight;
         }
     }
