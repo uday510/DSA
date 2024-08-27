@@ -46,64 +46,87 @@ public class KokoEatingBananas {
        res = minEatingSpeed(piles, h); // binary search
        return res;
     }
+
     public static int minEatingSpeed(int[] piles, int h) {
-        // initialize the left and right boundaries
-        int left = 1,
-            right = Arrays.stream(piles).max().getAsInt(),
-                res = (int) 1e9;
+        int left = 1;
+        int right = Arrays.stream(piles).max().getAsInt();
 
-        while (right > left) {
-            // Get the middle index between left and right boundary indexes.
-            // hourSpent stands for the total hour koko spends.
-            int middle = left + (right - left)/ 2;
-            int hourSpent = 0;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
 
-            // iterate over the piles and calculate hourSpent
-            // We increase the hourSpent by ceil(pile/middle)
-
-
-            for (int pile : piles) {
-                hourSpent += Math.ceil((double) pile / middle);
-            }
-
-            // Check if middle is workable speed, and cut the search by half.
-            if (hourSpent <= h) {
-                res = middle;
-                right = middle-1;
+            if (timeToEat(piles, mid) <= h) {
+                right = mid;
             } else {
-                left = middle + 1;
+                left = mid + 1;
             }
         }
-        //Once the left and right boundaries coincide, we find the target value,
-        // that is, the minimum workable eating speed.
-        return res;
+        return left;
     }
-    public static int bruteForce(int[] piles, int h) {
-        // Start at an eating speed of 1.
-        int speed = 1;
-
-        while (true) {
-            // hourSpent stands for the total hour koko spends with
-            // the given eating speed.
-            int hourSpent = 0;
-
-            // Iterate over the piles and calculate hourSpent
-            // We increase the hourSpent by ceil(pile / speed)
-            for (int pile : piles) {
-                hourSpent += Math.ceil((double) pile / speed);
-                if (hourSpent > h) {
-                    break;
-                }
-            }
-
-            // Check if Koko can finish all the piles within h hours,
-            // If so, return speed. Otherwise, let speed increment by
-            // 1 and repeat the previous iteration.
-            if (hourSpent <= h) {
-                return speed;
-            } else {
-                speed += 1;
-            }
+    public static int timeToEat(int[] piles, int speed) {
+        int time = 0;
+        for (int pile : piles) {
+            time += (int) Math.ceil((double) pile / speed);
         }
+        return time;
     }
+
+//    public static int minEatingSpeed(int[] piles, int h) {
+//        // initialize the left and right boundaries
+//        int left = 1,
+//            right = Arrays.stream(piles).max().getAsInt(),
+//                res = (int) 1e9;
+//
+//        while (right > left) {
+//            // Get the middle index between left and right boundary indexes.
+//            // hourSpent stands for the total hour koko spends.
+//            int middle = left + (right - left)/ 2;
+//            int hourSpent = 0;
+//
+//            // iterate over the piles and calculate hourSpent
+//            // We increase the hourSpent by ceil(pile/middle)
+//
+//            for (int pile : piles) {
+//                hourSpent += (int) Math.ceil((double) pile / middle);
+//            }
+//
+//            // Check if middle is workable speed, and cut the search by half.
+//            if (hourSpent <= h) {
+//                res = middle;
+//                right = middle-1;
+//            } else {
+//                left = middle + 1;
+//            }
+//        }
+//        //Once the left and right boundaries coincide, we find the target value,
+//        // that is, the minimum workable eating speed.
+//        return res;
+//    }
+//    public static int bruteForce(int[] piles, int h) {
+//        // Start at an eating speed of 1.
+//        int speed = 1;
+//
+//        while (true) {
+//            // hourSpent stands for the total hour koko spends with
+//            // the given eating speed.
+//            int hourSpent = 0;
+//
+//            // Iterate over the piles and calculate hourSpent
+//            // We increase the hourSpent by ceil(pile / speed)
+//            for (int pile : piles) {
+//                hourSpent += Math.ceil((double) pile / speed);
+//                if (hourSpent > h) {
+//                    break;
+//                }
+//            }
+//
+//            // Check if Koko can finish all the piles within h hours,
+//            // If so, return speed. Otherwise, let speed increment by
+//            // 1 and repeat the previous iteration.
+//            if (hourSpent <= h) {
+//                return speed;
+//            } else {
+//                speed += 1;
+//            }
+//        }
+//    }
 }
