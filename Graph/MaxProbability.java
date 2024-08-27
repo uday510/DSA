@@ -39,7 +39,7 @@ public class MaxProbability {
      * @return the maximum probability of reaching the end node
      */
     public static double calculateMaxProbability(int[][] edges, double[] succProb, int start, int end, int n) {
-        var adjacencyList = buildGraph(edges, succProb);
+        Map<Integer, List<Hop<Integer, Double>>> adjacencyList = buildGraph(edges, succProb);
 
         double[] probabilities = new double[n];
         probabilities[start] = INITIAL_PROBABILITY;
@@ -60,6 +60,8 @@ public class MaxProbability {
                 int nextNode = nextHop.getDestination();
                 double nextProbability = nextHop.getWeight() * currentProbability;
 
+                System.out.println(STR."nextNode: " + nextNode + " nextProbability: " + nextProbability);
+
                 if (nextProbability > probabilities[nextNode]) {
                     probabilities[nextNode] = nextProbability;
                     priorityQueue.add(new Hop<>(nextNode, nextProbability));
@@ -68,7 +70,7 @@ public class MaxProbability {
         }
         return 0d;
     }
-    public static Map<Integer, List<Hop<Integer, Double>>> buildGraph(int[][] edges, double[] succProb) {
+    private static Map<Integer, List<Hop<Integer, Double>>> buildGraph(int[][] edges, double[] succProb) {
         Map<Integer, List<Hop<Integer, Double>>> graph = new HashMap<>();
         for (int i = 0; i < edges.length; i++) {
             int u = edges[i][0];
@@ -79,7 +81,7 @@ public class MaxProbability {
         }
         return graph;
     }
-    static class Hop<T1, T2> {
+    private static class Hop<T1, T2> {
         public T1 destination;
         public T2 weight;
 
