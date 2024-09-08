@@ -37,35 +37,30 @@ public class SplitLinkedInParts {
         }
     }
     public static ListNode[] splitListToParts(ListNode head, int k) {
-        int n = 0;
-        ListNode currNode = head;
+       ListNode[] result = new ListNode[k];
+       int n = getLength(head);
+       int width = n / k, rem = n % k;
 
-        while (currNode != null) {
-            ++n;
-            currNode = currNode.next;
+       ListNode current = head;
+
+         for (int i = 0; i < k; i++) {
+              ListNode dummy = new ListNode(0), write = dummy;
+              for (int j = 0; j < width + (i < rem ? 1 : 0); j++) {
+                    write = write.next = new ListNode(current.val);
+                    current = current.next;
+              }
+              result[i] = dummy.next;
+         }
+         return result;
+    }
+    private static int getLength(ListNode head) {
+        int currentLength = 0;
+        ListNode currentNode = head;
+
+        while (currentNode != null) {
+            ++currentLength;
+            currentNode = currentNode.next;
         }
-
-        ListNode[] res = new ListNode[k];
-
-        int partSize = n / k;
-        int extraNodes = n % k;
-        currNode = head;
-
-
-        for (int i = 0; i < k && currNode != null; ++i) {
-            res[i] = currNode;
-
-            int len = partSize + (extraNodes > 0 ? 1 : 0);
-            extraNodes--;
-
-            for (int j = 1; j < len; ++j) {
-                currNode = currNode.next;
-            }
-
-            ListNode nextNode = currNode.next;
-            currNode.next = null;
-            currNode = nextNode;
-        }
-        return res;
+        return currentLength;
     }
 }
