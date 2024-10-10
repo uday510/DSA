@@ -33,44 +33,44 @@ public class SpiralMatrix {
     public static List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ans = new ArrayList<>();
 
-        int startRow = 0,
-                startCol = 0,
-                endRow = matrix.length - 1,
-                endCol = matrix[0].length - 1;
+        int startRow = 0;
+        int endRow = matrix.length-1;
+        int startCol = 0;
+        int endCol = matrix[0].length-1;
+        int idx;
 
         while (startRow <= endRow && startCol <= endCol) {
-
-
-            // 1. left -> right
-            for (int col = startCol; col <= endCol; ++col) {
-                ans.add(matrix[startRow][col]);
+            for (idx = startCol; idx <= endCol; ++idx) {
+                ans.add(matrix[startRow][idx]);
             }
 
-            // 2. top -> bottom
-
-            for (int row = startRow + 1; row <= endRow; ++row) {
-               ans.add(matrix[row][endCol]);
+            for (idx = startRow + 1; idx <= endRow; ++idx) {
+                ans.add(matrix[idx][endCol]);
             }
 
-            // 3. right -> left
-
-            for (int col = endCol - 1; col >= startCol; --col) {
-                if (startRow == endRow) break; // handle the edge case when there is only one row
-                ans.add(matrix[startRow][col]);
+            if (startRow == endRow) {
+                break;
             }
 
-            // 4. bottom -> top
-
-            for (int row = endRow - 1; row > startRow; --row) {
-                if (startCol == endCol) break; // handle the edge case when there is only one column
-                ans.add(matrix[row][startCol]);
+            for (idx = endCol - 1; idx >= startCol; --idx) {
+                ans.add(matrix[endRow][idx]);
             }
 
-            startRow++;
-            startCol++;
-            endRow--;
-            endCol--;
+            if (startCol == endCol) {
+                break;
+            }
+            for (idx = endRow - 1; idx > startRow; --idx) {
+                ans.add(matrix[idx][startCol]);
+            }
+
+            ++startRow;
+            --endRow;
+            ++startCol;
+            --endCol;
         }
+
+
         return ans;
     }
+
 }
