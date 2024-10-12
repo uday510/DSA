@@ -28,7 +28,7 @@ import java.util.List;
 
  */
 public class ZigzagTraverse {
-    public static void wmain(String[] args) {
+    public static void main(String[] args) {
         List<List<Integer>> array =
         Arrays.asList(Arrays.asList(1, 3, 4, 10),
                 Arrays.asList(2, 5, 9, 11),
