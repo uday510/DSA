@@ -84,5 +84,40 @@ public class JumpGame {
         }
         return false;
     }
+    private static boolean dfs(int pos, int[] nums, int[] dp) {
+        if (pos >= nums.length-1)
+            return true;
+
+        if (dp[pos] != -1)
+            return dp[pos] == 1;
+
+        int farthestJump = Math.min(pos + nums[pos], nums.length - 1);
+
+        for (int nextPos = pos + 1; nextPos <= farthestJump; ++nextPos) {
+
+            if (dfs(nextPos, nums, dp)) {
+                dp[pos] = 1;
+                return true;
+            }
+        }
+        dp[pos] = 0;
+        return false;
+    }
+    private static boolean dfs(int[] nums) {
+        int len = nums.length;
+        boolean[] dp = new boolean[len];
+        dp[len-1] = true;
+
+        for (int i = len -2; i > -1; --i) {
+            int farthestJump = Math.min(i + nums[i], len - 1);
+            for (int j = i+1; j <= farthestJump; ++j) {
+                if (dp[j])  {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[0];
+    }
 
 }

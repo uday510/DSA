@@ -54,17 +54,7 @@ public class BestTimeToBuyAndSellStock2 {
          */
         int maxProfit = 0;
 
-        for (int i = 0; i < prices.length - 1; i++) {
-            for (int j = i + 1; j < prices.length; j++) {
-                int profit = prices[j] - prices[i];
-                if (profit > 0) {
-                    maxProfit += profit;
-                }
-            }
-        }
-//        return maxProfit;
 
-        maxProfit = 0;
         /**
          * OPTIMAL APPROACH
          * We can find the maximum profit by iterating over the prices array only once.
@@ -97,6 +87,11 @@ public class BestTimeToBuyAndSellStock2 {
         dp[0] = 0;
 
         for (int i = 1; i < n; i++) {
+            // If the price of the stock on the ith day is greater than the price of the stock on the (i-1)th day, then we can buy the stock on the (i-1)th day and sell it on the ith day.
+            // The profit that can be achieved by buying and selling the stock on the ith day is the difference between the price of the stock on the ith day and the price of the stock on the (i-1)th day.
+            // The maximum profit that can be achieved by buying and selling the stock on the ith day is the maximum of the following two values:
+            // 1. The maximum profit that can be achieved by buying and selling the stock on the (i-1)th day.
+            // 2. The maximum profit that can be achieved by buying and selling the stock on the (i-1)th day plus the profit that can be achieved by buying and selling the stock on the ith day.
             dp[i] = Math.max(dp[i - 1], dp[i - 1] + prices[i] - prices[i - 1]);
         }
         return dp[n - 1];
