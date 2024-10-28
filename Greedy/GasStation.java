@@ -66,5 +66,24 @@ public class GasStation {
         }
         return start;
     }
+    public int canComplete(int[] gas, int[] cost) {
+        int n = gas.length;
+        for (int i = 0; i < n; ++i) {
+            if (reach(i, gas, cost))
+                return i;
+        }
+        return -1;
+    }
+    private boolean reach(int start, int[] gas, int[] cost) {
+        int n = gas.length;
+        int tank = 0;
+        for (int i = 0; i < n; ++i) {
+            int j = (start + i) % n;
+            tank += gas[j] - cost[j];
+            if (tank < 0)
+                return false;
+        }
+        return true;
+    }
 
 }
