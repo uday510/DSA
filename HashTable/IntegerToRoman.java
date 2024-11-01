@@ -46,7 +46,7 @@ public class IntegerToRoman {
     static String[] romans = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
     static int[] integers = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
     public static void main(String[] args) {
-        System.out.println(intToRoman(1994));
+        System.out.println(intToRoman(58));
     }
     public static String intToRoman(int num) {
         // O(1) time complexity | O(1) space complexity
@@ -57,7 +57,6 @@ public class IntegerToRoman {
             while (integers[i] <= num) {
                 num -= integers[i];
                 sb.append(romans[i]);
-                ++i;
             }
         }
         return sb.toString();
