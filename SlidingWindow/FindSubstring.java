@@ -21,6 +21,7 @@ public class FindSubstring {
             map.put(word, map.getOrDefault(word, 0) + 1);
         }
 
+
         for (int i = 0; i < window; i++) {
             int left = i;
             int right = i;
@@ -39,7 +40,7 @@ public class FindSubstring {
                     tempMap.put(word, tempMap.getOrDefault(word, 0) + 1);
                     count++;
 
-                    while (tempMap.getOrDefault(word, 0) > map.getOrDefault(word, 0)) {
+                    while (tempMap.get(word) > map.get(word)) {
                         String leftWord = s.substring(left, left + window);
                         tempMap.put(leftWord, tempMap.get(leftWord) - 1);
                         count--;
