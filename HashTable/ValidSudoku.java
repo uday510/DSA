@@ -52,8 +52,6 @@ public class ValidSudoku {
 
 
 
-
-
     public static boolean solve(char[][] board, int n) {
         // O(N * N) time | O(1) space
         for (int i = 0; i < n; i++) {
@@ -69,7 +67,7 @@ public class ValidSudoku {
     public static boolean isValid(char[][] board, int row, int col) {
         return notInRow(board, row) &&
                notInCol(board, col) &&
-               notInBox(board, row - row % 3, col - col % 3);
+               notInBox(board, row - (row % 3), col - (col % 3));
     }
     public static boolean notInRow(char[][] board, int row) {
 

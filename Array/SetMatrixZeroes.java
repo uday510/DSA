@@ -53,23 +53,45 @@ public class SetMatrixZeroes {
         solve(matrix);
         System.out.println(matrix);
     }
-    public static void solve(List<List<Integer>> matrix) {
+    public void setZeroes(int[][] matrix) {
         // O(N*M) time | O(1) space
-        int col0 = 1, rows = matrix.size(), cols = matrix.get(0).size();
+        int col0 = 1, rows = matrix.length, cols = matrix[0].length;
 
         for (int i = 0; i < rows; i++) {
-            if (matrix.get(i).get(0) == 0) col0 = 0;
+            if (matrix[i][0] == 0) col0 = 0;
             for (int j = 1; j < cols; j++) {
-                if (matrix.get(i).get(j) == 0) {
-                    matrix.get(i).set(0, 0);
-                    matrix.get(0).set(j, 0);
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = matrix[0][j] = 0;
                 }
             }
         }
         //traverse reverse order
         for (int i = rows - 1; i > -1; i--) {
             for (int j = cols - 1; j > 0; j--) {
-                if (matrix.get(i).get(0) == 0 || matrix.get(0).get(j) == 0) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+            if (col0 == 0) matrix[i][0] = 0;
+        }
+    }
+    public static void solve(List<List<Integer>> matrix) {
+        // O(N*M) time | O(1) space
+        int col0 = 1, rows = matrix.size(), cols = matrix.get(0).size();
+
+        for (List<Integer> integers : matrix) {
+            if (integers.getFirst() == 0) col0 = 0;
+            for (int j = 1; j < cols; j++) {
+                if (integers.get(j) == 0) {
+                    integers.set(0, 0);
+                    matrix.getFirst().set(j, 0);
+                }
+            }
+        }
+        //traverse reverse order
+        for (int i = rows - 1; i > -1; i--) {
+            for (int j = cols - 1; j > 0; j--) {
+                if (matrix.get(i).getFirst() == 0 || matrix.getFirst().get(j) == 0) {
                     matrix.get(i).set(j, 0);
                 }
             }
