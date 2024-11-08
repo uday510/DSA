@@ -9,10 +9,10 @@ import java.util.Stack;
 public class EvalRPN {
     private static final Map<String, Operation> OPERATIONS = new HashMap<>();
     static {
-        OPERATIONS.put("+", (a, b) -> a + b);
-        OPERATIONS.put("-", (a, b) -> a - b);
-        OPERATIONS.put("*", (a, b) -> a * b);
-        OPERATIONS.put("/", (a, b) -> a / b);
+        OPERATIONS.put("+", (num1, num2) -> num1 + num2);
+        OPERATIONS.put("-", (num1, num2) -> num1 - num2);
+        OPERATIONS.put("*",(num1, num2) -> num1 * num2);
+        OPERATIONS.put("/", (num1, num2) -> num1 / num2);
     }
 
     public static void main(String[] args) {
@@ -46,6 +46,6 @@ public class EvalRPN {
     }
     @FunctionalInterface
     private interface Operation {
-        int eval(int a, int b);
+        int eval(int num1, int num2);
     }
 }
