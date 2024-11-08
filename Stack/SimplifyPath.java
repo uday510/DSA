@@ -17,13 +17,13 @@ public class SimplifyPath {
 
         return "/" + String.join("/", stack);
     }
-    private static void handleDir(String dir, Stack<String> st) {
+    private static void handleDir(String dir, Stack<String> stack) {
         if (dir.equals("..")) {
-            if (!st.isEmpty()) {
-                st.pop();
+            if (!stack.isEmpty()) {
+                stack.pop();
             }
         } else if (!dir.equals(".") && !dir.isEmpty()) {
-            st.push(dir);
+            stack.push(dir);
         }
     }
 }
