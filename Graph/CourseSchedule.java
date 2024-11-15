@@ -16,10 +16,7 @@
  */
 package Graph;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class CourseSchedule {
     public static void main(String[] args) {
@@ -27,39 +24,49 @@ public class CourseSchedule {
         int numCourses = 3;
         System.out.println(canFinish(numCourses, prerequisites));
     }
+    static private Map<Integer, List<Integer>> graph;
+    static private Queue<Integer> queue;
+    static private int[] indegree;
+    static int visited = 0;
     public static boolean canFinish(int numCourses, int[][] prerequisites) {
         // O(V+E) time complexity | O(V+E) space complexity
-        int[] indegree = new int[numCourses]; // indegree of each node
-        List<List<Integer>> adj = new ArrayList<>(numCourses); // adjacency list
 
-        for (int i = 0; i < numCourses; ++i) {
-            adj.add(new ArrayList<>()); // initialize adjacency list
-        }
+        initialize(numCourses);
+        buildGraph(prerequisites);
+        addNodesWithNoPreRequisites();
 
-        for (int[] prerequisite : prerequisites) {
-          adj.get(prerequisite[1]).add(prerequisite[0]); // add edge to adjacency list
-            ++indegree[prerequisite[0]]; // increment indegree of the node
-        }
-
-        Queue<Integer> queue = new LinkedList<>();
-        // Push all nodes with indegree 0 to queue
-        for (int i = 0; i < numCourses; ++i) {
-            if (indegree[i] == 0) {
-                queue.add(i);
-            }
-        }
-
-        int nodesVisited = 0; // count of nodes visited
         while (!queue.isEmpty()) {
-            int currNode = queue.poll();
-            ++nodesVisited;
-            for (int neighbour : adj.get(currNode)) {
-                --indegree[neighbour]; // decrement indegree of neighbour
-                if (indegree[neighbour] == 0) {
-                    queue.add(neighbour); // add neighbour to queue if indegree is 0
-                }
+            int node = queue.poll();
+            removeNodeFromGraph(node);
+        }
+
+        return visited == numCourses;
+    }
+    private static void removeNodeFromGraph(int node) {
+        visited++;
+        for (int neighbour : graph.getOrDefault(node, new ArrayList<>())) {
+           indegree[neighbour]--;
+           if (indegree[neighbour] == 0) {
+               queue.offer(neighbour);
+           }
+        }
+    }
+    private static void addNodesWithNoPreRequisites() {
+        for (int i = 0; i < indegree.length; i++) {
+            if (indegree[i] == 0) {
+                queue.offer(i);
             }
         }
-        return nodesVisited == numCourses; // return true if all nodes are visited
+    }
+    private static void buildGraph(int[][] prerequisites) {
+        for (int[] prerequisite : prerequisites) {
+            graph.computeIfAbsent(prerequisite[1], x -> new ArrayList<>()).add(prerequisite[0]);
+            indegree[prerequisite[0]]++;
+        }
+    }
+    private static void initialize(int numCourses) {
+        graph = new HashMap<>();
+        queue = new LinkedList<>();
+        indegree = new int[numCourses];
     }
 }

@@ -56,6 +56,8 @@ public class ReverseLinkedList2 {
          * before.next should point to last node of reversed i.e 4
          */
 
+        System.out.println(before.val +  " " + before.next.val + " " + before.next.next.val);
+
         before.next.next = currNode;
         before.next = prevNode;
 

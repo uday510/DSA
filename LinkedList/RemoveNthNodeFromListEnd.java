@@ -24,9 +24,7 @@ public class RemoveNthNodeFromListEnd {
         }
 
         if (second == null) {
-            ListNode tempHead = head.next;
-            head.next = tempHead;
-            head = tempHead;
+            head = head.next;
             return head;
         }
 

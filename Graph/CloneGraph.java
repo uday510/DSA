@@ -51,10 +51,11 @@ package Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CloneGraph {
-    static private final HashMap<Node, Node> visited = new HashMap<>();
+    static private final HashMap<Node, Node> vis = new HashMap<>();
     public static void main(String[] args) {
         Node node1 = new Node(1);
         Node node2 = new Node(2, new ArrayList<>());
@@ -78,15 +79,15 @@ public class CloneGraph {
         }
         // If the node was already visited before.
         // Return the clone from the visited map.
-        if (visited.containsKey(node)) {
-            return visited.get(node);
+        if (vis.containsKey(node)) {
+            return vis.get(node);
         }
 
         // Create a clone for the given node.
         // Note that we don't have cloned neighbors as of now, hence[].
         Node cloneNode = new Node(node.val, new ArrayList<>());
         // The key is original node and value being the clone node.
-        visited.put(node, cloneNode);
+        vis.put(node, cloneNode);
 
         // Iterate through the neighbors to generate their clones
         // and prepare a list of cloned neighbors to be added to the cloned node.
@@ -94,6 +95,51 @@ public class CloneGraph {
             cloneNode.neighbors.add(cloneGraph(neighbor));
         }
         return cloneNode;
+    }
+    private Node dfs(Node oldNode) {
+        if (oldNode == null) {
+            return oldNode;
+        }
+
+        if (vis.containsKey(oldNode)) {
+            return vis.get(oldNode);
+        }
+
+        Node newNode = new Node(oldNode.val);
+        vis.put(oldNode, newNode);
+        for (Node oldNeighbor : oldNode.neighbors) {
+            newNode.neighbors.add(dfs(oldNeighbor));
+        }
+
+        return newNode;
+    }
+
+    private Node bfs(Node node) {
+        if (node == null) {
+            return null;
+        }
+
+        HashMap<Node, Node> visited = new HashMap<>();
+        visited.put(node, new Node(node.val));
+
+        LinkedList<Node> q = new LinkedList<>();
+        q.add(node);
+        while (!q.isEmpty()) {
+            Node n = q.poll();
+            for (Node neighbor : n.neighbors) {
+                if (!visited.containsKey(neighbor)) {
+                    visited.put(neighbor, new Node(neighbor.val));
+                    q.add(neighbor);
+                }
+                // Add the clone of the neighbor to the neighbors of the clone node "n".
+                // visited.get(n) returns the clone of the node n.
+                // visited.get(neighbor) returns the clone of the node neighbor.
+                // So, we are adding the clone of the neighbor to the neighbors of the clone node "n".
+                visited.get(n).neighbors.add(visited.get(neighbor));
+            }
+        }
+
+        return visited.get(node);
     }
     static class Node {
         public int val;
