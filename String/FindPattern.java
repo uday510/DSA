@@ -3,6 +3,7 @@
  * Given a string s and a pattern p. find if there exists a substring
  * in s which matched the pattern p.
  */
+
 package String;
 
 public class FindPattern {

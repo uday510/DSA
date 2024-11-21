@@ -1,8 +1,5 @@
 package String;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class IntegerToEnglishWords {
        int[] nums = {1_000_000_000, 1_000_000, 1000, 100,
                     90, 80, 70, 60, 50, 40,

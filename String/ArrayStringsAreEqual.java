@@ -1,7 +1,5 @@
 package String;
 
-import java.util.Arrays;
-
 public class ArrayStringsAreEqual {
     public static void main(String[] args) {
 

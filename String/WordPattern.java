@@ -1,7 +1,6 @@
 package String;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class WordPattern {
     public static void main(String[] args) {

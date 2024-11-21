@@ -28,8 +28,8 @@
  * 0 <= s.length <= 5 * 104
  * s consists of English letters, digits, symbols and spaces.
  */
-package String;
 
+package String;
 import java.util.Map;
 
 public class LongestSubstringWithoutDuplication {

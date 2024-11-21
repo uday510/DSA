@@ -1,10 +1,5 @@
 package String;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 public class HomogenousSubstrings {
     public static void main(String[] args) {
         String s = "abbccaa";

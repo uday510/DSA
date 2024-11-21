@@ -10,8 +10,7 @@ public class HighFrequency {
     }
     public static String solve(int N, String S) {
         // code here
-
-
+        
         int[] arr = new int[26];
 
         for (char c : S.toCharArray()) {

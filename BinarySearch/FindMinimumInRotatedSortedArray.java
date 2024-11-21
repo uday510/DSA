@@ -51,11 +51,14 @@ public class FindMinimumInRotatedSortedArray {
             while (left < right) {
                 int mid = (left + right) >>> 1;
 
+                // if mid is greater than right, then the minimum element is in the right side
                 if (nums[mid] > nums[right]) {
                     left = mid + 1;
+                    // if mid is less than right, then the minimum element is in the left side
                 } else if (nums[mid] < nums[right]) {
                     right = mid;
                 } else {
+                    // if mid is equal to right, then we can decrement right , why because we are looking for minimum element, so we can ignore the right element
                     right--;
                 }
             }

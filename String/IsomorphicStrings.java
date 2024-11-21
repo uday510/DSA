@@ -56,7 +56,6 @@
  */
 
 package String;
-
 import java.util.HashMap;
 
 public class IsomorphicStrings {

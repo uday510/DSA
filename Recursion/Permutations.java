@@ -1,5 +1,7 @@
 package Recursion;
 
+import FamousAlgorithms.DNF;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -60,16 +62,14 @@ public class Permutations {
 
             permute(nums, i + 1, j, perm, perms);
 
-            perm.remove(perm.size() - 1);
+            perm.removeLast();
             swap(nums, i, k);
 
         }
     }
     public static void swap(int[] nums, int i, int j) {
 
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+        DNF.swap(j, i, nums);
 
     }
 }

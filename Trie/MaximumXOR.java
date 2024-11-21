@@ -68,9 +68,7 @@ public class MaximumXOR {
             }
         }
         int ans = 0;
-        for (int i = 0; i < array.length; i++) {
-            int num = array[i];
-
+        for (int num : array) {
             int xor = 0;
             currNode = root;
 

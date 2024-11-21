@@ -39,6 +39,7 @@
  * For Input 2:
  * They are an anagram.
  */
+
 package String;
 
 public class CheckAnagrams {

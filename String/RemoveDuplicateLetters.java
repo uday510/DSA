@@ -14,8 +14,6 @@ public class RemoveDuplicateLetters {
             set.add(c);
         }
 
-        return new String();
-
-
+        return "";
     }
 }

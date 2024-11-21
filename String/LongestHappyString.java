@@ -1,10 +1,6 @@
 package String;
 
-import com.sun.source.tree.Tree;
-
-import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.TreeMap;
 
 public class LongestHappyString {
     public static void main(String[] args) {

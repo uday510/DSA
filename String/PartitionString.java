@@ -1,7 +1,5 @@
 package String;
 
-import java.util.HashSet;
-
 public class PartitionString {
     public static void main(String[] args) {
 

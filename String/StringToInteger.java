@@ -3,8 +3,8 @@ package String;
 public class StringToInteger {
     public static void main(String[] args) {
         String str = "123";
-
     }
+
     public static int myAtoi(String s) {
         if (s == null || s.isEmpty()) {
             return 0;

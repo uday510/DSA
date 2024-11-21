@@ -48,6 +48,8 @@
  *
  * Longest common prefix of all the strings is "ab".
  */
+
+
 package String;
 
 public class LongestCommonPrefix {

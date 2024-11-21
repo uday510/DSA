@@ -65,6 +65,7 @@ public class NQueens {
         }
     }
     public static boolean isQueenSafe(int row, int col, int n) {
+        // why row-col+n-1? because the diagonal array is 2n-1 in size and we need to map the row and col to the diagonal array
         return (!cols[col] && !diagonal[row - col + n - 1] && !antiDiagonal[row + col]);
     }
     public static boolean isQueenSafe(String[][] matrix, int row, int col, int n) {

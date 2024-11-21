@@ -3,7 +3,6 @@ package String;
 import java.util.Arrays;
 import java.util.Iterator;
 
-
 import static java.util.Arrays.stream;
 
 public class FirstPalindrome {

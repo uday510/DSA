@@ -3,9 +3,9 @@ package String;
 public class MergeStringsAlternately {
 
     public static void main(String[] args) {
-
         System.out.println(mergeAlternately("ab", "pqrs"));
     }
+
     public static String mergeAlternately(String word1, String word2) {
         int i = 0, j = 0;
         int n = word1.length();

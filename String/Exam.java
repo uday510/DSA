@@ -1,6 +1,5 @@
 /*
 You are given a number
-.
 
 You are required to form two numbers
  and

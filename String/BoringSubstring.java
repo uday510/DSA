@@ -51,6 +51,7 @@
  *
  *  No arrangement of string A can make it free of boring substrings.
  */
+
 package String;
 
 public class BoringSubstring {
