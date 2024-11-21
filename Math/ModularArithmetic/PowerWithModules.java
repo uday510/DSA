@@ -42,7 +42,7 @@
  * (5 ^ 2) % 4 = 25 % 4 = 1
  */
 
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 public class PowerWithModules {
     public static void main(String[] args) {

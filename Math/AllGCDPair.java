@@ -55,7 +55,6 @@ Explanation 2:
  15 is the gcds pair with itself.
  Therefore, [5, 15] is the original array.
  */
-package Math;
 
 import java.util.ArrayList;
 import java.util.Arrays;

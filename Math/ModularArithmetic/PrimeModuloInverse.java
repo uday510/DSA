@@ -43,7 +43,7 @@
  *
  *  4
  */
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 public class PrimeModuloInverse {
     public static void main(String[] args) {

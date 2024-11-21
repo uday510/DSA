@@ -93,7 +93,7 @@
  */
 
 
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 public class ModArray {
     public static void main(String[] args) {

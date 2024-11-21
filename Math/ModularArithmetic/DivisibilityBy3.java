@@ -43,7 +43,7 @@
  * The number 10012 is not divisible by 3.
  */
 
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 public class DivisibilityBy3 {
     public static void main(String[] args) {

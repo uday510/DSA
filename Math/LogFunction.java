@@ -1,5 +1,3 @@
-package Math;
-
 import java.util.Arrays;
 
 public class LogFunction {

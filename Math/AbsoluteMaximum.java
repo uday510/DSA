@@ -52,7 +52,6 @@
  *
  * There is only one possibility for i, j as there are only two elements in the array.
  */
-package Math;
 
 public class AbsoluteMaximum {
     public static void main(String[] args) {

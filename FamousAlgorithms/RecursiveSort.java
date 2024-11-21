@@ -28,9 +28,7 @@ public class RecursiveSort {
             System.out.println(Arrays.toString(arr));
             sort(arr, endIdx - 1, counter + 1);
         }
-        public static void swap(int i, int j, int arr[]) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+        public static void swap(int i, int j, int[] arr) {
+            DNF.swap(j, i, arr);
         }
     }

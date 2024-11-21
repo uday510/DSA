@@ -52,7 +52,6 @@
  *
  *  Any 2 points lie on a same line.
  */
-package Math;
 
 import java.util.ArrayList;
 import java.util.HashMap;

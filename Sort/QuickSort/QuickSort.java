@@ -24,7 +24,6 @@ public class QuickSort {
         int idx = low;
         int pivot = arr[low];
 
-
         for (int i = low + 1; i <= high; ++i) {
             if (arr[i] >= pivot) {
                 continue;

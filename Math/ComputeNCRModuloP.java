@@ -1,4 +1,3 @@
-package Math;
 
 public class ComputeNCRModuloP {
     public static void main(String[] args) {

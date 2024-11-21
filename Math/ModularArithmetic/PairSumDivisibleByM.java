@@ -50,7 +50,7 @@
  *  All pairs which are divisible by 2 are (1,3), (1,5), (2,4), (3,5).
  *  So total 4 pairs.
  */
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 import java.util.HashMap;
 

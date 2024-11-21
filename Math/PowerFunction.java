@@ -1,4 +1,3 @@
-package Math;
 
 public class PowerFunction {
 

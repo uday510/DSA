@@ -41,7 +41,7 @@
  * 123 = 15 * 8 + 3
  */
 
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 public class DivisibilityBy8 {
     public static void main(String[] args) {

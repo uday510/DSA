@@ -36,7 +36,6 @@ Constraints:
 2 <= nums.length <= 1000
 1 <= nums[i] <= 1000
  */
-package Math;
 
 public class FindGCDofArray {
     public static void main(String[] args) {

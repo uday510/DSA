@@ -32,6 +32,7 @@ public class Problem1 {
 
            int currBalance = transactions[i];
            int customers = 0;
+
            for (int j = i + 1; j < len; ++j) {
                currBalance += transactions[j];
                if (currBalance >= 0) {
@@ -40,8 +41,10 @@ public class Problem1 {
                      break;
                }
            }
+
            maxCustomers = Math.max(maxCustomers, customers);
         }
+
         return maxCustomers;
     }
 }

@@ -48,7 +48,7 @@
  *  1999 is not a leap year.
  */
 
-package Math.ModularArithmetic;
+package ModularArithmetic;
 
 public class LeapYear {
     public static void main(String[] args) {

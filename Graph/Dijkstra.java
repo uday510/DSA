@@ -93,7 +93,7 @@ public class Dijkstra {
 
         Arrays.fill(distancesFromSrc, INFINITY); // fill the distancesFromSrc array with infinity
 
-        PriorityQueue<Edge> minHeap = new PriorityQueue<>((a, b) -> a.cost - b.cost);
+        PriorityQueue<Edge> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a.cost));
 
         for (int[] edge : edges) {
            int src = edge[0]; // source node
