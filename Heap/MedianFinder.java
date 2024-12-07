@@ -44,51 +44,32 @@ package Heap;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-public class FindMedianFromDataStream {
+public class MedianFinder {
 
-    Boolean firstNum;
-    PriorityQueue<Integer> maxHeap;
+    // https://leetcode.com/problems/find-median-from-data-stream/solutions/1330646/c-java-python-minheap-maxheap-solution-picture-explain-clean-concise/?envType=study-plan-v2&envId=top-interview-150
+
     PriorityQueue<Integer> minHeap;
-    public FindMedianFromDataStream() {
-            maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-            minHeap = new PriorityQueue<>();
-            firstNum = true;
+    PriorityQueue<Integer> maxHeap;
+
+    public MedianFinder() {
+        minHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());
     }
 
     public void addNum(int num) {
-        if (firstNum) {
-            maxHeap.add(num);
-            firstNum = false;
-        } else {
-            if (num > maxHeap.peek()) {
-                minHeap.add(num);
-            } else {
-                maxHeap.add(num);
-            }
-        }
-        int diff = Math.abs(maxHeap.size() - minHeap.size());
-        if (diff > 1) {
-            balanceHeaps(maxHeap, minHeap);
+        maxHeap.offer(num);
+        minHeap.offer(maxHeap.poll());
+
+        if (maxHeap.size() < minHeap.size()) {
+            maxHeap.offer(minHeap.poll());
         }
     }
 
     public double findMedian() {
-        if (maxHeap.size() > minHeap.size()) {
-            return maxHeap.peek() * 1.0;
-        } else if (minHeap.size() > maxHeap.size()) {
-            return minHeap.peek() * 1.0;
+        if (maxHeap.size() == minHeap.size()) {
+            return (maxHeap.peek() + minHeap.peek()) / 2.0d;
         } else {
-            return (maxHeap.peek() + minHeap.peek()) / 2.0;
-        }
-    }
-    public void balanceHeaps(PriorityQueue<Integer> maxHeap, PriorityQueue<Integer> minHeap) {
-        int temp;
-        if (maxHeap.size() > minHeap.size()) {
-            temp = maxHeap.poll();
-            minHeap.add(temp);
-        } else {
-            temp = minHeap.poll();
-            maxHeap.add(temp);
+            return maxHeap.peek();
         }
     }
 }

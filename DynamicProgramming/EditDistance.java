@@ -111,4 +111,15 @@ public class EditDistance {
        }
        return dp[i][j];
     }
+    private int dfs(int i, int j, String s1, String s2) {
+        if (i == s1.length() && j == s2.length()) return 0;
+        if (i == s1.length()) return s2.length() - j;
+        if (j == s2.length()) return s1.length() - i;
+
+        if (s1.charAt(i) == s2.charAt(j)) return dfs(i + 1, j + 1, s1, s2);
+        int insert = dfs(i, j + 1, s1, s2);
+        int delete = dfs(i + 1, j, s1, s2);
+        int replace = dfs(i + 1, j + 1, s1, s2);
+        return 1 + Math.min(insert, Math.min(delete, replace));
+    }
 }

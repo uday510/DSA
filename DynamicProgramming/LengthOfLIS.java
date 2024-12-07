@@ -63,7 +63,7 @@ public class LengthOfLIS {
 
         for (int i = 1; i < nums.length; ++i) {
             int num = nums[i];
-            if (nums[i] > sub.get(sub.size() - 1)) {
+            if (nums[i] > sub.getLast()) {
                 sub.add(nums[i]);
             } else {
                 int j = 0;

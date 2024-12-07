@@ -96,4 +96,25 @@ public class BestTimeToBuyAndSellStock2 {
         }
         return dp[n - 1];
     }
+
+    private int dfs(int i, int[] prices) {
+        if (i >= prices.length) {
+            return 0;
+        }
+
+        int maxProfit = 0;
+
+        for (int j = i; j < prices.length; ++j) {
+
+            if (prices[j] > prices[i]) {
+                int profit = prices[j] - prices[i] + dfs(j + 1, prices);
+                maxProfit = Math.max(maxProfit, profit);
+            }
+
+        }
+
+        maxProfit = Math.max(maxProfit, dfs(i + 1, prices));
+
+        return maxProfit;
+    }
 }

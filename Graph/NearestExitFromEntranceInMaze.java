@@ -18,26 +18,23 @@ Thus, the nearest exit is [0,2], which is 1 step away.
 package Graph;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class NearestExitFromEntranceInMaze {
-    private static final int[][] directions = {{0,1},{0,-1},{1,0},{-1,0}};
+    private static final int[][] DIRs = {{0,1},{0,-1},{1,0},{-1,0}};
     public static void main(String[] args) {
         char[][] maze = {{'+','+','.','+'},{'.','.','.','+'},{'+','+','+','.'}};
         int[] entrance = {1,0};
         System.out.println(nearestExit(maze, entrance));
     }
     public static int nearestExit(char[][] maze, int[] entrance) {
-
-        boolean[][] visited = new boolean[maze.length][maze[0].length];
+        var visited = new boolean[maze.length][maze[0].length];
         visited[entrance[0]][entrance[1]] = true;
 
-        Queue<Edge> queue = new LinkedList<>();
+        var queue = new LinkedList<Edge>();
         queue.add(new Edge(entrance[0], entrance[1], 0));
 
         while (!queue.isEmpty()) {
             Edge e = queue.poll();
-            System.out.println(e.row + " " + e.col + " " + e.distance);
             int dist = e.distance;
 
             if ((e.row == 0 || e.row == maze.length - 1 || e.col == 0 ||
@@ -46,7 +43,7 @@ public class NearestExitFromEntranceInMaze {
                 return dist;
             }
 
-            for (int[] dir : directions) {
+            for (int[] dir : DIRs) {
                 int newRow = e.row + dir[0];
                 int newCol = e.col + dir[1];
 

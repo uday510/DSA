@@ -92,6 +92,7 @@ public class InterleavingStrings {
         }
         return dp[s1.length()][s2.length()];
     }
+
     public static boolean solve(String s1, String s2, String s3) {
         Boolean[][] dp = new Boolean[s1.length() + 1][s2.length() + 1];
         return solution2(s1, s2, s3, 0, 0, dp);
@@ -116,6 +117,7 @@ public class InterleavingStrings {
         return dp[i][j];
 
     }
+
     public static int isInterleave(String s1, String s2, String s3, int i, int j, int index) {
         if (index < 0) {
             if (i == s1.length() - 1 || j == s2.length() - 1) return 0;
