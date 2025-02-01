@@ -88,7 +88,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class AutoComplete {
+public class
+AutoComplete {
     /**
      * TEST CASE:
      *  1
