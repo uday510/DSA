@@ -10,7 +10,6 @@ Output: [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
  */
 package binarysearchtree;
 
-import Tree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

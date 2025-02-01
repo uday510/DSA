@@ -60,7 +60,7 @@ public class MaxProbability {
                 int nextNode = nextHop.getDestination();
                 double nextProbability = nextHop.getWeight() * currentProbability;
 
-                System.out.println(STR."nextNode: " + nextNode + " nextProbability: " + nextProbability);
+                System.out.println("nextNode: " + nextNode + " nextProbability: " + nextProbability);
 
                 if (nextProbability > probabilities[nextNode]) {
                     probabilities[nextNode] = nextProbability;

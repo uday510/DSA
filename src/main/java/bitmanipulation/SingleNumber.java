@@ -50,17 +50,13 @@
  */
 package bitmanipulation;
 
-import com.google.common.base.Stopwatch;
 
 public class SingleNumber {
     public static void main(String[] args) {
-        Stopwatch timer = Stopwatch.createStarted();
-
         int[] arr = {1, 2, 2, 3, 1};
         int ans = solve(arr);
         System.out.println(ans);
 
-        System.out.println("Runtime " + timer);
     }
     public static int solve(int[] array) {
         int ans = 0;

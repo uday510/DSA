@@ -2,7 +2,7 @@ package graph;
 
 import java.util.*;
 
-import static Graph.RandomInputGenerator.getRandomNumberInRange;
+import static graph.RandomInputGenerator.getRandomNumberInRange;
 
 /**
  * You are given an integer n indicating there are n people numbered from 0 to n - 1. You are also given a 0-indexed 2D integer array meetings where meetings[i] = [xi, yi, timei] indicates that person xi and person yi have a meeting at timei. A person may attend multiple meetings at the same time. Finally, you are given an integer firstPerson.
@@ -50,7 +50,7 @@ import static Graph.RandomInputGenerator.getRandomNumberInRange;
 public class FindAllPeopleWithSecret {
 
     public static void main(String[] args) {
-        int n = RandomInputGenerator.getRandomNumberInRange(2, 100); // Number of persons
+        int n = getRandomNumberInRange(2, 100); // Number of persons
         int maxMeetingTime = (int) (Math.pow(10, 5)); // Maximum meeting time
         int maxStartTime = n - 1; // Maximum start time
 

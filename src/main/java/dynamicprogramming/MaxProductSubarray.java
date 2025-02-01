@@ -53,17 +53,14 @@
  */
 package dynamicprogramming;
 
-import Timer.RunTime;
 
 
 public class MaxProductSubarray {
     public static void main(String[] args) {
         int[] array = {0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-        RunTime runtime = new RunTime();
         int res = solve(array);
         System.out.println(res);
-        System.out.println("Runtime " + runtime.stopTimer());
     }
     public static int solve(int[] nums) {
         if (nums.length == 0) return 0;

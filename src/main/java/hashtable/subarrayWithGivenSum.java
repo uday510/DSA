@@ -57,15 +57,12 @@
  */
 package hashtable;
 
-import com.google.common.base.Stopwatch;
 import java.util.Arrays;
 public class subarrayWithGivenSum {
     public static void main(String[] args) {
-        Stopwatch timer = Stopwatch.createStarted();
         int[] array = {-2, 16, -12, 5, 7, -1, 2, 12, 11 };
         int target = 17;
         System.out.println(Arrays.toString(solve(array, target)));
-        System.out.println("Runtime " + timer.stop());
     }
     public static int[] solve(int[] array, int targetSum) {
         // O(N) time | O(N) space - N is the length of given array

@@ -48,17 +48,13 @@
 
 package string;
 
-import com.google.common.base.Stopwatch;
-
 public class AddBinaryStrings {
     public static void main(String[] args) {
-        Stopwatch timer = Stopwatch.createStarted();
         String str1 = "11";
         String str2 = "1";
 
         String res = solve(str1, str2);
         System.out.println(res);
-        System.out.println("Runtime " + timer.stop());
     }
     public static String solve(String str1, String str2) {
 

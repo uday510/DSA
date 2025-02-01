@@ -20,8 +20,6 @@
  */
 package backtracking;
 
-import Timer.RunTime;
-
 public class CherryPickup {
     static int max = Integer.MIN_VALUE;
     public static void main(String[] args) {
@@ -34,9 +32,7 @@ public class CherryPickup {
                         {1,0,-1,0,-1,0,0,1,0,0},
                         {0,0,-1,0,1,0,1,0,0,1}};
 
-        RunTime runtime = new RunTime();
         cherryPickup(0, 0, 0, grid);
-        System.out.println("Runtime " + runtime.stopTimer());
         System.out.println(max);
     }
     public static void cherryPickup(int row, int col, int cherriesCollected, int[][] grid) {

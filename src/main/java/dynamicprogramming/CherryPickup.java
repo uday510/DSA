@@ -21,7 +21,6 @@
 
 package dynamicprogramming;
 
-import Timer.RunTime;
 
 public class CherryPickup {
     static int n;
@@ -39,8 +38,6 @@ public class CherryPickup {
         int[][] grid2 = {{1,1,-1},{1,-1,1},{-1,1,1}};
         n = grid.length;
         dp = new int[n][n][n][n];
-
-        RunTime runtime = new RunTime();
     }
     public static int dfs(int r1, int c1, int r2, int c2, int[][] grid) {
         if (r1 >= n || r2 >= n || c1 >= n || c2 >= n || grid[r1][c1] == -1 || grid[r2][c2] == -1)

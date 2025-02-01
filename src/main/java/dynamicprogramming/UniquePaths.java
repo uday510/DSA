@@ -23,39 +23,32 @@
  */
 package dynamicprogramming;
 
-import com.google.common.base.Stopwatch;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
 
 public class UniquePaths {
     public static void main(String[] args) {
         int m = 51;
         int n = 9;
 
-        Stopwatch stopwatch = Stopwatch.createStarted();
-
         int res = solve(m, n);
         System.out.println(res);
-        stopwatch.stop();
 
-        long millis = stopwatch.elapsed(TimeUnit.MILLISECONDS);
-        if (millis > 1) {
-            System.out.println("Time Limit Exceeded");
-        }
-        System.out.println("runTime " + millis + " ms");
     }
     public static int solve(int m, int n) {
         int[][] dp = new int[m + 1][n + 1];
 
-        return helper(0, 0, m, n, dp);
+        for (var row : dp) Arrays.fill(row, -1);
+
+        return dfs(m, n, dp);
     }
-    public static int helper(int i, int j, int m, int n, int[][] dp) {
-        if (i >= m || j >= n) return 0;
+    private static int dfs(int m, int n, int[][] dp) {
 
-        if (i == m-1 && j == n-1) return 1;
+        if (m == 1 || n == 1) return 1;
 
-        if (dp[i][j] != 0) return dp[i][j];
+        if (dp[m][n] != -1) return dp[m][n];
 
-        return dp[i][j] = helper(i+1, j, m, n, dp) + helper(i, j+1, m, n, dp);
+        return dp[m][n] = dfs(m - 1, n, dp) + dfs(m, n - 1, dp);
     }
+
 }

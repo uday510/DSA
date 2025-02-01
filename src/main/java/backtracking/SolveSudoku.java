@@ -1,11 +1,8 @@
 package backtracking;
 
-import com.google.common.base.Stopwatch;
-
 import java.util.Arrays;
 
 public class SolveSudoku {
-    static Stopwatch timer = Stopwatch.createStarted();
     public static void main(String[] args) {
         char[][] board = {
                             {'5','3','.','.','7','.','.','.','.'},

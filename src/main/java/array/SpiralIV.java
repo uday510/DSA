@@ -1,6 +1,7 @@
 package array;
 
-import LinkedList.ListNode;
+
+import linkedlist.ListNode;
 
 import java.util.Arrays;
 

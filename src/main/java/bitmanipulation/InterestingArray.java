@@ -1,16 +1,12 @@
 package bitmanipulation;
 
-import com.google.common.base.Stopwatch;
 
 public class InterestingArray {
     public static void main(String[] args) {
-        Stopwatch timer = Stopwatch.createStarted();
 
         int[] array = {9, 14, 27, 81, 197, 0, 1};
         String ans = solve(array);
         System.out.println(ans);
-
-        System.out.println("Runtime " + timer);
     }
 
     public static String solve(int[] array) {

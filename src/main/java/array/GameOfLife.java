@@ -11,7 +11,7 @@ public class GameOfLife {
         gameOfLife(board);
         for (int[] row : board) {
             for (int cell : row) {
-                System.out.print(STR."\{cell} ");
+                System.out.print(cell);
             }
             System.out.println();
         }

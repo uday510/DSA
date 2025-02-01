@@ -3,7 +3,6 @@ package sort;
 public class MinDifference {
     public static void main(String[] args) {
         int[] arr = {1, 15, 10};
-        System.out.println(STR."Minimum difference is: \{getMinDifference(arr)}");
 
     }
     public static int getMinDifference(int[] arr) {

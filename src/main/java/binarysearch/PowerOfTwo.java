@@ -1,17 +1,11 @@
 package binarysearch;
 
-import com.google.common.base.Stopwatch;
-
 public class PowerOfTwo {
     public static void main(String[] args) {
         int n = 16;
 
-        Stopwatch time = Stopwatch.createStarted();
 
         System.out.println(isPowerOfTwo(n));
-
-        System.out.println(time.stop());
-
     }
     public static boolean isPowerOfTwo(int n) {
         int i = 1, j = n;

@@ -1,15 +1,12 @@
 package math;
 
-import com.google.common.base.Stopwatch;
 
 public class CountOddNumbersInAnInterval {
     public static void main(String[] args) {
-        Stopwatch timer = Stopwatch.createStarted();
         int low = 278382788, high = 378382788;
 
         int res = solve(low, high);
         System.out.println(res);
-        System.out.println("Timer" + timer.stop());
 
     }
     public static int solve(int low, int high) {

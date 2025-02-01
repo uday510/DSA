@@ -9,8 +9,6 @@
  * Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above
  */
 package backtracking;
-import com.google.common.base.Stopwatch;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,11 +21,9 @@ public class NQueens {
     public static void main(String[] args) {
         int n = 4;
 
-        Stopwatch timer = Stopwatch.createStarted();
         List<List<String>> res = solve(n);
 
         System.out.println(res);
-        System.out.println("Runtime " + timer.stop());
     }
     public static List<List<String>> solve(int n) {
         // O(N!) time | O(N^2 + N) space

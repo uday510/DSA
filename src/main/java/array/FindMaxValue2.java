@@ -2,16 +2,13 @@
 
 package array;
 
-import com.google.common.base.Stopwatch;
 
 public class FindMaxValue2 {
     public static void main(String[] args) {
-        Stopwatch timer = Stopwatch.createStarted();
         int[] A = { 8, 2, 7, 4, -2 };
 
         int ans = solve(A);
         System.out.println(ans);
-        System.out.print("Runtime " + timer.stop());
     }
 
     public static int solve(int[] A) {
