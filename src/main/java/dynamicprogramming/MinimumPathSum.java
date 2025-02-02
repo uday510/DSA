@@ -13,9 +13,7 @@ public class MinimumPathSum {
         System.out.println(res);
     }
     private static int minPathSum(int[][] grid) {
-        numRows = grid.length;
-        numCols = grid[0].length;
-        dp = new int[numRows][numCols];
+       initialize(grid);
 
         for (int currRow = 0; currRow < numRows; ++currRow) {
             for (int currCol = 0; currCol < numCols; ++currCol) {
@@ -37,5 +35,11 @@ public class MinimumPathSum {
         }
 
         return curr;
+    }
+
+    private static void initialize(int[][] grid) {
+        numRows = grid.length;
+        numCols = grid[0].length;
+        dp = new int[numRows][numCols];
     }
 }
