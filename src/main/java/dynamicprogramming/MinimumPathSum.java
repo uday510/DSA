@@ -1,28 +1,41 @@
 package dynamicprogramming;
 
 public class MinimumPathSum {
+
+    static int numRows;
+    static int numCols;
+    static int[][] dp;
+
     public static void main(String[] args) {
         int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
 
         int res = minPathSum(grid);
         System.out.println(res);
     }
-    public static int minPathSum(int[][] grid) {
-        int[][] dp = new int[grid.length][grid[0].length];
+    private static int minPathSum(int[][] grid) {
+        numRows = grid.length;
+        numCols = grid[0].length;
+        dp = new int[numRows][numCols];
 
-        for (int i = grid.length - 1; i > -1; --i) {
-            for (int j = grid[0].length - 1; j > -1; --j) {
-                if (i == grid.length - 1 && j != grid[0].length-1)
-                    dp[i][j] = grid[i][j] + dp[i][j+1];
-                else if (j == grid[0].length - 1 && i != grid.length - 1)
-                    dp[i][j] = grid[i][j] + dp[i+1][j];
-                else if (i != grid.length - 1 && j != grid[0].length - 1)
-                    dp[i][j] = grid[i][j] + Math.min(dp[i+1][j], dp[i][j+1]);
-                else
-                    dp[i][j] = grid[i][j];
+        for (int currRow = 0; currRow < numRows; ++currRow) {
+            for (int currCol = 0; currCol < numCols; ++currCol) {
+                dp[currRow][currCol] = grid[currRow][currCol] + getMin(currRow, currCol);
             }
         }
-        return dp[0][0];
+
+        return dp[numRows - 1][numCols - 1];
     }
 
+    private static int getMin(int row, int col) {
+        int curr = 0;
+        if (row > 0 && col > 0) {
+            curr = Math.min(dp[row - 1][col], dp[row][col - 1]);
+        } else if (row > 0) {
+            curr = dp[row - 1][col];
+        } else if (col > 0) {
+            curr = dp[row][col - 1];
+        }
+
+        return curr;
+    }
 }
