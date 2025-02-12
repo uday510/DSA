@@ -22,7 +22,9 @@ public class LongestIncreasingSubsequence {
 
         System.out.println(lengthOfLIS(nums));
     }
+    static Integer[][] dp;
     public static int lengthOfLIS(int[] nums) {
+
         /**
          * Algorithm
          *
@@ -32,6 +34,7 @@ public class LongestIncreasingSubsequence {
          *
          * Return the max value from dp.
          */
+
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
         int longest = 1;
@@ -45,7 +48,12 @@ public class LongestIncreasingSubsequence {
             longest = Math.max(longest, dp[i]);
         }
         return longest;
+
+
+//        dp = new Integer[nums.length + 1][nums.length];
+//        return dfs(-1, 0, nums);
     }
+
     public static int optimized(int[] nums) {
         /**
          * Approach 2: Intelligently Build a Subsequence
@@ -120,6 +128,7 @@ public class LongestIncreasingSubsequence {
         }
         return ans;
     }
+
     public static int binarySearch(ArrayList<Integer> sub, int num) {
         int left = 0;
         int right = sub.size() - 1;
@@ -139,5 +148,24 @@ public class LongestIncreasingSubsequence {
         }
 
         return left;
+    }
+
+    private static int dfs(int prevIdx, int currIdx, int[] nums) {
+        if (currIdx >= nums.length) {
+            return 0;
+        }
+
+        if (dp[prevIdx + 1][currIdx] != null) {
+            return dp[prevIdx + 1][currIdx];
+        }
+
+        int skip = dfs(prevIdx, currIdx + 1, nums);
+
+        int take = 0;
+        if (prevIdx == -1 || nums[prevIdx] < nums[currIdx]) {
+            take = 1 + dfs(currIdx, currIdx + 1, nums);
+        }
+
+        return dp[prevIdx + 1][currIdx] = Math.max(skip, take);
     }
 }

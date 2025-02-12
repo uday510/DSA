@@ -53,6 +53,7 @@ public class DistinctSubsequences {
         }
         return dp[s.length()][t.length()];
     }
+
     public static int numDistinct(String s, String t, int i, int j) {
         if (j < 0) return 1;
         if (i < 0) return 0;

@@ -1,11 +1,14 @@
 package dynamicprogramming;
 
+import java.util.Arrays;
+
 public class MaximalSquare {
 
     public static void main(String[] args) {
         char[][] matrix = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
 
         int result = maximalSquare(matrix);
+        Arrays.sort(new int[]{});
         System.out.println(result);
     }
     public static int maximalSquare(char[][] matrix) {
