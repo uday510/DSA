@@ -2,90 +2,144 @@ package graph;
 
 import java.util.*;
 
-class Graph {
-    private final Map<Integer, Set<Integer>> adjacencyList;
+public class Graph<T> {
+    private final Map<T, List<Edge<T>>> adjList = new HashMap<>();
+    private final boolean isDirected;
 
-    // Constructor
-    public Graph() {
-        adjacencyList = new HashMap<>();
+    public Graph(boolean isDirected) {
+        this.isDirected = isDirected;
     }
 
-    // Add a vertex to the graph
-    public void addVertex(int vertex) {
-        adjacencyList.putIfAbsent(vertex, new HashSet<>());
+    public void addEdge(T u, T v) {
+        addEdge(u, v, 1);
     }
 
-    // Add an edge to the graph
-    public void addEdge(int source, int destination) {
-        adjacencyList.putIfAbsent(source, new HashSet<>());
-        adjacencyList.putIfAbsent(destination, new HashSet<>());
-        adjacencyList.get(source).add(destination);
-        adjacencyList.get(destination).add(source);
-    }
-
-    // Remove a vertex from the graph
-    public void removeVertex(int vertex) {
-        if (!adjacencyList.containsKey(vertex)) return;
-        for (Integer neighbor : adjacencyList.get(vertex)) {
-            adjacencyList.get(neighbor).remove(vertex);
-        }
-        adjacencyList.remove(vertex);
-    }
-
-    // Remove an edge from the graph
-    public void removeEdge(int source, int destination) {
-        if (adjacencyList.containsKey(source)) {
-            adjacencyList.get(source).remove(destination);
-        }
-        if (adjacencyList.containsKey(destination)) {
-            adjacencyList.get(destination).remove(source);
+    public void addEdge(T u, T v, int weight) {
+        adjList.computeIfAbsent(u, k -> new ArrayList<>()).add(new Edge<>(v, weight));
+        if (!isDirected) {
+            adjList.computeIfAbsent(v, k -> new ArrayList<>()).add(new Edge<>(u, weight));
         }
     }
 
-    // Print the graph
-    public void printGraph() {
-        for (Map.Entry<Integer, Set<Integer>> entry : adjacencyList.entrySet()) {
-            System.out.print(entry.getKey() + ": ");
-            for (Integer neighbor : entry.getValue()) {
-                System.out.print(neighbor + " ");
+    // BFS Traversal
+    public void bfs(T start) {
+        Queue<T> queue = new LinkedList<>();
+        Set<T> visited = new HashSet<>();
+
+        queue.offer(start);
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            T node = queue.poll();
+            System.out.print(node + " ");
+
+            for (Edge<T> edge : adjList.getOrDefault(node, Collections.emptyList())) {
+                if (visited.add(edge.dest)) {
+                    queue.offer(edge.dest);
+                }
             }
             System.out.println();
         }
     }
 
-    // Check if the graph contains a vertex
-    public boolean containsVertex(int vertex) {
-        return adjacencyList.containsKey(vertex);
+    // DFS Traversal
+    public void dfs(T start) {
+        dfsHelper(start, new HashSet<>());
+        System.out.println();
     }
 
-    // Check if the graph contains an edge
-    public boolean containsEdge(int source, int destination) {
-        return adjacencyList.containsKey(source) && adjacencyList.get(source).contains(destination);
+    private void dfsHelper(T node, Set<T> visited) {
+        if (!visited.add(node)) return;
+
+        System.out.println(node + " ");
+        for (Edge<T> edge : adjList.getOrDefault(node, Collections.emptyList())) {
+            dfsHelper(edge.dest, visited);
+        }
+    }
+
+    // Dijkstra’s Algorithm (Shortest Path)
+    public Map<T, Integer> dijkstra(T src) {
+        PriorityQueue<Edge<T>> pq = new PriorityQueue<>(Comparator.comparing(e -> e.weight));
+        Map<T, Integer> dist = new HashMap<>();
+        adjList.keySet().forEach(node -> dist.put(node, Integer.MAX_VALUE));
+        dist.put(src, 0);
+        pq.offer(new Edge<>(src, 0));
+
+        while (!pq.isEmpty()) {
+            Edge<T> current = pq.poll();
+            if (current.weight > dist.get(current.dest)) continue;
+
+            for (Edge<T> edge : adjList.getOrDefault(current.dest, Collections.emptyList())) {
+                int newDist = dist.get(current.dest) + edge.weight;
+                if (newDist < dist.get(edge.dest)) {
+                    dist.put(edge.dest, newDist);
+                    pq.offer(new Edge<>(edge.dest, newDist));
+                }
+            }
+        }
+        return dist;
+    }
+
+    // Topological Sorting (Kahn's Algorithm)
+    public List<T> topologicalSort() {
+        Map<T, Integer> inDegree = new HashMap<>();
+        adjList.keySet().forEach(node -> inDegree.put(node, 0));
+        adjList.values().forEach(edges -> edges.forEach(edge -> inDegree.put(edge.dest, inDegree.get(edge.dest))));
+
+        Queue<T> queue = new LinkedList<>();
+        inDegree.forEach((node, degree) -> { if (degree == 0) queue.offer(node); });
+
+        List<T> result = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            T node = queue.poll();
+            result.add(node);
+            for (Edge<T> edge : adjList.getOrDefault(node, Collections.emptyList())) {
+                inDegree.put(edge.dest, inDegree.get(edge.dest) - 1);
+                if (inDegree.get(edge.dest) == 0) queue.offer(edge.dest);
+            }
+        }
+        return result.size() == adjList.size() ? result : new ArrayList<>();
+    }
+
+    // Print Graph
+    public void printGraph() {
+        adjList.forEach((node, neighbors) -> {
+            System.out.print(node + " -> ");
+            neighbors.forEach(edge -> System.out.print("[" + edge.dest + ", " + edge.weight + "] "));
+            System.out.println();
+        });
+    }
+
+    // Edge Class (For Weighted Graphs)
+    static class Edge<T> {
+        T dest;
+        int weight;
+        Edge(T dest, int weight) { this.dest = dest; this.weight = weight; }
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph();
-        graph.addVertex(1);
-        graph.addVertex(2);
-        graph.addVertex(3);
-        graph.addVertex(4);
+        Graph<Integer> graph = new Graph<>(false); // false = undirected, true = directed
 
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(2, 4);
-        graph.addEdge(3, 4);
+        graph.addEdge(1, 2, 3);
+        graph.addEdge(1, 3, 5);
+        graph.addEdge(2, 4, 2);
+        graph.addEdge(3, 5, 1);
+        graph.addEdge(4, 5, 4);
+        graph.addEdge(5, 6, 6);
 
+        System.out.println("Graph Representation:");
         graph.printGraph();
 
-        // Test containsVertex and containsEdge
-        System.out.println("Contains vertex 1: " + graph.containsVertex(1));
-        System.out.println("Contains edge 1-2: " + graph.containsEdge(1, 2));
-        System.out.println("Contains edge 2-3: " + graph.containsEdge(2, 3));
+        System.out.print("BFS Traversal: ");
+        graph.bfs(1);
 
-        // Remove a vertex and an edge
-        graph.removeEdge(1, 3);
-        graph.removeVertex(4);
+        System.out.print("DFS Traversal: ");
+        graph.dfs(1);
 
-        graph.printGraph();
+        System.out.println("Dijkstra’s Shortest Path from 1:");
+        System.out.println(graph.dijkstra(1));
+
+        System.out.println("Topological Sort:");
+        System.out.println(graph.topologicalSort());
     }
 }

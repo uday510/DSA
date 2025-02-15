@@ -112,7 +112,7 @@ public class LongestIncreasingSubsequence {
 
         for (int i = 1; i < nums.length; ++i) {
             int num = nums[i];
-            if (num > sub.get(sub.size() - 1)) {
+            if (num > sub.getLast()) {
                 sub.add(num);
             } else {
                 // Find the first element in sub that is greater than or equal to num
@@ -121,7 +121,7 @@ public class LongestIncreasingSubsequence {
                     ++j;
                 }
                 sub.set(j, num);
-//                int j = binarySearch(sub, num);
+//                int j = bs(sub, num);
 //                sub.set(j, num);
 
             }
@@ -129,17 +129,12 @@ public class LongestIncreasingSubsequence {
         return ans;
     }
 
-    public static int binarySearch(ArrayList<Integer> sub, int num) {
+    public static int bs(ArrayList<Integer> sub, int num) {
         int left = 0;
-        int right = sub.size() - 1;
-        int mid;
+        int right = sub.size();
 
         while (left < right) {
-            mid = (left + right) / 2;
-            if (sub.get(mid) == num) {
-                return mid;
-            }
-
+            int mid = (left + right) >> 2;
             if (sub.get(mid) < num) {
                 left = mid + 1;
             } else {

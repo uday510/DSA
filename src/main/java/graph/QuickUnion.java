@@ -25,14 +25,14 @@ public class QuickUnion {
         System.out.println(qu.connected(0, 9));
 
     }
-    public static int find(int x) {
+    public int find(int x) {
         // O(N) time| O(1) space
         while (x != root[x]) {
             x = root[x];
         }
         return x;
     }
-    public static void union(int x, int y) {
+    public void union(int x, int y) {
         // O(N) time| O(1) space
         int rootX = find(x);
         int rootY = find(y);
@@ -40,7 +40,7 @@ public class QuickUnion {
             root[rootX] = rootY;
         }
     }
-    public static boolean connected(int x, int y) {
+    public boolean connected(int x, int y) {
         // O(N) time| O(1) space
         return find(x) == find(y);
     }

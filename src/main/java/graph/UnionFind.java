@@ -1,6 +1,6 @@
 package graph;
 
-public class UnionFind {
+class UnionFind {
     /**
      * There are few ways to implement UnionFind
      * 1. Quick Find
@@ -10,14 +10,13 @@ public class UnionFind {
      *
      * The best way to implement UnionFind is to use
      * both Union by Rank and Path Compression
+     *
+     *  NOTE: Use this as default template
      */
-
      private static int[] root;
-     //Use a rank array to record the height of each vertex.
      private static int[] rank;
 
      public UnionFind(int size) {
-         // O(n) time | O(n) space
          root = new int[size];
          rank = new int[size];
          for (int i = 0; i < size; ++i) {
@@ -25,34 +24,15 @@ public class UnionFind {
              rank[i] = 1;
          }
      }
-
-    public static void main(String[] args) {
-        new UnionFind(10);
-        // 1-2-5-6-7 3-8-9 4
-        union(1, 2);
-        union(2, 5);
-        union(5, 6);
-        union(6, 7);
-        union(3, 8);
-        union(8, 9);
-        System.out.println(connected(1, 5)); // true
-        System.out.println(connected(5, 7)); // true
-        System.out.println(connected(4, 9)); // false
-        // 1-2-5-6-7 3-8-9-4
-        union(9, 4);
-        System.out.println(connected(4, 9)); // true
-    }
      // The find function here is the same as that in the disjoint set with path compression.
-    public static int find(int x) {
-         // O(logn) time | O(1) space
+    public int find(int x) {
          if (x == root[x]) {
              return x;
          }
          return root[x] = find(root[x]);
     }
     // The union function with union by rank.
-    public static void union(int x, int y) {
-         // O(1) time | O(1) space
+    public void union(int x, int y) {
          int rootX = find(x);
          int rootY = find(y);
 
@@ -69,8 +49,26 @@ public class UnionFind {
                 rank[rootX] += 1;
          }
     }
-    public static boolean connected(int x, int y) {
-         // O(1) time | O(1) space
+
+    public boolean connected(int x, int y) {
          return find(x) == find(y);
     }
+
+    public static void main(String[] args) {
+        UnionFind uf = new UnionFind(10);
+        // 1-2-5-6-7 3-8-9 4
+        uf.union(1, 2);
+        uf.union(2, 5);
+        uf.union(5, 6);
+        uf.union(6, 7);
+        uf.union(3, 8);
+        uf.union(8, 9);
+        System.out.println(uf.connected(1, 5)); // true
+        System.out.println(uf.connected(5, 7)); // true
+        System.out.println(uf.connected(4, 9)); // false
+        // 1-2-5-6-7 3-8-9-4
+        uf.union(9, 4);
+        System.out.println(uf.connected(4, 9)); // true
+    }
 }
+
