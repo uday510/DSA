@@ -17,7 +17,7 @@ public class DeleteAndEarn {
     }
 
 
-    public static int deleteAndEarn(int @org.jetbrains.annotations.NotNull [] nums) {
+    public static int deleteAndEarn(int[] nums) {
         int max = 0;
         points = new HashMap<>();
 
