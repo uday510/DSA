@@ -35,6 +35,8 @@
  * xi != yi
  * All the values timestampi are unique.
  * All the pairs (xi, yi) occur at most one time in the input.
+ *
+ * https://leetcode.com/problems/the-earliest-moment-when-everyone-become-friends/description/
  */
 package graph;
 
@@ -66,9 +68,7 @@ public class EarliestMoment {
             int friendY = log[2];
 
             // We merge the groups along the way
-            if (dsu.union(friendX, friendY)) {
-                groupCount--;
-            }
+            groupCount -= dsu.union(friendX, friendY);
 
             if (groupCount == 1) {
                 return timestamp;
@@ -91,24 +91,25 @@ public class EarliestMoment {
                 rank[i] = 1;
             }
         }
+
         public int find(int x) {
             if (group[x] == x) {
                 return x;
             }
             return group[x] = find(group[x]);
         }
-        public boolean union(int x, int y) {
+
+        public int union(int x, int y) {
             int groupX = find(x);
             int groupY = find(y);
             boolean isMerge = false;
 
             // The two people share the same group
             if (groupX == groupY) {
-                return isMerge;
+                return 0;
             }
             // The two people are not in the same group
             // Merge the two groups
-            isMerge = true;
             if (rank[groupX] > rank[groupY]) {
                 group[groupY] = groupX;
             } else if (rank[groupX] < rank[groupY]) {
@@ -117,7 +118,7 @@ public class EarliestMoment {
                 group[groupY] = groupX;
                 rank[groupX]++;
             }
-            return isMerge;
+            return 1;
         }
     }
 }
