@@ -32,7 +32,6 @@ public class AllPathsFromSourceLeadToDestination {
         return leadsToDestination(graph, source, destination, new Color[n]);
     }
     public static boolean leadsToDestination(List<Integer>[] graph, int node, int destination, Color[] states) {
-
         // if the state is GRAY, this is a backward edge and hence, it creates a cycle.
         if (states[node] != null) {
             return states[node] == Color.BLACK;
@@ -55,7 +54,7 @@ public class AllPathsFromSourceLeadToDestination {
         return true;
     }
     public static List<Integer>[] buildDigraph(int n, int[][] edges) {
-        List<Integer>[] graph = new List[n];
+        List<Integer>[] graph = new ArrayList[n];
 
         for (int i = 0; i < n; ++i) {
             graph[i] = new ArrayList<>();
