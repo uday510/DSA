@@ -28,12 +28,29 @@ public class ReconstructItinery {
            graph.computeIfAbsent(from, k -> new PriorityQueue<>()).add(to);
        }
 
-       DFS("JFK", graph, res);
+//       DFS("JFK", graph, res);
+//
+//       Collections.reverse(res);
 
-       Collections.reverse(res);
+        List<String> result = new LinkedList<>();
 
-       return res;
+        Deque<String> stack = new ArrayDeque<>();
+        stack.push("JFK");
+
+        while (!stack.isEmpty()) {
+
+            String curr = stack.peek();
+
+            if (graph.containsKey(curr) && !graph.get(curr).isEmpty()) {
+                stack.push(graph.get(curr).poll());
+            } else {
+                result.add(stack.pop());
+            }
+        }
+       return result;
     }
+
+
     public static void DFS(String city, Map<String, PriorityQueue<String>> graph, List<String> res) {
 
         PriorityQueue<String> destinations = graph.get(city);

@@ -29,6 +29,8 @@ public class AllPathsFromSourceToTarget {
         int[][] graph = {{4,3,1},{3,2,4},{3},{4},{}};
         System.out.println(allPathsSourceTarget(graph));
     }
+    static List<List<Integer>> paths;
+    static List<Integer>[] adjList;
     public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
         // O(2^V * V) time | O(V) space where V is the number of vertices in the graph
         /**
@@ -36,25 +38,33 @@ public class AllPathsFromSourceToTarget {
          * and each path can have at most V vertices,
          * we need O(V) time to build each path,
          */
-        List<List<Integer>> paths = new ArrayList<>();
+        paths = new ArrayList<>();
         if (graph == null || graph.length == 0) {
             return paths;
         }
+        adjList = new ArrayList[graph.length];
 
+        for (int idx = 0; idx < graph.length; ++idx) {
+            adjList[idx] = new ArrayList<>();
+            for (int node : graph[idx]) {
+                adjList[idx].add(node);
+            }
+        }
 
-        dfs(graph, 0, new ArrayList<>(), paths);
+        dfs(0, graph.length - 1, new ArrayList<>());
         return paths;
     }
-    public static void dfs(int[][] graph, int node, List<Integer> path, List<List<Integer>> paths) {
+    private static void dfs(int node, int dest, ArrayList<Integer> path) {
         path.add(node);
-        if (node == graph.length - 1) {
+        if (node == dest) {
             paths.add(new ArrayList<>(path));
             return;
         }
-        int[] neighbors = graph[node];
-        for (int neighbor : neighbors) {
-            dfs(graph, neighbor, path, paths);
-            path.remove(path.size() - 1);
+
+        for (int neighbor : adjList[node]) {
+            dfs(neighbor, dest, path);
+            path.removeLast();
         }
     }
+
 }

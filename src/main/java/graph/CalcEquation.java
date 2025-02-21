@@ -4,7 +4,8 @@ import java.util.*;
 
 
 /**
- * You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi] and values[i] represent the equation Ai / Bi = values[i]. Each Ai or Bi is a string that represents a single variable.
+ * You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi]
+ * and values[i] represent the equation Ai / Bi = values[i]. Each Ai or Bi is a string that represents a single variable.
  *
  * You are also given some queries, where queries[j] = [Cj, Dj] represents the jth query where you must find the answer for Cj / Dj = ?.
  *
@@ -18,6 +19,8 @@ import java.util.*;
  *
  * Example 1:
  *
+ *
+ * a --> b --> c
  * Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
  * Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
  * Explanation:
@@ -49,57 +52,64 @@ import java.util.*;
  */
 public class CalcEquation {
     public static void main(String[] args) {
-
     }
-    static Map<String, List<String>> graph;
+
+    private static Map<String, List<String[]>> graph;
+    private static Set<String> visited;
+    private static double[] result;
     public static double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
-        graph = new HashMap<>();
+        buildGraph(equations, values, queries);
 
-        buildGraph(equations, values);
+        for (int idx = 0; idx < queries.size(); ++idx) {
+            List<String> query = queries.get(idx);
+            String src = query.get(0);
+            String dest = query.get(1);
 
-        double[] res = new double[queries.size()];
-        for (int i = 0; i < queries.size(); i++) {
-            List<String> query = queries.get(i);
-            String a = query.get(0);
-            String b = query.get(1);
-            res[i] = dfs(a, b, new HashSet<>());
+           double cost = dfs(src, dest);
+           result[idx] = cost;
         }
-        return res;
+
+        return result;
     }
-    private static double dfs(String a, String b, Set<String> visited) {
-        if (!graph.containsKey(a) || !graph.containsKey(b)) {
-            return -1;
+    private static double dfs(String src, String dest) {
+        if (!graph.containsKey(src) || !graph.containsKey(dest)) {
+            return -1.0;
         }
-        if (a.equals(b)) {
-            return 1;
+
+        if (src.equals(dest)) {
+            return 1.0;
         }
-        visited.add(a);
-        List<String> neighbors = graph.get(a);
-        for (int i = 0; i < neighbors.size(); i += 2) {
-            String neighbor = neighbors.get(i);
-            if (visited.contains(neighbor)) {
+
+        double cost = 0;
+        for (var neighbor : graph.get(dest)) {
+            String next = neighbor[0];
+            if (!visited.add(next)) {
                 continue;
             }
-            double val = Double.parseDouble(neighbors.get(i + 1));
-            double res = dfs(neighbor, b, visited);
-            if (res != -1) {
-                return val * res;
+            double dist = Double.parseDouble(neighbor[1]);
+            double value = dfs(next, dest);
+
+            if (dist != -1) {
+                return dist * value;
             }
         }
+
         return -1;
     }
-    private static void buildGraph(List<List<String>> eqs, double[] vs) {
-        for (int i = 0; i < eqs.size(); i++) {
-            List<String> eq = eqs.get(i);
-            String a = eq.get(0);
-            String b = eq.get(1);
-            double v = vs[i];
 
-           graph.computeIfAbsent(a, k -> new ArrayList<>()).add(b);
-           graph.get(a).add(String.valueOf(v));
+    private static void buildGraph(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        graph = new HashMap<>();
+        visited = new HashSet<>();
+        result = new double[queries.size()];
 
-           graph.computeIfAbsent(b, k -> new ArrayList<>()).add(a);
-           graph.get(b).add(String.valueOf(1 / v));
+        for (int idx = 0; idx < equations.size(); ++idx) {
+            List<String> equation = equations.get(idx);
+            String src = equation.get(0);
+            String dest = equation.get(1);
+            double dist = values[idx];
+
+            graph.computeIfAbsent(src, k -> new ArrayList<>()).add(new String[]{dest, String.valueOf(dist)});
+            graph.computeIfAbsent(dest, k -> new ArrayList<>()).add(new String[]{src, String.valueOf(1.0/dist)});
         }
     }
 }
