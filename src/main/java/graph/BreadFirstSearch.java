@@ -2,21 +2,28 @@ package graph;
 
 import java.util.*;
 
+/**
+ * In Graph theory, the primary use cases of the “breadth-first search” (“BFS”) algorithm are:
+ *
+ * Traversing all vertices in the “graph”;
+ * Finding the shortest path between two vertices in a graph where all edges have equal and positive weights.
+ */
+
 public class BreadFirstSearch {
 
     public boolean validPath(int n, int[][] edges, int start, int end) {
         // O(V + E) time complexity | O(V) space complexity where V is the number of vertices and E is the number of edges
         // Create adjacency list to represent graph
-        List<List<Integer>> adjacencyList = new ArrayList<>();
+        List<Integer>[] adjList = new ArrayList[n];
 
         // Initialize adjacency list
-        for (int i = 0; i < n; ++i) {
-            adjacencyList.add(new ArrayList<>());
+        for (int idx = 0; idx < n; ++idx) {
+            adjList[idx] = new ArrayList<>();
         }
 
         for (int[] edge : edges) {
-            adjacencyList.get(edge[0]).add(edge[1]); // for undirected graph add both
-            adjacencyList.get(edge[1]).add(edge[0]); // for directed graph don't add this line
+            adjList[edge[0]].add(edge[1]); // for undirected graph add both
+            adjList[edge[1]].add(edge[0]); // for directed graph don't add this line
         }
 
         // Create a queue to store the nodes
@@ -39,16 +46,16 @@ public class BreadFirstSearch {
             }
 
             // Add all the neighbors of the node to the queue
-            for (int neighbor : adjacencyList.get(currNode)) {
+            for (int neighbor : adjList[currNode]) {
                 // check if the neighbor is already seen
-                if (!seen[neighbor]) {
-                    // Mark the neighbor as seen
-                    seen[neighbor] = true;
-                    // Add the neighbor to the queue
-                    queue.add(neighbor);
-                }
+                if (seen[neighbor]) continue;
+                // Mark the neighbor as seen
+                seen[neighbor] = true;
+                // Add the neighbor to the queue
+                queue.add(neighbor);
             }
         }
+
         return false;
     }
 }
