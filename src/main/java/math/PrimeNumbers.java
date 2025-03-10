@@ -9,6 +9,7 @@ public class PrimeNumbers {
 
         System.out.println(solve(num));
     }
+
     public static ArrayList<Integer> solve(int num) {
         // Time O(N√N) | space O(1)
         ArrayList<Integer> result = new ArrayList<>();
@@ -17,6 +18,7 @@ public class PrimeNumbers {
         }
         return result;
     }
+
     public static boolean isPrime(int num) {
         // time O(√N)
         for(int idx = 2; idx <= Math.sqrt(num); idx++){

@@ -25,74 +25,64 @@ import java.util.Queue;
 
 public class RottingOranges {
     public static void main(String[] args) {
-        int[][] grid = {{2,1,1},{1,1,0},{0,1,1}};
 
-        System.out.println(orangesRotting(grid));
+        System.out.println(orangesRotting());
     }
-    public static int orangesRotting(int[][] grid) {
-        Queue<Pair> queue = new ArrayDeque<>();
 
-        // build the initial set of rotten oranges
+    private static final int[][] grid = {{2,1,1},{1,1,0},{0,1,1}};
+    private static final int[][] dirs = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+    private static boolean[][] visited;
+    private static int m;
+    private static int n;
+    private static int orangesRotting() {
+        m = grid.length;
+        n = grid[0].length;
         int freshOranges = 0;
-        int ROWS = grid.length, COLS = grid[0].length;
+        int minutes = 0;
+        Queue<int[]> queue = new ArrayDeque<>();
+        visited = new boolean[m][n];
 
-        for (int r = 0; r < ROWS; ++r) {
-            for (int c = 0; c < COLS; ++c) {
-                if (grid[r][c] == 2) {
-                    // add the rotten orange's coordinates to the queue
-                    queue.add(new Pair(r, c));
-                } else if (grid[r][c] == 1) {
-                    freshOranges++;
+        for (int row = 0; row < m; ++row) {
+            for (int col = 0; col < n; ++col) {
+                int curr = grid[row][col];
+                if (curr == 2) {
+                    queue.offer(new int[]{row, col});
+                    visited[row][col] = true;
+                } else if (curr == 1) {
+                    ++freshOranges;
                 }
             }
         }
 
-        // Mark the round / level, _i.e_ the ticker of timestamp
-        queue.add(new Pair(-1, -1));
-
-        // start the rotting process via BFS
-        int minutesElapsed = -1;
-        int[][] directions = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
+        if (freshOranges == 0) return -1;
+        queue.offer(new int[]{-1, -1});
 
         while (!queue.isEmpty()) {
-            Pair p = queue.poll();
-            int row = p.row;
-            int col = p.col;
+            int[] arr = queue.poll();
 
-            if (row == -1) {
-                // We finish one round of processing
-                minutesElapsed++;
-                // to avoid the endless loop
+            if (arr[0] == -1 && arr[1] == -1) {
+                ++minutes;
                 if (!queue.isEmpty()) {
-                    queue.add(new Pair(-1, -1));
-                }
-            } else {
-                // this is a rotten orange
-                // then it would contaminate its neighbors
-                for (int[] d : directions) {
-                    int neighborRow = row + d[0];
-                    int neighborCol = col + d[1];
-                    if (neighborRow >= 0 && neighborRow < ROWS && neighborCol >= 0 && neighborCol < COLS) {
-                        if (grid[neighborRow][neighborCol] == 1) {
-                            // this orange would be contaminated
-                            grid[neighborRow][neighborCol] = 2;
-                            freshOranges--;
-                            // this orange would then contaminate other oranges
-                            queue.add(new Pair(neighborRow, neighborCol));
-                        }
-                    }
+                    queue.offer(new int[]{-1, -1});
                 }
             }
+
+            for (int[] dir : dirs) {
+                int R = dir[0] + arr[0];
+                int C = dir[1] + arr[1];
+
+                if (!isValid(R, C)) continue;
+
+                queue.offer(new int[]{R, C});
+                visited[R][C] = true;
+                --freshOranges;
+            }
         }
-        // return elapsed minutes if no fresh orange left
-        return freshOranges == 0 ? minutesElapsed : -1;
+
+        return freshOranges == 0 ? minutes : -1;
     }
-    static class Pair{
-        Integer row;
-        Integer col;
-        Pair(Integer x, Integer y){
-            this.row = x;
-            this.col = y;
-        }
+
+    private static boolean isValid(int R, int C) {
+        return !(R < 0 || R >= m || C < 0 || C >= n || grid[R][C] == 0 || visited[R][C]);
     }
 }
