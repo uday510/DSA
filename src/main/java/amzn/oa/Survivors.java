@@ -1,4 +1,4 @@
-package heap;
+package amzn.oa;
 
 import java.util.*;
 
@@ -11,6 +11,8 @@ public class Survivors {
        System.out.println(Arrays.toString(result));
     }
 
+    // https://leetcode.com/discuss/post/6516892/amazon-oa-by-anonymous_user-128m/
+    //https://leetcode.com/discuss/post/6517334/amazon-oa-test-sde-ii-by-mr_shah-daz3/
     private static int[] findSurvivors(int n, int[] robots) {
         Integer[] idx = new Integer[n];
 
