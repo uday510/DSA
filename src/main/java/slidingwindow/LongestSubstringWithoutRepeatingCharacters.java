@@ -51,11 +51,3 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return res;
     }
 }
-
-/*
-int i = 0, j = 0, res = 0;
-
-for (; i < N; ++j) {
-
-
- */
