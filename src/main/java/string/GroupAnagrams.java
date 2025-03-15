@@ -22,11 +22,7 @@ public class GroupAnagrams {
                 sb.append(cnt[i]);
             }
 
-            String key = sb.toString();
-            if (!map.containsKey(key)) {
-                map.put(key, new ArrayList<>());
-            }
-            map.get(key).add(s);
+            map.computeIfAbsent(sb.toString(), k -> new ArrayList<>()).add(s);
         }
 
         return new ArrayList<>(map.values());

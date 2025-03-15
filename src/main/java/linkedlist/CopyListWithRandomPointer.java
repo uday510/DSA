@@ -85,60 +85,39 @@ public class CopyListWithRandomPointer {
         }
     }
     public static Node solve(Node head) {
-        // O(N) time | O(1) space
+        if (head == null) return null;
 
-        /*
-         1. create new nodes in between the list
-         2. update randomPointer for new-nodes
-         3. split the old and new-nodes
-         4. return new-list head;
-         */
-
-        //1. create the new-node in between old nodes
         Node currNode = head;
+
         while (currNode != null) {
             Node newNode = new Node(currNode.val);
-            // update new-node pointers
             newNode.next = currNode.next;
             currNode.next = newNode;
-
-            // update current node
             currNode = newNode.next;
         }
 
-        //2. update new-nodes random pointers
-        Node oldNode = head;
-        while (oldNode != null) {
-            Node newNode = oldNode.next;
-            if (oldNode.random == null) {
-                newNode.random = null;
-            } else {
-                Node oldRandom = oldNode.random;
+        currNode = head;
+        while (currNode != null) {
+            Node oldRandom = currNode.random;
+            Node newNode = currNode.next;
+            if (oldRandom != null)
+                newNode.random = oldRandom.next;
 
-                // newRandom lies at oldNode.random.next
-                Node newRandom = oldNode.random.next;
-
-                newNode.random = newRandom;
-            }
-            oldNode = newNode.next;
+            currNode = newNode.next;
         }
 
-        // 3. separate the old and new nodes from the list
         Node newHead = head.next;
-        oldNode = head;
         Node newNode = newHead;
+        Node oldNode = head;
 
-        while (newNode.next != null) {
-            oldNode.next = oldNode.next.next;
-            newNode.next = newNode.next.next;
+        while (newNode != null) {
+            oldNode.next = (oldNode.next != null) ? oldNode.next.next : null;
+            newNode.next = (newNode.next != null) ? newNode.next.next : null;
 
             oldNode = oldNode.next;
             newNode = newNode.next;
         }
 
-        // remove all old-node pointer which is pointing to
-        // new-node tail
-        oldNode.next = null;
         return newHead;
     }
 }
