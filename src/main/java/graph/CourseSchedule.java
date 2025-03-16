@@ -24,7 +24,8 @@ public class CourseSchedule {
         int numCourses = 3;
         System.out.println(canFinish(numCourses, prerequisites));
     }
-    static private Map<Integer, List<Integer>> graph;
+
+    static private List<Integer>[] adjList;
     static private Queue<Integer> queue;
     static private int[] indegree;
     static int visited = 0;
@@ -44,7 +45,7 @@ public class CourseSchedule {
     }
     private static void removeNodeFromGraph(int node) {
         visited++;
-        for (int neighbour : graph.getOrDefault(node, new ArrayList<>())) {
+        for (int neighbour : adjList[node]) {
            indegree[neighbour]--;
            if (indegree[neighbour] == 0) {
                queue.offer(neighbour);
@@ -60,13 +61,17 @@ public class CourseSchedule {
     }
     private static void buildGraph(int[][] prerequisites) {
         for (int[] prerequisite : prerequisites) {
-            graph.computeIfAbsent(prerequisite[1], x -> new ArrayList<>()).add(prerequisite[0]);
+            adjList[prerequisite[1]].add(prerequisite[0]);
             indegree[prerequisite[0]]++;
         }
     }
     private static void initialize(int numCourses) {
-        graph = new HashMap<>();
         queue = new LinkedList<>();
         indegree = new int[numCourses];
+        adjList = new ArrayList[numCourses];
+
+        for (int i = 0; i < numCourses; ++i) {
+            adjList[i] = new ArrayList<>();
+        }
     }
 }
