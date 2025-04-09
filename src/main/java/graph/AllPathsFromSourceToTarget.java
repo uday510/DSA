@@ -22,49 +22,58 @@
  */
 package graph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AllPathsFromSourceToTarget {
     public static void main(String[] args) {
         int[][] graph = {{4,3,1},{3,2,4},{3},{4},{}};
-        System.out.println(allPathsSourceTarget(graph));
     }
-    static List<List<Integer>> paths;
-    static List<Integer>[] adjList;
-    public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        // O(2^V * V) time | O(V) space where V is the number of vertices in the graph
-        /**
-         * There are 2^V possible paths in the graph,
-         * and each path can have at most V vertices,
-         * we need O(V) time to build each path,
-         */
-        paths = new ArrayList<>();
-        if (graph == null || graph.length == 0) {
-            return paths;
-        }
-        adjList = new ArrayList[graph.length];
 
-        for (int idx = 0; idx < graph.length; ++idx) {
-            adjList[idx] = new ArrayList<>();
-            for (int node : graph[idx]) {
-                adjList[idx].add(node);
-            }
-        }
+    // O(2^V * V) time | O(V) space where V is the number of vertices in the graph
+    /**
+     * There are 2^V possible paths in the graph,
+     * and each path can have at most V vertices,
+     * we need O(V) time to build each path,
+     */
 
-        dfs(0, graph.length - 1, new ArrayList<>());
+    int n;
+    List<Integer>[] adjList;
+    List<List<Integer>> paths;
+
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        initialize(graph);
+        dfs(0, new ArrayList<>());
         return paths;
     }
-    private static void dfs(int node, int dest, ArrayList<Integer> path) {
+    private void dfs(Integer node, List<Integer> path) {
         path.add(node);
-        if (node == dest) {
+        if (node == n - 1) {
             paths.add(new ArrayList<>(path));
             return;
         }
 
-        for (int neighbor : adjList[node]) {
-            dfs(neighbor, dest, path);
+        for (Integer v : adjList[node]) {
+            dfs(v, path);
             path.removeLast();
         }
+    }
+
+    private void initialize(int[][] graph) {
+        this.n = graph.length;
+        adjList = new ArrayList[n];
+        paths = new ArrayList<>();
+
+        for (int i = 0; i < n; ++i) {
+            adjList[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < n; ++i) {
+            for (int v : graph[i]) {
+                adjList[i].add(v);
+            }
+        }
+
     }
 
 }

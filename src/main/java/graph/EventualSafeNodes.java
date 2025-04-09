@@ -42,5 +42,11 @@ public class EventualSafeNodes {
         for (int i = 0; i < n; ++i) {
             adjList[i] = new ArrayList<>();
         }
+
+       for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < graph[i].length; ++j) {
+                adjList[i].add(graph[i][j]);
+            }
+       }
     }
 }
