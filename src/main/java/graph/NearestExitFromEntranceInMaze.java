@@ -17,55 +17,62 @@ Thus, the nearest exit is [0,2], which is 1 step away.
  */
 package graph;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class NearestExitFromEntranceInMaze {
-    private static final int[][] DIRs = {{0,1},{0,-1},{1,0},{-1,0}};
     public static void main(String[] args) {
         char[][] maze = {{'+','+','.','+'},{'.','.','.','+'},{'+','+','+','.'}};
         int[] entrance = {1,0};
         System.out.println(nearestExit(maze, entrance));
     }
+
+    private static final char WALL = '+';
+    private static final char PATH = '.';
+    private static int[][] DIRECTIONS = { {0, 1}, {1, 0}, {-1, 0}, {0, -1} };
+
     public static int nearestExit(char[][] maze, int[] entrance) {
-        var visited = new boolean[maze.length][maze[0].length];
+        return bfs(maze, entrance);
+    }
+
+    private static int bfs(char[][] maze, int[] entrance) {
+        int rows = maze.length;
+        int cols = maze[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        Queue<int[]> queue = new ArrayDeque<>();
+
+        queue.offer(new int[] {entrance[0], entrance[1], 0});
         visited[entrance[0]][entrance[1]] = true;
 
-        var queue = new LinkedList<Edge>();
-        queue.add(new Edge(entrance[0], entrance[1], 0));
-
         while (!queue.isEmpty()) {
-            Edge e = queue.poll();
-            int dist = e.distance;
+            int[] curr = queue.poll();
+            int row = curr[0], col = curr[1], distance = curr[2];
 
-            if ((e.row == 0 || e.row == maze.length - 1 || e.col == 0 ||
-                    e.col == maze[0].length - 1)
-                    && dist != 0) {
-                return dist;
-            }
+            if (isBorderCell(row, col, rows, cols) && distance != 0) return distance;
 
-            for (int[] dir : DIRs) {
-                int newRow = e.row + dir[0];
-                int newCol = e.col + dir[1];
+            for (int[] direction : DIRECTIONS) {
+                int newRow = direction[0] + row;
+                int newCol = direction[1] + col;
 
-                if (newRow >= 0 && newRow < maze.length && newCol >= 0 &&
-                        newCol < maze[0].length && maze[newRow][newCol] == '.' &&
-                        !visited[newRow][newCol]) {
-
-                    visited[newRow][newCol] = true;
-                    queue.add(new Edge(newRow, newCol, dist + 1));
+                if (!isValid(newRow, newCol, rows, cols, maze, visited)) {
+                    continue;
                 }
+
+                visited[newRow][newCol] = true;
+                queue.offer(new int[] {newRow, newCol, distance + 1});
             }
+
         }
+
         return -1;
     }
-    static class Edge {
-        int row;
-        int col;
-        int distance;
-        public Edge(int row, int col, int distance) {
-            this.row = row;
-            this.col = col;
-            this.distance = distance;
-        }
+
+    private static boolean isValid(int row, int col, int rows, int cols, char[][] maze, boolean[][] visited) {
+        return (row > -1 && row <= rows - 1 && col > -1 && col <= cols - 1 && !visited[row][col] && maze[row][col] == '.');
     }
+
+    private static boolean isBorderCell(int row, int col, int rows, int cols) {
+        return (row == 0 || row == rows - 1 || col == 0 || col == cols - 1);
+    }
+    
 }

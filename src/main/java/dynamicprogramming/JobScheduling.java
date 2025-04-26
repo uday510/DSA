@@ -1,52 +1,60 @@
 package dynamicprogramming;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class JobScheduling {
-     static int[][] jobs;
+
     public static void main(String[] args) {
         int[] startTime = {1, 2, 3, 3};
         int[] endTime = {3, 4, 5, 6};
         int[] profit = {50, 10, 40, 70};
 
-        System.out.println(jobScheduling(startTime, endTime, profit));
+//        System.out.println(jobScheduling(startTime, endTime, profit));
     }
-    public static int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
 
-       int n = startTime.length;
-       jobs = new int[n][3];
+    int[] dp;
+    int[][] jobs;
+    int n;
 
-       for (int i = 0; i < n; ++i) {
-          jobs[i][0] = startTime[i];
-          jobs[i][1] = endTime[i];
-          jobs[i][2] = profit[i];
-       }
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        this.n = profit.length;
+        jobs = new int[n][3];
+        dp = new int[n];
+
+        Arrays.fill(dp, -1);
+
+        for (int i = 0; i < n; ++i) {
+            jobs[i][0] = startTime[i];
+            jobs[i][1] = endTime[i];
+            jobs[i][2] = profit[i];
+        }
 
         Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
 
-       return dfs(0);
+        return dfs(0);
     }
-    public static int dfs(int i) {
-        if (i == jobs.length) return 0;
 
-        int nextIndex = bs(jobs[i][2]);
+    private int dfs(int idx) {
+        if (idx >= n) return 0;
 
-        int maxProfit = Math.max(dfs(i+1), jobs[i][2] + dfs(nextIndex));
+        if (dp[idx] != -1) return dp[idx];
 
-        return maxProfit;
+        int skip = dfs(idx + 1);
+        int take = jobs[idx][2] + dfs(bs(jobs[idx][1]));
+
+        return dp[idx] = Math.max(skip, take);
     }
-    public static int bs(int et) {
-        int left = 0;
-        int right = jobs.length;
+
+    private int bs(int end) {
+        // start has to >= end
+        int left = 0, right = n;
 
         while (left < right) {
             int mid = (left + right) >> 1;
 
-            if (jobs[mid][0] < et) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
+            int start = jobs[mid][0];
+            if (end > start) left = mid + 1;
+            else right = mid;
         }
 
         return left;
