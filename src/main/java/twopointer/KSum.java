@@ -6,69 +6,88 @@ import java.util.List;
 
 public class KSum {
 
-    List<List<Integer>> res;
-    int[] nums;
-    int n;
+    private int[] nums;
+    private int n;
 
-    // Time : O(N^(k-1)) where N is the number of elements in the array, k is the number of elements in the sum
-    // Space : O(k) + O(m) where m is the number of combinations, k is depth of the recursion
-
+    /**
+     * Solves the K-Sum problem.
+     * 
+     * @param nums   Input array of integers
+     * @param target Target sum
+     * @return A list of all unique quadruplets that sum up to the target
+     */
     public List<List<Integer>> kSum(int[] nums, long target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (nums == null || nums.length < 4) return result;
 
         Arrays.sort(nums);
-        res = new ArrayList<>();
         this.nums = nums;
-        n = nums.length;
+        this.n = nums.length;
 
         return dfs(0, 4, target);
     }
 
-
-
-    private List<List<Integer>> dfs(int idx, int k, long target) {
-
-        if (k == 2) {
-            return twoSum(idx, target);
-        }
-
+    /**
+     * Recursively solves K-Sum problem by reducing it to 2-sum.
+     *
+     * @param index  Starting index
+     * @param k      Number of elements to sum
+     * @param target Target sum
+     * @return List of combinations of k numbers that sum to target
+     */
+    private List<List<Integer>> dfs(int index, int k, long target) {
         List<List<Integer>> result = new ArrayList<>();
 
-        for (int i = idx; i < (n - k + 1); ++i) {
-            if (i > idx && nums[i] == nums[i - 1]) continue;
+        // Base case: use two-pointer approach
+        if (k == 2) {
+            return twoSum(index, target);
+        }
 
-            List<List<Integer>> list = dfs(i + 1, k - 1, target - nums[i]);
+        for (int i = index; i <= n - k; i++) {
+            if (i > index && nums[i] == nums[i - 1]) continue; // Skip duplicates
 
-            for (var subList : list) {
-                var temp = new ArrayList<Integer>();
-                temp.add(nums[i]);
-                temp.addAll(subList);
-                result.add(temp);
+            List<List<Integer>> subLists = dfs(i + 1, k - 1, target - nums[i]);
+
+            for (List<Integer> sub : subLists) {
+                List<Integer> combination = new ArrayList<>();
+                combination.add(nums[i]);
+                combination.addAll(sub);
+                result.add(combination);
             }
         }
 
         return result;
     }
 
-    private List<List<Integer>> twoSum(int idx, long target) {
-        List<List<Integer>> list = new ArrayList<>();
-        int leftIdx = idx;
-        int rightIdx = nums.length - 1;
+    /**
+     * Two-pointer 2-sum implementation.
+     *
+     * @param start  Starting index
+     * @param target Target sum
+     * @return List of unique pairs that sum to target
+     */
+    private List<List<Integer>> twoSum(int start, long target) {
+        List<List<Integer>> result = new ArrayList<>();
+        int left = start, right = n - 1;
 
-        while (leftIdx < rightIdx) {
-            long curr = (long) nums[leftIdx] + nums[rightIdx];
+        while (left < right) {
+            long sum = (long) nums[left] + nums[right];
 
-            if (curr < target) leftIdx++;
-            else if (curr > target) rightIdx--;
-            else {
-                list.add(new ArrayList<>(Arrays.asList(nums[leftIdx], nums[rightIdx])));
-                leftIdx++;
-                rightIdx--;
+            if (sum < target) {
+                left++;
+            } else if (sum > target) {
+                right--;
+            } else {
+                result.add(Arrays.asList(nums[left], nums[right]));
+                left++;
+                right--;
 
-                while (leftIdx < rightIdx && nums[leftIdx] == nums[leftIdx - 1]) leftIdx++;
-                while (leftIdx < rightIdx && nums[rightIdx] == nums[rightIdx + 1]) rightIdx--;
+                while (left < right && nums[left] == nums[left - 1]) left++;     // Skip duplicates
+                while (left < right && nums[right] == nums[right + 1]) right--; // Skip duplicates
             }
         }
 
-        return list;
+        return result;
     }
 }

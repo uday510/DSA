@@ -25,53 +25,40 @@ public class CourseSchedule {
         System.out.println(canFinish(numCourses, prerequisites));
     }
 
-    static private List<Integer>[] adjList;
-    static private Queue<Integer> queue;
-    static private int[] indegree;
-    static int visited = 0;
+    @SuppressWarnings("unchecked")
+    // O(V+E) time complexity | O(V+E) space complexity
     public static boolean canFinish(int numCourses, int[][] prerequisites) {
-        // O(V+E) time complexity | O(V+E) space complexity
+       ArrayDeque<Integer> queue = new ArrayDeque<>();
+       int[] inDegree = new int[numCourses];
+       List<Integer>[] adjList = new ArrayList[numCourses];
+       int finishedCourses = 0;
 
-        initialize(numCourses);
-        buildGraph(prerequisites);
-        addNodesWithNoPreRequisites();
+       for (int idx = 0; idx < numCourses; idx++) {
+           adjList[idx] = new ArrayList<>();
+       }
 
-        while (!queue.isEmpty()) {
-            int node = queue.poll();
-            removeNodeFromGraph(node);
-        }
+       for (int[] prerequisite : prerequisites) {
+           adjList[prerequisite[1]].add(prerequisite[0]);
+           inDegree[prerequisite[0]]++;
+       }
 
-        return visited == numCourses;
-    }
-    private static void removeNodeFromGraph(int node) {
-        visited++;
-        for (int neighbour : adjList[node]) {
-           indegree[neighbour]--;
-           if (indegree[neighbour] == 0) {
-               queue.offer(neighbour);
+       for (int idx = 0; idx < numCourses; ++idx) {
+           if (inDegree[idx] == 0) {
+               queue.offerLast(idx);
            }
-        }
-    }
-    private static void addNodesWithNoPreRequisites() {
-        for (int i = 0; i < indegree.length; i++) {
-            if (indegree[i] == 0) {
-                queue.offer(i);
-            }
-        }
-    }
-    private static void buildGraph(int[][] prerequisites) {
-        for (int[] prerequisite : prerequisites) {
-            adjList[prerequisite[1]].add(prerequisite[0]);
-            indegree[prerequisite[0]]++;
-        }
-    }
-    private static void initialize(int numCourses) {
-        queue = new LinkedList<>();
-        indegree = new int[numCourses];
-        adjList = new ArrayList[numCourses];
+       }
 
-        for (int i = 0; i < numCourses; ++i) {
-            adjList[i] = new ArrayList<>();
-        }
+       while (!queue.isEmpty()) {
+           int course = queue.pollFirst();
+           finishedCourses++;
+
+           for (int neighborCourse : adjList[course]) {
+                if (--inDegree[neighborCourse] == 0) {
+                     queue.add(neighborCourse);
+                }
+           }
+       }
+
+       return finishedCourses == numCourses;
     }
 }

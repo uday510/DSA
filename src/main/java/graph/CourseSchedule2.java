@@ -15,68 +15,58 @@
  */
 
 package graph;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class CourseSchedule2 {
     public static void main(String[] args) {
         int[][] prerequisites = {{1,0},{2,0},{3,1},{3,2}};
         int numCourses = 4;
         int[] result = findOrder(numCourses, prerequisites);
-        for(int i = 0; i < result.length; i++) {
-            System.out.print(result[i] + " ");
+        for (int j : result) {
+            System.out.print(STR."\{j} ");
         }
     }
+
+    @SuppressWarnings("unchecked")
+    // O(V+E) time complexity | O(V+E) space complexity
     public static int[] findOrder(int numCourses, int[][] prerequisites) {
-        // Kahn's algorithm for topological sort
-        // Time complexity: O(V + E) | Space complexity: O(V + E)
-        int[] result = new int[numCourses]; // result array
-        int[] indegree = new int[numCourses]; // indegree array
-        int index = -1; // index for result array
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        int[] inDegree = new int[numCourses];
+        List<Integer>[] adjList = new ArrayList[numCourses];
+        int[] order = new int[numCourses];
+        int index = 0;
+        int finishedCourses = 0;
 
-        List<List<Integer>> graph = new ArrayList<>(); // graph
-
-        for (int i = 0; i < numCourses; i++) {
-            graph.add(new ArrayList<>());
+        for (int idx = 0; idx < numCourses; idx++) {
+            adjList[idx] = new ArrayList<>();
         }
 
-        for (int[] p : prerequisites) { // build graph and indegree array
-            int from = p[1];
-            int to = p[0];
-            graph.get(from).add(to); // add to graph
-            ++indegree[to]; // increment indegree
+        for (int[] prerequisite : prerequisites) {
+            adjList[prerequisite[1]].add(prerequisite[0]);
+            inDegree[prerequisite[0]]++;
         }
 
-        Queue<Integer> queue = new LinkedList<>();
-
-        for (int i = 0; i < numCourses; ++i) {
-            if (indegree[i] == 0) { // add all nodes with indegree 0 to queue
-                queue.add(i);
+        for (int idx = 0; idx < numCourses; ++idx) {
+            if (inDegree[idx] == 0) {
+                queue.offerLast(idx);
             }
         }
 
         while (!queue.isEmpty()) {
-            int currNode = queue.poll();
+            int course = queue.pollFirst();
+            order[index++] = course;
+            finishedCourses++;
 
-            result[++index] = currNode; // add to result array
-
-            for (int edge : graph.get(currNode)) {
-                --indegree[edge]; // decrement indegree
-
-                if (indegree[edge] == 0) { // if indegree is 0 add to queue
-                    queue.add(edge);
+            for (int neighborCourse : adjList[course]) {
+                if (--inDegree[neighborCourse] == 0) {
+                    queue.add(neighborCourse);
                 }
             }
         }
 
-        // if all nodes are not visited return empty array, because cycle found
-        for (int i = 0; i < numCourses; ++i) {
-            if (indegree[i] != 0) {
-                return new int[0];
-            }
-        }
-        return result;
+        return finishedCourses == numCourses ? order : new int[]{};
     }
 }
