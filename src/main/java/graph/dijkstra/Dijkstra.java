@@ -61,7 +61,7 @@
  *         [1, 3, 8]  ]
  * C = 4
  */
-package graph;
+package graph.dijkstra;
 
 import java.util.*;
 

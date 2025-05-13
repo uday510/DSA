@@ -26,7 +26,7 @@
  *
  * [0, 7, 13, 27, 10, -1]
  */
-package graph;
+package graph.dijkstra;
 
 import java.util.Arrays;
 import java.util.Set;
