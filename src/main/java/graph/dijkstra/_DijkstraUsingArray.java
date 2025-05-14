@@ -31,7 +31,7 @@ package graph.dijkstra;
 import java.util.Arrays;
 import java.util.Set;
 
-public class DijkstraUsingArray {
+public class _DijkstraUsingArray {
     public static void main(String[] args) {
         int start = 0;
         int[][][] edges = {
