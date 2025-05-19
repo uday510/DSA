@@ -8,39 +8,41 @@ public class CheapestFlightsWithinKStops {
 
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         List<int[]>[] adjList = new ArrayList[n];
-
-        for (int idx = 0; idx < n; ++idx) {
-            adjList[idx] = new ArrayList<>();
-        }
+        for (int i = 0; i < n; ++i) adjList[i] = new ArrayList<>();
 
         for (int[] flight : flights) {
-            int from = flight[0], to = flight[1], dest = flight[2];
-            adjList[from].add(new int[] {to, dest});
+            adjList[flight[0]].add(new int[] {flight[1], flight[2]});
         }
 
-        int[] dists = new int[n];
-        Arrays.fill(dists, UNREACHABLE);
+        int[] distanceFromSource = new int[n];
+        Arrays.fill(distanceFromSource, UNREACHABLE);
 
         Queue<int[]> queue = new ArrayDeque<>();
-        queue.offer(new int[] {src, 0, 0});
+        queue.offer(new int[]{src, 0});
+        distanceFromSource[src] = 0;
 
-       while (!queue.isEmpty()) {
-           int[] curr = queue.poll();
-           int node = curr[0], cost = curr[1], stops = curr[2];
+        int stops = 0;
 
-           if (stops > k) continue;
+        while (stops <= k) {
+            int size = queue.size();
 
-           for (int[] neighbor : adjList[node]) {
-               int nextNode = neighbor[0], price = neighbor[1];
-               int newCost = cost + price;
+            for (int i = 0; i < size; ++i) {
+                int[] curr = queue.poll();
+                int node = curr[0], dist = curr[1];
 
-               if (newCost > dists[nextNode]) continue;
+                for (int[] next : adjList[node]) {
+                    int neiNode = next[0], neiDist = next[1];
+                    int newDist = dist + neiDist;
 
-               dists[nextNode] = newCost;
-               queue.offer(new int[] {nextNode, newCost, stops + 1});
-           }
-       }
+                    if (newDist < distanceFromSource[neiNode]) {
+                        queue.offer(new int[] {neiNode, newDist});
+                        distanceFromSource[neiNode] = newDist;
+                    }
+                }
+            }
+            stops++;
+        }
 
-        return dists[dst] == UNREACHABLE ? -1 : dists[dst];
+        return distanceFromSource[dst] ==  UNREACHABLE ? -1: distanceFromSource[dst];
     }
 }

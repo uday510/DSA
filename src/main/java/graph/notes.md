@@ -229,3 +229,6 @@ Bipartite graph
 
         Eg: A graph is bipartite if and only if it is 2-colorable, which means that its vertices can be colored with two colors (i.e., the graph is 2-colorable).
             Tree, Even length cycle graph, Complete graph with even number of vertices are bipartite graphs.
+
+
+--> There is no shortest path in negative edge cycle.
