@@ -232,3 +232,4 @@ Bipartite graph
 
 
 --> There is no shortest path in negative edge cycle.
+--> BFS only finds shortest path in unweighted graph.

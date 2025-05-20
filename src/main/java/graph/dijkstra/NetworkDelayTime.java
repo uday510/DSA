@@ -20,41 +20,55 @@ public class NetworkDelayTime {
 //        System.out.println(networkDelayTime(times, n, k));
     }
 
-    private static final int INF = (int) 1e9;
+class Solution {
+
     public int networkDelayTime(int[][] times, int n, int k) {
+        int INF = (int) 1e9;
         List<int[]>[] adjList = new ArrayList[n + 1];
-
         for (int i = 1; i <= n; ++i) adjList[i] = new ArrayList<>();
-        for (int[] t : times) adjList[t[0]].add(new int[] {t[1], t[2]});
 
-        int[] dists = new int[n + 1];
-        Arrays.fill(dists, INF);
+        for (int[] time : times) {
+            int u = time[0], v = time[1], w = time[2];
+            adjList[u].add(new int[] {v, w});
+        }
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        int[] delayTimeFromK = new int[n + 1];
+        Arrays.fill(delayTimeFromK, INF);
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+            return a[1] - b[1];
+        });
+
         pq.offer(new int[] {k, 0});
-        dists[k] = 0;
+        delayTimeFromK[k] = 0;
 
         while (!pq.isEmpty()) {
             int[] curr = pq.poll();
-            int node = curr[0], d = curr[1];
+            int u = curr[0], w = curr[1];
 
-            if (dists[node] < d) continue;
+            if (delayTimeFromK[u] < w) continue;
 
-            for (int[] next : adjList[node]) {
-                if (next[1] + d < dists[next[0]]) {
-                    pq.offer(new int[] {next[0], d + next[1]});
-                    dists[next[0]] = next[1] + d;
+            for (int[] neighbor : adjList[u]) {
+                int v = neighbor[0], neighborDelayTime = neighbor[1];
+                int neighborDelayTimeFromU = neighborDelayTime + w;
+
+                if (neighborDelayTimeFromU < delayTimeFromK[v]) {
+                    delayTimeFromK[v] = neighborDelayTimeFromU;
+                    pq.offer(new int[] {v, neighborDelayTimeFromU});
                 }
             }
         }
 
-        int max = -1;
-        for (int i = 1; i <= n; ++i) {
-            if (dists[i] == INF) return -1;
-            max = Math.max(max, dists[i]);
+        int minDelayTime = -INF;
+        for (int idx = 1; idx <= n; ++idx) {
+            int currDelayTime = delayTimeFromK[idx];
+            if (currDelayTime == INF) return -1;
+            minDelayTime = Math.max(minDelayTime, currDelayTime);
         }
 
-        return max;
+        return minDelayTime;
     }
+    
+}
 
 }
