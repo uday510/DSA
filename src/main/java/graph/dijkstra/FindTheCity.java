@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
 
 public class FindTheCity {
 
+    //  O((V + E) log V) where V = n.
     public int findTheCity(int n, int[][] edges, int distanceThreshold) {
         List<int[]>[] adjList = new ArrayList[n];
         for (int idx = 0; idx < n; ++idx) adjList[idx] = new ArrayList<>();
