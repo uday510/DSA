@@ -64,7 +64,7 @@
  * Line 1 ( Corresponds to arg 1 ) : Triangle array. The line starts with an integer N denoting the number of rows. Then the next number corresponds to first row. The next 2 numbers correspond to second row. And so on.
  * 	For example, N = 2 & Array: [[1], [2, 3]] will be written as "2 1 2 3"(without quotes).
  */
-package dp;
+package dp.matrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,8 +90,7 @@ public class MinSumPathInTriangle {
        return minimumTotal(A, 0, 0, currSum);
     }
     public static int minimumTotal(ArrayList<ArrayList<Integer>> A, int i, int j, int currSum) {
-
-
+        
 
         return currSum;
     }

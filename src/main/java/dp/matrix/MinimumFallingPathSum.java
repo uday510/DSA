@@ -7,7 +7,7 @@
  * Output: 13
  * Explanation: There are two falling paths with a minimum sum as shown.
  */
-package dp;
+package dp.matrix;
 
 public class MinimumFallingPathSum {
     public static void main(String[] args) {

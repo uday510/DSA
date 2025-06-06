@@ -1,4 +1,4 @@
-package dp;
+package dp.matrix;
 
 /**
  * Given an n x n integer matrix grid, return the minimum sum of a falling path with non-zero shifts.

@@ -1,4 +1,4 @@
-package dp;
+package dp.stocks;
 
 import java.util.Arrays;
 

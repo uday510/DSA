@@ -56,7 +56,7 @@
  *
  *  It is not possible to reach (n, m) from (1, 1). So, ans is 0.
  */
-package dp;
+package dp.matrix;
 
 import java.util.Arrays;
 

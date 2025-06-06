@@ -25,7 +25,7 @@
  * 1 <= prices.length <= 105
  * 0 <= prices[i] <= 104
  */
-package dp;
+package dp.stocks;
 
 public class BestTimeToBuyAndSellStock {
     public static void main(String[] args) {

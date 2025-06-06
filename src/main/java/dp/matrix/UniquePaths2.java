@@ -7,7 +7,7 @@
  *
  * The testcases are generated so that the answer will be less than or equal to 2 * 109.
  */
-package dp;
+package dp.matrix;
 
 public class UniquePaths2 {
     public static void main(String[] args) {
