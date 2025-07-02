@@ -2,29 +2,24 @@ package dp.matrix;
 
 public class MinimumPathSum {
 
-    static int numRows;
-    static int numCols;
-    static int[][] dp;
+    int rows;
+    int cols;
+    int[][] dp;
 
-    public static void main(String[] args) {
-        int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+    public int minPathSum(int[][] grid) {
+        rows = grid.length;
+        cols = grid[0].length;
+        dp = new int[rows][cols];
 
-        int res = minPathSum(grid);
-        System.out.println(res);
-    }
-    private static int minPathSum(int[][] grid) {
-       initialize(grid);
-
-        for (int currRow = 0; currRow < numRows; ++currRow) {
-            for (int currCol = 0; currCol < numCols; ++currCol) {
-                dp[currRow][currCol] = grid[currRow][currCol] + getMin(currRow, currCol);
+        for (int row = 0; row < rows; ++row) {
+            for (int col = 0; col < cols; ++col) {
+                dp[row][col] = grid[row][col] + getMin(row, col);
             }
         }
-
-        return dp[numRows - 1][numCols - 1];
+        return dp[rows - 1][cols - 1];
     }
 
-    private static int getMin(int row, int col) {
+    private int getMin(int row, int col) {
         int curr = 0;
         if (row > 0 && col > 0) {
             curr = Math.min(dp[row - 1][col], dp[row][col - 1]);
@@ -36,30 +31,38 @@ public class MinimumPathSum {
 
         return curr;
     }
-
-    private static void initialize(int[][] grid) {
-        numRows = grid.length;
-        numCols = grid[0].length;
-        dp = new int[numRows][numCols];
-    }
-
-    public int minPathSumV1(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        int[][] dp = new int[m][n];
-
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                dp[i][j] = grid[i][j];
-
-                if (i > 0 && j > 0)
-                    dp[i][j] += Math.min(dp[i - 1][j], dp[i][j - 1]);
-
-                else if (i > 0) dp[i][j] += dp[i - 1][j];
-                else if (j > 0) dp[i][j] += dp[i][j - 1];
-            }
-        }
-
-        return dp[m - 1][n - 1];
-    }
+    int m = 10;
+    int n = 10;
 }
+
+/**
+ *
+ *
+ * Given two strings s1 and s2, return the lowest ASCII sum of deleted characters to make two strings equal.
+ *
+ *
+ *
+ * Example 1:
+ *
+ * Input: s1 = "sea", s2 = "eat"
+ * Output: 231
+ * Explanation: Deleting "s" from "sea" adds the ASCII value of "s" (115) to the sum.
+ * Deleting "t" from "eat" adds 116 to the sum.
+ * At the end, both strings are equal, and 115 + 116 = 231 is the minimum sum possible to achieve this.
+ * Example 2:
+ *
+ * Input: s1 = "delete", s2 = "leet"
+ * Output: 403
+ * Explanation: Deleting "dee" from "delete" to turn the string into "let",
+ * adds 100[d] + 101[e] + 101[e] to the sum.
+ * Deleting "e" from "leet" adds 101[e] to the sum.
+ * At the end, both strings are equal to "let", and the answer is 100+101+101+101 = 403.
+ * If instead we turned both strings into "lee" or "eet", we would get answers of 433 or 417, which are higher.
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= s1.length, s2.length <= 1000
+ * s1 and s2 consist of lowercase English letters.
+ *
+ */
