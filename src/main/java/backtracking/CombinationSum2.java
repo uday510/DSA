@@ -60,7 +60,7 @@ public class CombinationSum2 {
             int candidate = candidates[i];
             temp.add(candidate);
             combinationSum(candidates, i+1, remaining-candidate, temp, res);
-            temp.remove(temp.size() - 1);
+            temp.removeLast();
         }
     }
 }
