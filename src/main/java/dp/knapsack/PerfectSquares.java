@@ -1,7 +1,5 @@
 package dp.knapsack;
 
-import java.util.Arrays;
-
 /**
  * 
  *  "Rephrased version":
