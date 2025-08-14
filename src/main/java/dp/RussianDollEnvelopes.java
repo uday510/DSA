@@ -31,44 +31,52 @@ package dp;
 import java.util.Arrays;
 
 public class RussianDollEnvelopes {
-    public static void main(String[] args) {
-        int[][] envelopes = {{5,4},{6,4},{6,7},{2,3}};
-        System.out.println(maxEnvelopes(envelopes));
-    }
-    public static int maxEnvelopes(int[][] array) {
-        int max = 0;
-        int n = array.length;
-        Pair[] envelopes = new Pair[array.length];
 
-        for (int i = 0; i < n; ++i) {
-            Pair envelop = new Pair(array[i][0], array[i][1]);
-            envelopes[i] = envelop;
-        }
+    int n;
+    // int[][] env;
+    // int[][] dp;
+
+    public int maxEnvelopes(int[][] envelopes) {
+        n = envelopes.length;
+        // env = envelopes;
+        // dp = new int[n][n];
+        int longest = 1;
         Arrays.sort(envelopes, (a, b) -> {
-            if (a.height == b.height) {
-                return a.width - b.width;
-            }
-            return a.height - b.height;
+            return a[0] - b[0];
         });
+
+        // for (int[] row : dp) Arrays.fill(row, -1);
         int[] dp = new int[n];
-        Arrays.fill(dp, 1);
 
         for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if ((envelopes[i].height > envelopes[j].height) && (envelopes[i].width > envelopes[j].width)) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
+            dp[i] = 1;
+            for (int j = 0; j < i; ++j) {
+                if (envelopes[i][0] > envelopes[j][0] &&
+                        envelopes[i][1] > envelopes[j][1]) {
+
+                    dp[i] = Math.max(dp[i], 1 + dp[j]);
                 }
             }
-            max = Math.max(max, dp[i]);
+
+            longest = Math.max(longest, dp[i]);
         }
-        return max;
+
+        System.out.println(Arrays.toString(dp));
+        return longest;
+        // return dfs(-1, 0);
     }
-    static class Pair {
-        int height;
-        int width;
-        Pair(int height, int width) {
-            this.height = height;
-            this.width = width;
-        }
-    }
+
+    // private int dfs(int prev, int curr) {
+    //     if (curr >= n) return 0;
+
+    //     if (dp[prev + 1][curr] != -1) return dp[prev + 1][curr];
+    //     int skip = dfs(prev, curr + 1);
+
+    //     int take = 0;
+    //     if (prev == -1 || (env[prev][0] < env[curr][0] && env[prev][1] < env[curr][1])) {
+    //         take = 1 + dfs (curr, curr + 1);
+    //     }
+
+    //     return dp[prev + 1][curr] = Math.max(skip, take);
+    // }
 }
