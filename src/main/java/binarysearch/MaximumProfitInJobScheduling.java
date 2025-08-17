@@ -1,9 +1,8 @@
-package binarysearch.withdp;
+package binarysearch;
 
 import java.util.Arrays;
 
 public class MaximumProfitInJobScheduling {
-
     int[][] jobs;
     int[] dp;
     int n;
