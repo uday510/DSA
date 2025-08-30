@@ -34,12 +34,24 @@
  */
 package dp.stocks;
 
+import java.util.Arrays;
+
 public class BestTimeToBuyAndSellStock2 {
+
+    int[] p;
+    int n;
+    int[] dp;
+
     public static void main(String[] args) {
         int[] prices = {7, 6, 4, 3, 1};
-        System.out.println(maxProfit(prices));
     }
-    public static int maxProfit(int[] prices) {
+
+
+    public int maxProfit(int[] prices) {
+        p = prices;
+        n = p.length;
+        dp = new int[n];
+        Arrays.fill(dp, -1);
         /**
          * The idea is to buy the stock at the lowest price and sell it at the highest price.
          * We can hold at most one share of the stock at any time.
@@ -97,24 +109,18 @@ public class BestTimeToBuyAndSellStock2 {
         return dp[n - 1];
     }
 
-    private int dfs(int i, int[] prices) {
-        if (i >= prices.length) {
-            return 0;
-        }
+    private int dfs(int i) {
+       if (i >= n) return 0;
 
-        int maxProfit = 0;
+       if (dp[i] != -1) return dp[i];
 
-        for (int j = i; j < prices.length; ++j) {
+       int max = 0;
 
-            if (prices[j] > prices[i]) {
-                int profit = prices[j] - prices[i] + dfs(j + 1, prices);
-                maxProfit = Math.max(maxProfit, profit);
-            }
+       for (int j = i; j < n; ++j) {
+           int curr = p[j] - p[i] + dfs(j + 1);
+           max = Math.max(max, curr);
+       }
 
-        }
-
-        maxProfit = Math.max(maxProfit, dfs(i + 1, prices));
-
-        return maxProfit;
+       return dp[i] = max;
     }
 }
