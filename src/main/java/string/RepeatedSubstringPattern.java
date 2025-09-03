@@ -26,34 +26,25 @@ s consists of lowercase English letters.
 package string;
 
 public class RepeatedSubstringPattern {
-    public static void main(String[] args) {
-        String s = "abab";
-        System.out.println(repeatedSubstringPattern(s));
-    }
-    public static boolean repeatedSubstringPattern(String s) {
-        /*
-        2. Find all the factors of the length.
-        3. For each factor, check if the substring of that length is repeated.
-        4. If yes, return true.
-         */
 
+    public boolean repeatedSubstringPattern(String s) {
         int n = s.length();
 
-        // Find all the factors of the length.
-        for (int i = n / 2; i > 0; --i) {
+        for (int len = 1; len * 2 <= n; len++) {
+            if (n % len != 0) continue;
 
-            String substring  = s.substring(0, i);
+            boolean ok = true;
 
-            StringBuilder sb = new StringBuilder();
-
-            sb.append(substring.repeat(n / i));
-
-            if (sb.toString().equals(s)) {
-                return true;
+            for (int i = len; i < n; i++) {
+                if (s.charAt(i) != s.charAt(i - len)) {
+                    ok = false;
+                    break;
+                }
             }
 
-
+            if (ok) return true;
         }
+
         return false;
     }
 }
