@@ -1,31 +1,36 @@
 package dp.oneD;
 
-import java.util.Arrays;
-
 public class DecodeWays {
 
-    String s;
     int[] dp;
+    int n;
+    int[] nums;
+
     public int numDecodings(String s) {
-        this.s = s;
-        dp = new int[100];
-        Arrays.fill(dp, -1);
+        n = s.length();
+        nums = new int[n];
+        dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = s.charAt(i) - '0';
+            dp[i] = -1;
+        }
+
         return dfs(0);
     }
 
-    private int dfs(int idx) {
-        if (idx >= s.length()) return 1;
-        if (s.charAt(idx) == '0') return 0;
-        if (idx == s.length() - 1) return 1;
+    private int dfs(int i) {
+        if (i >= n) return 1;
 
-        if (dp[idx] != -1) return dp[idx];
+        if (nums[i] == 0) return 0;
 
-        int res = dfs(idx + 1);
-        if (Integer.parseInt(s.substring(idx, idx + 2)) <= 26) {
-            res += dfs(idx + 2);
-        }
+        if (dp[i] != -1) return dp[i];
 
-        return dp[idx] = res;
+        int t1 = dfs(i + 1);
+        int t2 = 0;
+
+        if (i + 1 < n && nums[i] * 10 + nums[i + 1] <= 26) t2 = dfs(i + 2);
+
+        return dp[i] = t1 + t2;
     }
 
 }
