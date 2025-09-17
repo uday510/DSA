@@ -1,7 +1,6 @@
 package dp.fibonacci;
 
 public class ClimbingStairs {
-
     public int climbStairs(int n) {
         int climb0 = 0, climb1 = 1;
 
