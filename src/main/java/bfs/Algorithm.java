@@ -18,6 +18,7 @@ public class Algorithm {
         bfs(edges, 4, 0);
     }
 
+    // Time: O(V + E) | Space: O(V) , V = vertices, E = edges
     private static void bfs(int[][] edges, int n, int src) {
 
         List<Integer>[] adjList = new ArrayList[n + 1];
