@@ -5,9 +5,13 @@ public class UnionFind {
     // Use a rank array to record the height of each vertex, i.e., the "rank" of each vertex.
     private final int[] rank;
 
+    private int components;
+
     public UnionFind(int size) {
         root = new int[size];
         rank = new int[size];
+        components = size;
+
         for (int i = 0; i < size; i++) {
             root[i] = i;
             rank[i] = 1;  // The initial "rank" of each vertex is 1, because each of them is
@@ -38,10 +42,15 @@ public class UnionFind {
             root[rootY] = rootX;
             rank[rootX] += 1;
         }
+
+        components--;
     }
 
     public boolean connected(int x, int y) {
         return find(x) == find(y);
     }
 
+    public int getComponents() {
+        return components;
+    }
 }
