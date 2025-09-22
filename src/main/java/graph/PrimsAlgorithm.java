@@ -1,4 +1,4 @@
-// Prims Algorithm for Minimum Spanning Tree
+// PrimsMST Algorithm for Minimum Spanning Tree
 // Time Complexity: O(ElogV)
 // Space Complexity: O(V)
 package graph;
