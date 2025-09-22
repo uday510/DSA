@@ -4,7 +4,7 @@ import java.util.*;
 
 public class PrimsMST {
 
-    private void prims(int n, int[][] edges) {
+    public void prims(int n, int[][] edges) {
         List<int[]>[] adj = new ArrayList[n];
         for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class PrimsMST {
         System.out.println("Total weight = " + totalWeight);
     }
 
-     static void main(String[] args) {
+     static void main() {
         int n = 4;
         int[][] edges = {
                 {0, 1, 1}, {0, 2, 1}, {1, 2, 1},
