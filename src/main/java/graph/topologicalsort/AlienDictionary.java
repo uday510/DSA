@@ -18,7 +18,7 @@
  * Output: ""
  * Explanation: The order is invalid, so return "".
  */
-package graph;
+package graph.topologicalsort;
 
 import java.util.*;
 
