@@ -12,7 +12,6 @@ public class IntegerToEnglishWords {
                         , "Fourteen", "Thirteen", "Twelve", "Eleven", "Ten", "Nine",
                         "Eight", "Seven", "Six", "Five", "Four", "Three", "Two", "One"};
 
-        // 99
     public String numberToWords(int currNum) {
             if (currNum == 0) return "";
             StringBuilder sb = new StringBuilder();

@@ -1,50 +1,30 @@
 package string;
 
 public class StringToInteger {
-    public static void main(String[] args) {
-        String str = "123";
-    }
 
-    public static int myAtoi(String s) {
-        if (s == null || s.isEmpty()) {
-            return 0;
+    private final int MAX = Integer.MAX_VALUE;
+    private final int MIN = Integer.MIN_VALUE;
+
+    public int myAtoi(String s) {
+        int i = 0, sign = 1, n = s.length();
+        long num = 0;
+
+        while (i < n && s.charAt(i) == ' ') i++;
+
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            if (s.charAt(i++) == '-') sign = -1;
         }
 
-        int i = 0;
+        while (i < n && s.charAt(i) == '0') i++;
 
-        // remove leading and trailing whitespaces
-        while (i < s.length() && s.charAt(i) == ' ') {
+        while (i < n && s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+            num = num * 10 + s.charAt(i) - '0';
+
+            if (sign == 1 && num > MAX) return MAX;
+            if (sign == -1 && -num < MIN) return MIN;
             i++;
         }
 
-        // check sign
-        int sign = 1;
-
-        if (i < s.length() && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
-            sign = s.charAt(i) == '+' ? 1 : -1;
-            i++;
-        }
-
-        // convert number and avoid overflow
-
-        int num = 0;
-
-        while (i < s.length()) {
-            int digit = s.charAt(i) - '0';
-
-            if (digit < 0 || digit > 9) {
-                break;
-            }
-
-            if (num > Integer.MAX_VALUE / 10 || (num == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {
-                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-            }
-
-            num = num * 10 + digit;
-            i++;
-        }
-
-        return num * sign;
-
+        return sign * (int) num;
     }
 }
