@@ -1,9 +1,14 @@
-public class Solution {
+package dp.twoD;
+
+import java.util.Arrays;
+
+public class AllocateMailboxes {
 
     private int n;
     private int[][] dp, arr;
 
     public int minDistance(int[] houses, int k) {
+        Arrays.sort(houses);
         n = houses.length;
         arr = new int[n][n];
         dp = new int[n][k + 1];
@@ -19,13 +24,16 @@ public class Solution {
             }
         }
 
+        for (int[] row : dp) Arrays.fill(row, -1);
+
         return dfs(0, k);
     }
+
     private int dfs(int i, int k) {
         if (i >= n) return 0;
         if (k == 0) return (int) 1e9;
 
-        if (dp[i][k] != 0) return dp[i][k];
+        if (dp[i][k] != -1) return dp[i][k];
 
         int min = (int) 1e9;
 
@@ -37,4 +45,3 @@ public class Solution {
     }
 
 }
-
