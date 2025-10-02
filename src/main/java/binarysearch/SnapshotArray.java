@@ -30,31 +30,92 @@
  */
 package binarysearch;
 
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SnapshotArray {
-    // O(NlogN) time | O(N) space , where N is the length of the array
-        int snapId = 0;
-        TreeMap<Integer, Integer>[] historyRecords;
 
-        public SnapshotArray(int length) {
-            historyRecords = new TreeMap[length];
-            for (int i = 0; i < length; i++) {
-                historyRecords[i] = new TreeMap<Integer, Integer>();
-                historyRecords[i].put(0, 0);
+    int snapId;
+    List<Pair>[] records;
+
+    public SnapshotArray(int length) {
+        snapId = 0;
+        records = new ArrayList[length];
+
+        for (int i = 0; i < length; i++) {
+            records[i].add(new Pair(0, 0));
+        }
+    }
+
+    public void set(int index, int val) {
+        List<Pair> record = records[index];
+
+        if (record.getLast().snapId == snapId) {
+            record.getLast().val = val;
+        } else {
+            record.add(new Pair(snapId, val));
+        }
+    }
+
+    public int snap() {
+        return snapId++;
+    }
+
+    public int get(int index, int snap_id) {
+        List<Pair> record = records[index];
+        int l = 0, r = record.size();
+        int res = - 1;
+
+        while (l < r) {
+            int m = (l + r) >> 1;
+
+            Pair p = record.get(m);
+            if (p.snapId <= snap_id) {
+                res = p.val;
+                l = m + 1;
+            } else {
+                r = m;
             }
         }
-        public void set(int index, int val) {
-            historyRecords[index].put(snapId, val);
-        }
 
-        public int snap() {
-            return snapId++;
-        }
+        return res;
+    }
 
-        public int get(int index, int snap_id) {
-            return historyRecords[index].floorEntry(snap_id).getValue();
+    class Pair {
+        int snapId;
+        int val;
+
+        public Pair(int snapId, int val) {
+            this.snapId = snapId;
+            this.val = val;
         }
+    }
+
+
+
+
+    // O(NlogN) time | O(N) space , where N is the length of the array
+//        int snapId = 0;
+//        TreeMap<Integer, Integer>[] historyRecords;
+//
+//        public SnapshotArray(int length) {
+//            historyRecords = new TreeMap[length];
+//            for (int i = 0; i < length; i++) {
+//                historyRecords[i] = new TreeMap<Integer, Integer>();
+//                historyRecords[i].put(0, 0);
+//            }
+//        }
+//        public void set(int index, int val) {
+//            historyRecords[index].put(snapId, val);
+//        }
+//
+//        public int snap() {
+//            return snapId++;
+//        }
+//
+//        public int get(int index, int snap_id) {
+//            return historyRecords[index].floorEntry(snap_id).getValue();
+//        }
     }
 
 /**

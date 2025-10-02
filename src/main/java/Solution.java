@@ -1,48 +1,32 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Solution {
 
-    List<Integer> lis;
 
-    public int maxEnvelopes(int[][] envelopes) {
-        lis = new ArrayList<>();
-
-        Arrays.sort(envelopes, (a, b) -> {
-            if (a[0] == b[0]) return b[1] - a[1];
-            return a[0] - b[0];
-        });
-
-        for (int i = 0; i < envelopes.length; i++) {
-            int num = envelopes[i][1];
-            int index = bs(num);
-            if (index == lis.size()) lis.add(num);
-            lis.set(index, num);
-        }
-
-        return lis.size();
-    }
-
-    private int bs(int target) {
-        int l = 0, r = lis.size();
-
-        while (l < r) {
-            int m = (l + r) >> 1;
-
-            if (lis.get(m) < target) l = m + 1;
-            else r = m;
-        }
-
-        return l;
-    }
 }
 
 /**
  *
  *
- * [3, 2, 1, 5]
+ * position = [1, 2, 3, 4, 7], m = 3
  *
+ *
+ *
+ * l = 1, r = 7
+ *
+ * m = (1+7)/2 = 4 -> not possible
+ *
+ * l = 1, r = 4
+ * m = (1+4)/2 = 2 -> possible -> maximize it
+ *
+ * l = 3, r = 4
+ * m = (3+4)/2 = 3 -> possible -> maximize it
+ *
+ * l = 4, r = 4
+ * m = (4+4)/2 = 4 -> not possible -> l == r => return (l-1)
+ *
+ *
+ * m = 3
+ * balls = 1+1+1
+ * pos = 7
  *
  *
  */
