@@ -23,8 +23,6 @@
  */
 package linkedlist;
 
-import java.util.List;
-
 public class ReverseKGroup {
     public static void main(String[] args) {
 
@@ -75,9 +73,9 @@ public class ReverseKGroup {
             return dummyNode.next;
     }
 
-    public ListNode reverseKGroup(ListNode head, int k) {
-            return dfs(head, k);
-    }
+//    public ListNode reverseKGroup(ListNode head, int k) {
+//            return dfs(head, k);
+//    }
     private ListNode dfs(ListNode node, int k) {
         if (node == null) return null;
 
@@ -100,6 +98,47 @@ public class ReverseKGroup {
         }
 
         node.next = dfs(curr, k);
+
+        return prev;
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode newHead = null, tail = null, cur = head;
+
+        while (cur != null) {
+            ListNode ptr = cur;
+            int cnt = 0;
+            while (cnt < k && ptr != null) {
+                ptr = ptr.next;
+                cnt++;
+            }
+
+            if (cnt == k) {
+                ListNode reversedHead = reverse(cur, k);
+                if (newHead == null) newHead = reversedHead;
+                if (tail != null) tail.next = reversedHead;
+                tail = cur;
+                cur = ptr;
+            } else {
+                if (tail != null) tail.next = cur;
+                break;
+            }
+        }
+
+        return newHead == null ? head : newHead;
+    }
+
+    private ListNode reverse(ListNode node, int k) {
+        ListNode cur = node, prev = null;
+
+        while (k > 0) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+
+            k--;
+        }
 
         return prev;
     }
