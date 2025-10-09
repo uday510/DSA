@@ -27,63 +27,61 @@ public class AlienDictionary {
         String[] words = {"wxqkj","whqg","cckgh","cdxg","cdxdt","cdht","ktgxt","ktgch","ktdw","ktdc","jqw","jmc","jmg"};
         System.out.println(alienOrder(words));
     }
-    public static String alienOrder(String[] words) {
-        // O(V+E) time and space complexity
-        // Step 0: Create data structures and find all unique letters.
 
-        // Step 0: Create data structures and find all unique letters.
-        Map<Character, List<Character>> graph = new HashMap<>();
+    public static String alienOrder(String[] words) {
+        Map<Character, Set<Character>> adj = new HashMap<>();
         Map<Character, Integer> indegree = new HashMap<>();
 
-        for (String word : words) {
-            for (Character c : word.toCharArray()) {
-                indegree.put(c, 0);
-                graph.put(c, new ArrayList<>());
+        for (String w : words) {
+            for (int i = 0; i < w.length(); i++) {
+                char c = w.charAt(i);
+                adj.putIfAbsent(c, new HashSet<>());
+                indegree.putIfAbsent(c, 0);
             }
         }
 
-        // Step 1: Find all edges.
-        for (int i = 0; i < words.length - 1; ++i) {
-            String word1 = words[i];
-            String word2 = words[i+1];
-            // Check that word2 is not a prefix of word1.
-            if (word1.length() > word2.length() && word1.startsWith(word2)) {
+        for (int i = 0; i < words.length - 1; i++) {
+            String w1 = words[i], w2 = words[i + 1];
+
+            if (w1.length() > w2.length() && w1.startsWith(w2)) {
                 return "";
             }
-            // Find the first non match and insert the corresponding relation.
-            for (int j = 0; j < Math.min(word1.length(), word2.length()); ++j) {
-                if (word1.charAt(j) != word2.charAt(j)) {
-                    graph.get(word1.charAt(j)).add(word2.charAt(j));
-                    indegree.put(word2.charAt(j), indegree.get(word2.charAt(j)) + 1);
+
+            int len = Math.min(w1.length(), w2.length());
+            for (int j = 0; j < len; j++) {
+                char c1 = w1.charAt(j), c2 = w2.charAt(j);
+
+                if (c1 != c2) {
+                    if (!adj.get(c1).contains(c2)) {
+                        adj.get(c1).add(c2);
+                        indegree.put(c2, indegree.get(c2) + 1);
+                    }
                     break;
                 }
             }
         }
-        // Step 2: Breadth-first search.
-        StringBuilder stringBuilder = new StringBuilder();
-        Queue<Character> queue = new LinkedList<>();
-        for (Character c : indegree.keySet()) {
-            if (indegree.get(c).equals(0)) {
-                queue.offer(c);
-            }
+
+        Queue<Character> queue = new ArrayDeque<>();
+        for (Map.Entry<Character, Integer> e : indegree.entrySet()) {
+            if (e.getValue() == 0) queue.offer(e.getKey());
         }
 
-        while (!queue.isEmpty()) {
-            Character c = queue.poll();
-            stringBuilder.append(c);
+        StringBuilder sb = new StringBuilder();
 
-            for (Character next : graph.get(c)) {
-                indegree.put(next, indegree.get(next) - 1);
-                if (indegree.get(next).equals(0)) {
-                    queue.offer(next);
+        while (!queue.isEmpty()) {
+            char u = queue.poll();
+            sb.append(u);
+
+            for (char v : adj.get(u)) {
+                indegree.put(v, indegree.get(v) - 1);
+                if (indegree.get(v) == 0) {
+                    queue.offer(v);
                 }
             }
         }
-        if (indegree.size() != stringBuilder.length()) {
-            return "";
-        }
 
-        return stringBuilder.toString();
+        if (sb.length() != indegree.size()) return "";
 
+        return sb.toString();
     }
 }

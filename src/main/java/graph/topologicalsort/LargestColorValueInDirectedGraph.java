@@ -1,66 +1,99 @@
 package graph.topologicalsort;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
-// https://leetcode.com/problems/largest-color-value-in-a-directed-graph/?envType=daily-question&envId=2025-05-26
+// https://leetcode.com/problems/largest-color-value-in-a-directed-graph/?envType=study-plan-v2&envId=graph-theory
 public class LargestColorValueInDirectedGraph {
-
-    public static void main(String[] args) {
-        String colors = "iiiiii";
-        int[][] edges = {{0,1},{1,2},{2,3},{3,4},{4,5}};
-
-        int ans = largestPathValue(colors, edges);
-        System.out.println(ans);
-    }
-
-    public static int largestPathValue(String colors, int[][] edges) {
+    final int ALPHABET = 26;
+    public int largestPathValue(String colors, int[][] edges) {
         int n = colors.length();
-        int[] inorder = new int[n];
         List<Integer>[] adjList = new ArrayList[n];
 
-        for (int i = 0; i < n; ++i) adjList[i] = new ArrayList<>();
+        for (int i = 0; i < n; i++) adjList[i] = new ArrayList<>();
 
-        for (int[] edge : edges) {
-            int u = edge[0], v = edge[1];
-            adjList[u].add(v);
-            ++inorder[v];
+        int[] indegree = new int[n];
+        for (int[] e : edges) {
+            adjList[e[0]].add(e[1]);
+            indegree[e[1]]++;
         }
 
-        Set<Integer> nodes = new HashSet<>();
-
-        for (int i = 0; i < n; ++i) {
-            if (inorder[i] == 0) nodes.add(i);
+        Queue<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) q.offer(i);
         }
 
-        int max = 0;
+        int visited = 0, max = 0;
+        int[][] dp = new int[n][ALPHABET];
 
-        for (int node : nodes) {
-            int[] in = new int[n];
-            for (int i = 0; i < n; ++i) in[i] = inorder[i];
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            ++visited;
 
-            Map<Character, Integer> map = new HashMap<>();
-            Queue<Integer> queue = new ArrayDeque<>();
-            queue.offer(node);
-            --in[node];
-            int curr = 0;
-            while (!queue.isEmpty()) {
-                int currNode = queue.poll();
-                char color = colors.charAt(currNode);
-                map.merge(color, 1, Integer::sum);
-                curr = Math.max(curr, map.get(color));
+            int colorIdx = colors.charAt(u) - 'a';
+            ++dp[u][colorIdx];
 
-                for (int next : adjList[currNode]) {
-                    --in[next];
+            max = Math.max(max, dp[u][colorIdx]);
 
-                    if (in[next] == 0) {
-                        queue.offer(next);
-                    }
+            for (int v : adjList[u]) {
+                for (int c = 0; c < ALPHABET; c++) {
+                    dp[v][c] = Math.max(dp[v][c], dp[u][c]);
+                }
+                if (--indegree[v] == 0) {
+                    q.offer(v);
                 }
             }
-
-            max = Math.max(curr, max);
         }
 
-        return max;
+        return visited == n ? max : -1;
     }
+
 }
+
+
+/**
+
+
+ colors = "abaca"
+
+ 0 -> 1, 2
+ 1 ->
+ 2 -> 3
+ 3 -> 4
+ 4 ->
+
+ dp[0]: a
+ [a] = 1
+ [b] = 0
+ [c] = 0
+
+ dp[1]: b
+ [a] = 1
+ [b] = 1
+ [c] = 0
+
+ dp[2]: a
+ [a] = 2
+ [b] = 0
+ [c] = 0
+
+ dp[3]: c
+ [a] = 2
+ [b] = 0
+ [c] = 1
+
+ dp[4]: a
+ [a] = 3
+ [b] = 0
+ [c] = 1
+
+ vis = 0, 1, 2, 3
+
+ queue:
+
+ poll:
+
+
+ */
