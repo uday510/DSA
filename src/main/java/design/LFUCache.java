@@ -3,130 +3,139 @@ package design;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LFUCache {
+class LFUCache {
 
-    final int capacity;
-    int curSize;
-    int minFreq;
-    Map<Integer, Node> lru;
-    Map<Integer, DLL> freqMap;
-
+    private final int capacity;
+    private int minFreq;
+    private final Map<Integer, Node> lfu;
+    private final Map<Integer, DoublyLinkedList> freqMap;
     public LFUCache(int capacity) {
         this.capacity = capacity;
-        this.curSize = 0;
         this.minFreq = 0;
-
-        lru = new HashMap<>();
-        freqMap = new HashMap<>();
+        this.lfu = new HashMap<>();
+        this.freqMap = new HashMap<>();
     }
 
     public int get(int key) {
-        Node node = lru.get(key);
+        Node node = lfu.get(key);
         if (node == null) return -1;
-
-        updateNodeFreq(node);
+        updateFrequency(node);
         return node.v;
     }
 
     public void put(int key, int value) {
         if (capacity == 0) return;
 
-        if (lru.containsKey(key)) {
-            Node node = lru.get(key);
+        Node node = lfu.get(key);
+        if (node != null) {
             node.v = value;
-            updateNodeFreq(node);
-        } else {
-            if (curSize == capacity) {
-                DLL list = freqMap.get(minFreq);
-                if (list != null && !list.isEmpty()) {
-                    Node nodeToRemove = list.head.next;
-                    list.remove(nodeToRemove);
-                    lru.remove(nodeToRemove.k);
-                    curSize--;
-                    if (list.isEmpty()) {
-                        freqMap.remove(minFreq);
-                    }
-                }
-            }
-
-            Node newNode = new Node(key, value);
-            lru.put(key, newNode);
-            DLL list = freqMap.get(1);
-            if (list == null) {
-                list = new DLL();
-                freqMap.put(1, list);
-            }
-
-            list.add(newNode);
-            curSize++;
-            minFreq = 1;
+            updateFrequency(node);
+            return;
         }
+
+        if (lfu.size() >= capacity) {
+            DoublyLinkedList minList = freqMap.get(minFreq);
+            Node nodeToEvict = minList.removeHead();
+            assert nodeToEvict != null;
+            lfu.remove(nodeToEvict.k);
+        }
+
+        Node newNode = new Node(key, value);
+        lfu.put(key, newNode);
+        freqMap.computeIfAbsent(1, k -> new DoublyLinkedList()).addNode(newNode);
+        minFreq = 1;
     }
 
-    private void updateNodeFreq(Node node ) {
+    private void updateFrequency(Node node) {
         int oldFreq = node.freq;
-        DLL oldList = freqMap.get(oldFreq);
+        DoublyLinkedList oldList = freqMap.get(oldFreq);
+        oldList.removeNode(node);
 
-        oldList.remove(node);
-
-        if (oldFreq == minFreq && oldList.isEmpty()) {
+        if (oldList.isEmpty() && oldFreq == minFreq) {
             minFreq++;
         }
 
         node.freq++;
-        DLL newList = freqMap.get(node.freq);
-        if (newList == null) {
-            newList = new DLL();
-            freqMap.put(node.freq, newList);
-        }
-        newList.add(node);
+        freqMap.computeIfAbsent(node.freq, k -> new DoublyLinkedList()).addNode(node);
     }
 
-    private class Node {
-        int k, v;
-        int freq;
+    private static class Node {
+        int k, v, freq;
         Node prev, next;
 
-        Node (int k, int v) {
+        Node(int k, int v) {
             this.k = k;
             this.v = v;
             this.freq = 1;
         }
     }
 
-    private class DLL {
+    private static class DoublyLinkedList {
         Node head, tail;
+        int size;
 
-        DLL () {
+        DoublyLinkedList() {
             head = new Node(-1, -1);
             tail = new Node(-1, -1);
-
             head.next = tail;
             tail.prev = head;
+            size = 0;
         }
 
-        void add(Node node) {
+        void addNode(Node node) {
             Node tailPrev = tail.prev;
-            tailPrev.next = node;
             node.prev = tailPrev;
-
+            tailPrev.next = node;
             node.next = tail;
             tail.prev = node;
+            size++;
         }
 
-        void remove(Node node) {
-            Node prevNode = node.prev;
-            Node nextNode = node.next;
+        Node removeHead() {
+            if (size == 0) return null;
+            Node node = head.next;
+            removeNode(node);
+            return node;
+        }
 
-            if (prevNode != null) prevNode.next = nextNode;
-            if (nextNode != null) nextNode.prev = prevNode;
-
-            node.prev = null;
-            node.next = null;
+        void removeNode(Node node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            size--;
         }
 
         boolean isEmpty() {
-            return head.next == tail;
+            return size == 0;
         }
     }
+
+    static void main(String[] args) {
+        LFUCache lfu = new LFUCache(2);
+
+        lfu.put(1, 10);
+        lfu.put(2, 20);
+        System.out.println(lfu.get(1));
+        lfu.put(3, 30);
+        System.out.println(lfu.get(2));
+        System.out.println(lfu.get(3));
+        lfu.put(4, 40);
+        System.out.println(lfu.get(1));
+        System.out.println(lfu.get(3));
+        System.out.println(lfu.get(4));
+    }
 }
+
+
+/**
+ *
+ * capacity: 2
+ *
+ * put (1, 10) -> LFU : { (1,1) }
+ * put(2, 20) -> LFU : { (1,1), (2,1) }
+ * get(1) -> LFU : { (1,2), (2,1) }
+ * put(3, 30) -> LFU : { (1,2), (3:1)}
+ * get(3) -> LFU : { (1,2), (3,2) }
+ * put(4,40) -> Evict older i.e 1 -> LFU -> : { (3,2), (4,1) }
+ *
+ *
+ */
