@@ -1,83 +1,64 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Solution {
 
-    class LRUCache {
+    Set<String> validNeighbors;
+    public int ladderLength(String st, String en, List<String> wList) {
+        validNeighbors = new HashSet<>();
+        Queue<String> queue = new ArrayDeque<>();
 
-        int capacity;
-        Node head, tail;
+        validNeighbors.addAll(wList);
 
-        Map<Integer, Node> lru;
+        if (!validNeighbors.contains(en)) return -1;
 
-        public LRUCache(int capacity) {
-            this.capacity = capacity;
-            lru = new HashMap<>();
-            head = new Node(-1, -1);
-            tail = new Node(-1, -1);
+        int level = 0;
 
-            head.next = tail;
-            tail.prev = head;
-        }
+        queue.offer(st);
+        validNeighbors.remove(st);
 
-        public int get(int key) {
-            Node node = lru.get(key);
+        while (!queue.isEmpty()) {
+            int n = queue.size();
+            level++;
+            for (int i = 0; i < n; i++) {
+                String cur = queue.poll();
 
-            if (node == null) {
-                return -1;
-            }
+                List<String> neighbours = getNeighbors(cur);
+                for (String nei : neighbours) {
+                    if (nei.equals(en)) return level;
 
-            remove(node);
-            add(node);
-
-            return node.v;
-        }
-
-        public void put(int key, int value) {
-            Node node = lru.get(key);
-
-            if (node == null) {
-                if (lru.size() == capacity) {
-                    remove(head.next);
+                    queue.offer(nei);
                 }
-                node = new Node(key, value);
-                add(node);
-            } else {
-                remove(node);
-                add(node);
+            }
+        }
+
+
+        return level;
+    }
+
+    private List<String> getNeighbors(String s) {
+        List<String> list = new ArrayList<>();
+
+        char[] ch = s.toCharArray();
+
+        for (int i = 0; i < s.length(); i++) {
+            char originalChar = ch[i];
+
+            for (char cur = 'a'; cur <= 'z'; cur++) {
+                ch[i] = cur;
+
+                String nei = new String(ch);
+
+                if (!validNeighbors.contains(nei)) continue;
+
+                validNeighbors.remove(nei);
+                list.add(nei);
             }
 
+            ch[i] = originalChar;
         }
 
-        private void add(Node node) {
-            lru.put(node.k, node);
-
-            Node tailPrev = tail.prev;
-
-            tailPrev.next = node;
-            node.prev = tailPrev;
-            node.next = tail;
-            tail.prev = node;
-        }
-
-        private void remove(Node node) {
-            lru.remove(node.k);
-
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-        }
+        return list;
     }
-
-    static class Node {
-        Node prev, next;
-        int k, v;
-
-        Node(int k, int v) {
-            this.k = k;
-            this.v = v;
-        }
-    }
-
 
 }
 
