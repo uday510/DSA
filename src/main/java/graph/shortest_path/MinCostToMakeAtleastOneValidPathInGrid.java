@@ -1,8 +1,6 @@
-package graph.dijkstra;
+package graph.shortest_path;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.PriorityQueue;
 
 public class MinCostToMakeAtleastOneValidPathInGrid {

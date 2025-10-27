@@ -1,4 +1,4 @@
-package graph.dijkstra;
+package graph.shortest_path;
 
 // https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/description/?envType=problem-list-v2&envId=2c451k8e
 

@@ -1,4 +1,4 @@
-package graph.dijkstra;
+package graph.shortest_path;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;

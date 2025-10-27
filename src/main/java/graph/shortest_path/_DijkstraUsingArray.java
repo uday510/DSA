@@ -26,7 +26,7 @@
  *
  * [0, 7, 13, 27, 10, -1]
  */
-package graph.dijkstra;
+package graph.shortest_path;
 
 import java.util.Arrays;
 import java.util.Set;

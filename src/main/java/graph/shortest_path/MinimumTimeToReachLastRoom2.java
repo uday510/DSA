@@ -1,9 +1,9 @@
-package graph.dijkstra;
+package graph.shortest_path;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-public class MinimumTimeToReachLastRoom1 {
+public class MinimumTimeToReachLastRoom2 {
 
     public int minTimeToReach(int[][] moveTime) {
         int n = moveTime.length;
@@ -31,7 +31,7 @@ public class MinimumTimeToReachLastRoom1 {
 
                 if (R < 0 || R >= n || C < 0 || C >= m) continue;
 
-                int w = Math.max(d, moveTime[R][C]) + 1;
+                int w = Math.max(d, moveTime[R][C]) + ((r + c) % 2) + 1;
 
                 if (w < dists[R][C]) {
                     dists[R][C] = w;

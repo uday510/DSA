@@ -6,7 +6,7 @@
  * Input: times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
  * Output: 2
  */
-package graph.dijkstra;
+package graph.shortest_path;
 
 import java.util.ArrayList;
 import java.util.Arrays;

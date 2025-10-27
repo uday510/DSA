@@ -61,7 +61,7 @@
  *         [1, 3, 8]  ]
  * C = 4
  */
-package graph.dijkstra;
+package graph.shortest_path;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package graph.dijkstra;
+package graph.shortest_path;
 
 // https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/?envType=problem-list-v2&envId=2c451k8e
 
