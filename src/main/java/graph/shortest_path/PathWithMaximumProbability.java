@@ -26,8 +26,6 @@ public class PathWithMaximumProbability {
         while (!pq.isEmpty()) {
             Edge curr = pq.poll();
 
-            if (probs[curr.node] > curr.prob) continue;
-
             for (Edge next : adjList[curr.node]) {
                 double newProb = next.prob * curr.prob;
 
