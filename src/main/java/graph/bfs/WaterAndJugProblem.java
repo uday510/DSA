@@ -1,10 +1,9 @@
-package graph.shortest_path;
+package graph.bfs;
 
 import java.util.*;
 
-public class Solution {
-
-    final static int INF = (int) 1e9;
+// https://leetcode.com/problems/water-and-jug-problem/
+public class WaterAndJugProblem {
 
     public boolean canMeasureWater(int x, int y, int target) {
         if (target > x + y) return false;

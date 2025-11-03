@@ -8,19 +8,9 @@
  */
 package graph.shortest_path;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class NetworkDelayTime {
-    public static void main(String[] args) {
-        int[][] times = {{2,1,1},{2,3,1},{3,4,1}};
-        int n = 4, k = 2;
-//        System.out.println(networkDelayTime(times, n, k));
-    }
-
-class Solution {
 
     public int networkDelayTime(int[][] times, int n, int k) {
         int INF = (int) 1e9;
@@ -35,9 +25,7 @@ class Solution {
         int[] delayTimeFromK = new int[n + 1];
         Arrays.fill(delayTimeFromK, INF);
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
-            return a[1] - b[1];
-        });
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
 
         pq.offer(new int[] {k, 0});
         delayTimeFromK[k] = 0;
@@ -68,7 +56,11 @@ class Solution {
 
         return minDelayTime;
     }
-    
-}
+
+    public static void main(String[] args) {
+        int[][] times = {{2,1,1},{2,3,1},{3,4,1}};
+        int n = 4, k = 2;
+//        System.out.println(networkDelayTime(times, n, k));
+    }
 
 }
