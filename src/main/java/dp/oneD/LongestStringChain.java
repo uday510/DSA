@@ -23,8 +23,8 @@ public class LongestStringChain {
     }
 
     private int dfs(String w) {
-        Integer data = dp.get(w);
-        if (data != null) return data;
+        Integer cached = dp.get(w);
+        if (cached != null) return cached;
 
         int cur = 1;
         for (int i = 0; i < w.length(); i++) {
