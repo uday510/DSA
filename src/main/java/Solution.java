@@ -1,64 +1,77 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Solution {
 
-    Set<String> validNeighbors;
-    public int ladderLength(String st, String en, List<String> wList) {
-        validNeighbors = new HashSet<>();
-        Queue<String> queue = new ArrayDeque<>();
-
-        validNeighbors.addAll(wList);
-
-        if (!validNeighbors.contains(en)) return -1;
-
-        int level = 0;
-
-        queue.offer(st);
-        validNeighbors.remove(st);
-
-        while (!queue.isEmpty()) {
-            int n = queue.size();
-            level++;
-            for (int i = 0; i < n; i++) {
-                String cur = queue.poll();
-
-                List<String> neighbours = getNeighbors(cur);
-                for (String nei : neighbours) {
-                    if (nei.equals(en)) return level;
-
-                    queue.offer(nei);
-                }
-            }
-        }
-
-
-        return level;
-    }
-
-    private List<String> getNeighbors(String s) {
-        List<String> list = new ArrayList<>();
-
-        char[] ch = s.toCharArray();
-
-        for (int i = 0; i < s.length(); i++) {
-            char originalChar = ch[i];
-
-            for (char cur = 'a'; cur <= 'z'; cur++) {
-                ch[i] = cur;
-
-                String nei = new String(ch);
-
-                if (!validNeighbors.contains(nei)) continue;
-
-                validNeighbors.remove(nei);
-                list.add(nei);
-            }
-
-            ch[i] = originalChar;
-        }
-
-        return list;
-    }
-
 }
 
+class LRUCache {
+
+    Map<Integer, Node> lru;
+    int capacity;
+    Node head, tail;
+
+    public LRUCache(int capacity) {
+        lru = new HashMap<>();
+        this.capacity = capacity;
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+        Node cur = lru.get(key);
+
+        if (cur == null) return -1;
+
+        remove(cur);
+        add(cur);
+
+        return cur.v;
+    }
+
+    public void put(int key, int value) {
+        Node cur = lru.get(key);
+
+        if (cur != null) {
+            remove(cur);
+            cur.v = value;
+        } else {
+            if (lru.size() == capacity) {
+                remove(head.next);
+            }
+            cur = new Node(key, value);
+        }
+
+        add(cur);
+    }
+
+    private void add(Node node) {
+        lru.put(node.k, node);
+
+        Node tailPrev = tail.prev;
+
+        tailPrev.next = node;
+        node.prev = tailPrev;
+
+        tail.prev = node;
+        node.next = tail;
+    }
+
+    private void remove(Node node) {
+        lru.remove(node.k);
+
+        node.next = node.prev.next;
+        node.prev = node.next.prev;
+    }
+}
+
+class Node {
+
+    Node prev, next;
+    int k, v;
+
+    Node (int k, int v) { this.k = k; this.v = v; }
+}
