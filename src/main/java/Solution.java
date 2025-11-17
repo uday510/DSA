@@ -1,77 +1,23 @@
-import java.util.HashMap;
-import java.util.Map;
-
-public class Solution {
+class Solution {
 
 }
 
-class LRUCache {
+class NumMatrix {
 
-    Map<Integer, Node> lru;
-    int capacity;
-    Node head, tail;
+    private int[][] dp;
+    public NumMatrix(int[][] matrix) {
+        int n = matrix.length, m = matrix[0].length;
+        dp = new int[n + 1][m + 1];
 
-    public LRUCache(int capacity) {
-        lru = new HashMap<>();
-        this.capacity = capacity;
-        head = new Node(-1, -1);
-        tail = new Node(-1, -1);
-
-        head.next = tail;
-        tail.prev = head;
-    }
-
-    public int get(int key) {
-        Node cur = lru.get(key);
-
-        if (cur == null) return -1;
-
-        remove(cur);
-        add(cur);
-
-        return cur.v;
-    }
-
-    public void put(int key, int value) {
-        Node cur = lru.get(key);
-
-        if (cur != null) {
-            remove(cur);
-            cur.v = value;
-        } else {
-            if (lru.size() == capacity) {
-                remove(head.next);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                dp[i + 1][j + 1] = matrix[i][j] + dp[i + 1][j] + dp[i][j + 1] - dp[i][j];
             }
-            cur = new Node(key, value);
         }
-
-        add(cur);
     }
 
-    private void add(Node node) {
-        lru.put(node.k, node);
+    public int sumRegion(int row1, int col1, int row2, int col2) {
 
-        Node tailPrev = tail.prev;
-
-        tailPrev.next = node;
-        node.prev = tailPrev;
-
-        tail.prev = node;
-        node.next = tail;
     }
 
-    private void remove(Node node) {
-        lru.remove(node.k);
-
-        node.next = node.prev.next;
-        node.prev = node.next.prev;
-    }
-}
-
-class Node {
-
-    Node prev, next;
-    int k, v;
-
-    Node (int k, int v) { this.k = k; this.v = v; }
 }
