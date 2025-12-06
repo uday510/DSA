@@ -45,11 +45,14 @@ public class RussianDollEnvelopes {
 
 
  Consider an input [[1, 3], [1, 4], [1, 5], [2, 3]].
- If we simply sort and extract the second dimension we get [3, 4, 5, 3], which implies that we can fit three envelopes (3, 4, 5). The problem is that we can only fit one envelope, since envelopes that are equal in the first dimension can't be put into each other.
+ If we simply sort and extract the second dimension we get [3, 4, 5, 3], which implies that we can fit three envelopes (3, 4, 5). The problem is that we can only fit one envelope,
+ since envelopes that are equal in the first dimension can't be put into each other.
 
- In order fix this, we don't just sort increasing in the first dimension - we also sort decreasing on the second dimension, so two envelopes that are equal in the first dimension can never be in the same increasing subsequence.
+ In order fix this, we don't just sort increasing in the first dimension - we also sort decreasing on the second dimension,
+ so two envelopes that are equal in the first dimension can never be in the same increasing subsequence.
 
- Now when we sort and extract the second element from the input we get [5, 4, 3, 3], which correctly reflects an LIS of one.
+ Now when we sort and extract the second element from the input we get [5, 4, 3, 3],
+ which correctly reflects an LIS of one.
 
 
  */
