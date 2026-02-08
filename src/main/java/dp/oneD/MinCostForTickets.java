@@ -12,10 +12,11 @@ public class MinCostForTickets {
     int[] costs;
 
     public int mincostTickets(int[] days, int[] costs) {
-        dp = new int[366];
         travellingDays = new HashSet<>();
         lastDay = days[days.length - 1];
+        dp = new int[lastDay + 1];
         this.costs = costs;
+
         for (int day : days) travellingDays.add(day);
         Arrays.fill(dp, -1);
 
@@ -24,6 +25,7 @@ public class MinCostForTickets {
 
     private int dfs (int day) {
         if (day > lastDay) return 0;
+
         if (dp[day] != -1) return dp[day];
 
         if (!travellingDays.contains(day)) {

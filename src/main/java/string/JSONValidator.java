@@ -4,6 +4,7 @@ public class JSONValidator {
 
     private static boolean isValidJSON(String s) {
 
+        return false;
     }
 
     static void main() {
