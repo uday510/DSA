@@ -1,9 +1,97 @@
 package google;
 
+import java.util.*;
+
 public class Main {
 
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
+    static void main(String[] args) {
+
+        int[][] edges = {{1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 5}};
+        int n = 5;
+
+        solve(edges, n);
+    }
+
+
+    private static void solve(int[][] edges, int n) {
+
+        List<Integer>[] adj = new ArrayList[n + 1];
+        List<Integer>[] radj = new ArrayList[n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            adj[i] = new ArrayList<>();
+            radj[i] = new ArrayList<>();
+        }
+
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            adj[u].add(v);
+            radj[v].add(u);
+        }
+
+        List<Integer> topo = getTopo(edges, adj, n);
+        if (topo.size() < n) {
+            return;
+        }
+
+        System.out.println(topo);
+
+        int[] down = new int[n + 1];
+        for (int i = topo.size() - 1; i > -1; i--) {
+            int u = topo.get(i);
+            for (int v : adj[u]) {
+                down[u] = Math.max(down[u], 1 + down[v]);
+            }
+        }
+
+        int[] up = new int[n + 1];
+        for (int u : topo) {
+            for (int v : radj[u]) {
+                up[u] = Math.max(up[u], 1 + up[v]);
+            }
+        }
+
+        List<Integer> res = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            res.add(up[i] + down[i] + 1);
+        }
+
+        System.out.println(res);
+
+    }
+
+    private static List<Integer> getTopo(int[][] edges,
+                                         List<Integer>[] adj,
+                                         int n) {
+
+        List<Integer> topo = new ArrayList<>();
+        int[] indegree = new int[n + 1];
+
+        for (int[] edge : edges) {
+            indegree[edge[1]]++;
+        }
+
+        Queue<Integer> queue = new ArrayDeque<>();
+
+        for (int i = 1; i <= n; i++) {
+            if (indegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int u = queue.poll();
+            topo.add(u);
+
+            for (int v : adj[u]) {
+                if (--indegree[v] == 0) {
+                    queue.offer(v);
+                }
+
+            }
+        }
+
+        return topo;
     }
 }
 
