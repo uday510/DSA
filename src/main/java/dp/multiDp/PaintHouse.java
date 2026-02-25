@@ -1,4 +1,4 @@
-package dp.twoD;
+package dp.multiDp;
 
 
 import java.util.Arrays;
