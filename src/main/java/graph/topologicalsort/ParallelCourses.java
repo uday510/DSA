@@ -15,35 +15,37 @@ public class ParallelCourses {
 
         for (int[] r : relations) {
             int u = r[0], v = r[1];
+
             adjList[u].add(v);
             indegree[v]++;
         }
 
         Queue<Integer> queue = new ArrayDeque<>();
+        int studied = 0, semesters = 0;
+
         for (int i = 1; i <= n; i++) {
             if (indegree[i] == 0) queue.offer(i);
         }
 
-        int semesters = 0, studied = 0;
         while (!queue.isEmpty()) {
-            int u = queue.poll();
+            semesters++;
+            int sz = queue.size();
 
-            if (u == -1) {
-                semesters++;
-                if (!queue.isEmpty()) queue.offer(-1);
-                continue;
-            }
+            for (int i = 0; i < sz; i++) {
+                int u = queue.poll();
+                studied++;
 
-            studied++;
-
-            for (int v : adjList[u]) {
-                indegree[v]--;
-                if (indegree[v] == 0) {
-                    queue.offer(v);
+                for (int v : adjList[u]) {
+                    if (--indegree[v] == 0) {
+                        queue.offer(v);
+                    }
                 }
+
             }
+
         }
 
         return studied == n ? semesters : -1;
     }
+
 }

@@ -9,53 +9,54 @@ public class CherryPickup {
     public int cherryPickup(int[][] grid) {
         this.grid = grid;
         this.n = grid.length;
-        dp = new Integer[n][n][n];
+        this.dp = new Integer[n][n][n];
 
         return Math.max(dfs(0, 0, 0), 0);
     }
 
-    // r1 + c1 = r2 + c2
-    private int dfs(int r1, int c1, int r2) {
-        int c2 = r1 + c1 - r2;
-        if (r1 >= n || c1 >= n ||
-                r2 >= n || c2 >= n ||
-                grid[r1][c1] == -1 ||
-                grid[r2][c2] == -1
-        )  {
+    // x1 + y1 = x2 + y2
+    private int dfs(int x1, int y1, int x2) {
+        int y2 = x1 + y1 - x2;
+
+        if (
+                x1 >= n || y1 >= n ||
+                        x2 >= n || y2 >= n ||
+                        grid[x1][y1] == -1 ||
+                        grid[x2][y2] == -1
+        ) {
             return Integer.MIN_VALUE;
         }
 
-        if (r1 == n - 1 && c1 == n - 1) {
-            return grid[r1][c1];
+        if (x1 == n - 1 && y1 == n - 1) {
+            return grid[x1][y1];
         }
 
-        if (r2 == n - 1 && c2 == n - 1) {
-            return grid[r2][c2];
+        if (x2 == n - 1 && y2 == n - 1) {
+            return grid[x2][y2];
         }
 
-        if (dp[r1][c1][r2] != null) {
-            return dp[r1][c1][r2];
+        if (dp[x1][y1][x2] != null) {
+            return dp[x1][y1][x2];
         }
 
-        int pick = grid[r1][c1];
+        int cur = grid[x1][y1];
 
-        if (r1 != r2 && c1 != c2) {
-            pick += grid[r2][c2];
+        if (x1 != x2 && y1 != y2) {
+            cur += grid[x2][y2];
         }
 
-        int cur =
+        cur +=
                 Math.max(
                         Math.max(
-                                dfs(r1 + 1, c1, r2 + 1), // down, down
-                                dfs(r1, c1 + 1, r2) // right, right
+                                dfs(x1 + 1, y1, x2 + 1),
+                                dfs(x1, y1 + 1, x2)
                         ),
                         Math.max(
-                                dfs(r1 + 1, c1, r2), // down, right
-                                dfs(r1, c1 + 1, r2 + 1) // right, down
+                                dfs(x1 + 1, y1, x2),
+                                dfs(x1, y1 + 1, x2 + 1)
                         )
                 );
 
-        return dp[r1][c1][r2] = pick + cur;
-
+        return dp[x1][y1][x2] = cur;
     }
 }
