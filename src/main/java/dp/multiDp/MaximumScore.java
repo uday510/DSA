@@ -16,13 +16,14 @@ public class MaximumScore {
 
         dp = new Integer[m][m];
 
-        return this.dfs(0, 0);
+//        return this.dfs(0, 0);
+        return -1;
     }
 
 
     // 1 2 3 4 5
-    private int dfs(int l, int i) {
-        int r = n - 1 - (i - 1);
-    }
+//    private int dfs(int l, int i) {
+//        int r = n - 1 - (i - 1);
+//    }
 
 }

@@ -8,6 +8,8 @@ import java.util.Queue;
 // https://leetcode.com/problems/collect-coins-in-a-tree/
 public class CollectTheCoins {
 
+    private static final Queue<Integer> queue = new ArrayDeque<>();
+
     public int collectTheCoins(int[] coins, int[][] edges) {
 
         int n = coins.length;
@@ -22,8 +24,7 @@ public class CollectTheCoins {
             deg[u]++; deg[v]++;
         }
 
-        Queue<Integer> queue = new ArrayDeque<>();
-
+        queue.clear();
         for (int i = 0; i < n; i++) {
             if (deg[i] == 1 && coins[i] == 0) queue.offer(i);
         }
@@ -31,10 +32,8 @@ public class CollectTheCoins {
         while (!queue.isEmpty()) {
             int u = queue.poll();
             deg[u]--;
-
             for (int v : adj[u]) {
                 deg[v]--;
-
                 if (deg[v] == 1 && coins[v] == 0) queue.offer(v);
             }
         }
@@ -47,12 +46,10 @@ public class CollectTheCoins {
 
         for (int r = 0; r < 2; r++) {
             int sz = queue.size();
-
             while (sz-- > 0) {
                 assert !queue.isEmpty();
                 int u = queue.poll();
                 deg[u]--;
-
                 for (int v : adj[u]) {
                     deg[v]--;
                     if (deg[v] == 1) queue.offer(v);
