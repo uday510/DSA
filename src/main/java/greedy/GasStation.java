@@ -40,49 +40,46 @@ n == gas.length == cost.length
  */
 package greedy;
 
-import java.util.Arrays;
-
 public class GasStation {
-    public static void main(String[] args) {
-        int[] gas = { 1, 2, 3, 4, 5 };
-        int[] cost = { 3, 4, 5, 1, 2 };
-        System.out.println(canCompleteCircuit(gas, cost));
-    }
-    public static int canCompleteCircuit(int[] gas, int[] cost) {
-        int gasSum = Arrays.stream(gas).sum();
-        int costSum = Arrays.stream(cost).sum();
-        if (gasSum < costSum) {
-            return -1;
+
+    private int[] gas, cost;
+    private int n;
+
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        this.gas = gas;
+        this.cost = cost;
+        this.n = gas.length;
+
+        int total = 0, tank = 0, st = 0, cur = 0;
+
+        for (int i = 0; i < n; i++) {
+//            if (canComplete(i)) {
+//                return i;
+//            }
+            cur = gas[i] - cost[i];
+            total += cur;
+            tank += cur;
+
+            if (tank < 0) {
+                tank = 0;
+                st = i + 1;
+            }
+
         }
 
-        int start = 0;
-        int tank = 0;
-        for (int i = 0; i < gas.length; ++i) {
-            tank += gas[i] - cost[i];
-            if (tank < 0) {
-                start = i + 1;
-                tank = 0;
-            }
-        }
-        return start;
+        return total < 0 ? -1 : st;
     }
-    public int canComplete(int[] gas, int[] cost) {
-        int n = gas.length;
-        for (int i = 0; i < n; ++i) {
-            if (reach(i, gas, cost))
-                return i;
+
+    private boolean canComplete(int st) {
+
+        int cur = 0;
+        for (int i = 0; i < n; i++) {
+            int idx = (i + st) % n;
+            cur += gas[idx] - cost[idx];
+
+            if (cur < 0) return false;
         }
-        return -1;
-    }
-    private boolean reach(int start, int[] gas, int[] cost) {
-        int n = gas.length;
-        int tank = 0;
-        for (int i = 0; i < n; ++i) {
-            int j = (start + i) % n;
-            tank += gas[j] - cost[j];
-            if (tank < 0)
-                return false;
-        }
+
         return true;
     }
 
