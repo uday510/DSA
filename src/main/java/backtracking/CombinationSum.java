@@ -1,38 +1,38 @@
 package backtracking;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class CombinationSum {
-    public static void main(String[] args) {
-        int[] candidates = {2, 3, 6, 7};
-        int target = 7;
 
-        ArrayList<ArrayList<Integer>> ans = solve(candidates, target);
-        System.out.println(ans);
-    }
-    public static ArrayList<ArrayList<Integer>> solve(int[] candidates, int target) {
+    private List<List<Integer>> res;
+    private int[] c;
+    private int n, t;
 
-        Arrays.sort(candidates);
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        res = new ArrayList<>();
+        c = candidates;
+        n = candidates.length;
+        t = target;
 
-        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        ArrayList<Integer> temp = new ArrayList<>();
-
-        combinationSum(candidates, 0, target, temp, res);
+        dfs(0, 0, new ArrayList<>());
         return res;
     }
-    public static void combinationSum(int[] candidates, int index, int remaining,ArrayList<Integer> temp, ArrayList<ArrayList<Integer>> res) {
-        if (remaining < 0) return;
-        if (remaining == 0) {
-            res.add(new ArrayList<>(temp));
+
+    private void dfs(int idx, int sum, List<Integer> curList) {
+        if (sum == t) {
+            res.add(new ArrayList<>(curList));
             return;
         }
-        for (int i = index; i < candidates.length; ++i) {
-            if (i > index && candidates[i] == candidates[i-1]) continue;
-            int candidate = candidates[i];
-            temp.add(candidate);
-            combinationSum(candidates, i, remaining-candidate, temp, res);
-            temp.remove(temp.size() - 1);
+
+        if (idx >= n || sum > t) return;
+
+        for (int curIdx = idx; curIdx < n; curIdx++) {
+            curList.add(c[curIdx]);
+            dfs(curIdx, sum + c[curIdx], curList);
+            curList.removeLast();
         }
+
     }
+
 }

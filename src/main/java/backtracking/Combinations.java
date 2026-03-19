@@ -4,40 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Combinations {
-    public static void main(String[] args) {
-        int n = 4;
-        int k = 2;
-        List<List<Integer>> res = combinations(n, k);
-        System.out.println(res);
-    }
-    public static List<List<Integer>> combinations(int n, int k) {
 
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> curr = new ArrayList<>();
 
-        solve(1, k, n, curr, ans);
+    private List<List<Integer>> res;
+    private int n, k;
 
-        return ans;
+    public List<List<Integer>> combinations(int n, int k) {
+        res = new ArrayList<>();
+        this.n = n;
+        this.k = k;
 
+        dfs(1, new ArrayList<>());
+        return res;
     }
 
-    public static void solve(int idx, int k, int n, List<Integer> curr, List<List<Integer>> ans) {
-
-        if (curr.size() == k) {
-            ans.add(new ArrayList<>(curr));
+    private void dfs(int idx, List<Integer> curList) {
+        if (curList.size() == k) {
+            res.add(new ArrayList<>(curList));
             return;
         }
 
-        if (idx == n + 1) {
-            return;
+        for (int curIdx = idx; curIdx <= (n - k - curList.size() - 1); curIdx++) {
+            curList.add(curIdx);
+            dfs(curIdx + 1, curList);
+            curList.removeLast();
         }
-
-        // add
-        curr.add(idx);
-        solve(idx + 1, k, n, curr, ans);
-
-        // remove
-        curr.remove(curr.size() - 1);
-        solve(idx + 1, k, n, curr, ans);
     }
+
 }

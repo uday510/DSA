@@ -29,12 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class subsets {
+
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
 
         List<List<Integer>> res = getSubsets(nums, nums.length - 1);
         System.out.println(res);
     }
+
     public static List<List<Integer>> solve(int[] nums) {
         // O(N*2^N) time | O(N*2^N) space
 
@@ -52,6 +54,7 @@ public class subsets {
         }
         return subsets;
     }
+
     public static List<List<Integer>> getSubsets(int[] nums, int idx) {
         // O(N*2^N) time | O(N*2^N) space
         if (idx < 0) {
@@ -70,4 +73,29 @@ public class subsets {
         }
         return subsets;
     }
+
+    private List<List<Integer>> res;
+    private int[] arr;
+    private int n;
+
+    public List<List<Integer>> subsets(int[] nums) {
+        res = new ArrayList<>();
+        arr = nums;
+        n = nums.length;
+
+        dfs(0, new ArrayList<>());
+        return res;
+    }
+
+    private void dfs(int idx, List<Integer> curList) {
+        res.add(new ArrayList<>(curList));
+
+        for (int curIdx = idx; curIdx < n; curIdx++) {
+            curList.add(arr[curIdx]);
+            dfs(curIdx + 1, curList);
+            curList.removeLast();
+        }
+
+    }
+
 }
