@@ -1,44 +1,45 @@
 package binarysearch.search;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Comparator;
 
 public class FindRightInterval {
 
-    public int[] findRightInterval(int[][] intervals) {
-        int n = intervals.length;
-        int[] arr = new int[n];
-        Map<Integer, Integer> map = new HashMap<>();
+    public int[] findRightInterval(int[][] arr) {
 
-        for (int i = 0; i < n; ++i) {
-            arr[i] = intervals[i][0];
-            map.put(intervals[i][0], i);
+        int n = arr.length;
+        int[][] st = new int[n][2];
+
+        for (int i = 0; i < n; i++) {
+            st[i][0] = arr[i][0];
+            st[i][1] = i;
         }
 
-        Arrays.sort(arr);
+        Arrays.sort(st, Comparator.comparing(k -> k[0]));
+
         int[] res = new int[n];
 
-        for (int i = 0; i < n; ++i) {
-            int idx = bs(intervals[i][1], arr);
-            if (idx == n) res[i] = -1;
-            else res[i] = map.get(arr[idx]);
+        for (int i = 0; i < n; i++) {
+            int idx = bs(st, arr[i][1]);
+            res[i] = idx == n ? -1 : st[idx][1];
         }
 
         return res;
     }
 
-    private int bs(int t, int[] arr) {
-        int l = 0;
-        int r = arr.length;
+    private int bs(int[][] arr, int target) {
+        int l = 0, r = arr.length;
 
         while (l < r) {
-            int m = (l + r) >> 1;
 
-            if (arr[m] < t) l = m + 1;
+            int m = l + (r - l) / 2;
+
+            if (arr[m][0] < target) l = m + 1;
             else r = m;
         }
 
         return l;
     }
+
+
 }

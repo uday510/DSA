@@ -85,7 +85,7 @@ class LRUCache {
             return;
         }
 
-        if (cache.size() >= capacity) {
+        if (cache.size() == capacity) {
             Node lru = head.next;
             remove(lru);
             cache.remove(lru.key);
