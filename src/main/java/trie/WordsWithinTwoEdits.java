@@ -1,10 +1,12 @@
+package trie;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class Solution {
+public class WordsWithinTwoEdits {
 
     public List<String> twoEditWords(String[] q, String[] d) {
-        Trie root = new Trie();
+        TrieNodeForTwoEdits root = new TrieNodeForTwoEdits();
 
         for (String s : d) insert(root, s);
 
@@ -21,16 +23,16 @@ class Solution {
 
     }
 
-    private void insert(Trie root, String w) {
+    private void insert(TrieNodeForTwoEdits root, String w) {
 
-        Trie cur = root;
+        TrieNodeForTwoEdits cur = root;
 
         for (int idx = 0; idx < w.length(); idx++) {
 
             int index = w.charAt(idx) - 'a';
 
             if (cur.child[index] == null) {
-                cur.child[index] = new Trie();
+                cur.child[index] = new TrieNodeForTwoEdits();
             }
 
             cur = cur.child[index];
@@ -39,7 +41,7 @@ class Solution {
         cur.isEnd = true;
     }
 
-    private boolean dfs(Trie node, int idx, String w, int cur) {
+    private boolean dfs(TrieNodeForTwoEdits node, int idx, String w, int cur) {
         if (cur > 2 || node == null) return false;
 
         if (idx >= w.length()) return node.isEnd;
@@ -64,14 +66,16 @@ class Solution {
 
 }
 
-class Trie {
+class TrieNodeForTwoEdits {
 
-    Trie[] child;
+    TrieNodeForTwoEdits[] child;
     boolean isEnd;
 
-    Trie() {
-        child = new Trie[26];
+    TrieNodeForTwoEdits() {
+        child = new TrieNodeForTwoEdits[26];
         isEnd = false;
     }
 
 }
+
+

@@ -12,7 +12,7 @@ public class MinimumSpeedToArriveOnTime {
         this.n = dist.length;
 
         int l = 1, r = 1;
-        while (!canReach(r)) r <<= 1;
+        while (r < Integer.MAX_VALUE / 2 && !canReach(r)) r <<= 1;
 
         while (l < r) {
             int m = l + ((r - l) >> 1);

@@ -2,30 +2,30 @@ package binarysearch.solutionspace;
 
 public class FindTheSmallestDivisorGivenAThreshold {
 
-    public int smallestDivisor(int[] nums, int threshold) {
+    public int smallestDivisor(int[] arr, int t) {
         int l = 1, r = 1;
-        for (int num : nums) {
-            r = Math.max(num, r);
-        }
+        for (int x : arr) r = Math.max(r, x);
 
         while (l < r) {
-            int m = l + ((r - l) >> 1);
 
-            if (canDivide(nums, m, threshold)) r = m;
-            else l = m + 1;
+            int m = l + ( (r - l) >> 1 );
+
+            if (!isValid(arr, m, t)) l = m + 1; // increase m, so it will decrease threshold
+            else r = m;
         }
 
         return l;
     }
 
-    private boolean canDivide(int[] nums, int m, int threshold) {
-        int curr = 0;
+    private boolean isValid(int[] arr, int y, int limit) {
+        int cur = 0;
 
-        for (int num : nums) {
-            if (curr > threshold) break;
-            curr += ((num + m - 1) / m);
+        for (int x : arr) {
+            if (cur > limit) break;
+            cur += (x + y - 1) / y;
         }
 
-        return curr <= threshold;
+        return cur <= limit;
     }
+
 }

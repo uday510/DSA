@@ -2,7 +2,7 @@ package binarysearch;
 
 public class BisectLeft {
     public static void main(String[] args) {
-        int[] array = {1, 3, 4, 9};
+        int[] array = {1, 1, 1, 1};
 
         System.out.println(bisectLeft(array, 1));
     }
@@ -11,7 +11,8 @@ public class BisectLeft {
         int left = 0, right = array.length;
 
         while (left < right) {
-            int mid = (left + right) >>> 1;
+            int mid = left + (( right - left) >> 1);
+
             if (array[mid] < target) {
                 left = mid + 1;
             } else {

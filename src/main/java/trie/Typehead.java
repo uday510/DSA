@@ -30,7 +30,7 @@ class TypeHead {
         }
     }
 
-    //Trie for storing the search
+    //TrieNodeForTwoEdits for storing the search
     static class TrieNode{
         int isEndOfWord;
         HashMap<String, Long> map; //Stores the frequency

@@ -35,7 +35,9 @@ public class KokoEatingBananas {
         int currHrs = 0;
 
         for (int pile : piles) {
-            currHrs += (int) Math.ceil(( (double) pile / k));
+            // ceil(a/b) = (a + b - 1 ) / b
+//            currHrs += (int) Math.ceil(( (double) pile / k));
+            currHrs += (pile + k - 1) / k;
             if (currHrs > reqHrs) return false;
         }
 
