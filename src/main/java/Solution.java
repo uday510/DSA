@@ -1,77 +1,58 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 class Solution {
 
-    public List<String> twoEditWords(String[] q, String[] d) {
-        Trie root = new Trie();
+    private static Map<Integer, int[][]> DIRs = new HashMap<>();
 
-        for (String s : d) insert(root, s);
+    static {
 
-        List<String> list = new ArrayList<>();
-
-        for (String s : q) {
-
-            if (dfs(root, 0, s, 0)) {
-                list.add(s);
-            }
-        }
-
-        return list;
+        DIRs.put(1, new int[][] {{0, -1}, {0, 1}});
+        DIRs.put(2, new int[][] {{-1, 0}, {1, 0}});
+        DIRs.put(3, new int[][] {{0, -1}, {1, 0}});
+        DIRs.put(4, new int[][] {{0, 1}, {1, 0}});
+        DIRs.put(5, new int[][] {{0, -1}, {-1, 0}});
+        DIRs.put(6, new int[][] {{0, 1}, {-1, 0}});
 
     }
 
-    private void insert(Trie root, String w) {
+    public boolean hasValidPath(int[][] grid) {
 
-        Trie cur = root;
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] vis = new boolean[n][m];
 
-        for (int idx = 0; idx < w.length(); idx++) {
+        Queue<int[]> queue = new ArrayDeque<>();
 
-            int index = w.charAt(idx) - 'a';
+        queue.offer(new int[]{0, 0});
 
-            if (cur.child[index] == null) {
-                cur.child[index] = new Trie();
-            }
+        while (!queue.isEmpty()) {
 
-            cur = cur.child[index];
-        }
+            int[] cur = queue.poll();
+            int dx = cur[0], dy = cur[1];
 
-        cur.isEnd = true;
-    }
-
-    private boolean dfs(Trie node, int idx, String w, int cur) {
-        if (cur > 2 || node == null) return false;
-
-        if (idx >= w.length()) return node.isEnd;
-
-        int index = w.charAt(idx) - 'a';
-
-        if (node.child[index] != null) {
-            if (dfs(node.child[index], idx + 1, w, cur)) return true;
-        }
-
-        for (int i = 0; i < 26; i++) {
-            if (i == index || node.child[i] == null) continue;
-
-            if (dfs(node.child[i], idx + 1, w, cur + 1)) {
+            if (dx == n - 1 && dy == m - 1) {
                 return true;
             }
 
+            for (int[] dir : DIRs.get(grid[dx][dy])) {
+                int nx = dir[0] + dx;
+                int ny = dir[1] + dy;
+
+                if (nx < 0 || nx >= n || ny < 0 || ny >= m || vis[nx][ny]) continue;
+
+                vis[nx][ny] = true;
+
+                queue.offer(new int[] {nx, ny});
+
+            }
+
+
         }
+
 
         return false;
     }
-
-}
-
-class Trie {
-
-    Trie[] child;
-    boolean isEnd;
-
-    Trie() {
-        child = new Trie[26];
-        isEnd = false;
-    }
-
 }
