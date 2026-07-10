@@ -1,58 +1,49 @@
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 class Solution {
 
-    private static Map<Integer, int[][]> DIRs = new HashMap<>();
+    public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
+        List<int[]>[] adj = new ArrayList[n + 1];
 
-    static {
+        for (int i = 0; i <= n; i++) adj[i] = new ArrayList<>();
 
-        DIRs.put(1, new int[][] {{0, -1}, {0, 1}});
-        DIRs.put(2, new int[][] {{-1, 0}, {1, 0}});
-        DIRs.put(3, new int[][] {{0, -1}, {1, 0}});
-        DIRs.put(4, new int[][] {{0, 1}, {1, 0}});
-        DIRs.put(5, new int[][] {{0, -1}, {-1, 0}});
-        DIRs.put(6, new int[][] {{0, 1}, {-1, 0}});
+        for (int[] p : pipes) {
+            int u = p[0], v = p[1], w = p[2];
 
-    }
-
-    public boolean hasValidPath(int[][] grid) {
-
-        int n = grid.length;
-        int m = grid[0].length;
-        boolean[][] vis = new boolean[n][m];
-
-        Queue<int[]> queue = new ArrayDeque<>();
-
-        queue.offer(new int[]{0, 0});
-
-        while (!queue.isEmpty()) {
-
-            int[] cur = queue.poll();
-            int dx = cur[0], dy = cur[1];
-
-            if (dx == n - 1 && dy == m - 1) {
-                return true;
-            }
-
-            for (int[] dir : DIRs.get(grid[dx][dy])) {
-                int nx = dir[0] + dx;
-                int ny = dir[1] + dy;
-
-                if (nx < 0 || nx >= n || ny < 0 || ny >= m || vis[nx][ny]) continue;
-
-                vis[nx][ny] = true;
-
-                queue.offer(new int[] {nx, ny});
-
-            }
-
-
+            adj[u].add(new int[]{v, w});
+            adj[v].add(new int[]{u, w});
         }
 
+        for (int i = 0; i < n; i++) {
+            int u = 0, v = i + 1, w = wells[i];
 
-        return false;
+            adj[u].add(new int[] {v, w});
+        }
+
+        boolean[] inMST = new boolean[n + 1];
+
+        Queue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(k -> k[1]));
+        pq.offer(new int[]{0, 0});
+        int total = 0;
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int u = cur[0], w = cur[1];
+
+            if (inMST[u]) continue;
+
+            inMST[u] = true;
+            total += w;
+
+            for (int[] nxt : adj[u]) {
+                int v = nxt[0], w1 = nxt[1];
+
+                if (!inMST[v]) {
+                    pq.offer(new int[] {v, w1});
+                }
+            }
+        }
+
+        return total;
     }
 }
