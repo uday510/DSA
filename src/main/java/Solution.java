@@ -1,49 +1,52 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 class Solution {
 
-    public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
-        List<int[]>[] adj = new ArrayList[n + 1];
+    private static final int[][] DIRs = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
-        for (int i = 0; i <= n; i++) adj[i] = new ArrayList<>();
+    public int maxAreaOfIsland(int[][] grid) {
 
-        for (int[] p : pipes) {
-            int u = p[0], v = p[1], w = p[2];
+        int n = grid.length, m = grid[0].length;
+        int mx = 0;
 
-            adj[u].add(new int[]{v, w});
-            adj[v].add(new int[]{u, w});
-        }
+        for (int x = 0; x < n; x++) {
+            for (int y = 0; y < m; y++) {
 
-        for (int i = 0; i < n; i++) {
-            int u = 0, v = i + 1, w = wells[i];
-
-            adj[u].add(new int[] {v, w});
-        }
-
-        boolean[] inMST = new boolean[n + 1];
-
-        Queue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(k -> k[1]));
-        pq.offer(new int[]{0, 0});
-        int total = 0;
-
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int u = cur[0], w = cur[1];
-
-            if (inMST[u]) continue;
-
-            inMST[u] = true;
-            total += w;
-
-            for (int[] nxt : adj[u]) {
-                int v = nxt[0], w1 = nxt[1];
-
-                if (!inMST[v]) {
-                    pq.offer(new int[] {v, w1});
+                if (grid[x][y] == 0) {
+                    mx = Math.max(mx, bfs(x, y, n, m, grid));
                 }
             }
         }
 
-        return total;
+        return mx;
     }
+
+    private int bfs(int x, int y, int n, int m, int[][] grid) {
+
+        int cnt = 0;
+        Queue<int[]> queue = new ArrayDeque<>();
+        grid[x][y] = 0;
+        queue.offer(new int[] {x, y});
+
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            int dx = cur[0], dy = cur[1];
+
+            for (int[] nxt : DIRs) {
+                int nx = dx + nxt[0], ny = dy + nxt[1];
+
+                if (nx < 0 || nx >= n || ny < 0 || ny >= m || grid[nx][ny] == 0) {
+                    continue;
+                }
+
+                grid[nx][ny] = 0;
+                cnt++;
+                queue.offer(new int[] {nx, ny});
+            }
+        }
+
+        return cnt;
+    }
+
 }

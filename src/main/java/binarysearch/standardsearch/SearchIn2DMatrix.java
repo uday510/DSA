@@ -2,21 +2,20 @@ package binarysearch.standardsearch;
 
 public class SearchIn2DMatrix {
 
-    public boolean searchMatrix(int[][] matrix, int target) {
-        int n = matrix.length;
-        int m = matrix[0].length;
-        int r = 0;
-        int c = m - 1;
+    public boolean searchMatrix(int[][] arr, int t) {
+       int n = arr.length, m = arr[0].length;
+       int l = 0, r = n * m - 1;
 
-        while (r > -1 && r < n && c > -1 && c < m) {
-            int curr = matrix[r][c];
+       while (l < r) {
 
-            if (curr == target) return true;
+           int mid = l + ((r - l) >> 1);
+           int cur = arr[mid / m][mid % m];
 
-            if (curr > target) c--;
-            else r++;
-        }
+           if (cur == t) return true;
 
+           if (cur < t) l = mid + 1;
+           else r = mid - 1;
+       }
         return false;
     }
 

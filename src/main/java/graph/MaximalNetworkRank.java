@@ -1,34 +1,32 @@
 package graph;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class MaximalNetworkRank {
 
     public int maximalNetworkRank(int n, int[][] edges) {
-        Set<Integer>[] adjList = new HashSet[n];
 
-        for (int i = 0; i < n; i++) adjList[i] = new HashSet<>();
+        boolean[][] conns = new boolean[n][n];
+        int[] deg = new int[n];
 
         for (int[] e : edges) {
             int u = e[0], v = e[1];
-            adjList[u].add(v);
-            adjList[v].add(u);
+            conns[u][v] = true;
+            conns[v][u] = true;
+            deg[v]++;
+            deg[u]++;
         }
 
-        int maxRank = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                int curRank = adjList[i].size() + adjList[j].size();
-                if (adjList[i].contains(j)) {
-                    curRank--;
-                }
+        int mx = 0;
+        for (int u = 0; u < n; u++) {
+            int du = deg[u];
 
-                maxRank = Math.max(curRank, maxRank);
+            for (int v = u + 1; v < n; v++) {
+                int cur = du + deg[v] - (conns[u][v] ? 1 : 0);
+
+                mx = Math.max(cur, mx);
             }
         }
 
-        return maxRank;
+        return mx;
     }
 
 }

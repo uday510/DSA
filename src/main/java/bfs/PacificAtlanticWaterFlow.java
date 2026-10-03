@@ -8,13 +8,10 @@ import java.util.Queue;
 public class PacificAtlanticWaterFlow {
 
     private static final int[][] DIRs = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
-    int m, n;
-    int[][] grid;
 
-    public List<List<Integer>> pacificAtlantic(int[][] heights) {
-        this.grid = heights;
-        this.m = grid.length;
-        this.n = grid[0].length;
+    public List<List<Integer>> pacificAtlantic(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
         List<List<Integer>> res = new ArrayList<>();
 
         Queue<int[]> pacificQueue = new ArrayDeque<>();
@@ -35,8 +32,8 @@ public class PacificAtlanticWaterFlow {
             pacific[0][j] = atlantic[m - 1][j] = true;
         }
 
-        bfs(pacificQueue, pacific);
-        bfs(atlanticQueue, atlantic);
+        bfs(pacificQueue, pacific, grid, n, m);
+        bfs(atlanticQueue, atlantic, grid, n, m);
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -49,7 +46,7 @@ public class PacificAtlanticWaterFlow {
         return res;
     }
 
-    private void bfs(Queue<int[]> queue, boolean[][] vis) {
+    private void bfs(Queue<int[]> queue, boolean[][] vis, int[][] grid, int n, int m) {
         while (!queue.isEmpty()) {
             int[] cur = queue.poll();
             int dx = cur[0], dy = cur[1];

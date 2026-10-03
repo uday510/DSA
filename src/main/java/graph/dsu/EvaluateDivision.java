@@ -4,6 +4,16 @@ import java.util.*;
 
 public class EvaluateDivision {
 
+    static class Pair {
+        String v;
+        Double d;
+
+        public Pair(String v, Double d) {
+            this.v = v;
+            this.d = d;
+        }
+    }
+
     Map<String, List<Pair>> adjList;
     int n;
 
@@ -45,15 +55,6 @@ public class EvaluateDivision {
 
         return -1.0;
     }
-
 }
 
-class Pair {
-    String v;
-    Double d;
 
-    public Pair(String v, Double d) {
-        this.v = v;
-        this.d = d;
-    }
-}

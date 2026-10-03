@@ -1,6 +1,7 @@
 package graph.dsu;
 
 public class CountComponents {
+
     public int countComponents(int n, int[][] edges) {
 
         UnionFind uf = new UnionFind(n);
