@@ -1,92 +1,87 @@
 package design;
 
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Objects;
 
-class MyHashMap {
+class MyHashMap <K, V> {
 
     private static final int DEFAULT_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.75;
+    private LinkedList<Entry<K, V>>[] buckets;
+    private int size;
 
-    private ArrayList<Entry>[] buckets = new ArrayList[DEFAULT_CAPACITY];
-    private int size = 0;
+    @SuppressWarnings("unchecked")
+    public MyHashMap() {
+        buckets = (LinkedList<Entry<K,V>>[]) new LinkedList[DEFAULT_CAPACITY];
+    }
 
-    public MyHashMap() {}
-
-    public void put(int key, int value) {
-        if ( (size + 1) > LOAD_FACTOR * buckets.length) {
-            resize();
-        }
-
+    public void put(K key, V value) {
         int index = indexFor(key);
-        if (buckets[index] == null) buckets[index] = new ArrayList<>();
-
-        for (Entry e : buckets[index]) {
-            if (e.k == key) {
+        if (buckets[index] == null) buckets[index] = new LinkedList<>();
+        for (Entry<K, V> e : buckets[index]) {
+            if (Objects.equals(e.k, key)) {
                 e.v = value;
                 return;
             }
         }
 
-        buckets[index].add(new Entry(key, value));
+        buckets[index].add(new Entry<>(key, value));
         size++;
+        if (size > LOAD_FACTOR * buckets.length) resize();
     }
 
-    public int get(int key) {
-        int index = indexFor(key);
-        var bucket = buckets[index];
-        if (bucket == null) return -1;
-
-        for (Entry e : bucket) {
-            if (e.k == key) return e.v;
-        }
-
-        return -1;
+    public V get(K key) {
+        var b = buckets[indexFor(key)];
+        if (b == null) return null;
+        for (Entry<K, V> e : b) if (Objects.equals(e.k, key)) return e.v;
+        return null;
     }
 
-    public void remove(int key) {
-        int index = indexFor(key);
-        var bucket = buckets[index];
-        if (bucket == null) return;
+    public V remove(K key) {
+        var b = buckets[indexFor(key)];
+        if (b == null) return null;
 
-        Iterator<Entry> it = bucket.iterator();
+        Iterator<Entry<K, V>> it = b.iterator();
         while (it.hasNext()) {
-            if (it.next().k == key) {
+            Entry<K, V> e = it.next();
+            if (Objects.equals(e.k, key)) {
                 it.remove();
                 size--;
-                return;
+                return e.v;
             }
         }
+        return null;
     }
 
+    private int indexFor(K key) {
+        return key == null ? 0 : Math.floorMod(key.hashCode(), buckets.length);
+    }
+
+    @SuppressWarnings("unchecked")
     private void resize() {
-        ArrayList<Entry>[] oldBuckets = buckets;
-        ArrayList<Entry>[] newBuckets = new ArrayList[oldBuckets.length * 2];
+        LinkedList<Entry<K, V>>[] old = buckets;
+        buckets = (LinkedList<Entry<K,V>>[]) new LinkedList[old.length * 2];
 
-        for (ArrayList<Entry> oldBucket : oldBuckets) {
-            if (oldBucket == null) continue;
-            for (Entry e : oldBucket) {
-                int idx = Math.floorMod(e.k, newBuckets.length);
-                if (newBuckets[idx] == null) newBuckets[idx] = new ArrayList<>();
-                newBuckets[idx].add(e);
+        for (var o : old) {
+            if (o == null) continue;
+            for (Entry<K, V> e : o) {
+                int i = indexFor(e.k);
+                if (buckets[i] == null) buckets[i] = new LinkedList<>();
+                buckets[i].add(e);
             }
         }
-
-        buckets = newBuckets;
     }
 
-    private int indexFor(int key) {
-        return Math.floorMod(key, buckets.length);
-    }
+    private static class Entry<K, V> {
+       final K k; V v;
 
-    class Entry {
-        int k, v;
-
-        Entry(int k, int v) { this.k = k; this.v = v; };
+        Entry(K k, V v) {
+            this.k = k;
+            this.v = v;
+        }
     }
 }
 
 
-public class DesignHashMap {
-}
